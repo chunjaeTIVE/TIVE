@@ -63,18 +63,44 @@
     font-size: 19px;
 }
 
+.main_menu p{
+    position: relative;
+    top: 1px;
+}
+
 #login_box{ /* 로그인 버튼 */
     padding: 10px 0;
+    position: relative;
+    top: 1px;
 }
 
 #login_btn{ /* 로그인 버튼 */
-    padding: 6px 9px;
+    padding: 5px 6px;
     border-radius: 30px;
     background-color: #5DCCF3;
     text-decoration: none;
     color: white;
     white-space: nowrap;
     font-size: 19px;
+    border: 2px solid #5DCCF3;
+}
+
+#user_info{ /*사용자 정보 영역*/
+    font-size: 19px;
+    color: #5DCCF3;
+    margin-right: 5px;
+    margin-left: 10px;
+}
+
+#logout_btn{ /* 로그아웃 버튼 */
+    padding: 5px 6px;
+    border-radius: 30px;
+    background-color: white;
+    text-decoration: none;
+    color: #5DCCF3;
+    white-space: nowrap;
+    font-size: 19px;
+    border: 2px solid #5DCCF3;
 }
 
 

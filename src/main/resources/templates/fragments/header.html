@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.springframework.org/schema/security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,13 +8,13 @@
 <body>
     <header>
         <div id="nav_header">
-            <a id="logo_box"th:href="@{/index}">
+            <a id="logo_box" th:href="@{/index}">
                 <img id="logo" th:src="@{img/index/logo2.png}">
             </a>
             <nav>
                 <ul>
                     <li class="main_menu" id="main_menu1">
-                        CBT연습
+                        <p>CBT연습</p>
                         <ul class="sub_menu" id="sub_menu1" style="display: none">
                             <li>초등</li>
                             <li>중등</li>
@@ -22,7 +23,7 @@
                     </li>
 
                     <li class="main_menu" id="main_menu2">
-                        실전시험
+                        <p>실전시험</p>
                         <ul class="sub_menu" id="sub_menu2" style="display: none">
                             <li>실전시험 1회</li>
                             <li>실전시험 2회</li>
@@ -30,7 +31,7 @@
                     </li>
 
                     <li class="main_menu" id="main_menu3">
-                        REPORT
+                        <p>REPORT</p>
                         <ul class="sub_menu" id="sub_menu3" style="display: none">
                             <li>기본리포트</li>
                             <li>상세리포트</li>
@@ -38,7 +39,7 @@
                     </li>
 
                     <li class="main_menu" id="main_menu4">
-                        교재/공부
+                        <p>교재/공부</p>
                         <ul class="sub_menu" id="sub_menu4" style="display: none">
                             <li><a href="https://brand_achievement.chunjae.co.kr/achievement/index.html" target="_blank">교재소개</a></li>
                             <li><a href="https://i.milkt.co.kr/Main/frm_Main.aspx" target="_blank">밀크T아이</a></li>
@@ -48,8 +49,17 @@
                         </ul>
                     </li>
                     <li></li>
+
+                    </th:block>
                     <li id="login_box">
-                        <a id="login_btn" href="#">로그인</a>
+                        <th:block sec:authorize="!isAuthenticated()">
+                            <a id="login_btn" th:href="@{/login}">로그인</a>
+                        </th:block>
+                        <th:block  sec:authorize="hasAnyRole('ADMIN','USER')">
+                            <span id="user_info" th:text="${#authentication.name}"></span>
+                            <a id="logout_btn" th:href="@{/logout}">로그아웃</a>
+                        </th:block>
+
                     </li>
                 </ul>
             </nav>
