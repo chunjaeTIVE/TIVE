@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://kit.fontawesome.com/266dd736a0.js" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/report/report.css}">
+</head>
+<body>
+
+<div>
+
+<h1>시험참여 정보</h1>
+
+    <ul>
+        <li>
+            <span>이름    |   </span>[[${report.name}]]
+        </li>
+        <li>
+            <span>응시과목    |   </span>[[${subject}]]
+        </li>
+        <li>
+            <span>응시일자    |   </span>[[${#temporals.format(report.examDate,'yy-MM-dd')}]]
+        </li>
+    </ul>
+</div>
+
+
+<div class="box_wrap">
+    <div class="box_tit"><i
+            class="fa-regular fa-pen-to-square"></i>시험참여 정보
+    </div>
+    <div class="box box1">
+        <ul><i class="fa-regular fa-user"></i>이름
+            <li>[[${report.name}]]</li>
+        </ul>
+        <ul><i class="fa-solid fa-file"></i>응시과목
+            <li>[[${subject}]]</li>
+        </ul>
+        <ul><i class="fa-regular fa-calendar-days"></i>응시일자
+            <li class="last">[[${#temporals.format(report.examDate,'yy-MM-dd')}]]</li>
+        </ul>
+    </div>
+</div>
+
+<div class="score_box">
+    <div class="score_txt">
+        <span class="score">
+            <em>[[${report.achievementRate}]]점/100점</em>
+        </span>
+    </div>
+</div>
+
+
+
+<div>
+    <h1>문항별 정오표</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>채점결과</th>
+            <th>문제 및 해설 보기</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item:${detailList}">
+            <td th:text="${item.order}"></td>
+            <td th:if="${item.correct == 1}"><i
+                    class="fa-regular fa-circle-check"></i></td>
+            <td th:if="${item.correct == 0}"><i
+                    class="fa-regular fa-circle-xmark"></i></td>
+            <td th:text="상세보기"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>
