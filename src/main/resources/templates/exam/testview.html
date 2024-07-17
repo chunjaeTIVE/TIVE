@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/exam/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/exam/paper.css}">
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <script th:src="@{/js/exam/getfile.js}"></script>
+    <script th:src="@{/js/exam/answerExtractor.js}"></script>
+    <script th:src="@{/js/exam/testtime.js}"></script>
+</head>
+<body>
+<div class="wrap">
+    <div class="header">
+        <div class="logo">
+            <img style="display: inline-block; width: 150px; margin-left: 10px;" th:src="@{/img/index/logo2.png}" alt="logo">
+        </div>
+        <div class="top-area">
+            <!-- s: 220711 추가 -->
+            <div class="btn-wrap">
+                <button type="button" class="pop-btn">메모장</button>
+                <button type="button" class="drawing-btn" id="drawing_btn">그리기</button>
+                <button type="button" class="clear-btn">지우기</button>
+            </div>
+            <!-- e: 220711 추가 -->
+            <div class="time-box">
+                <span class="txt">남은<br>시간</span>
+                <span class="time-txt" id="timer">00:00</span>
+            </div>
+            <a href="javascript:;" class="btn-submit">최종제출</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="viewer-omr">
+            <div class="swiper-pagination"></div>
+        </div>
+        <div class="viewer-paper">
+            <div class="head">
+                <th:block th:if="${exam!=null}">
+                    <span class="txt" th:text="${title}"></span>
+                </th:block>
+                <i class="enterFullscreenBtn">
+                    <img th:src="@{/img/exam/fullscreen_icon-icons.com_71635.png}" alt="전체보기">
+                </i>
+                <div class="btn-wrap">
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <th:block th:each="item:${exam}">
+                        <div class="swiper-slide" th:id="${item.qid}">
+                            <input type="hidden" th:id="${item.qid}" name="studentAnswer" value>
+                            <th:block th:utext="${item.qContents}"></th:block>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pop-memo">
+        <div class="pop-header">
+            <span class="txt">Memo</span>
+            <button type="button" class="pop-close">
+                <span class="hbar"></span>
+                <span class="hbar"></span>
+            </button>
+        </div>
+        <div class="pop-cnt">
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+    let list = '';
+    document.addEventListener("DOMContentLoaded", function () {
+        list = [[${orders}]];
+    });
+
+    // 전체보기
+    const enterFullscreenBtn = document.querySelector('.enterFullscreenBtn')
+    const container = document.querySelector('.wrap')
+    enterFullscreenBtn.addEventListener('click', e => {
+        fullscreen(container)
+    })
+    const fullscreen = element => {
+        if (element.requestFullscreen) return element.requestFullscreen()
+        if (element.webkitRequestFullscreen) return element.webkitRequestFullscreen()
+        if (element.mozRequestFullScreen) return element.mozRequestFullScreen()
+        if (element.msRequestFullscreen) return element.msRequestFullscreen()
+    }
+
+    // swiper
+    $(function(){
+        var swiper = new Swiper(".mySwiper", {
+            allowTouchMove: false,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+                renderBullet: function (index, className) {
+                    return '<span class="' + className + '">' + list[index] + "</span>";
+                },
+            },
+        });
+
+        var nowIndex;
+
+        swiper.on('transitionEnd', function(idx){
+            nowIndex = swiper.realIndex
+            let $canvas;
+            let context;
+
+            $('.drawing-btn').on('click', function(){
+                $canvas = $('.swiper-slide ').eq(nowIndex).find($('.sketchpad'));
+                context = $canvas[0].getContext('2d');
+                let color = $('#ECD13F');
+                let lastEvent,
+                    mousedown = false;
+
+                $canvas
+                    .mousedown(function (event) {
+                        lastEvent = event;
+                        mousedown = true;
+                    })
+                    .mousemove(function (event) {
+                        if (mousedown) {
+                            // Draw lines
+                            context.beginPath();
+                            context.moveTo(lastEvent.offsetX, lastEvent.offsetY);
+                            context.lineTo(event.offsetX, event.offsetY);
+                            context.strokeStyle = 'rgba(255,255,0, 0.2)';
+                            context.stroke();
+                            context.lineWidth = 22;
+                            lastEvent = event;
+                        }
+                    })
+                    .mouseup(function (event) {
+                        mousedown = false;
+                    })
+
+                    .mouseleave(function (event) {
+                        mousedown = false;
+                    });
+
+                _this.toggleClass('active');
+
+                if(_this.hasClass('active')) {
+                    clearBtn.show('slide', 400);
+                    $canvas.show();
+                    $('.sketchpad').removeClass('disabled');
+                } else {
+                    clearBtn.hide('slide', 400);
+                    context.clearRect(0, 0, 1260, 1216);
+                    $canvas.hide();
+                    $('.sketchpad').addClass('disabled');
+                }
+
+            })
+
+            $('.clear-btn').on('click', function(){
+                context.clearRect(0, 0, 1260, 1216);
+            })
+        })
+
+        // drag and drop
+        let txt;
+        $('.drag').on({
+            //드래그 시작시 요소 id 저장
+            'dragstart':function(e){
+                txt = $(this).text();
+                $(this).css('border','solid 1px #ccc');
+            },
+            //드래그 종료
+            'dragend':function(e){
+
+                // let name = $('.drop.on').find('span').text();
+                // $(".drag[data-name='" + name + "']").css('opacity', '0.5')
+
+                let name = $(this).data('name');
+                $(".drag[data-name='" + name + "']").css('opacity', '0.5')
+
+                console.log(name)
+
+            }
+        });
+
+        $('.drop').on({
+            'dragenter':function(e){
+
+            },
+            //브라우저 표중 동작 취소
+            'dragover':function(e){
+                e.preventDefault();
+            },
+            'drop':function(e){
+                $(this).append('<span class="txt">' + txt + '</span>')
+                e.preventDefault();
+                let num = $(this).find('span').length;
+                let name = $(this).find('span').text();
+
+                $(this).addClass('on')
+
+                if(num > 1) {
+                    let text = $(this).find('span:first-child()').text();
+                    $(this).find('span:first-child()').remove();
+                    $(".drag[data-name='" + text + "']").css('opacity', '1')
+                }
+
+                $(this).on('click', function(){
+                    let text = $(this).find('span').text();
+                    let _idx = $(this).find('span').parents('.drop').index();
+                    $(this).find('span').remove();
+                    $(".drag[data-name='" + text + "']").css('opacity', '1')
+
+
+                    $(this).removeClass('on')
+                })
+            }
+        });
+
+        $('svg g').on('click', function(){
+            $(this).toggleClass('on');
+        })
+
+        //tab
+        $('.tab-btn a').on('click', function(){
+            let _this = $(this)
+            let _idx = $(this).index();
+
+            $('.tab-btn a').removeClass('on');
+            $(this).addClass('on');
+
+            $('.tab-cnt .cnt').removeClass('on');
+            $('.tab-cnt .cnt').eq(_idx).addClass('on');
+        })
+
+        //line
+        let btn = $('.btn');
+        let leftBtn = $('.left');
+        let rightBtn = $('.right');
+        let line = $('line')
+        let x1, y1, x2, y2;
+
+
+        leftBtn.on('click', function(e){
+            let _this = $(this);
+            x1 = _this.position().left;
+            y1 = _this.position().top + 10;
+
+        })
+
+        rightBtn.on('click', function(e){
+            let _this = $(this);
+            let _idx = _this.index();
+
+            x2 = _this.position().left - 20;
+            y2 = _this.position().top + 10;
+
+
+        })
+
+        btn.on('click', function(){
+            $(this).siblings('.btn').removeClass('active');
+            $(this).toggleClass('active')
+
+            if($('.left.active').length == 1 && $('.right.active').length == 1){
+                $('svg').append('<line x1=' + x1 + ' y1=' + y1 + ' x2=' + x2 + ' y2=' + y2 + '></line>');
+                $(".drawline-wrap").html($(".drawline-wrap").html());
+                $('.left , .right').removeClass('active')
+            }
+        })
+
+        $('body').on('click', 'line', function(){
+            let _this = $(this);
+
+            _this.remove();
+        })
+
+        //popup
+        let popBtn = $('.pop-btn');
+        let popCnt = $('.pop-memo');
+        let closeBtn = $('.pop-close');
+        let drawingBtn = $('.drawing-btn');
+        let clearBtn = $('.clear-btn')
+        let page = $('.swiper-pagination-bullet');
+        let $canvas = $('.sketchpad');
+        let context = $canvas[0].getContext('2d');
+
+
+        function popOpen(){
+            let _this = $(this);
+            _this.toggleClass('active');
+
+            if(_this.hasClass('active')) {
+                popCnt.show();
+            } else {
+                popCnt.hide();
+            }
+
+        }
+
+        function popClose(){
+            popCnt.hide();
+            popBtn.removeClass('active');
+        }
+
+        function canvasOpen(){
+            let _this = $(this);
+            //canvas2
+            let color = $('#ECD13F');
+            let lastEvent,
+                mousedown = false;
+
+
+            $canvas
+                .mousedown(function (event) {
+
+                    lastEvent = event;
+                    mousedown = true;
+                })
+                .mousemove(function (event) {
+                    if (mousedown) {
+                        // Draw lines
+                        context.beginPath();
+                        context.moveTo(lastEvent.offsetX, lastEvent.offsetY);
+                        context.lineTo(event.offsetX, event.offsetY);
+                        context.strokeStyle = 'rgba(255,255,0, 0.2)';
+                        context.stroke();
+                        context.lineWidth = 22;
+
+                        lastEvent = event;
+                    }
+                })
+                .mouseup(function (event) {
+                    mousedown = false;
+
+
+                })
+                .mouseleave(function (event) {
+                    mousedown = false;
+                });
+
+            _this.toggleClass('active');
+
+            if(_this.hasClass('active')) {
+                clearBtn.show('slide', 400);
+                $canvas.show();
+                $('.sketchpad').removeClass('disabled');
+            } else {
+                clearBtn.hide('slide', 400);
+                $canvas.hide();
+                $('.sketchpad').addClass('disabled');
+            }
+
+
+        }
+
+        function canvasClear(){
+            context.clearRect(0, 0, 1260, 1216);
+        }
+
+        function canvasIng(){
+            if(drawingBtn.hasClass('active')) {
+                let _this = $(this)
+                let _idx = $(this).index();
+                $canvas = $('.swiper-slide').eq(_idx).find('.sketchpad');
+                context = $canvas[0].getContext('2d');
+                $('.swiper-slide').find($canvas).hide();
+                $('.swiper-slide').eq(_idx).find($canvas).show();
+            }
+        }
+
+        popBtn.on('click', popOpen)
+        closeBtn.on('click', popClose)
+        drawingBtn.on('click', canvasOpen)
+        clearBtn.on('click', canvasClear)
+        page.on('click', canvasIng)
+
+    })
+</script>
+</body>
+</html>

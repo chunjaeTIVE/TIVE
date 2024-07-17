@@ -2,8 +2,8 @@ package com.tive.repository.examitem;
 
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.tive.domain.QExamItem.*;
 import com.tive.dto.ExamDTO;
+import com.tive.dto.QuestionDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import com.querydsl.core.types.Projections;
@@ -11,6 +11,7 @@ import com.querydsl.core.types.Projections;
 import java.util.List;
 
 import static com.tive.domain.QExamItem.examItem;
+import static com.tive.domain.QQuestionItem.questionItem;
 
 @Repository
 @RequiredArgsConstructor
@@ -32,4 +33,21 @@ public class ExamItemQueryDSLImpl implements ExamItemQueryDSL{
                 .fetch();
         return list;
     }
+
+    @Override
+    public List<QuestionDTO> findExam() {
+        List<QuestionDTO> list = queryFactory.select(Projections.fields(QuestionDTO.class
+                        , questionItem.qid
+                        , questionItem.qType
+                        , questionItem.qContents
+                        , questionItem.orderName
+                        , examItem.examName
+                )).from(questionItem)
+                .innerJoin(questionItem.questionToExam, examItem)
+                .where(examItem.eid.eq(21L))
+                .fetch();
+        return list;
+    }
+
+
 }
