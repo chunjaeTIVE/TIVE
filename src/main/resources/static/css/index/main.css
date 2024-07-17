@@ -1,0 +1,490 @@
+
+
+
+/* main1-해변가 시작 */
+
+.beach {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: #FFCE99;
+}
+
+.sand_deco{ /*모래 위 장식*/
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    position: relative;
+    top: 24vh;
+}
+
+.sand_left{ /*모래 위 장식 좌*/
+    width: 20vw;
+    position: relative;
+    top: 1vw;
+}
+
+.sand_right{ /*모래 위 장식 우*/
+    width: 21vw;
+    position: relative;
+    top: -1vw;
+}
+
+.sand_deco h1{ /*메인 타이틀*/
+    color: white;
+    font-family: chab;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    font-size: 3.5vw;
+}
+
+
+.sand{ /*파도 아래 모래*/
+    position: absolute;
+    top: 52%;
+    width: 100%;
+    height: 100vw;
+    background-image: url("../../img/index/wet_sand_1.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.4;
+    animation: sand 6s infinite ease-in-out;
+}
+
+.wave { /*파도*/
+    position: absolute;
+    top: 52%;
+    width: 100%;
+    height: 100vw;
+    background-image: url("../../img/index/wave1.png");
+    animation: wave1 6s infinite linear ;
+    opacity: 1;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#wave2 { /*파도2*/
+    top: 58%;
+    animation: wave2 6s infinite linear;
+    background-image: url("../../img/index/wave2.png");
+    opacity: 1;
+    z-index: 1;
+}
+
+#wave3 { /*파도3*/
+    top: 66%;
+    animation: wave3 6s infinite linear;
+    background-image: url("../../img/index/wave3.png");
+    opacity: 1;
+    z-index: 2;
+}
+
+
+@keyframes sand { /*젖은 모래 표현 애니메이션*/
+    0%{
+        opacity: 0.4;
+    }
+    50%{
+        opacity: 0.1;
+    }
+    75%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+
+@keyframes wave1 { /*파도1 애니메이션*/
+    0% {
+        transform: translateY(0);
+    }
+    50%{
+        transform: translateY(6vh);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes wave2 { /*파도2 애니메이션*/
+    0% {
+        transform: translateY(0);
+    }
+    50%{
+        transform: translateY(8vh);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes wave3 { /*파도3 애니메이션*/
+    0% {
+        transform: translateY(0);
+    }
+    50%{
+        transform: translateY(11vh);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/*main1-해변가 끝*/
+
+
+/*main2-바닷속 시작*/
+
+.ocean {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 115vh;
+    overflow: hidden;
+    background: #46B1B7;
+    justify-content: center;
+}
+
+.top_deco{ /* 위에 물결 장식 */
+    width: 100%;
+    height: 50%;
+    position: absolute;
+    top: 0;
+}
+
+.ocean>h1{ /* 메인2 타이틀 */
+    font-family: chab;
+    font-weight: normal;
+    color: white;
+    font-size: 2.8vw;
+    text-align: center;
+    z-index: 1;
+    position: absolute;
+    top: 18vh;
+}
+
+/* 메뉴 소개 보드 시작 */
+.info_menu{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    z-index: 2;
+    top: 30vh;
+}
+
+.info_menu div:nth-child(1), .info_menu div:nth-child(2){
+    display: flex;
+    flex-direction: row;
+}
+
+.info_box{
+    width: 15vw;
+    height: 20vh;
+    background-color: white;
+    border-radius: 5vh;
+    margin: 2vh;
+    padding: 1.5vw;
+}
+
+.img_section{
+    background-color: lightgrey;
+    width: 100%;
+    border-radius: 3vw;
+    padding: 1vw 2vw 2vw;
+}
+
+.img_section h2{
+    font-family: omyu_pretty;
+    font-size: 2.5vw;
+    text-align: center;
+}
+
+.img_section p{
+    font-family: omyu_pretty;
+    font-size: 2vw;
+    margin-top: 1vw;
+}
+
+/* 메뉴 소개 보드 끝 */
+
+.fish5{ /* 뒤로 지나가는 물고기들 */
+    width: 25vh;
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 45vh;
+    left: -15vw;
+    animation: move_right 12s infinite ease-in-out;
+}
+
+@keyframes move_right { /* 오른쪽 방향으로 움직이는 물고기 애니메이션 */
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(120vw);
+    }
+}
+
+
+.bubble_left{ /*왼쪽 거품*/
+    width: 8vw;
+    display: block;
+    position: absolute;
+    z-index: 1;
+    left: 6vw;
+    bottom: -5vh;
+    animation: move_up 10s infinite ease-in-out;
+    animation-delay: 2s; /*2초 지연*/
+}
+
+.bubble_right{ /*오른쪽 거품*/
+    width: 5vw;
+    display: block;
+    position: absolute;
+    z-index: 1;
+    right: 6vw;
+    bottom: -5vh;
+    animation: move_up 10s infinite ease-in-out;
+}
+
+@keyframes move_up { /* 위로 올라가는 공기방울 애니메이션 */
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-105vh);
+        opacity: 0;
+    }
+}
+
+.notice_box{ /*공지사항 영역*/
+    position: relative;
+    top: 75vh;
+    z-index: 3;
+}
+
+#fish{/*공지사항 물고기*/
+    width: 7vw;
+    position: relative;
+    left: -8vw;
+    animation: floating 3s infinite ease-in-out;
+    top: 17vh;
+}
+
+@keyframes floating { /*둥둥 떠다니는 물고기 애니메이션*/
+    0%{
+        transform: translateY(0);
+    }
+    50%{
+        transform: translateY(1vh);
+    }
+    100%{
+        transform: translateY(0);
+    }
+}
+
+#notice_bubble_box{ /*공지사항 말풍선 영역*/
+    height: 4vw;
+    position: relative;
+    top: 4vh;
+}
+
+#notice_bubble{ /*공지사항 말풍선 이미지*/
+    position: relative;
+    height: 100%;
+}
+
+.cate1{
+    padding: 0.5vh 1vh;
+    border-radius: 2vw;
+    background-color: #FAF1D6;
+}
+
+.cate2{
+    padding: 0.5vh 1vh;
+    border-radius: 2vw;
+    background-color: #B6E3E9;
+}
+
+
+/*슬라이더 영역 시작 */
+#notice_slider{ /*공지사항 슬라이더*/
+    position: absolute;
+    overflow: hidden;
+    height: 50px; /* 슬라이드 높이와 동일하게 설정 */
+    width: 22vw;
+    top: 1.5vh;
+}
+
+.slide{ /*슬라이드 아이템*/
+    white-space: nowrap;
+    height: 50px;
+    line-height: 55px;
+    text-align: left;
+    transition: transform 0.5s ease;
+    width: 95%;
+    overflow: hidden;
+    left: 2vw;
+    position: relative;
+    text-overflow: ellipsis;
+    font-family: omyu_pretty;
+    font-size: 1.5vw;
+}
+
+
+#slider_btn{ /*슬라이더 버튼 영역*/
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    right: 1vw;
+    top: 1vh;
+}
+
+#slider_btn div { /*슬라이더 버튼 개별 상자*/
+    cursor: pointer;
+    position: relative;
+}
+
+#slider_btn div:hover { /*슬라이더 버튼 hover 효과*/
+    background-color: #f1f1f1;
+    border-radius: 1vw;
+}
+
+.arrow{ /*슬라이더 버튼 이미지*/
+    width: 1.5vw;
+}
+
+#up_arrow{ /* 위(이전) 버튼*/
+    rotate: -90deg;
+}
+#down_arrow{ /* 아래(다음) 버튼*/
+    rotate: 90deg;
+}
+
+/*슬라이더 영역 끝*/
+
+
+/* 팝업 스타일 시작 */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    font-family: omyu_pretty;
+}
+
+.popup-overlay { /*팝업 뒤 배경*/
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.popup-close { /*팝업 닫기 버튼*/
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+.popup-close img{ /*팝업 닫기 버튼 이미지*/
+    width: 20px;
+}
+
+
+#notice_popup{ /*공지사항 팝업*/
+    padding: 30px;
+    height: 400px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+#notice_popup::-webkit-scrollbar{ /*스크롤바 커스텀*/
+    /*스크롤바의 너비*/
+    width: 10px;
+}
+#notice_popup::-webkit-scrollbar-thumb{ /*스크롤바 커스텀*/
+    /*스크롤바의 높이*/
+    height: 30%;
+    /*스크롤바의 색상*/
+    background: lightgrey;
+    border-radius: 10px;
+}
+#notice_popup::-webkit-scrollbar-track{ /*스크롤바 커스텀*/
+    /*스크롤바 뒷 배경 색상*/
+    background: #f1f1f1;
+    border-radius: 50px;
+    margin: 40px 0 10px 0;
+}
+
+#notice_popup .notice_title{ /* 공지사항 제목 */
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+#notice_popup .notice_title p{ /* 공지사항 작성일 */
+    position: relative;
+    left: 80%;
+}
+
+#notice_popup .write_date, .write_date p{
+    display: inline-block;
+}
+
+#notice_popup>hr{
+    margin: 10px 0
+}
+
+#notice_popup .notice_content{ /* 공지사항 내용 */
+    padding: 30px;
+    border: 1px solid silver;
+    border-radius: 10px;
+    white-space: pre-line;
+}
+
+/* 팝업 스타일 끝 */
+
+
+/* 바다 바닥 장식 */
+.bottom_deco{
+    width: 100%;
+    position: absolute;
+    bottom: -3vw;
+    z-index: 2;
+}
+
+.coral_reef{ /*산호초 영역*/
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.coral_reef_item{ /*산호초 좌,우 아이템*/
+    width: 25vw;
+    position: relative;
+    top: -1vw;
+}
+
+/*main2-바닷속 끝*/
+

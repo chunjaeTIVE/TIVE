@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/index/main.css}">
+</head>
+<body>
+<div id="wrap">
+
+    <div class="beach">
+        <div class="sand_deco">
+            <img class="sand_left" th:src="@{img/index/sand_deco_left.png}" th:alt="모래장식_좌">
+            <h1>학업 성취도 평가 <br> 대비는 타이브에서!</h1>
+            <img class="sand_right" th:src="@{img/index/sand_deco_right.png}" th:alt="모래장식_우">
+        </div>
+
+        <div class="sand"></div>
+        <div class="wave" id="wave1"></div>
+        <div class="wave" id="wave2"></div>
+        <div class="wave" id="wave3"></div>
+    </div>
+
+    <div class="ocean">
+
+        <img class="top_deco" th:src="@{img/index/sea_light.png}" th:alt="바다빛">
+        <h1>온라인 학업 성취도 평가</h1>
+
+        <div class="info_menu">
+            <div>
+                <div class="info_box">
+                    <section class="img_section">
+<!--                        <h2>CBT 연습</h2>-->
+<!--                        <p>실제 평가 시스템과 <br>100% 동일한 화면으로 <br>기능/유형 연습</p>-->
+                    </section>
+                </div>
+                <div class="info_box">
+                    <section class="img_section">
+<!--                        <h2>결과 리포트</h2>-->
+<!--                        <p>나의 성취도 파악과 <br>취약점 분석, <br>시험대비 학습</p>-->
+                    </section>
+                </div>
+            </div>
+            <div>
+                <div class="info_box">
+                    <section class="img_section">
+<!--                        <h2>실전시험 1회</h2>-->
+<!--                        <p>기출문제를 CBT로 <br>재구성한 문제로 <br>실전 모의고사 응시</p>-->
+                    </section>
+                </div>
+                <div class="info_box">
+                    <section class="img_section">
+<!--                        <h2>실전시험 2회</h2>-->
+<!--                        <p>적중률 높은 <br>예상문제를 바탕으로 <br>실전 모의고사 응시</p>-->
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <img class="fish5" th:src="@{img/index/five_fish.png}" th:alt="물고기들">
+
+        <div class="coral_reef">
+            <img class="coral_reef_item" th:src="@{img/index/coral_reef_left.png}" th:alt="산호초_좌" draggable="false">
+            <img class="coral_reef_item" th:src="@{img/index/coral_reef_right.png}" th:alt="산호초_우" draggable="false">
+        </div>
+
+        <img class="bubble_left" th:src="@{img/index/bubble2.png}" th:alt="버블2">
+        <img class="bubble_right" th:src="@{img/index/bubble1.png}" th:alt="버블1">
+
+        <div class="notice_box">
+            <img id="fish" th:src="@{img/index/fish.png}" th:alt="공지사항_물고기">
+
+            <div id="notice_bubble_box">
+                <img id="notice_bubble" th:src="@{img/index/notice_bubble.png}" th:alt="공지사항_말풍선">
+
+                <div id="notice_slider">
+                    <div class="slide" th:each="item: ${nList}">
+                        <span class="cate1" th:text="${item.category}" th:if="${item.category=='안내'}"></span>
+                        <span class="cate2" th:text="${item.category}" th:if="${item.category=='오픈'}"></span>
+                        <span th:text="${item.title}"></span>
+                        <input class="notice_data" type="hidden" th:value="${#temporals.format(item.createDate, 'yyyy.MM.dd')}" }>
+                        <input class="notice_data" type="hidden" th:value="${item.content}">
+                    </div>
+                </div>
+                <div id="slider_btn">
+                    <div id="upBtn">
+                        <img class="arrow" id="up_arrow" th:src="@{img/index/arrow1.png}" th:alt="위_화살표">
+                    </div>
+                    <div id="downBtn">
+                        <img class="arrow" id="down_arrow" th:src="@{img/index/arrow1.png}" th:alt="아래_화살표">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 팝업 오버레이 -->
+        <div class="popup-overlay"></div>
+
+        <!-- 팝업 -->
+        <div class="popup">
+            <span class="popup-close">
+                <img th:src="@{img/index/x_btn.png}" th:alt="팝업창_닫기">
+            </span>
+            <div class="popup-content"></div>
+        </div>
+
+        <img class="bottom_deco" th:src="@{img/index/sea_sand.png}" th:alt="모래바닥" draggable="false">
+    </div>
+</div>
+
+</body>
+<script>
+    /*공지사항 슬라이더*/
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+
+    function updateSlider() {
+        const offset = -currentSlide * 50; // 슬라이드 높이와 동일하게 설정
+        slides.forEach(slide => {
+            slide.style.transform = `translateY(${offset}px)`;
+        });
+
+        updateSliderBtn();
+
+    }
+
+    function updateSliderBtn(){
+        // 화살표 이미지 업데이트
+        const upArrow = document.getElementById('up_arrow');
+        const downArrow = document.getElementById('down_arrow');
+
+        console.log(currentSlide)
+
+
+        if (currentSlide === 0) {
+            upArrow.src = '/img/index/tmp_arrow.png'; // 첫 번째 슬라이드일 때
+        } else {
+            upArrow.src = '/img/index/arrow1.png';
+        }
+
+        if (currentSlide === totalSlides - 1) {
+            downArrow.src = '/img/index/tmp_arrow.png'; // 마지막 슬라이드일 때
+        } else {
+            downArrow.src = '/img/index/arrow1.png';
+        }
+    }
+
+
+
+    document.getElementById('upBtn').addEventListener('click', () => {
+        if (currentSlide > 0) {
+            currentSlide--;
+            updateSlider();
+        }
+    });
+
+    document.getElementById('downBtn').addEventListener('click', () => {
+        if (currentSlide < totalSlides - 1) {
+            currentSlide++;
+            updateSlider();
+        }
+    });
+
+
+    // 슬라이드 클릭 이벤트 추가
+    slides.forEach(slide => {
+        slide.addEventListener('click', () => {
+            const popupOverlay = document.querySelector('.popup-overlay');
+            const popup = document.querySelector('.popup');
+            const popupContent = document.querySelector('.popup-content');
+
+            // 팝업 내용 설정
+            popupContent.innerHTML = `
+            <div id="notice_popup" >
+                <div class="notice_title">
+                    <div>
+                        <h2>${slide.innerHTML}</h2>
+                    </div>
+                    <div class="write_date">
+                        <p>${slide.getElementsByClassName('notice_data')[0].value}</p>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="notice_content">
+                    <p>${slide.getElementsByClassName('notice_data')[1].value}</p>
+                </div>
+            </div>
+
+            `;
+
+            // 팝업 및 오버레이 표시
+            popupOverlay.style.display = 'block';
+            popup.style.display = 'block';
+        });
+    });
+
+    // 팝업 닫기 이벤트 추가
+    document.querySelector('.popup-close').addEventListener('click', () => {
+        document.querySelector('.popup-overlay').style.display = 'none';
+        document.querySelector('.popup').style.display = 'none';
+    });
+
+    // 팝업 오버레이 클릭 시 팝업 닫기
+    document.querySelector('.popup-overlay').addEventListener('click', () => {
+        document.querySelector('.popup-overlay').style.display = 'none';
+        document.querySelector('.popup').style.display = 'none';
+    });
+
+
+</script>
+</html>

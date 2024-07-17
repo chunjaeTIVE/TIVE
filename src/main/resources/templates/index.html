@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/index/header.css}">
+    <link rel="stylesheet" th:href="@{/css/index/footer.css}">
+    <script th:src="@{/js/index/header.js}"></script>
 </head>
 <body>
+    <div id="wrap">
 
+        <!-- 헤더 고정 -->
+        <header th:replace="fragments/header :: header"></header>
+
+        <!-- 메인 컨텐츠 영역 -->
+        <main>
+            <div th:insert="${view}"></div>
+        </main>
+
+        <!-- 푸터 고정 -->
+        <footer th:replace="fragments/footer :: footer"></footer>
+
+    </div>
 </body>
 </html>
