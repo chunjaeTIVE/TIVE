@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // IT09 - 단답
+    // IT09 - 단답 (textarea)
     let textareaTemp = [];
     let textareas = document.getElementsByName('textarea');
 
@@ -12,8 +12,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         return true;
                 })
                 .map(textarea => textarea.value);
-            let answer = [ancestor, val[0]];
-            console.log(answer);
+            let answer = [ancestor, val];
+            //console.log(answer);
             if (textareaTemp.length > 0) {
                 let i = 0;
                 while (i <= textareaTemp.length) {
@@ -31,10 +31,45 @@ document.addEventListener('DOMContentLoaded', function () {
                 textareaTemp = [...textareaTemp, answer];
                 //console.log("0 보다 크지 않음")
             }
-            console.log(textareaTemp);
+            console.log("textarea : ",textareaTemp);
         })
     });
 
+    // 단답 - text
+    let textTemp = [];
+    let texts = document.querySelectorAll('.answer-input-type input[type="text"]');
+
+    texts.forEach(text => {
+        text.addEventListener('change', function () {
+            let ancestor = $(this).closest('.swiper-slide').find('input[type="hidden"]').prop('id');
+            let val = Array.from(texts)
+                .filter(text => {
+                    if (text && ancestor === $(text).closest('.swiper-slide').eq(0).prop('id'))
+                        return true;
+                })
+                .map(text => text.value);
+            let answer = [ancestor, val];
+            //console.log(answer);
+            if (textTemp.length > 0) {
+                let i = 0;
+                while (i <= textTemp.length) {
+                    if (i == textTemp.length) {
+                        textTemp = [...textTemp, answer];
+                        break;
+                    } else if (textTemp[i][0] === ancestor) {
+                        textTemp[i] = answer;
+                        //console.log("0보다 크고 if")
+                        break;
+                    }
+                    i++;
+                }
+            } else {
+                textTemp = [...textTemp, answer];
+                //console.log("0 보다 크지 않음")
+            }
+            console.log("input text : ",textTemp);
+        })
+    });
 
     // IT02(체크박스)
     let checkboxTemp = [];
@@ -51,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 .map(checkbox => checkbox.value);
 
             let answer = [ancestor, val];
-            console.log(answer);
+            //console.log(answer);
             if (checkboxTemp.length > 0) {
                 let i = 0;
                 while (i <= checkboxTemp.length) {
@@ -69,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 checkboxTemp = [...checkboxTemp, answer];
                 //console.log("0 보다 크지 않음")
             }
-            console.log(checkboxTemp);
+            console.log("checkbox : ",checkboxTemp);
         })
     })
 
@@ -89,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 .map(radio => radio.value);
 
             let answer = [ancestor, val[0]];
-            console.log(answer);
+            //console.log(answer);
             if (radioTemp.length > 0) {
                 let i = 0;
                 while (i <= radioTemp.length) {
@@ -107,12 +142,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 radioTemp = [...radioTemp, answer];
                 //console.log("0 보다 크지 않음")
             }
-            console.log(radioTemp);
+            console.log("radio : ",radioTemp);
         })
     })
 
     // TT04 select
-    let selects = document.querySelectorAll('.select-box select');
+    let selectTemp = [];
+    let selects = document.querySelectorAll('.question select');
     selects.forEach(select=>{
         select.addEventListener('change', function () {
             let ancestor = $(this).closest('.swiper-slide').find('input[type="hidden"]').prop('id');
@@ -125,47 +161,77 @@ document.addEventListener('DOMContentLoaded', function () {
                 .map(select => select.value);
 
             let answer = [ancestor, val];
-            console.log(answer);
-            // if (radioTemp.length > 0) {
-            //     let i = 0;
-            //     while (i <= radioTemp.length) {
-            //         if (i == radioTemp.length) {
-            //             radioTemp = [...radioTemp, answer];
-            //             break;
-            //         } else if (radioTemp[i][0] === ancestor) {
-            //             radioTemp[i] = answer;
-            //             //console.log("0보다 크고 if")
-            //             break;
-            //         }
-            //         i++;
-            //     }
-            // } else {
-            //     radioTemp = [...radioTemp, answer];
-            //     //console.log("0 보다 크지 않음")
-            // }
-            // console.log(radioTemp);
+            //console.log(answer);
+            if (selectTemp.length > 0) {
+                let i = 0;
+                while (i <= selectTemp.length) {
+                    if (i == selectTemp.length) {
+                        selectTemp = [...selectTemp, answer];
+                        break;
+                    } else if (selectTemp[i][0] === ancestor) {
+                        selectTemp[i] = answer;
+                        //console.log("0보다 크고 if")
+                        break;
+                    }
+                    i++;
+                }
+            } else {
+                selectTemp = [...selectTemp, answer];
+                //console.log("0 보다 크지 않음")
+            }
+            console.log("select : ",selectTemp);
         })
     });
 
     //TT03 핫스팟
+    let hotspotTemp = [];
     let svgEle = document.querySelectorAll('svg g');
-    svgEle.forEach(function (group, index) {
+    svgEle.forEach((group,index)=>{
         group.addEventListener('click', function () {
             this.classList.toggle('on');
+            let ancestor = $(this).closest('.swiper-slide').find('input[type="hidden"]').prop('id');
+            console.log(ancestor);
+            let val = Array.from(svgEle)
+                .filter(group => {
+                    if (group && ancestor === $(group).closest('.swiper-slide').eq(0).prop('id'))
+                        return true;
+                })
+                .map((group,index) => index+1);
+
+            let answer = [ancestor, val];
+            //console.log(answer);
             console.log(`click: ${index + 1} g tag`);
+            if (hotspotTemp.length > 0) {
+                let i = 0;
+                while (i <= hotspotTemp.length) {
+                    if (i == hotspotTemp.length) {
+                        hotspotTemp = [...hotspotTemp, answer];
+                        break;
+                    } else if (hotspotTemp[i][0] === ancestor) {
+                        hotspotTemp[i] = answer;
+                        //console.log("0보다 크고 if")
+                        break;
+                    }
+                    i++;
+                }
+            } else {
+                hotspotTemp = [...hotspotTemp, answer];
+                //console.log("0 보다 크지 않음")
+            }
+            console.log("hotspot : ",hotspotTemp);
         })
     })
-    let svgLines = document.querySelectorAll('svg line');
+    // let svgLines = document.querySelectorAll('svg line');
+    //
+    // svgLines.forEach(function (line) {
+    //     line.addEventListener('click', function () {
+    //         this.remove();
+    //     });
+    // });
 
-    svgLines.forEach(function (line) {
-        line.addEventListener('click', function () {
-            this.remove();
-        });
-    });
-
-    // TT07 drag and drop
+    // TT07 drag and drop  if 처리를 통해 이 유형이 있는 경우에만 동작해야함
     let draggables = document.querySelectorAll('.drag');
-    let dropArea = document.querySelector('.drop-area .drop');
+    let dropArea = document.querySelectorAll('.drop');
 
     draggables.forEach(draggable => {
         draggable.addEventListener('dragstart', function (e) {
@@ -175,11 +241,44 @@ document.addEventListener('DOMContentLoaded', function () {
     dropArea.addEventListener('dragover', function (e) {
         e.preventDefault();
     })
-    dropArea.addEventListener('drop', function (e) {
-        e.preventDefault();
-        let data = e.dataTransfer.getData('text/plain');
-        console.log('Drop: ', data);
-    })
+    let dragdropTemp = [];
+    // dropArea.forEach(drop=>{
+    //     drop.addEventListener('drop', function (e) {
+    //         e.preventDefault();
+    //         //console.log(e.target);
+    //         let ancestor = $(e.target).closest('.swiper-slide').find('input[type="hidden"]').prop('id');
+    //         console.log(ancestor);
+    //         let val = Array.from(dropArea)
+    //             .filter(drop => {
+    //                 if (drop && ancestor === $(drop).closest('.swiper-slide').eq(0).prop('id'))
+    //                     return true;
+    //             })
+    //             .map(drop=>drop.dataTransfer.getData('text/plain'));
+    //
+    //         //let val = e.dataTransfer.getData('text/plain');
+    //         let answer = [ancestor, val];
+    //         console.log(answer);
+    //         if (dragdropTemp.length > 0) {
+    //             let i = 0;
+    //             while (i <= dragdropTemp.length) {
+    //                 if (i == dragdropTemp.length) {
+    //                     dragdropTemp = [...dragdropTemp, answer];
+    //                     break;
+    //                 } else if (dragdropTemp[i][0] === ancestor) {
+    //                     dragdropTemp[i] = answer;
+    //                     //console.log("0보다 크고 if")
+    //                     break;
+    //                 }
+    //                 i++;
+    //             }
+    //         } else {
+    //             dragdropTemp = [...dragdropTemp, answer];
+    //             //console.log("0 보다 크지 않음")
+    //         }
+    //         console.log("dragdrop : ",dragdropTemp);
+    //     })
+    // })
+
 
     //IT05 (선그어서연결)
     // let selectedDot = null;

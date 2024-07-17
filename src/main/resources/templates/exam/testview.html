@@ -188,7 +188,7 @@
                 let name = $(this).data('name');
                 $(".drag[data-name='" + name + "']").css('opacity', '0.5')
 
-                console.log(name)
+                //console.log(name)
 
             }
         });
@@ -224,6 +224,7 @@
 
                     $(this).removeClass('on')
                 })
+                console.log("dragdump :",e.target);
             }
         });
 
