@@ -14,7 +14,8 @@
     <script th:src="@{/js/exam/getfile.js}"></script>
     <script th:src="@{/js/exam/answerExtractor.js}"></script>
     <script th:src="@{/js/exam/testtime.js}"></script>
-    <script th:src="@{/js/exam/class.js}" defer></script>
+    <script th:src="@{/js/exam/class.js}"></script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </head>
 <body>
 <!--<div th:each="item:${exam}" th:id="${item.eid}" class="exam-id"></div>-->
@@ -48,7 +49,7 @@
                     <span class="txt" th:text="${title}"></span>
                 </th:block>
                 <i class="enterFullscreenBtn">
-                    <img th:src="@{/img/exam/fullscreen_icon-icons.com_71635.png}" alt="전체보기">
+                    <img th:src="@{/examimg/fullscreen_icon-icons.com_71635.png}" alt="전체보기">
                 </i>
                 <div class="btn-wrap">
                     <div class="swiper-button-prev"></div>
@@ -99,7 +100,7 @@
     }
 
     // swiper
-    $(function(){
+    $(function () {
         var swiper = new Swiper(".mySwiper", {
             allowTouchMove: false,
             navigation: {
@@ -117,12 +118,12 @@
 
         var nowIndex;
 
-        swiper.on('transitionEnd', function(idx){
+        swiper.on('transitionEnd', function (idx) {
             nowIndex = swiper.realIndex
             let $canvas;
             let context;
 
-            $('.drawing-btn').on('click', function(){
+            $('.drawing-btn').on('click', function () {
                 $canvas = $('.swiper-slide ').eq(nowIndex).find($('.sketchpad'));
                 context = $canvas[0].getContext('2d');
                 let color = $('#ECD13F');
@@ -156,7 +157,7 @@
 
                 _this.toggleClass('active');
 
-                if(_this.hasClass('active')) {
+                if (_this.hasClass('active')) {
                     clearBtn.show('slide', 400);
                     $canvas.show();
                     $('.sketchpad').removeClass('disabled');
@@ -169,7 +170,7 @@
 
             })
 
-            $('.clear-btn').on('click', function(){
+            $('.clear-btn').on('click', function () {
                 context.clearRect(0, 0, 1260, 1216);
             })
         })
@@ -178,12 +179,12 @@
         let txt;
         $('.drag').on({
             //드래그 시작시 요소 id 저장
-            'dragstart':function(e){
+            'dragstart': function (e) {
                 txt = $(this).text();
-                $(this).css('border','solid 1px #ccc');
+                $(this).css('border', 'solid 1px #ccc');
             },
             //드래그 종료
-            'dragend':function(e){
+            'dragend': function (e) {
 
                 // let name = $('.drop.on').find('span').text();
                 // $(".drag[data-name='" + name + "']").css('opacity', '0.5')
@@ -197,14 +198,14 @@
         });
 
         $('.drop').on({
-            'dragenter':function(e){
+            'dragenter': function (e) {
 
             },
             //브라우저 표중 동작 취소
-            'dragover':function(e){
+            'dragover': function (e) {
                 e.preventDefault();
             },
-            'drop':function(e){
+            'drop': function (e) {
                 $(this).append('<span class="txt">' + txt + '</span>')
                 e.preventDefault();
                 let num = $(this).find('span').length;
@@ -212,13 +213,13 @@
 
                 $(this).addClass('on')
 
-                if(num > 1) {
+                if (num > 1) {
                     let text = $(this).find('span:first-child()').text();
                     $(this).find('span:first-child()').remove();
                     $(".drag[data-name='" + text + "']").css('opacity', '1')
                 }
 
-                $(this).on('click', function(){
+                $(this).on('click', function () {
                     let text = $(this).find('span').text();
                     let _idx = $(this).find('span').parents('.drop').index();
                     $(this).find('span').remove();
@@ -231,12 +232,12 @@
             }
         });
 
-        $('svg g').on('click', function(){
+        $('svg g').on('click', function () {
             $(this).toggleClass('on');
         })
 
         //tab
-        $('.tab-btn a').on('click', function(){
+        $('.tab-btn a').on('click', function () {
             let _this = $(this)
             let _idx = $(this).index();
 
@@ -255,14 +256,14 @@
         let x1, y1, x2, y2;
 
 
-        leftBtn.on('click', function(e){
+        leftBtn.on('click', function (e) {
             let _this = $(this);
             x1 = _this.position().left;
             y1 = _this.position().top + 10;
 
         })
 
-        rightBtn.on('click', function(e){
+        rightBtn.on('click', function (e) {
             let _this = $(this);
             let _idx = _this.index();
 
@@ -272,18 +273,18 @@
 
         })
 
-        btn.on('click', function(){
+        btn.on('click', function () {
             $(this).siblings('.btn').removeClass('active');
             $(this).toggleClass('active')
 
-            if($('.left.active').length == 1 && $('.right.active').length == 1){
+            if ($('.left.active').length == 1 && $('.right.active').length == 1) {
                 $('svg').append('<line x1=' + x1 + ' y1=' + y1 + ' x2=' + x2 + ' y2=' + y2 + '></line>');
                 $(".drawline-wrap").html($(".drawline-wrap").html());
                 $('.left , .right').removeClass('active')
             }
         })
 
-        $('body').on('click', 'line', function(){
+        $('body').on('click', 'line', function () {
             let _this = $(this);
 
             _this.remove();
@@ -300,11 +301,11 @@
         let context = $canvas[0].getContext('2d');
 
 
-        function popOpen(){
+        function popOpen() {
             let _this = $(this);
             _this.toggleClass('active');
 
-            if(_this.hasClass('active')) {
+            if (_this.hasClass('active')) {
                 popCnt.show();
             } else {
                 popCnt.hide();
@@ -312,12 +313,12 @@
 
         }
 
-        function popClose(){
+        function popClose() {
             popCnt.hide();
             popBtn.removeClass('active');
         }
 
-        function canvasOpen(){
+        function canvasOpen() {
             let _this = $(this);
             //canvas2
             let color = $('#ECD13F');
@@ -355,7 +356,7 @@
 
             _this.toggleClass('active');
 
-            if(_this.hasClass('active')) {
+            if (_this.hasClass('active')) {
                 clearBtn.show('slide', 400);
                 $canvas.show();
                 $('.sketchpad').removeClass('disabled');
@@ -368,12 +369,12 @@
 
         }
 
-        function canvasClear(){
+        function canvasClear() {
             context.clearRect(0, 0, 1260, 1216);
         }
 
-        function canvasIng(){
-            if(drawingBtn.hasClass('active')) {
+        function canvasIng() {
+            if (drawingBtn.hasClass('active')) {
                 let _this = $(this)
                 let _idx = $(this).index();
                 $canvas = $('.swiper-slide').eq(_idx).find('.sketchpad');
