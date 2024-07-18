@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
@@ -43,11 +44,12 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/index")//로그인 성공했으면 인덱스로 가자
                 .usernameParameter("email")
                 .passwordParameter("pwd")
+                .failureHandler(authenticationFailureHandler())
                 .permitAll());
 
-        http.logout(logoout-> logoout
+        http.logout(logout-> logout
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/login")
+                .logoutSuccessUrl("/index")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID"));
 
@@ -58,6 +60,13 @@ public class SecurityConfig {
 
         return http.build();
 
+    }
+
+    @Bean //로그인 실패시 알림창
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return (request, response, exception) -> {
+            response.sendRedirect("/login?error=true");
+        };
     }
 
     @Bean

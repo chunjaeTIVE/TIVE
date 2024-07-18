@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -28,5 +29,52 @@
 </form>
 <a th:href="@{/join}">회원가입</a>
 </div>
+</body>
+</html>-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/user/login.css}">
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet"> <!--아이콘 가져오기-->
+</head>
+<body>
+<div class="login_wrap">
+    <form th:action="@{/login}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <div class="input-group">
+            <i class='bx bxs-user'></i>
+            <input type="text" th:id="email" th:name="email" placeholder="Username" required autofocus>
+        </div>
+        <div class="input-group">
+            <i class='bx bxs-lock-alt'></i>
+            <input type="password" th:id="pwd" th:name="pwd" placeholder="Password" required>
+        </div>
+        <button type="submit">로그인</button>
+    </form>
+
+    <p>
+        <span>아직 회원이 아니신가요?</span>
+        <b onclick="toggle()" class="pointer">
+            가입하기
+        </b>
+    </p>
+</div>
+
+<script th:inline="javascript">
+
+    //로그인 실패 메세지
+    /*<![CDATA[*/
+    var errorMessage = /*[[${errorMessage}]]*/ null;
+    if (errorMessage) {
+        alert(errorMessage);
+    }
+    /*]]>*/
+
+    function toggle() {
+        window.location.href = "/join";
+    }
+</script>
 </body>
 </html>
