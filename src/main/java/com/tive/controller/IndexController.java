@@ -139,6 +139,7 @@ public class IndexController {
             log.info("Principal is null or principal.getName() is null");
         }
 
+        model.addAttribute("examKind", examKind);
         model.addAttribute("view", "info/test_gogo");
 
         return "index";

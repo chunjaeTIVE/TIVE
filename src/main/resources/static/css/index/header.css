@@ -49,6 +49,7 @@
 #nav_header ul{ /* 메뉴탭 */
     list-style: none;
     display: flex;
+    align-items: center;
 }
 
 .main_menu{ /* 메뉴탭 */
@@ -101,6 +102,7 @@
     white-space: nowrap;
     font-size: 19px;
     border: 2px solid #5DCCF3;
+    font-family: 'omyu_pretty';
 }
 
 
