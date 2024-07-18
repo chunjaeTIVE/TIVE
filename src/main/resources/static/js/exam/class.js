@@ -3,18 +3,103 @@ document.addEventListener('DOMContentLoaded',(e)=>{
     exam.forEach(ele=>{
         let eid = ele.id;
         console.log("ExamId: ",eid);
-        if(eid==='1'){
+        if(eid==='1' || eid==='16'){
             ele.classList.add('class1-korean');
         }
-        if(eid==='2'){
+        if(eid==='2'||eid==='6'){
             ele.classList.add('class-english');
         }
-        if(eid==='3'){
+        if(eid==='3' || eid==='13'||eid==='17'){
             ele.classList.add('class-math');
+        }
+        if(eid==='4'){
+            ele.classList.add('class1-social')
+        }
+        if(eid==='5'){
+            ele.classList.add('class1-science')
+        }
+        if(eid==='7'){
+            ele.classList.add('class2-korean');
+            ele.classList.add('ui-class2-korean');
+        }
+        if(eid==='8'){
+            ele.classList.add('class3-korean');
+            ele.classList.add('ui-class3-korean');
+        }
+        if(eid==='9'){
+            ele.classList.add('class-math');
+            ele.classList.add('ui-class3-math');
+        }
+        if(eid==='10'){
+            ele.classList.add('class1-social');
+            ele.classList.add('ui-class2-social');
+        }
+        if(eid==='11'){
+            ele.classList.add('class3-english');
+            ele.classList.add('ui-class3-english');
+        }
+        if(eid==='12'){
+            ele.classList.add('class-english');
+            ele.classList.add('ui-class2-english');
+        }
+        if(eid==='14'){
+            ele.classList.add('class2-science');
+            ele.classList.add('ui-class2-science');
+        }
+        if(eid==='15'){
+            ele.classList.add('class-math');
+            ele.classList.add('ui-class2-math');
+        }
+        if(eid==='18'){
+            ele.classList.add('test02-class1-social');
+        }
+        if(eid==='19'){
+            ele.classList.add('test02-class1-science');
+        }
+        if(eid==='20'){
+            ele.classList.add('test02-class2-korean');
+            ele.classList.add('ui-test2-class2-korean');
+        }
+        if(eid==='21'){
+            ele.classList.add('test02-class2-english');
+            ele.classList.add('ui-test2-class2-english');
+        }
+        if(eid==='22'){
+            ele.classList.add('class-math');
+            ele.classList.add('ui-test2-class2-math');
+        }
+        if(eid==='23'){
+            ele.classList.add('class-social');
         }
         if(eid==='25'){
             ele.classList.add('class-science');
             ele.classList.add('ui-test2-class2-science');
+        }
+        if(eid==='26'){
+            ele.classList.add('test02-class3-korean');
+        }
+        if(eid==='27'){
+            ele.classList.add('class-english');
+            ele.classList.add('ui-test2-class3-english');
+        }
+        if(eid==='28'){
+            ele.classList.add('class-math');
+            ele.classList.add('ui-test2-class3-math');
+        }
+        if(eid==='29'){
+            ele.classList.add('test04-class1-korean');
+        }
+        if(eid==='33'){
+            ele.classList.add('test04-class1-english');
+        }
+        if(eid==='34'){
+            ele.classList.add('test04-class1-math');
+        }
+        if(eid==='35'){
+            ele.classList.add('test04-class1-social');
+        }
+        if(eid==='36'){
+            ele.classList.add('test04-class1-science');
         }
     })
 
