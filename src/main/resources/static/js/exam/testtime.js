@@ -1,3 +1,5 @@
+//import { textareaTemp,textTemp,selectTemp,checkboxTemp,radioTemp,buttonTemp,hotspotTemp,dragdropTemp } from './answerExtractor.js';
+
 /*
 // time 관련
 console.log('0');
