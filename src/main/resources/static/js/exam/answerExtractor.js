@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                 .map(radio => radio.value);
 
-            let answer = [ancestor, val[0]];
+            let answer = [ancestor, val];
             //console.log(answer);
             if (radioTemp.length > 0) {
                 let i = 0;
@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log(ancestor);
             let val = Array.from(selects)
                 .filter(select => {
-                    if (select.value && ancestor === $(select).closest('.swiper-slide').eq(0).prop('id'))
+                    if (select && ancestor === $(select).closest('.swiper-slide').eq(0).prop('id'))
                         return true;
                 })
                 .map(select => select.value);
@@ -187,37 +187,34 @@ document.addEventListener('DOMContentLoaded', function () {
     let hotspotTemp = [];
     let svgEle = document.querySelectorAll('svg g');
     svgEle.forEach((group,index)=>{
-        group.addEventListener('click', function () {
-            this.classList.toggle('on');
+        group.addEventListener('click', function (e) {
+            e.target.classList.toggle('on');
             let ancestor = $(this).closest('.swiper-slide').find('input[type="hidden"]').prop('id');
             console.log(ancestor);
-            let val = Array.from(svgEle)
-                .filter(group => {
-                    if (group && ancestor === $(group).closest('.swiper-slide').eq(0).prop('id'))
-                        return true;
-                })
-                .map((group,index) => index+1);
-
-            let answer = [ancestor, val];
-            //console.log(answer);
-            console.log(`click: ${index + 1} g tag`);
-            if (hotspotTemp.length > 0) {
-                let i = 0;
-                while (i <= hotspotTemp.length) {
-                    if (i == hotspotTemp.length) {
-                        hotspotTemp = [...hotspotTemp, answer];
-                        break;
-                    } else if (hotspotTemp[i][0] === ancestor) {
-                        hotspotTemp[i] = answer;
-                        //console.log("0보다 크고 if")
-                        break;
-                    }
-                    i++;
+            let answer = [ancestor];
+            let siblings = e.target.parentElement.parentElement.children;
+            for(let s=0; s<siblings.length; s++){
+                if(siblings[s] === e.target.parentElement){
+                    //console.log("yes : ",s);
+                    //answer = [...answer,[s+1]];
+                    answer.splice(answer.length,0,s+1);
                 }
-            } else {
-                hotspotTemp = [...hotspotTemp, answer];
-                //console.log("0 보다 크지 않음")
             }
+            console.log(e.target.classList.length);
+            if(e.target.classList.length>0){
+                hotspotTemp = [...hotspotTemp, answer];
+            } else {
+                if(hotspotTemp.length>0){
+                    for(let i=0; i < hotspotTemp.length; i++) {
+                        if (hotspotTemp[i][0] === ancestor && hotspotTemp[i][1] === answer[1]) {
+                            hotspotTemp.splice(i,1);
+                            break;
+                        }
+                    }
+                }
+            }
+            //console.log(answer);
+            console.log(`click: ${index + 1} in exam, ${answer[1]} in question`);
             console.log("hotspot : ",hotspotTemp);
         });
     });
