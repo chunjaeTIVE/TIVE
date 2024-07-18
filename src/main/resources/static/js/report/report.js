@@ -61,18 +61,13 @@ window.onload = function () {
     })
         .then(data => {
 
-            let level = {
-                "DF01" : "최상"
-                , "DF02" : "상"
-                , "DF03" : "중"
-                , "DF04" : "하"
-                , "DF05" : "최하"
-            };
-
-            let keys = Object.keys(level);
+            let level = ["최상", "상", "중", "하", "최하"];
 
             // 첫 번째 요소는 문항 난이도별 전체 성취율 map
             let levelRateAll = data[0];
+
+            // 난이도 어떤 것이 있는지 key 가져오기
+            let keys = Object.keys(levelRateAll);
 
             // 두 번째 요소는 문항 난이도별 내 성취율 map
             let levelRateMe = data[1];
@@ -88,17 +83,21 @@ window.onload = function () {
             // 데이터를 HTML로 변환하여 tbody에 추가
             for (let i = 0; i < level.length; i++) {
 
-                let levelvalue = level[keys[i]];
+                let levelvalue = level[i];
+                let levelvalueAll = 0;
+                let levelvalueMe = 0;
 
-                console.log(levelvalue);
 
-                let levelvalueAll = levelRateAll[keys[i]];  //전체성취율
-                let levelvalueMe = levelRateMe[keys[i]]; // 내 성취율
+                if(levelRateAll[levelvalue]){
+                    levelvalueAll = levelRateAll[levelvalue];  //전체성취율 값이 있으면 입력
+                    levelvalueMe = levelRateMe[levelvalue]; //내 성취율
 
-                insertTable(tbody, levelvalue, levelvalueAll, levelvalueMe);
+                    insertTable(tbody, levelvalue, levelvalueAll, levelvalueMe);
 
-                levelAllArr.push(levelvalueAll);
-                levelMyArr.push(levelvalueMe);
+                    levelAllArr.push(levelvalueAll);
+                    levelMyArr.push(levelvalueMe);
+
+                }
             }
 
             // 차트 그리기
@@ -120,7 +119,7 @@ window.onload = function () {
                         backgroundColor: '#9BD0F5',
                         barThickness   : 35
                     }],
-                    labels  : level
+                    labels  : keys
                 },
                 options: {
                     layout: {

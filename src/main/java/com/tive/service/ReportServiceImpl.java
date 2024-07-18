@@ -69,8 +69,20 @@ public class ReportServiceImpl implements ReportService{
 
         for(Tuple result :results){
             String difficulty = result.get(0, String.class);
+            String diff_text = "";
+            if("DF01".equals(difficulty)) {
+                diff_text = "최상";
+            } else if("DF02".equals(difficulty)) {
+                diff_text = "상";
+            } else if("DF03".equals(difficulty)) {
+                diff_text = "중";
+            } else if("DF04".equals(difficulty)) {
+                diff_text = "하";
+            } else {
+                diff_text = "최하";
+            }
             int achievementRate =(int)Math.round(result.get(1, Double.class));
-            data.put(difficulty, achievementRate);
+            data.put(diff_text, achievementRate);
         }
 
         return data;
@@ -86,8 +98,20 @@ public class ReportServiceImpl implements ReportService{
 
         for(Tuple result :results){
             String difficulty = result.get(0, String.class);
+            String diff_text = "";
+            if("DF01".equals(difficulty)) {
+                diff_text = "최상";
+            } else if("DF02".equals(difficulty)) {
+                diff_text = "상";
+            } else if("DF03".equals(difficulty)) {
+                diff_text = "중";
+            } else if("DF04".equals(difficulty)) {
+                diff_text = "하";
+            } else {
+                diff_text = "최하";
+            }
             int achievementRate =(int)Math.round(result.get(1, Double.class));
-            data.put(difficulty, achievementRate);
+            data.put(diff_text, achievementRate);
         }
 
         return data;
