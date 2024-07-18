@@ -1,6 +1,6 @@
 #wrap{ /*영역 잡기*/
     width: 100%;
-    height: 110vh;
+    height: 100vh;
     background-color: #46B1B7;
     position: relative;
     font-family: omyu_pretty;
@@ -16,7 +16,7 @@
     font-weight: normal;
 }
 
-#play_test_box{ /*테스트 박스*/
+#warn_info_box{ /*테스트 박스*/
     top: 13vh;
     position: relative;
     background-color: white;
@@ -29,22 +29,35 @@
     font-size: 1.2vw;
 }
 
-#play_test_box>h3{
+#warn_info_box>h3{
     color: rgba(0,0,0,0.4);
     font-size: 1.2vw;
 }
 
-.media_box{ /*동영상 플레이하는 영역*/
+.info_box{ /*안내 텍스트 영역*/
     padding: 2vw;
     border-radius: 3vw;
     background: ghostwhite;
     margin: 4vh auto;
     width: 80%;
-    overflow: hidden;
 }
 
-.media_box p{
-    margin-bottom: 1.5vw;
+.info_box h3{
+    margin-bottom: 1vh;
+}
+
+.info_box ul{
+    list-style: none;
+    text-align: left;
+}
+
+.info_box ul li{
+    line-height: 3.5vh;
+    margin-left: 0.3vw;
+}
+
+.emoji{
+    font-size: 1vw;
 }
 
 .highlight_sea{ /*바다색 형광펜*/
@@ -52,7 +65,7 @@
     border-radius: 0.2vw;
 }
 
-#no_problem_btn{ /* 이상 없습니다 버튼 */
+#agree_btn{ /* 동의 버튼 */
     background: #46B1B7;
     padding: 1.5vh 1vw;
     color: white;
@@ -60,13 +73,3 @@
     font-weight: bolder;
     text-decoration: none;
 }
-
-video{
-    border-radius: 1vw;
-}
-
-
-
-
-
-

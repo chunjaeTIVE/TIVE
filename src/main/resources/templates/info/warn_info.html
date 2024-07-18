@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/info/warn_info.css}">
+    <link rel="stylesheet" th:href="@{/css/info/bg_template.css}">
+</head>
+<body>
+    <div id="wrap">
+        <img class="top_deco" th:src="@{/img/index/sea_light.png}" th:alt="바다빛">
+        <h1>주의사항 및 부정행위 안내</h1>
+        <div id="warn_info_box">
+            <h3>실제 한국교육과정평가원의 시험에서 제시되는 화면입니다. 예시로 제공되는 화면이며, <br>
+                주의사항 및 부정행위 안내 내용을 확인하고 [동의합니다] 버튼을 클릭하시기 바랍니다.</h3>
+            <div class="info_box">
+
+                <h3 class="highlight_sea">응시자 주의사항</h3>
+                <ul>
+                    <li>
+                        <span class="emoji">🐚</span>
+                        감독 선생님의 지시에 따라 시험에 응시하십시오.
+                    </li>
+                    <li>
+                        <span class="emoji">🐚</span>
+                        책상 위에는 응시표를 제외한 모든 소지품은 책상 아래에 정리하여 주십시오.
+                    </li>
+                    <li>
+                        <span class="emoji">🐚</span>
+                        감독 선생님에게 시험내용에 대한 질문은 금하고, 시험 중 문제가 발생한 경우 소리내지 말고 <br> &nbsp;&nbsp;&nbsp; 조용히 손을 들어 주시기 바랍니다.
+                    </li>
+                </ul>
+
+                <h3 class="highlight_sea">부정행위 안내</h3>
+                <ul>
+                    <li>
+                        <span class="emoji">🐚</span>
+                        개인정보를 타인에게 전달하여 대리로 시험을 보거나, 다른 응시자의 시험을 방해하는 행위
+                    </li>
+                    <li>
+                        <span class="emoji">🐚</span>
+                        다른 응시자의 모니터를 보거나 자신의 모니터를 보여주는 행위
+                    </li>
+                    <li>
+                        <span class="emoji">🐚</span>
+                        기타 감독 선생님이 부정행위로 판단하는 행위
+                    </li>
+                </ul>
+
+            </div>
+
+            <a href="#" id="agree_btn">동의합니다</a>
+
+        </div>
+
+        <img class="bubble_left" th:src="@{/img/index/bubble2.png}" th:alt="버블2">
+        <img class="bubble_right" th:src="@{/img/index/bubble1.png}" th:alt="버블1">
+
+        <div class="coral_reef">
+            <img class="coral_reef_item" th:src="@{/img/index/coral_reef_left.png}" th:alt="산호초_좌" draggable="false">
+            <img class="coral_reef_item" th:src="@{/img/index/coral_reef_right.png}" th:alt="산호초_우" draggable="false">
+        </div>
+
+        <img class="bottom_deco" th:src="@{/img/index/sea_sand.png}" th:alt="모래바닥" draggable="false">
+
+    </div>
+</body>
+</html>
