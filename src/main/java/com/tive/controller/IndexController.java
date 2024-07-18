@@ -47,9 +47,9 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping("/playTest/{schoolLevel}")
+    @GetMapping("/playTest/{examKind}")
     public String playTest(
-            @PathVariable String schoolLevel
+            @PathVariable String examKind
             , Model model
             , Principal principal
     ){
@@ -66,7 +66,33 @@ public class IndexController {
             log.info("Principal is null or principal.getName() is null");
         }
 
+        model.addAttribute("examKind", examKind);
         model.addAttribute("view", "info/play_test");
+
+        return "index";
+    }
+
+    @GetMapping("/warnInfo/{examKind}")
+    public String warnInfo(
+            @PathVariable String examKind
+            , Model model
+            , Principal principal
+    ){
+
+        //현재 세션으로 유저 이름 가져오기
+        String useremail = "";
+        String username = "";
+
+        if (principal != null && principal.getName() != null){ //로그인 한 경우에만 받아옴
+            useremail = principal.getName();
+            username = userService.getUserName(useremail);
+            model.addAttribute("username",username);
+        } else { //아니면 로그값 출력
+            log.info("Principal is null or principal.getName() is null");
+        }
+
+        model.addAttribute("examKind", examKind);
+        model.addAttribute("view", "info/warn_info");
 
         return "index";
     }
