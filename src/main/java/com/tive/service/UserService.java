@@ -7,4 +7,6 @@ public interface UserService {
     Long join(@Valid UsersDTO dto);
 
     Long emailCheck(String email);
+
+    String getUserName(String email);
 }
