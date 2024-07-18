@@ -14,9 +14,11 @@
     <script th:src="@{/js/exam/getfile.js}"></script>
     <script th:src="@{/js/exam/answerExtractor.js}"></script>
     <script th:src="@{/js/exam/testtime.js}"></script>
+    <script th:src="@{/js/exam/class.js}" defer></script>
 </head>
 <body>
-<div class="wrap">
+<!--<div th:each="item:${exam}" th:id="${item.eid}" class="exam-id"></div>-->
+<div class="wrap" th:id="${eid}">
     <div class="header">
         <div class="logo">
             <img th:src="@{/examimg/logo2.png}" alt="logo">
@@ -83,7 +85,6 @@
     document.addEventListener("DOMContentLoaded", function () {
         list = [[${orders}]];
     });
-
     // 전체보기
     const enterFullscreenBtn = document.querySelector('.enterFullscreenBtn')
     const container = document.querySelector('.wrap')

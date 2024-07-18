@@ -13,4 +13,5 @@ public class QuestionDTO {
     private String qContents;
     private String orderName;
     private String examName;
+    private Long eid;
 }
