@@ -55,6 +55,7 @@ function leadingZeros(n, digits) {
 // 최종 제출 처리는 여기서 해야될듯 (answerExtractor 로부터 각 정답을 가져와서)
 
 */
+//TIME api를 이용해 만든 컨트롤러로 서버시간을 불러옴
 async function fetchServerTime() {
     try {
         const response = await fetch('http://localhost:8080/api/current-time');
@@ -74,14 +75,13 @@ async function fetchServerTime() {
 const initialTime = 45 * 60; // 초기 타이머 시간 (45분)
 let time;
 let timerInterval;
-
+//타이머 설정
 async function setupTimer() {
-    const serverTime = await fetchServerTime();
-    const now = new Date();
+    const serverTime = await fetchServerTime(); //서버시간 설정
     const endTime = new Date(serverTime.getTime() + initialTime * 1000);
 
     // 남은 시간 계산
-    time = Math.max(Math.floor((endTime - now) / 1000), 0);
+    time = Math.max(Math.floor((endTime - serverTime) / 1000), 0);
 
     // 로컬 스토리지에서 시간을 읽어오거나 초기화
     if (!localStorage.getItem('remainingTime') || parseInt(localStorage.getItem('remainingTime')) <= 0) {
@@ -94,13 +94,13 @@ async function setupTimer() {
     updateTimer();
     timerInterval = setInterval(updateTimer, 1000);
 }
-
+// 타이머 업데이트
 function updateTimer() {
     const min = Math.floor(time / 60);
     const sec = time % 60;
-
+    // UI에서 보여지는 타이머
     document.getElementById('timer').innerText = `${min}:${leadingZeros(sec, 2)}`;
-
+    //타이머 종료시
     if (time <= 0) {
         clearInterval(timerInterval);
         location.href = "/index"; // 타이머가 종료되면 이동할 페이지
@@ -109,11 +109,11 @@ function updateTimer() {
         saveTime();
     }
 }
-
+// 초단위 자릿수
 function leadingZeros(n, digits) {
     return n.toString().padStart(digits, '0');
 }
-
+// 남은 시간 저장
 function saveTime() {
     localStorage.setItem('remainingTime', time);
 }
