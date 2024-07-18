@@ -30,6 +30,23 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('emailCk').onclick = function () {
         emailvalue = document.getElementById('email').value;
         console.log("email to check: ", emailvalue); // 디버깅용 로그 추가
+
+        // 이메일 정규식 검사 먼저 하기
+        let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailRegex.test(emailvalue)) {
+            let existingSpan = document.getElementById('email-check-span');
+            if (existingSpan) {
+                document.getElementById("check").removeChild(existingSpan);
+            }
+            let checkspan = document.createElement('span');
+            checkspan.id = 'email-check-span';
+            let invalidText = document.createTextNode('이메일 형식이 올바르지 않습니다.');
+            checkspan.appendChild(invalidText);
+            checkspan.style.color = "red";
+            document.getElementById("check").appendChild(checkspan);
+            return; // 정규식이 맞지 않으면 중복 체크 요청을 보내지 않음
+        }
+
         fetch("/emailCheck", {
             method: "POST",
             headers: {
@@ -39,8 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }).then(response => {
             if (!response.ok)
                 throw new Error('noooooooooo');
-            console.log(response);
-            console.log(response.body);
+
             return response.json();
         }).then((data) => {
 
@@ -68,6 +84,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (document.getElementById('pwd').value === document.getElementById('pwdCk').value) {
                         document.querySelectorAll('.join_btn')[0].disabled = false; // 가입하기 버튼 활성화
                     }
+
+                    // 다시 수정 못하게 이메일 입력창 비활성화
+                    document.getElementById('email').disabled = true;
                 } else { // 이미 존재하는 아이디
                     let alreadytext = document.createTextNode('이미 존재하는 이메일입니다.');
                     checkspan.appendChild(alreadytext);
@@ -87,80 +106,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // 비밀번호 확인 input에 onkeyup 이벤트 핸들러 연결
     document.getElementById('pwdCk').onkeyup = passConfirm;
-/*    /!** 비밀번호 확인 *!/
-    function passConfirm() {
-        /!* 비밀번호, 비밀번호 확인 입력창에 입력된 값을 비교해서 같다면 비밀번호 일치, 그렇지 않으면 불일치 라는 텍스트 출력.*!/
-        let pwd = document.getElementById('pwd'); // 비밀번호
-        let pwdCk = document.getElementById('pwdCk'); // 비밀번호 확인
-        let confirmMsg = document.getElementById('confirmMsg'); // 확인 메세지
+    document.getElementById('pwd').onkeyup = passConfirm;
 
-        if (pwd.value == pwdCk.value) { // password 변수의 값과 passwordConfirm 변수의 값과 동일하다.
-            confirmMsg.style.color = "green"; // span 태그의 ID(confirmMsg) 사용
-            confirmMsg.innerHTML = "비밀번호 일치"; // innerHTML : HTML 내부에 추가적인 내용을 넣을 때 사용하는 것
-
-            // 아이디 중복 체크 상태를 확인하여 가입하기 버튼 활성화 결정
-            if (document.getElementById('email-check-span') && document.getElementById('email-check-span').style.color === "green") {
-                document.querySelectorAll('.join_btn')[0].disabled = false; // 가입하기 버튼 활성화
-            }
-        } else {
-            confirmMsg.style.color = "red";
-            confirmMsg.innerHTML = "비밀번호 불일치";
-
-            document.querySelectorAll('.join_btn')[0].disabled = true; // 가입하기 버튼 비활성화
-        }
-    }
-
-    // passConfirm 함수를 비밀번호 확인 입력창에 연결 - 이거 없으면 확인 안해도 그냥 가입됨
-    document.getElementById('pwdCk').onkeyup = passConfirm;
-    document.getElementById('pwd').onkeyup = passConfirm;*/
 });
-
-/*document.getElementById('emailCk').onclick = function () {
-    emailvalue = document.getElementById('email').value;
-    console.log("email to check: ", emailvalue); // 디버깅용 로그 추가
-    fetch("/emailCheck", {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email: emailvalue })
-    }).then(response => {
-        if (!response.ok)
-            throw new Error('이메일 체크 실패');
-        return response.json();
-    }).then((data) => {
-        // 결과에 따라 이메일 체크 결과 표시 및 가입하기 버튼 활성화/비활성화
-        let existingSpan = document.getElementById('email-check-span');
-        if (existingSpan) {
-            document.getElementById("check").removeChild(existingSpan);
-        }
-        let checkspan = document.createElement('span');
-        checkspan.id = 'email-check-span';
-
-        if (emailvalue == '' || emailvalue == null) {
-            let spacetext = document.createTextNode('이메일을 입력해주세요.');
-            checkspan.appendChild(spacetext);
-            checkspan.style.color = "red";
-        } else {
-            if (data == 0) { // 사용 가능한 이메일
-                let oktext = document.createTextNode('사용 가능한 이메일입니다.');
-                checkspan.appendChild(oktext);
-                checkspan.style.color = "green";
-
-                // 이메일 사용 가능하고, 비밀번호도 일치하는 경우에만 가입하기 버튼 활성화
-                if (document.getElementById('pwd').value === document.getElementById('pwdCk').value) {
-                    document.querySelectorAll('.join_btn')[0].disabled = false;
-                }
-            } else { // 이미 존재하는 이메일
-                let alreadytext = document.createTextNode('이미 존재하는 이메일입니다.');
-                checkspan.appendChild(alreadytext);
-                checkspan.style.color = "red";
-
-                document.querySelectorAll('.join_btn')[0].disabled = true;
-            }
-        }
-        document.getElementById("check").appendChild(checkspan);
-    }).catch(error => {
-        console.error(error);
-    });
-};*/
