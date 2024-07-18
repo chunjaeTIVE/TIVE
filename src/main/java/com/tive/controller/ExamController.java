@@ -30,6 +30,7 @@ public class ExamController {
             orders.add(dto.getOrderName());
         }
         model.addAttribute("exam",exam1);
+        model.addAttribute("eid",exam1.get(0).getEid());
         model.addAttribute("title",exam1.get(0).getExamName());
         model.addAttribute("orders",orders);
         //model.addAttribute("view","exam/testview");

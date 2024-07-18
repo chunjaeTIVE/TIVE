@@ -119,5 +119,4 @@ function leadingZeros(n, digits) {
 function saveTime() {
     localStorage.setItem('remainingTime', time);
 }
-
-setupTimer();
+window.addEventListener('load',setupTimer);
