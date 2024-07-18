@@ -57,6 +57,12 @@ public class UserServiceImpl implements UserService{
         return cnt;
     }
 
+    @Override
+    public String getUserName(String email) {
+        Users userinfo = repository.findByEmail(email);
+        return userinfo.getName();
+    }
+
     private boolean findUserCheck(String email) { //UserDetailService랑 연결된거
         Users users = repository.findByEmail(email);
 
