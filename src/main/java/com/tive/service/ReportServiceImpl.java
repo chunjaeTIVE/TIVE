@@ -1,7 +1,185 @@
 package com.tive.service;
 
+import com.querydsl.core.Tuple;
+import com.tive.dto.ReportExamDTO;
+import com.tive.dto.ReportQuestionDTO;
+import com.tive.repository.report.ReportRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class ReportServiceImpl implements ReportService{
+
+    private final ReportRepository reportRepository;
+
+    /**유저의 시험 기본 정보 가져오기*/
+    @Override
+    public ReportExamDTO getTest(Long uid, int round, String subject) {
+        ReportExamDTO report = reportRepository.getTest(uid, round, subject);
+
+        //종합성취율, 평가레벨
+        int rate = Math.round((report.getCountCorrect() / (float) report.getItemCount()) * 100);
+        int level = 1;
+
+        if(rate >=80) level = 4;
+        else if(rate>=50) level = 3;
+        else if(rate>=20) level = 2;
+        else level =1;
+
+        report.setAchievementRate(rate);
+        report.setAchievementLevel(level);
+
+        return report;
+    }
+
+    /**정오표*/
+    @Override
+    public List<ReportQuestionDTO> getReportDetailList(Long utId, Long eid) {
+        // 문항데이터
+        List<ReportQuestionDTO> list = reportRepository.getReportDetailList(utId);
+
+        // 전체 평균
+        List<Tuple> results = reportRepository.getAvgAll(eid);
+
+
+        for(int i=0; i<list.size(); i++){
+
+            int avgAll =(int)Math.round(results.get(i).get(1, Double.class));
+
+            list.get(i).setAvgAll(avgAll);
+        }
+
+        return list;
+    }
+
+    /**문항 난이도별 전체 성취율*/
+    @Override
+    public Map<String, Object> getLevelRateAll(Long eid) {
+
+        List<Tuple> results = reportRepository.getLevelRateAll(eid);
+
+        Map<String, Object> data = new HashMap<>();
+
+        for(Tuple result :results){
+            String difficulty = result.get(0, String.class);
+            String diff_text = "";
+            if("DF01".equals(difficulty)) {
+                diff_text = "최상";
+            } else if("DF02".equals(difficulty)) {
+                diff_text = "상";
+            } else if("DF03".equals(difficulty)) {
+                diff_text = "중";
+            } else if("DF04".equals(difficulty)) {
+                diff_text = "하";
+            } else {
+                diff_text = "최하";
+            }
+            int achievementRate =(int)Math.round(result.get(1, Double.class));
+            data.put(diff_text, achievementRate);
+        }
+
+        return data;
+    }
+
+    /**문항 난이도별 나의 성취율*/
+    @Override
+    public Map<String, Object> getLevelRateMe(Long ut_id) {
+
+        List<Tuple> results = reportRepository.getLevelRateMe(ut_id);
+
+        Map<String, Object> data = new HashMap<>();
+
+        for(Tuple result :results){
+            String difficulty = result.get(0, String.class);
+            String diff_text = "";
+            if("DF01".equals(difficulty)) {
+                diff_text = "최상";
+            } else if("DF02".equals(difficulty)) {
+                diff_text = "상";
+            } else if("DF03".equals(difficulty)) {
+                diff_text = "중";
+            } else if("DF04".equals(difficulty)) {
+                diff_text = "하";
+            } else {
+                diff_text = "최하";
+            }
+            int achievementRate =(int)Math.round(result.get(1, Double.class));
+            data.put(diff_text, achievementRate);
+        }
+
+        return data;
+    }
+
+    /**교과 내용 영역별 전체 평균*/
+    @Override
+    public Map<String, Object> getContentRateAll(Long eid) {
+
+        List<Tuple> results = reportRepository.getContentRateAll(eid);
+
+        Map<String, Object> data = new HashMap<>();
+
+        for(Tuple result :results){
+            String difficulty = result.get(0, String.class);
+            int achievementRate =(int)Math.round(result.get(1, Double.class));
+            data.put(difficulty, achievementRate);
+        }
+
+        return data;
+    }
+
+    /**교과 내용 영역별 나의 성취율*/
+    @Override
+    public Map<String, Object> getContentRateMe(Long ut_id) {
+        List<Tuple> results = reportRepository.getContentRateMe(ut_id);
+
+        Map<String, Object> data = new HashMap<>();
+
+        for(Tuple result :results){
+            String difficulty = result.get(0, String.class);
+            int achievementRate =(int)Math.round(result.get(1, Double.class));
+            data.put(difficulty, achievementRate);
+        }
+
+        return data;
+    }
+
+    /**응답유형별 전체 평균*/
+    @Override
+    public Map<String, Object> getRespRateAll(Long eid) {
+
+        List<Tuple> results = reportRepository.getRespRateAll(eid);
+
+        Map<String, Object> data = new HashMap<>();
+
+        for(Tuple result :results){
+            String difficulty = result.get(0, String.class);
+            int achievementRate =(int)Math.round(result.get(1, Double.class));
+            data.put(difficulty, achievementRate);
+        }
+
+        return data;
+    }
+
+    /**응답유형별 나의 성취율*/
+    @Override
+    public Map<String, Object> getRespRateMe(Long ut_id) {
+        List<Tuple> results = reportRepository.getRespRateMe(ut_id);
+
+        Map<String, Object> data = new HashMap<>();
+
+        for(Tuple result :results){
+            String difficulty = result.get(0, String.class);
+            int achievementRate =(int)Math.round(result.get(1, Double.class));
+            data.put(difficulty, achievementRate);
+        }
+
+        return data;
+    }
 }

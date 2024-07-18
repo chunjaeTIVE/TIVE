@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://kit.fontawesome.com/266dd736a0.js" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/report/report.css}">
+
+</head>
+<body>
+
+<div>
+    <h1>평가결과 요약</h1>
+    <table>
+        <tr>
+            <td>평가 문항 수</td>
+            <td>정답 문항 수</td>
+            <td>종합 성취율</td>
+            <td>성취수준</td>
+        </tr>
+        <tr>
+            <td th:text="${report.itemCount}"></td>
+            <td th:text="${report.countCorrect}"></td>
+            <td th:text="|${report.achievementRate}%|"></td>
+            <td th:text="|${report.achievementLevel}수준|"></td>
+        </tr>
+    </table>
+
+    <div class="bar_wrap pt20">
+        <span class="user_name">내 성취 수준<i
+                class="fa-solid fa-caret-down"></i></span>
+        <div class="bar">
+            <div><em>1</em>
+                <p>기초학력 미달</p></div>
+            <div><em>2</em>
+                <p>기초학력</p></div>
+            <div><em>3</em>
+                <p>보통학력</p></div>
+            <div><em>4</em>
+                <p>우수학력</p></div>
+        </div>
+    </div>
+
+</div>
+
+<div>
+    <h1>문항 난이도별 성취율</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>난이도</th>
+            <th>전체평균</th>
+            <th>내 성취율</th>
+        </tr>
+        </thead>
+        <tbody id="levelrate">
+        </tbody>
+    </table>
+
+    <canvas id="levelChart" width="200" height="130"></canvas>
+</div>
+
+<div>
+    <h1 th:text="|(${subject}) 교과 내용 영역별 성취율|"></h1>
+    <table>
+        <thead>
+        <tr>
+            <th>내용영역</th>
+            <th>전체 평균</th>
+            <th>내 성취율</th>
+        </tr>
+        </thead>
+        <tbody id="contentrate">
+        </tbody>
+    </table>
+
+    <canvas id="contentChart" width="200" height="130"></canvas>
+</div>
+
+<div>
+    <h1>응답 유형별 정답률</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>응답 유형</th>
+            <th>전체 평균</th>
+            <th>내 정답률</th>
+        </tr>
+        </thead>
+        <tbody id="resprate">
+        </tbody>
+    </table>
+
+    <canvas id="respChart" width="200" height="130"></canvas>
+</div>
+
+<div>
+    <h1>문항별 정오표</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>교과 영역</th>
+            <!--            <th>관련 단원</th>-->
+            <th>정답</th>
+            <th>본인 응답</th>
+            <th>채점결과</th>
+            <th>시험응시자<br>평균 정답률</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item:${detailList}">
+            <td th:text="${item.order}"></td>
+            <td th:text="${item.contentArea}"></td>
+            <td th:text="${item.answer}"></td>
+            <td th:text="${item.userAns}"></td>
+            <!--            <td th:text="${item.correct}"></td>-->
+            <td th:if="${item.correct == 1}"><i
+                    class="fa-regular fa-circle-check"></i></td>
+            <td th:if="${item.correct == 0}"><i
+                    class="fa-regular fa-circle-xmark"></i></td>
+            <td th:text="|${item.avgAll}%|"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<script th:src="@{/js/report/report.js}"></script>
+<script>
+
+    let inits = {
+        utid: 0
+        , eid: 0
+        , achieveLevel: 0
+    }
+
+    inits['utid'] = [[${report.utId}]]
+    inits['eid'] = [[${report.eid}]]
+    inits['achieveLevel'] = [[${report.achievementLevel}]]
+
+    init(inits);
+
+</script>
+</body>
+</html>

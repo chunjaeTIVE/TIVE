@@ -1,0 +1,51 @@
+/*!*상세 리포트 박스 공통영역*!*/
+/*.box_wrap {position: relative;width: 100%; }*/
+/*.box_wrap .box_tit {font-size: 25px; font-weight: 900; margin-bottom: 25px;}*/
+/*.box_wrap .box_tit i {margin-right: 10px;}*/
+/*.box_wrap .box {border: 1px solid darkgray; border-radius: 10px; box-shadow: 0px 2px 9.2px 0.8px rgba(34, 34, 34, 0.1);}*/
+
+/*!*첫번째 단락*!*/
+/*.box_wrap .box.box1 {width: 100%; height: 300px; padding: 60px 70px ;}*/
+/*.box_wrap .box.box1 ul {line-height: 1.5; font-size: 18px; font-weight: 800; padding-bottom: 40px;}*/
+/*.box_wrap .box.box1 ul i {font-size: 20px; width: 36px; height: 36px; background: #2f538c; border-radius: 50%; text-align: center; padding-top: 7px; color: #fff; margin-right: 17px;}*/
+/*.box_wrap .box.box1 ul li{width: auto; font-weight: 400; border-bottom: none;}*/
+/*.box_wrap .box.box1 ul li::before {content: '|'; display: inline-block; padding: 0 25px 0 40px;}*/
+/*.box_wrap .box.box1 ul .last:before {content: '|'; display: inline-block; padding: 0 25px;}*/
+
+
+/*.tab_con .score_box {width: 100%;height: 80px;background: #f1f1f1;}*/
+/*.tab_con .score_box .score_txt {text-align: center;font-size: 26px;padding-top: 32px;}*/
+/*.tab_con .score_box .score_txt .score {font-weight: 900;}*/
+/*.tab_con .score_box .score_txt .score em {color: blue; font-weight: 900;}*/
+
+
+.bar_wrap {width: 100%; position: relative;}
+.bar_wrap .user_name {position: absolute; font-size: 20px; font-weight: 700; color: #007bff; left: 80%; cursor: pointer;}
+.bar_wrap .user_name i {font-size: 25px; padding-left: 50px; display: block;}
+.bar_wrap .bar {display: flex; width: 100%; padding-top: 40px;}
+.bar_wrap .bar > div {flex: 1; font-size: 18px; display: inline-block; width: 195px; height: 50px; margin: -1.3px; padding: 0;}
+.bar_wrap .bar > div em {text-align: center; font-size: 18px; display: flex; justify-content: center; padding: 18px 0;}
+.bar_wrap .bar > div p { font-size: 16px;}
+.bar_wrap .bar > div:nth-child(1) {background: #f2f2f2; border-radius: 25px 0 0 25px;}
+.bar_wrap .bar > div:nth-child(2) {background: #ddd;}
+.bar_wrap .bar > div:nth-child(3) {background: #d1d1d1;}
+.bar_wrap .bar > div:nth-child(4) {background: #c0c0c0; border-radius:0 25px 25px 0;}
+
+.pt20 {padding-top: 20px;}
+
+.bar p {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 30px;
+}
+
+.fa-circle-check {
+    color: green;
+}
+
+.fa-circle-xmark {
+    color: red;
+}
+
+
