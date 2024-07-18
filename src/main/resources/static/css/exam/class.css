@@ -1,0 +1,1052 @@
+select {
+    border: 1px solid #cccccc;
+    color: #000000;
+    background: url(../img/test/icon_arrow_bottom.gif) no-repeat 95% 50%;
+    background-color: #ffffff;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 4px;
+    padding-left: 5px;
+}
+.w15 {width: 15% !important;}
+
+.wrap.class-math {}
+.wrap.class-math .page .question {}
+.wrap.class-math .page .question .select-box {}
+.wrap.class-math .page .question .select-box .select {
+    width: 150px;
+    height: 32px;
+    font-size: 14px;
+}
+.wrap.class-math .page .question .select-box.wide .select {
+    width: 120px;
+    height: 63px;
+    font-size: 20px;
+}
+
+
+.wrap.class-math .page .question .select-box .select.select1 {
+    position: absolute;
+    top: 56%;
+    left: 61.7%;
+}
+.wrap.class-math .page .question .select-box .select.select2 {
+    position: absolute;
+    top: 83%;
+    left: 61.7%;
+}
+
+/*220714 추가*/
+.w40 {width: 40% !important;}
+.w70 {width: 70% !important;}
+
+.page .question .img-box.w80 img { max-width: 50%; }
+.mt20 {margin-top: 20px;}
+.mb20 {margin-bottom: 20px;}
+
+.page .question .txtbox {
+    padding: 10px;
+    border: 1px solid #000;
+    font-size: 18px;
+}
+
+/*220714 추가*/
+
+
+/*220718 추가*/
+.w02 {width: 2% !important;}
+.w04 {width: 4% !important;}
+.w35 {width: 35% !important;}
+.w45 {width: 45% !important;}
+/*220718 추가*/
+
+
+/*220719 추가*/
+.w25 {width: 25% !important;}
+.w80 {width: 80% !important;}
+.w90 {width: 90% !important;}
+/*220719 추가*/
+
+
+
+
+
+/*초등 수학*/
+.wrap.class-math {}
+.wrap.class-math .page .question {}
+.wrap.class-math .page .question .select-box {}
+.wrap.class-math .page .question .select-box .select {
+    width: 150px;
+    height: 32px;
+    font-size: 14px;
+}
+/*s 220729 수정*/
+.wrap.class-math .page .question .select-box.wide .select {
+    width: 120px;
+    height: 63px;
+    font-size: 20px;
+    position: absolute;
+}
+/*e 220729 수정*/
+
+
+
+
+
+/*초등 영어*/
+
+/*s 220729 수정*/
+.wrap.class-english .page .question .select-box .select {
+    width: 150px;
+    height: 32px;
+    font-size: 14px;
+    position: absolute;
+}
+
+.wrap.class-english .page .question .select-box .select-eng-12 {
+    width: 150px;
+    height: 32px;
+    left: 48.7%;
+    top: 84%;
+    font-size: 14px;
+    position: absolute;
+}
+/*e 220729 수정*/
+
+
+.wrap.class-english .page .question .answer-input-type input.blank {
+    width: 50px;
+    height: 50px;
+    font-size: 28px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+
+.wrap.class-english .page .chat-box {
+    position: absolute;
+    width: 480px;
+    height: 50px;
+    border-radius: 10px;
+}
+.wrap.class-english .page .chat-box.chat-box1 {
+    right: 80px;
+    bottom: 40px;
+    background: #00b0f0;
+}
+.wrap.class-english .page .chat-box.chat-box2 {
+    left: 80px;
+    bottom: 150px;
+    background: #ffdf7a;
+}
+.wrap.class-english .page .chat-box.chat-box3 {
+    right: 80px;
+    top: 230px;
+    background: #00b0f0;
+}
+/*s 220729 수정 -> 기존 paper.css 506~535라인 */
+.wrap.class-english .page .chat-box::before {
+    content: '';
+    width: 70px;
+    height: 50px;
+    background: url(../img/test/bubble_b.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: absolute;
+    right: -66px;
+    z-index: 10;
+}
+
+.wrap.class-english .page .chat-box::after {
+    content: 'B';
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    position: absolute;
+    right: -60px;
+    bottom: -50px;
+    font-size: 20px;
+}
+.wrap.class-english .page .chat-box.chat-box2::before {
+    content: '';
+    width: 70px;
+    height: 50px;
+    background: url(../img/test/bubble_y.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: inline-block;
+    position: absolute;
+    left: -66px;
+}
+/*e 220729 수정 -> 기존 paper.css 506~535라인 */
+.wrap.class-english .page .chat-box.chat-box2::after {
+    content: 'A';
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    position: absolute;
+    left: -60px;
+    bottom: -50px;
+    font-size: 20px;
+}
+.wrap.class-english .page .drop-area .border {
+    bottom: 80px;
+    right: 90px;
+}
+.wrap.class-english .page .drop-area .border.wide {
+    display: inline-block;
+    width: 460px;
+    height: 34px;
+    cursor: pointer;
+    text-align: center;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.wrap.class-english .page .drop-area .border .drop {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #000;
+    position: absolute;
+}
+.wrap.class-english .page .drop-area .border.wide .drop:nth-child(1){
+    top: -230px;
+}
+.wrap.class-english .page .drop-area .border.wide .drop:nth-child(2){
+    top: -110px;
+    right: 295px;
+}
+
+/*중등영어*/
+
+/*s 220729 수정 -> 기존 paper.css 622~630 라인 */
+.wrap.class-english .page .question .answer-input-type input.blank2 {
+    width: 55px;
+    height: 20px;
+    font-size: 15px;
+    position: absolute;
+}
+/*e 220729 수정 -> 기존 paper.css 622~630 라인 */
+.wrap.class-english .page .question .answer-input-type input.blank3 {
+    width: 220px;
+    height: 20px;
+    font-size: 15px;
+    position: absolute;
+    bottom: 77px;
+    right: 324px;
+    text-align: center;
+}
+.wrap.class-english .page .question .answer-input-type input.blank4 {
+    width: 123px;
+    height: 35px;
+    font-size: 15px;
+    position: absolute;
+    bottom: 170px;
+    left: 387px;
+    text-align: center;
+}
+.wrap.class-english .page .question .answer-input-type input.blank6 {
+    width: 123px;
+    height: 30px;
+    font-size: 15px;
+    position: absolute;
+    bottom: 163px;
+    left: 390px;
+    text-align: center;
+}
+.wrap.class-english .page .question .answer-input-type input.blank7 {
+    position: absolute;
+    text-align: center;
+    width: 47px;
+    top: 154px;
+    right: 465px;
+}
+.wrap.class-english .page .question .answer-input-type input.blank8 {
+    position: absolute;
+    width: 50px;
+}
+.wrap.class-english .page .question .answer-input-type input.blank8:nth-child(1) {
+    right: 342px;
+    bottom: 22px;
+}
+.wrap.class-english .page .question .answer-input-type input.blank8:nth-child(2) {
+    bottom: 22px;
+    right: 217px;
+    width: 45px;
+}
+.wrap.class-english .page .question .answer-input-type input.blank9 {
+    position: absolute;
+    width: 100px;
+    top: 171px;
+    left: 612px;
+    text-align: center;
+}
+.wrap.class-english .page .question .answer-input-type input.blank10 {
+    position: absolute;
+    width: 50px;
+    text-align: center;
+}
+.wrap.class-english .page .question .answer-input-type input.blank10:nth-child(1) {
+    top: 607px;
+    right: 644px;
+}
+.wrap.class-english .page .question .answer-input-type input.blank10:nth-child(2) {
+    top: 607px;
+    right: 375px;
+}
+.wrap.class-english .page .question .answer-input-type input.blank11 {
+    position: absolute;
+    width: 125px;
+    text-align: center;
+}
+.wrap.class-english .page .question .answer-input-type input.blank11:nth-child(1) {
+    bottom: 115px;
+    left: 208px;
+}
+.wrap.class-english .page .question .answer-input-type input.blank11:nth-child(2) {
+    bottom: 18px;
+    right: 34px;
+    width: 120px;
+}
+.wrap.class-english .page .question .answer-input-type input.blank12 {
+    position: absolute;
+    width: 240px;
+    bottom: 155px;
+    right: 136px;
+    text-align: center;
+}
+.wrap.class-english .page .question .answer-input-type input.blank13 {
+    position: absolute;
+    width: 140px;
+    bottom: 61px;
+    left: 412px;
+}
+
+
+
+/*220715 추가*/
+/*중등사회*/
+.wrap.class-social .page .question .select-box .select {
+    width: 100px;
+    height: 32px;
+    font-size: 14px;
+}
+.wrap.class-social .page .question .img-box .drop {
+    display: inline-block;
+    height: 22px;
+    background: #fff;
+    vertical-align: bottom;
+    padding: 5px 0;
+    cursor: pointer;
+    position: absolute;
+
+}
+.wrap.class-social .page .question .text-box button {
+    font-weight: bold;
+}
+.wrap.class-social .page .question .text-box button.active {
+    background: rgb(205, 237, 125);
+}
+
+.wrap.class-social .page .drop-area-type02 {
+    display: grid;
+    grid-template-columns: repeat(3, 285px);
+    gap: 20px;
+}
+.wrap.class-social .page .drop-area-type02 .drop {
+    width: 270px;
+    height: 200px;
+}
+.wrap.class-social .page .drop-area-type02 .drop + .drop::before {
+    display: none;
+}
+.wrap.class-social .page .drop-area-type02 .drop em {
+    position: absolute;
+    left: 0; top: 0;
+    text-decoration: none;
+}
+.wrap.class-social .page .answer-drag-type .btn-img {
+    display: grid;
+    grid-template-columns: repeat(3, 285px);
+    gap: 20px;
+    height: auto;
+}
+.wrap.class-social .page .question .select-box .select {
+    width: 70px;
+    height: 32px;
+    font-size: 14px;
+    position: absolute;
+}
+/*220715 추가*/
+
+
+
+/*220718 추가*/
+.page .question .textline .txt i {
+    display: contents;
+    font-style: normal;
+    font-size: 12px;
+    color: #666;
+}
+.page .answer-input-type.textline.t_left {
+    text-align: left;
+}
+
+.page .answer-input-type.textline .input_right {
+    text-align: right;
+}
+
+.wrap.class-math .page .answer-input-type.chkImg {
+    margin-left: 65px;
+    position: absolute;
+    top: 30px;
+    left: 180px;
+}
+.wrap.class-math .page .answer-input-type.chkImg li {
+    position: relative;
+    padding: 10px 0;
+    margin: 16px 0;
+}
+.wrap.class-math .page .drop-area-type02 .drop {
+    position: absolute;
+    left: 57%;
+    top: 51%;
+}
+.wrap.class-math .page .answer-drag-type .btn-img {
+    display: grid;
+    grid-template-columns: repeat(3, 285px);
+    gap: 20px;
+    height: auto;
+}
+
+/*220718 추가*/
+
+
+
+/*220719 추가*/
+/*고등수학*/
+
+/*s 220729 수정 -> 기존 paper.css 803~861 라인 */
+.wrap.class-math .page button.selectBox {
+    position:relative;
+    display:inline-block;
+    cursor:default;
+    text-align:left;
+    line-height: 30px;
+    clear:both;
+    color:#000;
+    background: #fff;
+    border-radius: 5px;
+    border: 2px solid #000;
+}
+.wrap.class-math .page button.selectBox:focus {
+    border: 2px solid #1e90ff;
+}
+.wrap.class-math .page .selectBox {
+    position:relative;
+    display:inline-block;
+    cursor:default;
+    text-align:left;
+    line-height: 30px;
+    clear:both;
+    color:#000;
+    background: #fff;
+    border-radius: 5px;
+    border: 2px solid #000;
+}
+.wrap.class-math .page .selectBox.active {
+    border: 2px solid #1e90ff;
+}
+.wrap.class-math .page span.selected {
+    width: 70px;
+    text-indent: 5px;
+    border-right:none;
+    overflow:hidden;
+    line-height: 30px;
+}
+.wrap.class-math .page span.selectArrow {
+    width: 20px;
+    text-align:center;
+    font-size:10px;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    border-left: 0;
+}
+
+.wrap.class-math .page span.selectArrow,span.selected {
+    position:relative;
+    float:left;
+    height:30px;
+    z-index:1;
+}
+
+.wrap.class-math .page span.selectOptions {
+    position:absolute;
+    top:31px;
+    left:0;
+    width: 90px;
+    border:1px solid #ccc;
+    border-bottom-right-radius:5px;
+    border-bottom-left-radius:5px;
+    overflow:hidden;
+    padding-top:2px;
+    display:none;
+    background: #fff;
+}
+
+.wrap.class-math .page span.selectOption {
+    display:block;
+    width: 70%;
+    line-height:20px;
+    padding:5px 10px;
+}
+.wrap.class-math .page .select-wrap .selectOption:nth-child(1) {
+    pointer-events: none; background-color: #eee;
+}
+.wrap.class-math .page .select-wrap.wide button.selectBox,
+.wrap.class-math .page .select-wrap.wide span.selected  {
+    line-height: 50px;
+    text-align: center;
+}
+/*e 220729 수정 -> 기존 paper.css 803~861 라인*/
+
+
+.wrap.class-math .page span.selectOption:hover {
+    background:#f6f6f6;
+}
+.wrap.class-math .select-wrap div.selectBox {
+    line-height: 50px !important;
+}
+.wrap.class-math .select-wrap span.selected {
+    height: 50px;
+}
+.wrap.class-math .select-wrap span.selectArrow, .wrap.class-math .select-wrap span.selected {
+    height: 50px !important;
+}
+.wrap.class-math .select-wrap span.selectOptions {
+    top: 50px !important;
+}
+.wrap.class-math .page .question .answer-input-type input.blank {
+    width: 53px;
+    height: 53px;
+    font-size: 28px;
+    text-align: center;
+}
+
+
+
+/*220721 추가*/
+/*.wrap.class-math .page .question .ui-drop-txt .drop {*/
+/*    display: inline-block;*/
+/*    width: 60px;*/
+/*    height: 25px;*/
+/*    border: 1px solid #000;*/
+/*    background: #fff;*/
+/*    vertical-align: bottom;*/
+/*    padding: 7px 0;*/
+/*    cursor: pointer;*/
+/*    position: absolute;*/
+/*}*/
+.wrap.class-math .page .question .ui-drop-txt.type01 .drop {
+    position: absolute;
+}
+.wrap.class-math .page .question .ui-drop-txt.type01 .drop:nth-child(1) {
+    top: 5px;
+    left: 228px;
+}
+.wrap.class-math .page .question .ui-drop-txt.type01 .drop:nth-child(2) {
+    top: 5px;
+    left: 356px;
+}
+.wrap.class-math .page .question .ui-drop-txt.type01 .drop:nth-child(3) {
+    top: 5px;
+    left: 490px;
+}
+
+/*220721 추가*/
+.page .answer-input-type.textline.t_center {
+    text-align: center;
+    margin: 0;
+}
+
+/*220727 추가 고등영어*/
+.wrap.class-english .page .question .img-box .drop {
+    display: inline-block;
+    height: 20px;
+    border: 1px solid #000;
+    background: #fff;
+    vertical-align: bottom;
+    padding: 10px 0;
+    cursor: pointer;
+    position: absolute;
+}
+.wrap.class-english .page .question .img-box .drop.type01 {
+    display: inline-block;
+    width: auto;
+    min-width: 190px;
+    min-height: 25px;
+    height: auto;
+    right: 172px;
+    bottom: 35px;
+    position: absolute;
+    text-align: left;
+    padding: 10px;
+}
+
+.wrap.class-english .page .drop-area .border.large {
+    width: 918px;
+}
+.wrap.class-english .page .drop-area .large .drop {
+    height: 85px;
+    left: 85px;
+}
+.wrap.class-english .page .drop-area .large .drop:nth-child(1) {
+    position: absolute;
+    bottom: 203px;
+}
+.wrap.class-english .page .drop-area .large .drop:nth-child(2) {
+    position: absolute;
+    bottom: 89px;
+}
+.wrap.class-english .page .drop-area .large .drop:nth-child(3) {
+    position: absolute;
+    bottom: -25px;
+}
+
+
+/*220727 고등수학*/
+.wrap.class-math .page .question .img-box .drop.type01 {
+    width: 90px;
+    min-height: 25px;
+    height: auto;
+    padding: 0;
+}
+.wrap.class-math .page .question .img-box .drop.type01:nth-child(1) {
+    top: 66px;
+    left: 484px;
+}
+.wrap.class-math .page .question .img-box .drop.type01:nth-child(2) {
+    top: 300px;
+    left: 410px;
+}
+.wrap.class-math .page .question .img-box .drop.type01:nth-child(3) {
+    top: 368px;
+    left: 352px;
+}
+.wrap.class-math .page .question .img-box .drop.type02 {
+    width: 90px;
+    min-height: 25px;
+    height: auto;
+    padding: 0;
+}
+.wrap.class-math .page .question .img-box .drop.type02:nth-child(1) {
+    top: 223px;
+    left: 325px;
+}
+.wrap.class-math .page .question .img-box .drop.type02:nth-child(2) {
+    top: 223px;
+    left: 573px;
+}
+
+
+/*220728 중등사회*/
+.wrap.class-social .page .question .answer-input-type input.blank {
+    width: auto;
+    height: 20px;
+    font-size: 15px;
+    position: absolute;
+    text-align: center;
+}
+
+.wrap.class-social .page .drop-area-type02.push .drop {
+    width: auto;
+    height: auto;
+    min-width: 100px;
+    min-height: 50px;
+    position: absolute;
+}
+.wrap.class-social .page .answer-drag-type .btn-img.ml0 li + li {
+    margin-left: 0;
+}
+.wrap.class-social .page .drop em {
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-decoration: none;
+}
+.wrap.class-social .page .answer-input-type li label {
+    height: auto;
+    min-height: 20px;
+}
+.wrap.class-social .page .question .text-box.underline button {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+
+
+/*220729 공통 */
+
+select {
+    border: 2px solid #000;
+    color: #000;
+    background: url(../img/test/icon_arrow_bottom.gif) no-repeat 95% 50%;
+    background-color: #ffffff;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 4px;
+    padding-left: 5px;
+}
+/* select:focus {
+    border: 2px solid #1e90ff;
+    outline: none;
+} */
+/* .page .answer-input-type input[type=text] {
+    padding-left: 5px;
+} */
+/*s 220729 수정*/
+.page .answer-input-type input.modify {
+    width: 55px !important;
+    padding-left: 2px;
+}
+.page .answer-input-type input.modify::placeholder {
+    font-weight: bold;
+    color: #000;
+}
+
+
+/*e 220729 수정*/
+
+
+
+
+
+/*s 220802 텍스트 박스 안 셀렉트 박스*/
+.wrap.class-math .page .question .text-box .select-box {
+    display: inline-block;
+}
+.wrap.class-math .page .question .text-box .select-box .select {
+    width: 100px;
+}
+.wrap.class-math .page .question .text-box .selectBox {
+    width: 100px;
+    font-size: 14px;
+    height: 32px;
+    vertical-align: text-top;
+}
+.wrap.class-math .page .text-box span.selected {
+    width: 74px;
+    line-height: 30px;
+}
+.wrap.class-math .page .text-box span.selected img {
+    margin-bottom: 5px;
+}
+.wrap.class-math .page .text-box span.selectOptions {
+    width: 95px;
+}
+.wrap.class-math .page .text-box span.selectArrow, .wrap.class-math .page .text-box span.selected {
+    border: none;
+}
+
+.wrap.class-math .page .text-box .selectBox .selectOption:nth-child(1) {
+    pointer-events: none;
+}
+.wrap.class-math .page .text-box span.selectOption:hover {
+    background:#1e90ff;
+}
+.wrap.class-math .page .question .answer-input-type input.blank {
+    width: 52px;
+    height: 47px;
+    font-size: 28px;
+    text-align: center;
+}
+/*e 220802 텍스트 박스 안 셀렉트 박스*/
+
+.wrap.class-math .page .question .answer-input-type.type01 {
+    position: absolute; top: 57%; left: 49.3%; margin: 0;
+}
+.wrap.class-math .page .question .answer-input-type.type01 .blank {
+    margin-right: 31px;
+}
+.wrap.class-english .page .question .answer-input-type input.blank.blue {
+    color: #3b7af6;
+}
+.wrap.class-english .page .question .answer-input-type input.blank5 {
+    width: 80px;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.wrap.class-math .page .question .answer-input-type.type01 {
+    position: absolute; top: 57%; left: 49.33%; margin: 0;
+}
+.wrap.class-math .page .question .answer-input-type.type01 .blank {
+    margin-right: 31px;
+}
+.wrap.class-english .page .question .answer-input-type input.blank.blue {
+    color: #3b7af6;
+}
+.wrap.class-english .page .question .answer-input-type input.blank5 {
+    width: 80px;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+}
+
+/*2차 중등과학 추가*/
+/*test02-class2-science*/
+.wrap.class-science .page .answer-input-type.chkImg {
+    margin-left: 120px;
+    position: absolute;
+    bottom: 8px;
+}
+.wrap.class-science .page .answer-input-type.chkImg li {
+    position: relative;
+    padding: 10px 0;
+    margin: 28px 0;
+}
+.wrap.class-science .page .question .select-box .select {
+    width: auto;
+    min-width: 100px;
+    height: 32px;
+    font-size: 14px;
+    position: absolute;
+}
+.wrap.class-science .page .question .select-box.type01 .select:nth-child(1) {
+    width: 160px; left: 46%; bottom: 32.5%;
+}
+.wrap.class-science .page .question .select-box.type01 .select:nth-child(2) {
+    width: 160px; left: 43%; bottom: 18.5%;
+}
+.wrap.class-science .page .question .select-box.type01 .select:nth-child(3) {
+    width: 160px; left: 38%; bottom: 0%;
+}
+.wrap.class-science .page .answer-drag-type .btn-img {
+    display: grid;
+    grid-template-columns: repeat(1, 95%);
+    gap: 20px;
+    height: auto;
+}
+.wrap.class-science .page .drop-area-type02 .drop.type01 {
+    position: absolute;
+    width: 90%;
+    height: 50px;
+    bottom: 47%;
+    left: 5%;
+}
+
+.wrap.class-science .page .answer-drag-type .btn-img li + li {
+    margin-left: 0;
+}
+.wrap.class-science .page .question .answer-input-type input.blank {
+    width: auto;
+    min-width: 40px;
+    height: 30px;
+    text-align: center;
+    border: 1px solid #000;
+    border-radius: 3px;
+}
+
+.wrap.class-science .page .question .text-box button.active {
+    background: rgb(205, 237, 125);
+}
+
+
+/*2회차 중등사회*/
+/*test02-class2-class-social*/
+.wrap.class-social .page .question .ui-drop-txt .drop {
+    display: inline-block;
+    height: 22px;
+    background: #fff;
+    vertical-align: bottom;
+    padding: 5px 0;
+    cursor: pointer;
+    position: absolute;
+}
+
+.wrap.class-social .page .question .ui-drop-txt.type01 .drop:nth-child(1) {
+    width: 850px; top: 135px; left: 10px;
+}
+.wrap.class-social .page .question .ui-drop-txt.type01 .drop:nth-child(2) {
+    width: 850px; top: 213px; left: 10px;
+}
+.wrap.class-social .page .question .ui-drop-txt.type01 .drop:nth-child(3) {
+    width: 850px; top: 292px; left: 10px;
+}
+.wrap.class-social .page .question .ui-drop-txt.type03 {
+    margin-left: 0;
+    position: relative;
+}
+.wrap.class-social .page .question .ui-drop-txt.type03 .drop {
+    width: 477px; height: 56px;
+    border: 1px solid #000; padding: 5px 0 5px 25px;
+}
+.wrap.class-social .page .question .ui-drop-txt.type03 .drop:nth-child(1) {
+    left: 211px; bottom: 0;
+    width: 478px; height: 57px;
+}
+.wrap.class-social .page .question .ui-drop-txt.type03 .string {
+    position: absolute;
+    bottom: 44px;left: 212px;
+    text-decoration: none;
+}
+.wrap.class-social .page .question .ui-drop-txt.type04 .drop {
+    width: 136px;
+    top: 26px;
+    left: 502px;
+    border: 1px solid #000;
+}
+.wrap.class-social .page .question .ui-drop-txt.type05 .drop {
+    width: 343px;
+    top: 82px;
+    left: 260px;
+    border: 1px solid #000;
+}
+
+.wrap.class-social .answer-input-type input.blank {
+    width: auto;
+    height: 20px;
+    font-size: 15px;
+    position: absolute;
+    text-align: center;
+}
+.wrap.class-social .answer-input-type input.blank.blank01 {
+    width: 305px !important; top: 84px; left: 290px;
+}
+
+.wrap.class-social .answer-input-type input.blank.blank02 {
+    width: 305px; top: 84px; left: 290px;
+}
+.wrap.class-social .answer-input-type input.blank.blank03 {
+    width: 390px !important; top: 130px; left: 286px;
+}
+
+
+.wrap.class-social .page .drop-area-type02.push {
+    display: flex; margin-top: 10px;
+}
+/* .wrap.class-social .page .drop-area-type02.push.ui-drop-img {
+   display: flex; margin-top: 0;
+}  */
+.wrap.class-social .page .drop-area-type02.push img {
+    margin: 0 auto;
+}
+.wrap.class-social .page .drop-area-type02.push .drop {
+    width: auto;
+    height: auto;
+    min-width: 100px;
+    min-height: 50px;
+    position: absolute;
+}
+.wrap.class-social .page .drop-area-type02.push .drop.drop01 {
+    width: 326px; height: 176px; top: 40.8%; left: 32.3%; border-radius: 10px;
+}
+
+.wrap.class-social .page .drop-area-type02.push .drop.drop02 {
+    width: 237px; height: 177px; left: 24%; top: 33%;}
+
+.wrap.class-social .page .drop-area-type02.push .drop.drop03 {
+    width: 237px; height: 177px; left: 50%; top: 33%;
+}
+.wrap.class-social .page .drop-area-type02.push .drop.drop04 {
+    width: 500px; min-height: 159px; left: 22.7%; top: 78%; background: #fff;
+}
+.wrap.class-social .page .answer-drag-type .btn-img.ml0 li + li {
+    margin-left: 0;
+}
+.wrap.class-social .page .drop em {
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-decoration: none;
+}
+.wrap.class-social .page .answer-input-type li label {
+    height: auto;
+    min-height: 20px;
+}
+.wrap.class-social .page .question .text-box.underline button {
+    font-weight: bold;
+    text-decoration: underline;
+}
+.wrap.class-social .page .question .select-box.type01 .select {
+    width: 400px;
+    height: 32px;
+    font-size: 14px;
+    position: absolute;
+    top: 400px;
+    left: 220px;
+}
+
+.wrap.class-social .page .question .select-box.type02 .select {
+    width: 285px;
+    height: 32px;
+    font-size: 14px;
+    position: absolute;
+}
+.wrap.class-social .page .question .select-box.type02 .select:nth-child(1){
+    top: 18.5%;
+    left: 34%;
+}
+.wrap.class-social .page .question .select-box.type02 .select:nth-child(2){
+    top: 49.5%;
+    left: 34%;
+}
+.wrap.class-social .page .question .select-box.type02 .select:nth-child(3){
+    top: 80.5%;
+    left: 34%;
+}
+
+.wrap.class-social .page .question .answer-input-type input.fixblank {
+    width: auto;
+    height: 30px;
+    text-align: center;
+    border: 1px solid #000;
+    border-radius: 3px;
+    font-size: 14px;
+}
+.wrap.class-social .page .answer-drag-type .btn-text.ui-drag-txt.type03 {
+    flex-wrap: wrap; gap:15px;
+}
+.wrap.class-social .page .answer-drag-type .btn-img.ui-drag-img.type03 {
+    grid-template-columns: repeat(2, 235px);
+}
+.wrap.class-social .page .answer-drag-type .btn-img.ui-drag-img.type03 li + li {
+    margin-left: 0;
+}
+
+
+/*2회차 초등수학*/
+.wrap.class-math .page .question .ui-drop-txt.type04 .drop:nth-child(1) {
+    top: 109px;
+    left: 403px;
+}
+.wrap.class-math .page .question .ui-drop-txt.type04 .drop:nth-child(2) {
+    top: 180px;
+    left: 403px;
+}
+
+.wrap.class-math .page .question .ui-drop-txt.type03 .drop:nth-child(1) {
+    top: 39px;
+    left: 365px;
+}
+.wrap.class-math .page .question .ui-drop-txt.type03 .drop:nth-child(2) {
+    top: 4px;
+    left: 437px;
+}
+.wrap.class-math .page .question .ui-drop-txt.type03 .drop:nth-child(3) {
+    top: 75px;
+    left: 437px;
+}
+
+.wrap.class-math .page .question .ui-drop-txt.type05 .drop{
+    top: 95px;
+    right: 105px;
+    width: 90px;
+}
