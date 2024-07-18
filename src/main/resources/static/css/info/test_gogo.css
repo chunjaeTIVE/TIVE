@@ -1,0 +1,103 @@
+#wrap{
+    width: 100%;
+    height: 110vh;
+    background-color: #46B1B7;
+    position: relative;
+    font-family: omyu_pretty;
+}
+
+.gogo_wrap{
+    align-content: center;
+    text-align: center;
+    font-weight: bold;
+    top: 15vh;
+    position: relative;
+    background-color: white;
+    width: 45vw;
+    margin: 0 auto;
+    padding: 2vw 3vw;
+    border-radius: 4vw;
+    z-index: 5;
+}
+
+.gogo_wrap h2{
+    font-size: 40px;
+    font-weight: bold;
+    color: #46B1B7;
+    padding: 25px 0px;
+}
+
+.gogo_wrap span{
+    font-size: 23px;
+    color: #757575;
+    line-height: 30px;
+    font-weight: normal;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 20px;
+    margin: 30px 0;
+    border-radius: 30px 30px 0 0;
+    overflow: hidden;
+}
+
+thead {
+    background-color: rgba(70, 177, 183, 0.5);
+    color: #3b434a;
+}
+
+thead th {
+    padding: 13px;
+}
+
+tbody td {
+    padding: 13px;
+    border-bottom: 1px solid #ddd;
+    color: #3b434a;
+}
+
+tbody td a {
+    color: #46B1B7;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.test_guide{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    text-align: center;
+    align-items: center;
+}
+.test_guide1{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.testgo{
+    background-color: #FFCE99;
+    border-radius: 30px;
+    padding: 7px 15px;
+    font-size: 16px;
+    margin-right: 10px;
+}
+.retry{
+    background-color: #FF7DAB;
+    border-radius: 30px;
+    padding: 7px 15px;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.result_btn{
+    margin-top: 40px;
+    display: inline-block;
+    background-color: #46B1B7;
+    border-radius: 30px;
+    color: white;
+    font-size: 25px;
+    padding: 10px 25px;
+}

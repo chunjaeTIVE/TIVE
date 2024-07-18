@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/info/cbt_test.css}">
+    <link rel="stylesheet" th:href="@{/css/info/bg_template.css}">
+
+</head>
+<body>
+    <div id="wrap">
+        <img class="top_deco" th:src="@{/img/index/sea_light.png}" th:alt="바다빛">
+
+            <div class="cbt_wrap">
+                <h2>CBT대표 유형 테스트</h2>
+                <p class="cbt1">아래의 내용을 확인한 후, [시험 시작] 버튼을 클릭하면 시험이 시작됩니다.</p>
+                <p class="cbt2">해당 테스트는 CBT 기능과 문제 유형을 연습하기 위한 목적으로,<br>
+                    <span>정답 확인 및 풀이 결과를 제공하지 않습니다.</span>
+                </p>
+                <div class="cbt_guide">
+                    <ul class="cbt_guide1">
+                        <p>꼬옥 확인하세요.</p>
+                        <li>동영상, 듣기 내용은 <span>한 번만</span> 들려주는 문항이 있습니다. 잘 청취하도록 유의 바랍니다.</li>
+                        <li>헤드셋 혹은 이어폰을 착용해 주시기 바랍니다.</li>
+                    </ul>
+                    <a th:href="@{/test}"><div class="testbtn">시험시작</div></a>
+                </div>
+            </div>
+        
+        <img class="bubble_left" th:src="@{/img/index/bubble2.png}" th:alt="버블2">
+        <img class="bubble_right" th:src="@{/img/index/bubble1.png}" th:alt="버블1">
+
+        <div class="coral_reef">
+            <img class="coral_reef_item" th:src="@{/img/index/coral_reef_left.png}" th:alt="산호초_좌" draggable="false">
+            <img class="coral_reef_item" th:src="@{/img/index/coral_reef_right.png}" th:alt="산호초_우" draggable="false">
+        </div>
+
+        <img class="bottom_deco" th:src="@{/img/index/sea_sand.png}" th:alt="모래바닥" draggable="false">
+
+    </div>
+</body>
+</html>

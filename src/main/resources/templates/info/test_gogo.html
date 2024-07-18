@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/info/test_gogo.css}">
+    <link rel="stylesheet" th:href="@{/css/info/bg_template.css}">
+
+</head>
+<body>
+    <div id="wrap">
+        <img class="top_deco" th:src="@{/img/index/sea_light.png}" th:alt="바다빛">
+            <div class="gogo_wrap">
+                <h2>시험 시간표 및 시험응시</h2>
+                <span>교시별 시험 과목을 확인하고 우측의 [응시하기] 버튼을 클릭하여 주시기 바랍니다.<br>
+                    과목별 응시 순서는 사용자가 선택할 수 있으며 재응시 횟수에는 제한은 없습니다.</span>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>교시</th>
+                            <th>과목</th>
+                            <th>시험시간</th>
+                            <th>문항수</th>
+                            <th><a>응시하기</a></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1교시</td>
+                            <td>국어</td>
+                            <td>응시 시각으로부터 40분</td>
+                            <td>24문항</td>
+                            <td><a>응시하기</a></td>
+                        </tr>
+                        <tr>
+                            <td>2교시</td>
+                            <td>영어</td>
+                            <td>응시 시각으로부터 40분</td>
+                            <td>24문항</td>
+                            <td><a>응시하기</a></td>
+                        </tr>
+                        <tr>
+                            <td>3교시</td>
+                            <td>수학</td>
+                            <td>응시 시각으로부터 40분</td>
+                            <td>24문항</td>
+                            <td><a>응시하기</a></td>
+                        </tr>
+                        <tr>
+                            <td>4교시</td>
+                            <td>사회</td>
+                            <td>응시 시각으로부터 40분</td>
+                            <td>24문항</td>
+                            <td><a>응시하기</a></td>
+                        </tr>
+                        <tr>
+                            <td>5교시</td>
+                            <td>과학</td>
+                            <td>응시 시각으로부터 40분</td>
+                            <td>24문항</td>
+                            <td><a>응시하기</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="test_guide">
+                    <div class="test_guide1"><div class="testgo">응시하기</div><p>시험을 응시할 수 있는 상태</p></div>
+                    <div class="test_guide1"><div class="retry">재응시</div><p>시험을 재응시 할 수 있는 상태</p></div>
+                </div>
+                <a><div class="result_btn">결과보기</div></a>
+            </div>
+
+
+        <img class="bubble_left" th:src="@{/img/index/bubble2.png}" th:alt="버블2">
+        <img class="bubble_right" th:src="@{/img/index/bubble1.png}" th:alt="버블1">
+
+        <div class="coral_reef">
+            <img class="coral_reef_item" th:src="@{/img/index/coral_reef_left.png}" th:alt="산호초_좌" draggable="false">
+            <img class="coral_reef_item" th:src="@{/img/index/coral_reef_right.png}" th:alt="산호초_우" draggable="false">
+        </div>
+
+        <img class="bottom_deco" th:src="@{/img/index/sea_sand.png}" th:alt="모래바닥" draggable="false">
+
+    </div>
+</body>
+</html>
