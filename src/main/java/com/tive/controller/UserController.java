@@ -19,7 +19,10 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/login")
-    public String login(Model model){
+    public String login(@RequestParam(value = "error", required = false) String error, Model model){
+        if (error!=null){ //로그인 정보 잘못 입력했을 때
+            model.addAttribute("errorMessage", "로그인 정보가 잘못되었습니다.");
+        }
         model.addAttribute("view","user/login");
         return "index";
     }

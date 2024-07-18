@@ -1,0 +1,14 @@
+.login_wrap {
+    padding-top: 50px;
+}
+.input-group {
+    display: flex;
+    align-items: center;
+}
+.input-group i {
+    margin-right: 10px;
+}
+
+.pointer {
+    cursor: pointer;
+}
