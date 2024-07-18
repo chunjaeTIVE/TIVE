@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     // IT09 - 단답 (textarea)
     let textareaTemp = [];
-    let textareas = document.getElementsByName('textarea');
+    let textareas = document.querySelectorAll('.question textarea');
 
     textareas.forEach(textarea => {
         textarea.addEventListener('change', function () {
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 단답 - text
     let textTemp = [];
-    let texts = document.querySelectorAll('.answer-input-type input[type="text"]');
+    let texts = document.querySelectorAll('.question input[type="text"]');
 
     texts.forEach(text => {
         text.addEventListener('change', function () {
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // IT02(체크박스)
     let checkboxTemp = [];
-    let checkboxes = document.querySelectorAll('.answer-input-type input[type="checkbox"]');
+    let checkboxes = document.querySelectorAll('.question input[type="checkbox"]');
 
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', function () {
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // IT01(라디오버튼)
     let radioTemp = [];
-    let radios = document.querySelectorAll('.answer-input-type  input[type="radio"]');
+    let radios = document.querySelectorAll('.question input[type="radio"]');
 
     radios.forEach(radio => {
         radio.addEventListener('change', function () {
@@ -180,6 +180,43 @@ document.addEventListener('DOMContentLoaded', function () {
                 //console.log("0 보다 크지 않음")
             }
             console.log("select : ",selectTemp);
+        });
+    });
+
+    //IT02 (버튼)
+    let buttonTemp = [];
+    let btns = document.querySelectorAll('.text-box button');
+    btns.forEach((btn,index)=>{
+        btn.addEventListener('click',function (e) {
+            //console.log(e.target.textContent);
+            e.target.classList.toggle('btn-ans');
+            let ancestor = $(this).closest('.swiper-slide').find('input[type="hidden"]').prop('id');
+            console.log(ancestor);
+            let answer = [ancestor];
+            let siblings = e.target.parentElement.children;
+            for(let s=0; s<siblings.length; s++){
+                if(siblings[s] === e.target){
+                    //console.log("yes : ",s);
+                    //answer = [...answer,[s+1]];
+                    answer.splice(answer.length,0,s+1);
+                }
+            }
+            console.log(e.target.classList.length);
+            if(e.target.classList.length>0){
+                buttonTemp = [...buttonTemp, answer];
+            } else {
+                if(buttonTemp.length>0){
+                    for(let i=0; i < buttonTemp.length; i++) {
+                        if (buttonTemp[i][0] === ancestor && buttonTemp[i][1] === answer[1]) {
+                            buttonTemp.splice(i,1);
+                            break;
+                        }
+                    }
+                }
+            }
+            //console.log(answer);
+            console.log(`click: ${index + 1} in exam, ${answer[1]} in question`);
+            console.log("button : ",buttonTemp);
         });
     });
 
