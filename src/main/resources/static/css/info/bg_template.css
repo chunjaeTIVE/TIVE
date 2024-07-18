@@ -1,0 +1,63 @@
+.top_deco{ /* 위에 물결 장식 */
+    width: 100%;
+    height: 40%;
+    position: absolute;
+    top: 0;
+}
+
+.bubble_left{ /*왼쪽 거품*/
+    width: 8vw;
+    display: block;
+    position: absolute;
+    z-index: 1;
+    left: 6vw;
+    bottom: -5vh;
+    animation: move_up 10s infinite ease-in-out;
+    animation-delay: 2s; /*2초 지연*/
+}
+
+.bubble_right{ /*오른쪽 거품*/
+    width: 5vw;
+    display: block;
+    position: absolute;
+    z-index: 1;
+    right: 6vw;
+    bottom: -5vh;
+    animation: move_up 10s infinite ease-in-out;
+}
+
+@keyframes move_up { /* 위로 올라가는 공기방울 애니메이션 */
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-105vh);
+        opacity: 0;
+    }
+}
+
+
+/* 바다 바닥 장식 */
+.bottom_deco{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    z-index: 2;
+    height: 10%;
+}
+
+.coral_reef{ /*산호초 영역*/
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.coral_reef_item{ /*산호초 좌,우 아이템*/
+    width: 20vw;
+    position: relative;
+    top: -1vw;
+}
