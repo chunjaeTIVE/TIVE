@@ -10,9 +10,9 @@
 
     <div class="beach">
         <div class="sand_deco">
-            <img class="sand_left" th:src="@{img/index/sand_deco_left.png}" th:alt="모래장식_좌">
+            <img class="sand_left" th:src="@{/img/index/sand_deco_left.png}" th:alt="모래장식_좌">
             <h1>학업 성취도 평가 <br> 대비는 타이브에서!</h1>
-            <img class="sand_right" th:src="@{img/index/sand_deco_right.png}" th:alt="모래장식_우">
+            <img class="sand_right" th:src="@{/img/index/sand_deco_right.png}" th:alt="모래장식_우">
         </div>
 
         <div class="sand"></div>
@@ -23,7 +23,7 @@
 
     <div class="ocean">
 
-        <img class="top_deco" th:src="@{img/index/sea_light.png}" th:alt="바다빛">
+        <img class="top_deco" th:src="@{/img/index/sea_light.png}" th:alt="바다빛">
         <h1>온라인 학업 성취도 평가</h1>
 
         <div class="info_menu">
@@ -57,21 +57,21 @@
             </div>
         </div>
 
-        <img class="fish5" th:src="@{img/index/five_fish.png}" th:alt="물고기들">
+        <img class="fish5" th:src="@{/img/index/five_fish.png}" th:alt="물고기들">
 
         <div class="coral_reef">
-            <img class="coral_reef_item" th:src="@{img/index/coral_reef_left.png}" th:alt="산호초_좌" draggable="false">
-            <img class="coral_reef_item" th:src="@{img/index/coral_reef_right.png}" th:alt="산호초_우" draggable="false">
+            <img class="coral_reef_item" th:src="@{/img/index/coral_reef_left.png}" th:alt="산호초_좌" draggable="false">
+            <img class="coral_reef_item" th:src="@{/img/index/coral_reef_right.png}" th:alt="산호초_우" draggable="false">
         </div>
 
-        <img class="bubble_left" th:src="@{img/index/bubble2.png}" th:alt="버블2">
-        <img class="bubble_right" th:src="@{img/index/bubble1.png}" th:alt="버블1">
+        <img class="bubble_left" th:src="@{/img/index/bubble2.png}" th:alt="버블2">
+        <img class="bubble_right" th:src="@{/img/index/bubble1.png}" th:alt="버블1">
 
         <div class="notice_box">
-            <img id="fish" th:src="@{img/index/fish.png}" th:alt="공지사항_물고기">
+            <img id="fish" th:src="@{/img/index/fish.png}" th:alt="공지사항_물고기">
 
             <div id="notice_bubble_box">
-                <img id="notice_bubble" th:src="@{img/index/notice_bubble.png}" th:alt="공지사항_말풍선">
+                <img id="notice_bubble" th:src="@{/img/index/notice_bubble.png}" th:alt="공지사항_말풍선">
 
                 <div id="notice_slider">
                     <div class="slide" th:each="item: ${nList}">
@@ -84,10 +84,10 @@
                 </div>
                 <div id="slider_btn">
                     <div id="upBtn">
-                        <img class="arrow" id="up_arrow" th:src="@{img/index/arrow1.png}" th:alt="위_화살표">
+                        <img class="arrow" id="up_arrow" th:src="@{/img/index/arrow1.png}" th:alt="위_화살표">
                     </div>
                     <div id="downBtn">
-                        <img class="arrow" id="down_arrow" th:src="@{img/index/arrow1.png}" th:alt="아래_화살표">
+                        <img class="arrow" id="down_arrow" th:src="@{/img/index/arrow1.png}" th:alt="아래_화살표">
                     </div>
                 </div>
             </div>
@@ -100,12 +100,12 @@
         <!-- 팝업 -->
         <div class="popup">
             <span class="popup-close">
-                <img th:src="@{img/index/x_btn.png}" th:alt="팝업창_닫기">
+                <img th:src="@{/img/index/x_btn.png}" th:alt="팝업창_닫기">
             </span>
             <div class="popup-content"></div>
         </div>
 
-        <img class="bottom_deco" th:src="@{img/index/sea_sand.png}" th:alt="모래바닥" draggable="false">
+        <img class="bottom_deco" th:src="@{/img/index/sea_sand.png}" th:alt="모래바닥" draggable="false">
     </div>
 </div>
 
