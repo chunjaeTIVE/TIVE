@@ -12,8 +12,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
     <script th:src="@{/js/exam/getfile.js}"></script>
-    <script th:src="@{/js/exam/answerExtractor.js}"></script>
-    <script th:src="@{/js/exam/testtime.js}"></script>
+<!--    <script th:src="@{/js/exam/testtime.js}"></script>-->
     <script th:src="@{/js/exam/class.js}"></script>
     <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </head>
@@ -36,7 +35,7 @@
                 <span class="txt">남은<br>시간</span>
                 <span class="time-txt" id="timer">00:00</span>
             </div>
-            <a href="javascript:;" class="btn-submit">최종제출</a>
+            <a href="javascript:completeExam();" class="btn-submit">최종제출</a>
         </div>
     </div>
     <div class="container">
@@ -177,11 +176,15 @@
 
         // drag and drop
         let txt;
+        let element;
         $('.drag').on({
             //드래그 시작시 요소 id 저장
             'dragstart': function (e) {
                 txt = $(this).text();
-                $(this).css('border', 'solid 1px #ccc');
+                //$(this).css('border', 'solid 1px #ccc');
+                console.log(e.target);
+                console.log($(this).html());
+                element = $(this).html();
             },
             //드래그 종료
             'dragend': function (e) {
@@ -206,8 +209,11 @@
                 e.preventDefault();
             },
             'drop': function (e) {
-                $(this).append('<span class="txt">' + txt + '</span>')
                 e.preventDefault();
+                if(element.includes('<img src')){
+                    $(this).append(element);
+                }
+                $(this).append('<span class="txt">' + txt + '</span>');
                 let num = $(this).find('span').length;
                 let name = $(this).find('span').text();
 
@@ -223,6 +229,7 @@
                     let text = $(this).find('span').text();
                     let _idx = $(this).find('span').parents('.drop').index();
                     $(this).find('span').remove();
+                    $(this).find('img').remove();
                     $(".drag[data-name='" + text + "']").css('opacity', '1')
 
 
@@ -392,5 +399,6 @@
 
     })
 </script>
+<script th:src="@{/js/exam/answerExtractor.js}"></script>
 </body>
 </html>
