@@ -7,6 +7,24 @@ let buttonTemp = [];
 let hotspotTemp = [];
 let dragdropTemp = [];
 
+function completeExam() {
+    // console.log(textTemp);
+    // console.log(textareaTemp);
+    // console.log(selectTemp);
+    // console.log(checkboxTemp);
+    // console.log(radioTemp);
+    // console.log(buttonTemp);
+    // console.log(hotspotTemp);
+    // console.log(dragdropTemp);
+    let all = [textareaTemp,textTemp,selectTemp,radioTemp,buttonTemp,hotspotTemp,dragdropTemp];
+    let resultTemp = [].concat.apply([],all);
+    let studentAnswer = [];
+    for(let i=0; i<resultTemp.length; i++){
+        resultTemp.sort((a, b) => Number(a[0]) - Number(b[0]));
+    }
+    console.log("resultTemp :",resultTemp);
+    console.log("응답 개수 :", resultTemp.length);
+}
 function answerExtract(els, el) {
     //console.log(el.type);
     let ancestor = $(el).closest('.swiper-slide').find('input[type="hidden"]').prop('id');
@@ -14,12 +32,16 @@ function answerExtract(els, el) {
     let val = Array.from(els)
         .filter(el => {
             let condition;
-            if(el.type === 'text' || el.type === 'textarea' || el.type === 'select')
+            if(el.type === 'text' || el.type === 'textarea' || el.type.includes('select'))
                 condition = el;
             else
                 condition = el.checked;
-            if (condition && ancestor === $(el).closest('.swiper-slide').eq(0).prop('id'))
+            //console.log(condition);
+            if (condition && ancestor === $(el).closest('.swiper-slide').eq(0).prop('id')){
+                //console.log(el, el.value);
                 return true;
+            }
+
         })
         .map(el => el.value);
     return [ancestor, val];
@@ -181,45 +203,46 @@ document.addEventListener('DOMContentLoaded', function () {
     //     e.preventDefault();
     // })
     dropArea.forEach(drop=>{
-        drop.addEventListener('drop', function (e) {
-            e.preventDefault();
-            let ancestor = $(e.target).closest('.swiper-slide').find('input[type="hidden"]').prop('id');
-            console.log(ancestor);
-            let val = e.dataTransfer.getData('text/plain');
-            let answer = [ancestor, val];
-            let siblings = e.target.parentElement.children;
-            for(let s=0; s<siblings.length; s++){
-                if(siblings[s] === e.target){
-                    console.log("yes : ",s);
-                    answer.splice(answer.length,0,s+1);
-                }
-            }
-            console.log(answer);
-            if (dragdropTemp.length > 0) {
-                let i = 0;
-                while (i <= dragdropTemp.length) {
-                    if (i == dragdropTemp.length) {
-                        dragdropTemp.push(answer);
-                        break;
-                    } else if (dragdropTemp[i][0] === ancestor && dragdropTemp[i][2] === answer[2]) {
-                        dragdropTemp[i] = answer;
-                        //console.log("0보다 크고 if")
-                        break;
+        setTimeout(()=>{
+            drop.addEventListener('drop', function (e) {
+                e.preventDefault();
+                let ancestor = $(e.target).closest('.swiper-slide').find('input[type="hidden"]').prop('id');
+                console.log(ancestor);
+                //let val = e.dataTransfer.getData('text/plain');
+                let val = e.target.children[0].outerHTML;
+                let answer = [ancestor, val];
+                let siblings = e.target.parentElement.children;
+                for(let s=0; s<siblings.length; s++){
+                    if(siblings[s] === e.target){
+                        console.log("yes : ",s);
+                        answer.splice(answer.length,0,s+1);
                     }
-                    i++;
                 }
-            } else {
-                //dragdropTemp = [...dragdropTemp, answer];
-                dragdropTemp.push(answer);
-                //console.log("0 보다 크지 않음")
-            }
-            console.log("drop : ",dragdropTemp);
-        });
+                console.log(answer);
+                if (dragdropTemp.length > 0) {
+                    let i = 0;
+                    while (i <= dragdropTemp.length) {
+                        if (i == dragdropTemp.length) {
+                            dragdropTemp.push(answer);
+                            break;
+                        } else if (dragdropTemp[i][0] === ancestor && dragdropTemp[i][2] === answer[2]) {
+                            dragdropTemp[i] = answer;
+                            //console.log("0보다 크고 if")
+                            break;
+                        }
+                        i++;
+                    }
+                } else {
+                    //dragdropTemp = [...dragdropTemp, answer];
+                    dragdropTemp.push(answer);
+                    //console.log("0 보다 크지 않음")
+                }
+                console.log("drop : ",dragdropTemp);
+            });
+        },1000);
         drop.addEventListener('click',function (e) {
-            //console.log(e.target.textContent);
-            let val = e.target.textContent;
             for(let j=0; j<dragdropTemp.length; j++){
-                if(dragdropTemp[j][1] == val)
+                if(dragdropTemp[j][1].includes('span')||dragdropTemp[j][1].includes('img'))
                     dragdropTemp.splice(j,1);
             }
             console.log("dropcancel : ",dragdropTemp);

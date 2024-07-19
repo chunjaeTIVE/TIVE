@@ -45,7 +45,7 @@ public class ExamItemQueryDSLImpl implements ExamItemQueryDSL{
                         ,examItem.eid
                 )).from(questionItem)
                 .innerJoin(questionItem.questionToExam, examItem)
-                .where(examItem.eid.eq(36L))
+                .where(examItem.eid.eq(14L))
                 .fetch();
         return list;
     }
