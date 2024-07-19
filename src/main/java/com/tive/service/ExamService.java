@@ -8,5 +8,5 @@ import java.util.List;
 public interface ExamService {
     List<ExamDTO> findExamList();
 
-    List<QuestionDTO> findExam();
+    List<QuestionDTO> findExam(Long eid);
 }

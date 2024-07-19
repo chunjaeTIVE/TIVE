@@ -15,8 +15,9 @@ import static com.tive.domain.QQuestionItem.questionItem;
 
 @Repository
 @RequiredArgsConstructor
-public class ExamItemQueryDSLImpl implements ExamItemQueryDSL{
+public class ExamItemQueryDSLImpl implements ExamItemQueryDSL {
     private final JPAQueryFactory queryFactory;
+
     @Override
     public List<ExamDTO> findExamList() {
         List<ExamDTO> list = queryFactory.select(Projections.fields(ExamDTO.class
@@ -35,17 +36,17 @@ public class ExamItemQueryDSLImpl implements ExamItemQueryDSL{
     }
 
     @Override
-    public List<QuestionDTO> findExam() {
+    public List<QuestionDTO> findExam(Long eid) {
         List<QuestionDTO> list = queryFactory.select(Projections.fields(QuestionDTO.class
                         , questionItem.qid
                         , questionItem.qType
                         , questionItem.qContents
                         , questionItem.orderName
                         , examItem.examName
-                        ,examItem.eid
+                        , examItem.eid
                 )).from(questionItem)
                 .innerJoin(questionItem.questionToExam, examItem)
-                .where(examItem.eid.eq(36L))
+                .where(examItem.eid.eq(eid))
                 .fetch();
         return list;
     }
