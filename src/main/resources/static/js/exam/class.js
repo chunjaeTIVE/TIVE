@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded',(e)=>{
             ele.classList.add('ui-class3-math');
         }
         if(eid==='10'){
-            ele.classList.add('class1-social');
+            ele.classList.add('class-social');
             ele.classList.add('ui-class2-social');
         }
         if(eid==='11'){

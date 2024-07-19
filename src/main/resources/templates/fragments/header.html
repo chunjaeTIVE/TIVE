@@ -56,12 +56,15 @@
                             <a id="login_btn" th:href="@{/login}">로그인</a>
                         </th:block>
                         <th:block  sec:authorize="hasAnyRole('ADMIN','USER')">
-                           <!-- <span id="user_info" th:text="|${username} 님|" th:if="${#authentication.name}"></span>
-                            <a id="logout_btn" th:href="@{/logout}">로그아웃</a>-->
+
+                            <!-- <a id="logout_btn" th:href="@{/logout}">로그아웃</a>-->
                             <form th:action="@{/logout}" method="post">
                                 <!--    <input type="hidden" th:name="${_csrf.parameterName}"
                                                          th:value="${_csrf.token}">-->
-                                <button type="submit" id="logout_btn">로그아웃</button>
+                                <div class="user_box">
+                                    <span id="user_info" th:text="|${username} 님|" th:if="${#authentication.name}"></span>
+                                    <button type="submit" id="logout_btn">로그아웃</button>
+                                </div>
                             </form>
                         </th:block>
 

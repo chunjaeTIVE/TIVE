@@ -319,7 +319,7 @@
     overflow: hidden;
     height: 50px; /* 슬라이드 높이와 동일하게 설정 */
     width: 22vw;
-    top: 1.5vh;
+    top: 1.3vh;
 }
 
 .slide{ /*슬라이드 아이템*/

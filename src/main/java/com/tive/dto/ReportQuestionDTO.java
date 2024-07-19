@@ -9,8 +9,8 @@ import lombok.*;
 @Builder
 public class ReportQuestionDTO {
     private Long qid;
-    private Integer order;
-    private String contentArea;
+    private String orderName;
+    private String categoryName;
     private String answer;
     private String userAns;
     private Integer correct;

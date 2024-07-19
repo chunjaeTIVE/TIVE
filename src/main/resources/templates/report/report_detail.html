@@ -104,7 +104,6 @@
         <tr>
             <th>번호</th>
             <th>교과 영역</th>
-            <!--            <th>관련 단원</th>-->
             <th>정답</th>
             <th>본인 응답</th>
             <th>채점결과</th>
@@ -113,17 +112,33 @@
         </thead>
         <tbody>
         <tr th:each="item:${detailList}">
-            <td th:text="${item.order}"></td>
-            <td th:text="${item.contentArea}"></td>
+            <td th:text="${item.orderName}"></td>
+            <td th:text="${item.categoryName}"></td>
             <td th:text="${item.answer}"></td>
             <td th:text="${item.userAns}"></td>
-            <!--            <td th:text="${item.correct}"></td>-->
             <td th:if="${item.correct == 1}"><i
                     class="fa-regular fa-circle-check"></i></td>
             <td th:if="${item.correct == 0}"><i
                     class="fa-regular fa-circle-xmark"></i></td>
             <td th:text="|${item.avgAll}%|"></td>
         </tr>
+        </tbody>
+    </table>
+
+    <!--서답형 리스트-->
+    <h2>서답형</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>교과 영역</th>
+            <th>정답</th>
+            <th>본인 응답</th>
+            <th>채점결과</th>
+            <th>시험응시자<br>평균 정답률</th>
+        </tr>
+        </thead>
+        <tbody id="subjectivelist">
         </tbody>
     </table>
 </div>

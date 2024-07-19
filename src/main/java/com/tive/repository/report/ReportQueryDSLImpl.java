@@ -3,6 +3,7 @@ package com.tive.repository.report;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import static com.tive.domain.QQuestionCategory.*;
 import com.tive.dto.ReportExamDTO;
 import com.tive.dto.ReportQuestionDTO;
 import lombok.RequiredArgsConstructor;
@@ -54,8 +55,8 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
     public List<ReportQuestionDTO> getReportDetailList(Long utId) {
         List<ReportQuestionDTO> list = queryFactory.select(Projections.fields(ReportQuestionDTO.class
                         , questionItem.qid
-                        , questionItem.order
-                        , questionItem.contentArea
+                        , questionItem.orderName
+                        , questionCategory.categoryName
                         , questionItem.answer
                         , userAnswer.userAns
                         , userAnswer.correct)
@@ -63,12 +64,37 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
                 .from(userAnswer)
                 .innerJoin(questionItem)
                 .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid))
-                .where(userAnswer.uaToUt.utId.eq(utId))
+                .innerJoin(questionCategory)
+                .on(questionItem.contentArea.eq(questionCategory.categoryCode))
+                .where(userAnswer.uaToUt.utId.eq(utId).and(questionItem.orderName.startsWith("서답형").not()))
                 .orderBy(questionItem.order.asc())
                 .fetch();
 
         return list;
     }
+
+    @Override
+    public List<ReportQuestionDTO> getSubjectiveList(Long ut_id) {
+        List<ReportQuestionDTO> list = queryFactory.select(Projections.fields(ReportQuestionDTO.class
+                        , questionItem.qid
+                        , questionItem.orderName
+                        , questionCategory.categoryName
+                        , questionItem.answer
+                        , userAnswer.userAns
+                        , userAnswer.correct)
+                )
+                .from(userAnswer)
+                .innerJoin(questionItem)
+                .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid))
+                .innerJoin(questionCategory)
+                .on(questionItem.contentArea.eq(questionCategory.categoryCode))
+                .where(userAnswer.uaToUt.utId.eq(ut_id).and(questionItem.orderName.startsWith("서답형")))
+                .orderBy(questionItem.order.asc())
+                .fetch();
+
+        return list;
+    }
+
 
     @Override
     public List<Tuple> getAvgAll(Long eid) {
@@ -79,7 +105,26 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
                 )
                 .from(userAnswer)
                 .innerJoin(questionItem)
-                .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid).and(questionItem.questionToExam.eid.eq(eid)))
+                .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid)
+                        .and(questionItem.questionToExam.eid.eq(eid).and(questionItem.orderName.startsWith("서답형").not())))
+                .groupBy(questionItem.qid)
+                .orderBy(questionItem.order.asc())
+                .fetch();
+
+        return avg;
+    }
+
+    @Override
+    public List<Tuple> getSubjectiveAvgAll(Long eid) {
+        List<Tuple> avg = queryFactory
+                .select(questionItem.qid
+                        , userAnswer.correct.sum().divide(questionItem.qid.count())
+                                .multiply(100).round()
+                )
+                .from(userAnswer)
+                .innerJoin(questionItem)
+                .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid)
+                        .and(questionItem.questionToExam.eid.eq(eid).and(questionItem.orderName.startsWith("서답형"))))
                 .groupBy(questionItem.qid)
                 .orderBy(questionItem.order.asc())
                 .fetch();
@@ -126,13 +171,15 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
     @Override
     public List<Tuple> getContentRateAll(Long eid) {
         List<Tuple> rate = queryFactory
-                .select(questionItem.contentArea
+                .select(questionCategory.categoryName
                         , userAnswer.correct.sum().divide(questionItem.contentArea.count())
                                 .multiply(100).round()
                 )
                 .from(userAnswer)
                 .innerJoin(questionItem)
                 .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid).and(questionItem.questionToExam.eid.eq(eid)))
+                .innerJoin(questionCategory)
+                .on(questionItem.contentArea.eq(questionCategory.categoryCode))
                 .groupBy(questionItem.contentArea)
                 .fetch();
 
@@ -143,13 +190,15 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
     @Override
     public List<Tuple> getContentRateMe(Long ut_id) {
         List<Tuple> rate = queryFactory
-                .select(questionItem.contentArea
+                .select(questionCategory.categoryName
                         , userAnswer.correct.sum().divide(questionItem.contentArea.count())
                                 .multiply(100).round()
                 )
                 .from(userAnswer)
                 .innerJoin(questionItem)
                 .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid).and(userAnswer.uaToUt.utId.eq(ut_id)))
+                .innerJoin(questionCategory)
+                .on(questionItem.contentArea.eq(questionCategory.categoryCode))
                 .groupBy(questionItem.contentArea)
                 .fetch();
 
@@ -189,6 +238,8 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
 
         return rate;
     }
+
+
 
 }
 
