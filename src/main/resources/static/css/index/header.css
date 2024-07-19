@@ -91,6 +91,12 @@
     color: #5DCCF3;
     margin-right: 5px;
     margin-left: 10px;
+    padding: 7px;
+}
+
+.user_box{
+    display: flex;
+    flex-direction: row;
 }
 
 #logout_btn{ /* 로그아웃 버튼 */
