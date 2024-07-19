@@ -1,165 +1,81 @@
-<!--
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
     <script th:src="@{/js/user/join.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/user/login.css}">
     <style>
-        .join_wrap{
-            padding-top: 50px;
-        }
 
     </style>
 </head>
 <body>
-<div class="join_wrap">
-<div>회원가입</div>
-<form method="post" th:action="@{/join}" th:object="${dto}">
-    <ul>
-&lt;!&ndash;        <div th:if="${error}">
-            <p style="color: red;">이미 등록된 이메일입니다. 다른 이메일을 사용해주세요.</p>
-        </div>&ndash;&gt;
-        <li>
-            <label for="email">이메일</label>
-            <input type="text" id="email" name="email" th:field="*{email}">
-            <input type="button" value="중복 체크" id="emailCk" class="emailCk_btn">
-            &lt;!&ndash;<span id="emailCheckResult"></span> &lt;!&ndash; 중복체크 결과를 표시할 영역 &ndash;&gt;&ndash;&gt;
-            <span><th:block th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></th:block></span>
-            <div id="check"></div>
-        </li>
-        <li>
-            <label for="pwd">비밀번호</label>
-            <input type="password" id="pwd" name="pwd" th:field="*{pwd}">
-            <span><th:block th:if="${#fields.hasErrors('pwd')}" th:errors="*{pwd}"></th:block></span>
-        </li>
-        <li>
-            <label for="pwdCk" class="join_title">비밀번호 확인</label>
-            <span><input type="password" id="pwdCk" onchange="passConfirm()"></span>
-            <span id="confirmMsg"></span>
-        </li>
-        <li>
-            <label for="name">이름</label>
-            <input type="text" id="name" name="name" th:field="*{name}">
-            <span><th:block th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></th:block></span>
-        </li>
-        <li>
-            <label for="phone">전화번호</label>
-            <input type="text" id="phone" name="phone" th:field="*{phone}">
-            <span><th:block th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></th:block></span>
-        </li>
-        <li>
-            <label>학교급</label>
-            <select name="schoolLevel" id="schoolLevel" th:field="*{schoolLevel}">
-                <option value="EL">초등학생</option>
-                <option value="ML">중학생</option>
-                <option value="HL">고등학생</option>
-            </select>
-        </li>
-        <li>
-            <input type="checkbox" id="agree" name="agree" th:field="*{agree}" value="1">
-            이거슬...해야만...상세리포트를 볼 수 있읍니다........
-            <input type="hidden" name="agree" th:value="0">
-        </li>
-&lt;!&ndash;        <li>&ndash;&gt;
-&lt;!&ndash;            <input type="hidden" id="role" name="role" th:field="*{role}" value="USER"> 여기서 안받고 dto에서 디폴트로 받음&ndash;&gt;
-&lt;!&ndash;        </li>&ndash;&gt;
-        <li>
-            <button type="submit" class="join_btn">가입하긔</button>
-        </li>
-    </ul>
-</form>
-</div>
-</body>
-</html>
--->
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>회원가입</title>
-    <script th:src="@{/js/user/join.js}"></script>
-
-    <style>
-        .join_wrap {
-            padding-top: 50px;
-        }
-        .input-group {
-            display: flex;
-            align-items: center;
-        }
-        .input-group i {
-            margin-right: 10px;
-        }
-        .pointer {
-            cursor: pointer;
-        }
-    </style>
-    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
-</head>
-<body>
-<div class="join_wrap">
-    <div>회원가입</div>
-    <form method="post" th:action="@{/join}" th:object="${dto}">
+<div class="login_wrap">
+    <div class="join_box">
+    <div class="form_title">회원가입</div>
+    <form method="post" th:action="@{/join}" th:object="${dto}" class="login-form">
         <ul>
             <li class="input-group">
-                <i class='bx bx-mail-send'></i>
                 <label for="email">이메일</label>
-                <input type="text" id="email" name="email" th:field="*{email}" placeholder="Email">
-                <input type="button" value="중복 체크" id="emailCk" class="emailCk_btn">
+                <div class="ckBtn">
+                <input type="text" id="email" name="email" th:field="*{email}" placeholder="Email" class="logininput">
+                <input type="button" value="중복체크" id="emailCk" class="emailCk_btn">
+                </div>
                 <span><th:block th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></th:block></span>
+
                 <div id="check"></div>
             </li>
             <li class="input-group">
-                <i class='bx bxs-lock-alt'></i>
                 <label for="pwd">비밀번호</label>
-                <input type="password" id="pwd" name="pwd" th:field="*{pwd}" placeholder="Password">
+                <input type="password" id="pwd" name="pwd" th:field="*{pwd}" placeholder="Password" class="logininput">
                 <span><th:block th:if="${#fields.hasErrors('pwd')}" th:errors="*{pwd}"></th:block></span>
             </li>
             <li class="input-group">
-                <i class='bx bxs-lock-alt'></i>
                 <label for="pwdCk">비밀번호 확인</label>
-                <input type="password" id="pwdCk" onchange="passConfirm()" placeholder="Confirm password">
+                <input type="password" id="pwdCk" onchange="passConfirm()" placeholder="Confirm password" class="logininput">
                 <span id="confirmMsg"></span>
             </li>
             <li class="input-group">
-                <i class='bx bxs-user'></i>
                 <label for="name">이름</label>
-                <input type="text" id="name" name="name" th:field="*{name}" placeholder="Username">
+                <input type="text" id="name" name="name" th:field="*{name}" placeholder="Name" class="logininput">
                 <span><th:block th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></th:block></span>
             </li>
             <li class="input-group">
-                <i class='bx bxs-phone'></i>
                 <label for="phone">전화번호</label>
-                <input type="text" id="phone" name="phone" th:field="*{phone}" placeholder="Phone">
+                <input type="text" id="phone" name="phone" th:field="*{phone}" placeholder="Phone" class="logininput">
                 <span><th:block th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></th:block></span>
             </li>
+            <li class="input-group2">
+                <div class="schoolselect">
+                        <label>학교급</label>
+                        <select name="schoolLevel" id="schoolLevel" th:field="*{schoolLevel}">
+                            <option value="EL">초등학생</option>
+                            <option value="ML">중학생</option>
+                            <option value="HL">고등학생</option>
+                        </select>
+                </div>
+            </li>
             <li class="input-group">
-                <label>학교급</label>
-                <select name="schoolLevel" id="schoolLevel" th:field="*{schoolLevel}">
-                    <option value="EL">초등학생</option>
-                    <option value="ML">중학생</option>
-                    <option value="HL">고등학생</option>
-                </select>
-            </li>
-            <li>
+                <div class="agree">
                 <input type="checkbox" id="agree" name="agree" th:field="*{agree}" value="1">
-                마케팅 활용 동의(선택)<br>
-                <span>(동의시 시험결과 상세리포트 조회가 가능합니다)</span>
+                (선택)마케팅 활용 동의<br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;(동의시 시험결과 상세리포트 조회가 가능합니다)</span>
                 <input type="hidden" name="agree" th:value="0">
+                </div>
             </li>
-            <li>
+            <li class="login_btnbox">
                 <button type="submit" class="join_btn">가입하기</button>
             </li>
         </ul>
     </form>
-    <p>
+    <div class="logingo">
         <span>이미 계정이 있으신가요?</span>
-        <b onclick="toggle()" class="pointer">
+        <b onclick="toggle()" class="logingogo">
             Sign in here
         </b>
-    </p>
-
+    </div>
+    </div>
+</div>
 </div>
 <script>
     function toggle() {
