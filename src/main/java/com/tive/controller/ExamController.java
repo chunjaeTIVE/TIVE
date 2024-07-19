@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -22,9 +23,9 @@ public class ExamController {
         return examDTOList;
     }
 
-    @GetMapping("/exam1")
-    public String exam1(Model model){
-        List<QuestionDTO> exam1 = examService.findExam();
+    @GetMapping("/exam1/{eid}")
+    public String exam1(@PathVariable Long eid, Model model){
+        List<QuestionDTO> exam1 = examService.findExam(eid);
         List<String> orders = new ArrayList<>();
         for(QuestionDTO dto : exam1){
             orders.add(dto.getOrderName());

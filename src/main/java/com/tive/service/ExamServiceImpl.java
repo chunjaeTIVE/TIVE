@@ -19,8 +19,8 @@ public class ExamServiceImpl implements ExamService{
     }
 
     @Override
-    public List<QuestionDTO> findExam() {
-        List<QuestionDTO> exam = examItemRepository.findExam();
+    public List<QuestionDTO> findExam(Long eid) {
+        List<QuestionDTO> exam = examItemRepository.findExam(eid);
         return exam;
     }
 
