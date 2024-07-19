@@ -39,7 +39,7 @@ public class ReportServiceImpl implements ReportService{
         return report;
     }
 
-    /**정오표*/
+    /**정오표 - 서답형 제외*/
     @Override
     public List<ReportQuestionDTO> getReportDetailList(Long utId, Long eid) {
         // 문항데이터
@@ -58,6 +58,27 @@ public class ReportServiceImpl implements ReportService{
 
         return list;
     }
+
+    /**정오표 - 서답형*/
+    @Override
+    public List<ReportQuestionDTO> getSubjectiveList(Long ut_id, Long eid) {
+
+        // 문항데이터
+        List<ReportQuestionDTO> list = reportRepository.getSubjectiveList(ut_id);
+
+        // 전체 평균
+        List<Tuple> results = reportRepository.getSubjectiveAvgAll(eid);
+
+        for(int i=0; i<list.size(); i++){
+
+            int avgAll =(int)Math.round(results.get(i).get(1, Double.class));
+
+            list.get(i).setAvgAll(avgAll);
+        }
+
+        return list;
+    }
+
 
     /**문항 난이도별 전체 성취율*/
     @Override
@@ -182,4 +203,5 @@ public class ReportServiceImpl implements ReportService{
 
         return data;
     }
+
 }
