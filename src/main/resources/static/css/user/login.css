@@ -1,14 +1,203 @@
 .login_wrap {
-    padding-top: 50px;
-}
-.input-group {
+    font-family: omyu_pretty;
+    width: 100%;
+    height: 120vh;
+    margin: 0px;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    background-image: url("../../img/index/loginBG.jpg");
+    background-size: cover;
+    background-position: center;
 }
-.input-group i {
-    margin-right: 10px;
+.login_wrap li{
+    list-style: none;
 }
 
-.pointer {
+.login_box{
+    width: 30vw;
+    margin: 0 auto;
+    padding: 4.5vw 3vh;
+    background-color: transparent;
+    box-shadow: 0px 0px 5px 5px rgba(225, 225, 255, 0.2);
+    border-radius: 60px;
+    backdrop-filter: blur(20px);
+    color: white;
+    font-weight: bold;
+    position: relative;
+    top: -8vh;
+    text-align: center;
+    overflow: hidden;
+}
+.join_box{
+    width: 30vw;
+    margin: 0 auto;
+    padding: 3.5vw 3vh;
+    background-color: transparent;
+    box-shadow: 0px 0px 5px 5px rgba(225, 225, 255, 0.2);
+    border-radius: 60px;
+    backdrop-filter: blur(20px);
+    color: white;
+    font-weight: bold;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+}
+
+.login-form {
+    width: 100%;
+    margin-bottom: 5%;
+    font-size: 1.5rem;
+}
+.form_title{
+    font-size: 2.8rem;
+    font-family: chab;
+    font-weight: lighter;
+    padding-bottom: 30px;
+}
+
+.login_wrap label{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+}
+
+.logininput{
+    width: 80%;
+    height: 40px;
+    margin: 3% 0;
+    font-size: 1.2rem;
+    font-family: omyu_pretty;
+    border-radius: 30px;
+    padding-left: 10px;
+    border: none;
+}
+.logininput:focus{
+    outline: #5DCCF3 solid 2px;
+}
+
+.ckBtn{
+    display: flex;
+    flex-direction: row;
+    width: 82%;
+    align-items: center;
+    justify-content: space-between;
+}
+.emailCk_btn{
+    border-radius: 15px;
+    background-color: white;
+    border: 2px solid #5DCCF3;
+    color: #5DCCF3;
+    padding: 10px 10px;
+    font-family: omyu_pretty;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.schoolselect{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    left: 10%;
+}
+.schoolselect label{
+    padding: 0.5vw 0.5vw 0 0;
+    font-size: 1.15vw;
+}
+
+#schoolLevel{
+    border-radius: 20px;
+    border: 2px solid #5DCCF3;
+    color: #5DCCF3;
+    background-color: white;
+    font-family: omyu_pretty;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 7px;
+    width: 21vw;
+    text-align: center;
+    outline: 1px solid #5DCCF3;
+}
+
+
+
+.login_btnbox{
+    width: 100%;
+}
+
+#pwd{
+    margin-bottom: 20px;
+}
+
+.login_btn, .join_btn{
+    background-color: #5DCCF3;
+    border: none;
+    color: white;
+    font-size: 24px;
+    height: 50px;
+    width: 82%;
+    font-family: omyu_pretty;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
     cursor: pointer;
+    border-radius: 30px;
+}
+.login_btn:hover{
+    background-color: #6DD8F9;
+}
+
+.joingo{
+    text-align: center;
+}
+
+@media screen and (max-width: 425px) {
+    .login_box {
+        width: 100vw;
+        height: 100vh;
+        background-color: transparent;
+        display: flex;
+        flex-direction: column;
+        justify-self: center;
+        position: relative;
+        padding-top: 40%;
+        margin: 0px;
+    }
+}
+
+.agree{
+    font-size: 1.2rem;
+    width: 80%;
+    text-align: left;
+    white-space: nowrap;
+    font-weight: normal;
+    margin: 35px 0 15px 0;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-group2{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.joingo, .logingo{
+    font-size: 1.3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.joingogo, .logingogo {
+    cursor: pointer;
+    color: #5DCCF3;
+    padding-left: 10px;
 }
