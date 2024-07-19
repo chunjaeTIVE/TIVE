@@ -25,4 +25,7 @@ public interface ReportQueryDSL {
 
     List<Tuple> getRespRateMe(Long ut_id);
 
+    List<ReportQuestionDTO> getSubjectiveList(Long ut_id);
+
+    List<Tuple> getSubjectiveAvgAll(Long eid);
 }
