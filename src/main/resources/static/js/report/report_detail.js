@@ -7,7 +7,7 @@ let init = function (inits) {
 }
 
 
-// 3열짜리 테이블 tbody에 결과 값 저장하기
+/**3열짜리 테이블 tbody에 결과 값 저장하기*/
 let insertTable3 = function (tbodyID, key, valueAll, valueMe) {
     let tr = document.createElement('tr');
     let td = document.createElement('td');
@@ -25,7 +25,7 @@ let insertTable3 = function (tbodyID, key, valueAll, valueMe) {
     tbodyID.appendChild(tr);
 }
 
-// 정오표 tbody에 결과 값 저장하기
+/**정오표 tbody에 결과 값 저장하기*/
 let insertTable6 = function (tbodyID, orderName, contentArea, answer, userAns, correct, avgAll) {
     let tr = document.createElement('tr');
     let td = document.createElement('td');
@@ -43,7 +43,7 @@ let insertTable6 = function (tbodyID, orderName, contentArea, answer, userAns, c
 
     td3.textContent = `${userAns}`
 
-    // i 태그 생성
+    // i 태그 생성 - 정답 여부 아이콘으로 표시
     if(correct == 1){
         tagi.setAttribute('class', 'fa-regular fa-circle-check');
     } else {
@@ -71,8 +71,20 @@ window.onload = function () {
     // console.log("utid....", ut_id);
     // console.log("eid....", e_id);
 
+    /**상단 회차, 과목 선택박스*/
+    document.getElementById('submitForm').onclick = function() {
+        // 선택된 값을 가져오기
+        let round = document.getElementById('round').value;
+        let subject = document.getElementById('subject').value;
 
-    // 내 성취 수준 위치 이동
+        // GET 방식으로 값 보내기
+        let url = `report_detail/2?round=${round}&subject=${encodeURIComponent(subject)}`;
+        location.href = url;
+    }
+
+
+
+    /**내 성취 수준 위치 이동*/
     let achievePointer = document.querySelector('.user_name');
 
     if (achieveLevel == 4) {
@@ -86,7 +98,7 @@ window.onload = function () {
     }
 
 
-    // 문항 난이도별 성취율 Fetch 요청
+    /**문항 난이도별 성취율 Fetch 요청*/
     fetch('/levelrate/' + ut_id + "/" + e_id,
         {
             method: 'GET'
@@ -183,7 +195,7 @@ window.onload = function () {
         });
 
 
-    // 내용 영역별 성취율 Fetch 요청
+    /**내용 영역별 성취율 Fetch 요청*/
     fetch('/contentrate/' + ut_id + "/" + e_id,
         {
             method: 'GET'
@@ -276,7 +288,7 @@ window.onload = function () {
         });
 
 
-    // 응답 유형별 정답률 Fetch 요청
+    /**응답 유형별 정답률 Fetch 요청*/
     fetch('/resprate/' + ut_id + "/" + e_id,
         {
             method: 'GET'
@@ -366,7 +378,77 @@ window.onload = function () {
         });
 
 
-    // 정오표 - 서답형 부분 Fetch 요청
+    /**정오표 - 서답형 미포함 fetch요청*/
+    fetch('/reportdetaillist/' + ut_id + "/" + e_id,
+        {
+            method: 'GET'
+            , headers: {
+                'Accept': 'application/json'
+            }
+        }).then(response => {
+        if (!response.ok) {
+            throw new Error('정오표에서 에러!!!!');
+        }
+        return response.json();
+    })
+        .then(data => {
+
+            // 받아온 데이터를 처리하고 테이블에 출력
+            let tbody = document.getElementById('detailList');
+
+
+            for (let i = 0; i < data.length; i++) {
+                let report = data[i];
+
+                let orderName = report["orderName"];
+                let contentArea = report["categoryName"];
+                let correct = report["correct"];
+                let avgAll = report["avgAll"];
+                let answer, userAns;
+
+                // 정답 가져오기
+                let answerlist = report["answer"];
+                let userAnswerlist = report["userAns"];
+
+                // console.log(answerlist);
+                // console.log(userAnswerlist);
+
+                // 문자열을 JSON 객체로 변환
+                let answerJS = JSON.parse(answerlist);
+                let userAnswerJS = JSON.parse(userAnswerlist);
+                // let userAnswerJS = JSON.parse(userAnswerlist);
+                // console.log(answerJS);
+                // console.log(typeof answerJS);
+                // console.log(answerJS["answer"].length);
+
+                if(answerJS["answer"].length == 1 && Array.isArray(answerJS["answer"])){
+                    let textContent = answerJS["answer"][0].replace(/<[^>]*>/g, '');
+                    answer = textContent;
+                }  else {
+                    answer = answerJS["answer"];
+                }
+
+                if(userAnswerJS["answer"].length == 1 && Array.isArray(userAnswerJS["answer"])){
+                    let textContent = userAnswerJS["answer"][0].replace(/<[^>]*>/g, '');
+                    userAns = textContent;
+                }  else {
+                    userAns = userAnswerJS["answer"];
+                }
+
+
+                insertTable6(tbody, orderName, contentArea, answer, userAns, correct, avgAll);
+
+            }
+
+
+        })
+        .catch(error => {
+            console.error('Error fetching report detail list data:', error);
+        });
+
+
+
+    /**정오표 - 서답형 부분 Fetch 요청*/
     fetch('/subjectivelist/' + ut_id + "/" + e_id,
         {
             method: 'GET'
@@ -375,7 +457,7 @@ window.onload = function () {
             }
         }).then(response => {
         if (!response.ok) {
-            throw new Error('정오표 - 서답형에서 에러');
+            throw new Error('정오표 - 서답형에서 에러!!!!');
         }
         return response.json();
     })
@@ -388,34 +470,77 @@ window.onload = function () {
             for (let i = 0; i < data.length; i++) {
                 let subject = data[i];
 
-                // 정답 가져오기
-                let answerlist = subject["answer"];
-
-                // '['와 ']' 사이의 내용을 추출
-                let startIndex = answerlist.indexOf('[') + 1;
-                let endIndex = answerlist.lastIndexOf(']');
-                let contents = answerlist.substring(startIndex, endIndex);
-
-                // 쉼표로 분리하여 배열로 만들기
-                let answers = contents.split('","');
-
-                // 각 요소의 큰따옴표 제거
-                answers = answers.map(item => item.replace(/"/g, ''));
-
                 let orderName = subject["orderName"];
                 let contentArea = subject["categoryName"];
-                let userAns = subject["userAns"];
                 let correct = subject["correct"];
                 let avgAll = subject["avgAll"];
+                let answer, userAns;
 
-                insertTable6(tbody, orderName, contentArea, answers, userAns, correct, avgAll);
+                // 정답 가져오기
+                let answerlist = subject["answer"];
+                let userAnswerlist = subject["userAns"];
+
+                // console.log(answerlist);
+                // console.log(userAnswerlist);
+
+                // 문자열을 JSON 객체로 변환
+                let answerJS = JSON.parse(answerlist);
+                let userAnswerJS = JSON.parse(userAnswerlist);
+                // let userAnswerJS = JSON.parse(userAnswerlist);
+                // console.log(answerJS);
+                // console.log(typeof answerJS);
+                // console.log(answerJS["answer"].length);
+
+                if(answerJS["answer"].length == 1 && Array.isArray(answerJS["answer"])){
+                    let textContent = answerJS["answer"][0].replace(/<[^>]*>/g, '');
+                    answer = textContent;
+                }  else {
+                    answer = answerJS["answer"];
+                }
+
+                if(userAnswerJS["answer"].length == 1 && Array.isArray(userAnswerJS["answer"])){
+                    let textContent = userAnswerJS["answer"][0].replace(/<[^>]*>/g, '');
+                    userAns = textContent;
+                }  else {
+                    userAns = userAnswerJS["answer"];
+                }
+
+
+                insertTable6(tbody, orderName, contentArea, answer, userAns, correct, avgAll);
 
             }
+
+            // for (let i = 0; i < data.length; i++) {
+            //     let subject = data[i];
+            //
+            //     // 정답 가져오기
+            //     let answerlist = subject["answer"];
+            //
+            //     // '['와 ']' 사이의 내용을 추출
+            //     let startIndex = answerlist.indexOf('[') + 1;
+            //     let endIndex = answerlist.lastIndexOf(']');
+            //     let contents = answerlist.substring(startIndex, endIndex);
+            //
+            //     // 쉼표로 분리하여 배열로 만들기
+            //     let answers = contents.split('","');
+            //
+            //     // 각 요소의 큰따옴표 제거
+            //     answers = answers.map(item => item.replace(/"/g, ''));
+            //
+            //     let orderName = subject["orderName"];
+            //     let contentArea = subject["categoryName"];
+            //     let userAns = subject["userAns"];
+            //     let correct = subject["correct"];
+            //     let avgAll = subject["avgAll"];
+            //
+            //     insertTable6(tbody, orderName, contentArea, answers, userAns, correct, avgAll);
+            //
+            // }
 
 
         })
         .catch(error => {
-            console.error('Error fetching resp rate data:', error);
+            console.error('Error fetching subjective list data:', error);
         });
 
 
