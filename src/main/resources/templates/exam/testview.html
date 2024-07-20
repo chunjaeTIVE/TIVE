@@ -2,6 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}">
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}">
     <title>Title</title>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <link rel="stylesheet" th:href="@{/css/exam/reset.css}">
@@ -12,7 +14,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
     <script th:src="@{/js/exam/getfile.js}"></script>
-<!--    <script th:src="@{/js/exam/testtime.js}"></script>-->
     <script th:src="@{/js/exam/class.js}"></script>
     <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </head>
@@ -182,8 +183,8 @@
             'dragstart': function (e) {
                 txt = $(this).text();
                 //$(this).css('border', 'solid 1px #ccc');
-                console.log(e.target);
-                console.log($(this).html());
+                //console.log(e.target);
+                //console.log($(this).html());
                 element = $(this).html();
             },
             //드래그 종료
@@ -214,28 +215,12 @@
                     $(this).append(element);
                 }
                 $(this).append('<span class="txt">' + txt + '</span>');
-                let num = $(this).find('span').length;
-                let name = $(this).find('span').text();
-
-                $(this).addClass('on')
-
-                if (num > 1) {
-                    let text = $(this).find('span:first-child()').text();
-                    $(this).find('span:first-child()').remove();
-                    $(".drag[data-name='" + text + "']").css('opacity', '1')
-                }
-
+                $(this).addClass('on');
                 $(this).on('click', function () {
-                    let text = $(this).find('span').text();
-                    let _idx = $(this).find('span').parents('.drop').index();
                     $(this).find('span').remove();
                     $(this).find('img').remove();
-                    $(".drag[data-name='" + text + "']").css('opacity', '1')
-
-
                     $(this).removeClass('on')
-                })
-                //console.log("dragdump :",e.target);
+                });
             }
         });
 
@@ -400,5 +385,6 @@
     })
 </script>
 <script th:src="@{/js/exam/answerExtractor.js}"></script>
+<script th:src="@{/js/exam/testtime.js}"></script>
 </body>
 </html>
