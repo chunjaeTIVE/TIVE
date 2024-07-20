@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class UsersDTO {
-    private String uid;
+    private Long uid;
 
     @NotEmpty(message = "입력해")
     private String name;
