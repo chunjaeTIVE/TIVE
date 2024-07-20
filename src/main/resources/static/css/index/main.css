@@ -187,27 +187,57 @@
     background-color: white;
     border-radius: 5vh;
     margin: 2vh;
-    padding: 1.5vw;
+    padding: 1.2vw;
 }
 
 .img_section{
     background-color: lightgrey;
     width: 100%;
     border-radius: 3vw;
-    padding: 1vw 2vw 2vw;
+    padding: 2vw;
+    color: white;
+}
+
+#img_section1{
+    background-color: #25B5AA;
+}
+#img_section2{
+    background-color: #D4D4C7;
+}
+#img_section3{
+    background-color: #F6BBBD;
+}
+#img_section4{
+    background-color: #F19CA3;
 }
 
 .img_section h2{
     font-family: omyu_pretty;
-    font-size: 2.5vw;
-    text-align: center;
+    font-size: 1.5vw;
+    text-align: left;
 }
 
 .img_section p{
     font-family: omyu_pretty;
-    font-size: 2vw;
-    margin-top: 1vw;
+    font-size: 1.2vw;
+    margin-top: 0.5vw;
+    position: relative;
+    z-index: 1;
 }
+
+.img_section .info_icon{
+    width: 4.5vw;
+    position: relative;
+    top: -5vh;
+    left: 7.8vw;
+}
+
+#info_icon1{
+    width: 5vw;
+    left: 7.5vw;
+    top: -4.7vh;
+}
+
 
 /* 메뉴 소개 보드 끝 */
 
