@@ -8,161 +8,185 @@
     <script src="https://kit.fontawesome.com/266dd736a0.js" crossorigin="anonymous"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{/css/info/bg_template.css}">
     <link rel="stylesheet" th:href="@{/css/report/report_detail.css}">
 
 </head>
 <body>
 
-<div class="report_wrap">
+<div id="wrap">
+
+    <h1>
+        <!--        <img class="title_icon" th:src="@{/img/report/shell1.png}" th:alt="다이버"/>-->
+        상세 리포트
+        <!--        <img class="title_icon" th:src="@{/img/report/shell1.png}" th:alt="다이버"/>-->
+    </h1>
+
+    <img class="top_deco" th:src="@{/img/index/sea_light.png}" th:alt="바다빛">
+
+    <div class="report_wrap">
 
 
-    <form id="selectForm">
-        <select id="round" name="round">
-            <option value="1" selected>1회</option>
-            <option value="2">2회</option>
-        </select>
+        <form id="selectForm">
+            <select id="round" name="round">
+                <option value="1" selected>1회</option>
+                <option value="2">2회</option>
+            </select>
 
-        <select id="subject" name="subject">
-            <option value="국어" selected>국어</option>
-            <option value="영어">영어</option>
-            <option value="수학">수학</option>
-            <option value="사회">사회</option>
-            <option value="과학">과학</option>
-        </select>
+            <select id="subject" name="subject">
+                <option value="국어" selected>국어</option>
+                <option value="영어">영어</option>
+                <option value="수학">수학</option>
+                <option value="사회">사회</option>
+                <option value="과학">과학</option>
+            </select>
 
-        <button type="button" id="submitForm">확인</button>
-    </form>
+            <button type="button" id="submitForm">확인</button>
+        </form>
 
 
-    <div class="detailBox1">
-        <h1><i class="fa-regular fa-pen-to-square"></i>평가결과 요약</h1>
-        <div class="chart_box">
-            <table>
-                <tr>
-                    <td>평가 문항 수</td>
-                    <td>정답 문항 수</td>
-                    <td>종합 성취율</td>
-                    <td>성취수준</td>
-                </tr>
-                <tr>
-                    <td th:text="${report.itemCount}"></td>
-                    <td th:text="${report.countCorrect}"></td>
-                    <td th:text="|${report.achievementRate}%|"></td>
-                    <td th:text="|${report.achievementLevel}수준|"></td>
-                </tr>
-            </table>
+        <div class="detailBox1">
+            <h1><i class="fa-regular fa-pen-to-square"></i>평가결과 요약</h1>
+            <div class="chart_box">
+                <table>
+                    <tr>
+                        <td>평가 문항 수</td>
+                        <td>정답 문항 수</td>
+                        <td>종합 성취율</td>
+                        <td>성취수준</td>
+                    </tr>
+                    <tr>
+                        <td th:text="${report.itemCount}"></td>
+                        <td th:text="${report.countCorrect}"></td>
+                        <td th:text="|${report.achievementRate}%|"></td>
+                        <td th:text="|${report.achievementLevel}수준|"></td>
+                    </tr>
+                </table>
 
-            <div class="bar_wrap pt20">
+                <div class="bar_wrap pt20">
         <span class="user_name">내 성취 수준<br>
             <i class="fa-solid fa-caret-down"></i></span>
-                <div class="bar">
-                    <div><em>1</em>
-                        <p>기초학력 미달</p></div>
-                    <div><em>2</em>
-                        <p>기초학력</p></div>
-                    <div><em>3</em>
-                        <p>보통학력</p></div>
-                    <div><em>4</em>
-                        <p>우수학력</p></div>
+                    <div class="bar">
+                        <div><em>1</em>
+                            <p>기초학력 미달</p></div>
+                        <div><em>2</em>
+                            <p>기초학력</p></div>
+                        <div><em>3</em>
+                            <p>보통학력</p></div>
+                        <div><em>4</em>
+                            <p>우수학력</p></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div>
-        <h1><i class="fa-regular fa-pen-to-square"></i>문항 난이도별 성취율</h1>
-        <div class="chart_box">
+        <div>
+            <h1><i class="fa-regular fa-pen-to-square"></i>문항 난이도별 성취율</h1>
+            <div class="chart_box">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>난이도</th>
+                        <th>전체평균</th>
+                        <th>내 성취율</th>
+                    </tr>
+                    </thead>
+                    <tbody id="levelrate">
+                    </tbody>
+                </table>
+
+                <canvas id="levelChart" width="200" height="130"></canvas>
+            </div>
+        </div>
+
+        <div>
+            <h1><i class="fa-regular fa-pen-to-square"></i>[[|(${subject}) 교과 내용 영역별 성취율|]]</h1>
+            <div class="chart_box">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>내용영역</th>
+                        <th>전체 평균</th>
+                        <th>내 성취율</th>
+                    </tr>
+                    </thead>
+                    <tbody id="contentrate">
+                    </tbody>
+                </table>
+
+                <canvas id="contentChart" width="200" height="130"></canvas>
+            </div>
+        </div>
+
+        <div>
+            <h1><i class="fa-regular fa-pen-to-square"></i>응답 유형별 정답률</h1>
+            <div class="chart_box">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>응답 유형</th>
+                        <th>전체 평균</th>
+                        <th>내 정답률</th>
+                    </tr>
+                    </thead>
+                    <tbody id="resprate">
+                    </tbody>
+                </table>
+
+                <canvas id="respChart" width="200" height="130"></canvas>
+            </div>
+        </div>
+
+        <div class="report_detail">
+            <h1><i class="fa-regular fa-pen-to-square"></i>문항별 정오표</h1>
             <table>
                 <thead>
                 <tr>
-                    <th>난이도</th>
-                    <th>전체평균</th>
-                    <th>내 성취율</th>
+                    <th>번호</th>
+                    <th>교과 영역</th>
+                    <th>정답</th>
+                    <th>본인 응답</th>
+                    <th>채점결과</th>
+                    <th>시험응시자<br>평균 정답률</th>
                 </tr>
                 </thead>
-                <tbody id="levelrate">
+                <tbody id="detailList">
                 </tbody>
             </table>
-
-            <canvas id="levelChart" width="200" height="130"></canvas>
         </div>
-    </div>
-
-    <div>
-        <h1><i class="fa-regular fa-pen-to-square"></i>[[|(${subject}) 교과 내용 영역별 성취율|]]</h1>
-        <div class="chart_box">
+        <div class="report_detail report_sub">
+            <!--서답형 리스트-->
+            <h2><i class="fa-regular fa-pen-to-square"></i>서답형 정오표</h2>
             <table>
                 <thead>
                 <tr>
-                    <th>내용영역</th>
-                    <th>전체 평균</th>
-                    <th>내 성취율</th>
+                    <th>번호</th>
+                    <th>교과 영역</th>
+                    <th>정답</th>
+                    <th>본인 응답</th>
+                    <th>채점결과</th>
+                    <th>시험응시자<br>평균 정답률</th>
                 </tr>
                 </thead>
-                <tbody id="contentrate">
+                <tbody id="subjectivelist">
                 </tbody>
             </table>
-
-            <canvas id="contentChart" width="200" height="130"></canvas>
         </div>
+
     </div>
 
-    <div>
-        <h1><i class="fa-regular fa-pen-to-square"></i>응답 유형별 정답률</h1>
-        <div class="chart_box">
-            <table>
-                <thead>
-                <tr>
-                    <th>응답 유형</th>
-                    <th>전체 평균</th>
-                    <th>내 정답률</th>
-                </tr>
-                </thead>
-                <tbody id="resprate">
-                </tbody>
-            </table>
+    <img class="bubble_left" th:src="@{/img/index/bubble2.png}" th:alt="버블2">
+    <img class="bubble_right" th:src="@{/img/index/bubble1.png}" th:alt="버블1">
 
-            <canvas id="respChart" width="200" height="130"></canvas>
-        </div>
+    <div class="coral_reef">
+        <img class="coral_reef_item" th:src="@{/img/index/coral_reef_left.png}" th:alt="산호초_좌" draggable="false">
+        <img class="coral_reef_item" th:src="@{/img/index/coral_reef_right.png}" th:alt="산호초_우" draggable="false">
     </div>
 
-    <div class="report_detail">
-        <h1><i class="fa-regular fa-pen-to-square"></i>문항별 정오표</h1>
-        <table>
-            <thead>
-            <tr>
-                <th>번호</th>
-                <th>교과 영역</th>
-                <th>정답</th>
-                <th>본인 응답</th>
-                <th>채점결과</th>
-                <th>시험응시자<br>평균 정답률</th>
-            </tr>
-            </thead>
-            <tbody id="detailList">
-            </tbody>
-        </table>
-    </div>
-    <div class="report_detail report_sub">
-        <!--서답형 리스트-->
-        <h2><i class="fa-regular fa-pen-to-square"></i>서답형 정오표</h2>
-        <table>
-            <thead>
-            <tr>
-                <th>번호</th>
-                <th>교과 영역</th>
-                <th>정답</th>
-                <th>본인 응답</th>
-                <th>채점결과</th>
-                <th>시험응시자<br>평균 정답률</th>
-            </tr>
-            </thead>
-            <tbody id="subjectivelist">
-            </tbody>
-        </table>
-    </div>
-
+    <img class="bottom_deco" th:src="@{/img/index/sea_sand.png}"/>
 </div>
+
 
 <script th:src="@{/js/report/report_detail.js}"></script>
 <script>

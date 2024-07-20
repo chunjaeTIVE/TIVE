@@ -3,6 +3,7 @@ package com.tive.controller;
 import com.tive.dto.ReportExamDTO;
 import com.tive.dto.ReportQuestionDTO;
 import com.tive.service.ReportService;
+import com.tive.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,13 +25,30 @@ public class ReportController {
 
     private final ReportService reportService;
 
+    private final UserService userService;
+
     /**기본 리포트로 이동*/
     @GetMapping("/report_basic/{uid}")
     public String reportBasic(@PathVariable("uid") Long uid
             , @RequestParam(name = "round", required = false, defaultValue = "1") int round
             , @RequestParam(name = "subject", required = false, defaultValue = "국어") String subject
             , Model model
+            , Principal principal
     ){
+
+        //현재 세션으로 유저 이름 가져오기
+        String useremail = "";
+        String username = "";
+
+        if (principal != null && principal.getName() != null){ //로그인 한 경우에만 받아옴
+            useremail = principal.getName();
+            username = userService.getUserInfo(useremail).getName();
+
+            model.addAttribute("username",username);
+        } else { //아니면 로그값 출력
+            log.info("Principal is null or principal.getName() is null");
+        }
+
         // 시험 기본 정보 가져오기
         ReportExamDTO report = reportService.getTest(uid, round, subject);
 
@@ -47,7 +66,21 @@ public class ReportController {
             , @RequestParam(name = "round", required = false, defaultValue = "1") int round
             , @RequestParam(name = "subject", required = false, defaultValue = "국어") String subject
             , Model model
+            , Principal principal
     ) {
+
+        //현재 세션으로 유저 이름 가져오기
+        String useremail = "";
+        String username = "";
+
+        if (principal != null && principal.getName() != null){ //로그인 한 경우에만 받아옴
+            useremail = principal.getName();
+            username = userService.getUserInfo(useremail).getName();
+
+            model.addAttribute("username",username);
+        } else { //아니면 로그값 출력
+            log.info("Principal is null or principal.getName() is null");
+        }
 
         // 시험 기본 정보 가져오기
         ReportExamDTO report = reportService.getTest(uid, round, subject);

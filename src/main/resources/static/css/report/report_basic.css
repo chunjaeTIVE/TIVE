@@ -1,13 +1,72 @@
+#wrap{ /*영역 잡기*/
+    width: 100%;
+    height: 190vh;
+    background-color: #46B1B7;
+    position: relative;
+    font-family: omyu_pretty;
+}
+
+#wrap>h1{ /*페이지 타이틀*/
+    font-family: chab;
+    color: white;
+    top: 8vh;
+    position: relative;
+    text-align: center;
+    font-size: 2.5vw;
+    font-weight: normal;
+    z-index: 1;
+}
+
+.title_icon{
+    width: 2.8vw;
+    position: relative;
+    top: 1vh;
+}
+
+/*배경 커스텀 시작*/
+.top_deco{ /* 위에 물결 장식 */
+    height: 30%;
+}
+
+.bubble_left{ /*왼쪽 거품*/
+    animation: move_up 18s infinite ease-in-out;
+    animation-delay: 3s; /*3초 지연*/
+}
+
+.bubble_right{ /*오른쪽 거품*/
+    animation: move_up 18s infinite ease-in-out;
+}
+
+@keyframes move_up { /* 위로 올라가는 공기방울 애니메이션 */
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-185vh);
+        opacity: 0;
+    }
+}
+
+/*배경 커스텀 끝*/
+
 .report_wrap {
-    width: 75%;
-    margin: 0px auto;
+    width: 58%;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    position: relative;
+    top: 12vh;
+    z-index: 3;
+    padding: 4vw 6vw 5vw;
+    border-radius: 5vw;
+    background: white;
 }
 
 .report_wrap ul li {
     list-style: none;
+    margin-bottom: 0.5vw;
  }
 
 .report_wrap ul{
@@ -16,10 +75,9 @@
 
 /* 제목들 */
 .report_wrap h1{
-    display: flex;
-    font-size: 1.5rem;
+    font-size: 1.3vw;
     font-weight: bold;
-    width: 80%;
+    margin-bottom: 2vh;
 }
 /* 제목 아이콘*/
 .report_wrap h1 i{
@@ -51,34 +109,33 @@
 /*기본 리포트 시험 참여 정보*/
 
 /*아이콘*/
-.basicBox1 ul i {
-    font-size: 20px;
-    width: 36px;
-    text-align: center;
-    padding-top: 7px;
-    color: #5DCCF3;
-    margin-right: 2px;
+
+.basicBox1 .exam_info_icon{
+    width: 1.5vw;
+    padding: 0 0.1vw;
+    position: relative;
+    top: 0.3vw;
+    left: 0.3vw;
+    margin-right: 0.5vw;
 }
+
+.basicBox1 .exam_info_icon2{
+    width: 1.2vw;
+    padding: 0 0.1vw;
+    position: relative;
+    top: 0.3vw;
+    left: 0.3vw;
+    margin-right: 0.7vw;
+}
+
 
 .basicBox1 ul{
-    font-size: 1.2rem;
-}
-.basicBox1 ul li {
-    font-size: 1.2rem;
-    display: inline-block;
+    font-size: 1.1vw;
 }
 
-/*이름부분은 항목 사이에 패딩 더 필요*/
-.basicBox1 ul li.first::before {
-    content: '|';
+.exam_info_title{
+    width: 10vh;
     display: inline-block;
-    padding: 0 25px 0 58px;
-}
-
-.basicBox1 ul li::before {
-    content: '|';
-    display: inline-block;
-    padding: 0 25px;
 }
 
 
@@ -87,10 +144,10 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    margin: 24px 0;
-    padding: 24px 0;
-    background-color: lightblue;
-    border-radius: 24px;
+    margin: 4vh 0;
+    padding: 2vh 0;
+    background-color: rgba(88, 196, 196, 0.4);
+    border-radius: 1.2vw;
 }
 
 .score_box .score {
@@ -99,27 +156,24 @@
 }
 
 .score_box .score span {
-    color: #1e487d;
+    color: rgb(44, 127, 132);
 }
 
 
 /* 문항별 정오표 테이블 */
 .report_basic table{
-    margin-top: 24px;
-    padding: 12px;
-    width: 100%;
     border-collapse: collapse;
-    margin-bottom: 36px;
-    border: 1px solid #1e487d;
     table-layout: fixed;
     text-align: center;
-    font-size: 1.2rem;
+    font-size: 1.1vw;
+    margin-bottom: 4vh;
 }
 .report_basic table thead tr{
-    border-bottom : 1px solid #1e487d;
+    border-radius: 2vw;
 }
 .report_basic table thead tr th{
-    padding: 10px 0;
+    padding: 1vh;
+    background-color: rgba(88, 196, 196, 0.4);
 }
 .report_basic table thead tr th:nth-child(1){
     width:5%;
@@ -137,15 +191,9 @@
 .report_basic table tbody tr td{
     padding: 10px 0;
     border-bottom: 1px dotted lightgray;
-    border-right: 1px dotted lightgray;
 }
 
-.report_basic table tbody tr td:last-child{
-    border-right: 1px solid #1e487d;
-}
-.report_basic table tbody tr:last-child td{
-    border-bottom: 1px solid #1e487d;
-}
+
 
 
 /* 서답형 정오표 테이블 - 정답칸 정렬만 왼쪽 정렬로 */
