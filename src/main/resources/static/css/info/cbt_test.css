@@ -68,11 +68,13 @@
 .testbtn{
     background-color: #46B1B7;
     border-radius: 30px;
-    color: white;
     font-size: 1.5rem;
     font-weight: bold;
     padding: 10px 15px;
+    color: white;
+    white-space: nowrap;
 }
+
 .cbt_guide a{
     text-decoration: none;
 }

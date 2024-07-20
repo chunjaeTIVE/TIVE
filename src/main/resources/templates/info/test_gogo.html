@@ -29,37 +29,37 @@
                         <tr>
                             <td>1교시</td>
                             <td>국어</td>
-                            <td>응시 시각으로부터 40분</td>
-                            <td>24문항</td>
-                            <td><a th:href="@{|/playTest/${examKind}|}">응시하기</a></td>
+                            <td th:text="|응시 시각으로부터 ${korean.testTime}분|"></td>
+                            <td th:text="|${korean.itemCount}문항|"></td>
+                            <td><a th:href="@{|/playTest/${korean.eid}|}">응시하기</a></td>
                         </tr>
                         <tr>
                             <td>2교시</td>
                             <td>영어</td>
-                            <td>응시 시각으로부터 40분</td>
-                            <td>24문항</td>
-                            <td><a th:href="@{|/playTest/${examKind}|}">응시하기</a></td>
+                            <td th:text="|응시 시각으로부터 ${english.testTime}분|"></td>
+                            <td th:text="|${english.itemCount}문항|"></td>
+                            <td><a th:href="@{|/playTest/${english.eid}|}">응시하기</a></td>
                         </tr>
                         <tr>
                             <td>3교시</td>
                             <td>수학</td>
-                            <td>응시 시각으로부터 40분</td>
-                            <td>24문항</td>
-                            <td><a th:href="@{|/playTest/${examKind}|}">응시하기</a></td>
+                            <td th:text="|응시 시각으로부터 ${math.testTime}분|"></td>
+                            <td th:text="|${math.itemCount}문항|"></td>
+                            <td><a th:href="@{|/playTest/${math.eid}|}">응시하기</a></td>
                         </tr>
-                        <tr>
+                        <tr th:if="${userSL!='HL'}">
                             <td>4교시</td>
                             <td>사회</td>
-                            <td>응시 시각으로부터 40분</td>
-                            <td>24문항</td>
-                            <td><a th:href="@{|/playTest/${examKind}|}">응시하기</a></td>
+                            <td th:text="|응시 시각으로부터 ${society.testTime}분|"></td>
+                            <td th:text="|${society.itemCount}문항|"></td>
+                            <td><a th:href="@{|/playTest/${society.eid}|}">응시하기</a></td>
                         </tr>
-                        <tr>
+                        <tr th:if="${userSL!='HL'}">
                             <td>5교시</td>
                             <td>과학</td>
-                            <td>응시 시각으로부터 40분</td>
-                            <td>24문항</td>
-                            <td><a th:href="@{|/playTest/${examKind}|}">응시하기</a></td>
+                            <td th:text="|응시 시각으로부터 ${science.testTime}분|"></td>
+                            <td th:text="|${science.itemCount}문항|"></td>
+                            <td><a th:href="@{|/playTest/${science.eid}|}">응시하기</a></td>
                         </tr>
                     </tbody>
                 </table>

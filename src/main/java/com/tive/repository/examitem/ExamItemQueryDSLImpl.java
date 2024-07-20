@@ -2,6 +2,7 @@ package com.tive.repository.examitem;
 
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.tive.domain.SchoolLV;
 import com.tive.dto.ExamDTO;
 import com.tive.dto.QuestionDTO;
 import lombok.RequiredArgsConstructor;
@@ -49,6 +50,29 @@ public class ExamItemQueryDSLImpl implements ExamItemQueryDSL {
                 .where(examItem.eid.eq(eid))
                 .fetch();
         return list;
+    }
+
+    @Override
+    public ExamDTO findExamInfo(String userSL, String subject, int examKind) {
+        ExamDTO dto = queryFactory.select(Projections.fields(ExamDTO.class
+                , examItem.eid
+                , examItem.examName
+                , examItem.schoolLevel
+                , examItem.subject
+                , examItem.round
+                , examItem.itemCount
+                , examItem.createDate
+                , examItem.testTime
+                , examItem.year))
+                .from(examItem)
+                .where(examItem.schoolLevel.eq(SchoolLV.valueOf(userSL))
+                        .and(examItem.subject.eq(subject))
+                        .and(examItem.round.eq(examKind))
+                        .and(examItem.useYn.eq("Y")))
+                .limit(1)
+                .orderBy(examItem.year.desc())
+                .fetchOne();
+        return dto;
     }
 
 

@@ -24,5 +24,11 @@ public class ExamServiceImpl implements ExamService{
         return exam;
     }
 
+    @Override
+    public ExamDTO findExamInfo(String userSL, String subject, int examKind) {
+        ExamDTO examInfo = examItemRepository.findExamInfo(userSL, subject, examKind);
+        return examInfo;
+    }
+
 
 }
