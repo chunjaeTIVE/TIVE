@@ -7,6 +7,7 @@ import com.tive.dto.UsersDTO;
 import com.tive.repository.users.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService{
     private final UsersRepository repository;
 
+    private final ModelMapper modelMapper;
     private final PasswordEncoder encoder;
 
     /** 회원가입 */
@@ -58,9 +60,10 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public String getUserName(String email) {
+    public UsersDTO getUserInfo(String email) {
         Users userinfo = repository.findByEmail(email);
-        return userinfo.getName();
+        UsersDTO dto = modelMapper.map(userinfo, UsersDTO.class);
+        return dto;
     }
 
     private boolean findUserCheck(String email) { //UserDetailService랑 연결된거

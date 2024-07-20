@@ -8,5 +8,5 @@ public interface UserService {
 
     Long emailCheck(String email);
 
-    String getUserName(String email);
+    UsersDTO getUserInfo(String email);
 }

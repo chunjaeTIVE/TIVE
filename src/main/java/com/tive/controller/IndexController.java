@@ -35,7 +35,7 @@ public class IndexController {
 
         if (principal != null && principal.getName() != null){ //로그인 한 경우에만 받아옴
             useremail = principal.getName();
-            username = userService.getUserName(useremail);
+            username = userService.getUserInfo(useremail).getName();
             model.addAttribute("username",username);
         } else { //아니면 로그값 출력
             log.info("Principal is null or principal.getName() is null");
@@ -61,7 +61,7 @@ public class IndexController {
 
         if (principal != null && principal.getName() != null){ //로그인 한 경우에만 받아옴
             useremail = principal.getName();
-            username = userService.getUserName(useremail);
+            username = userService.getUserInfo(useremail).getName();
             model.addAttribute("username",username);
         } else { //아니면 로그값 출력
             log.info("Principal is null or principal.getName() is null");
@@ -86,7 +86,7 @@ public class IndexController {
 
         if (principal != null && principal.getName() != null){ //로그인 한 경우에만 받아옴
             useremail = principal.getName();
-            username = userService.getUserName(useremail);
+            username = userService.getUserInfo(useremail).getName();
             model.addAttribute("username",username);
         } else { //아니면 로그값 출력
             log.info("Principal is null or principal.getName() is null");
@@ -109,7 +109,7 @@ public class IndexController {
 
         if (principal != null && principal.getName() != null){ //로그인 한 경우에만 받아옴
             useremail = principal.getName();
-            username = userService.getUserName(useremail);
+            username = userService.getUserInfo(useremail).getName();
             model.addAttribute("username",username);
         } else { //아니면 로그값 출력
             log.info("Principal is null or principal.getName() is null");
@@ -133,7 +133,7 @@ public class IndexController {
 
         if (principal != null && principal.getName() != null){ //로그인 한 경우에만 받아옴
             useremail = principal.getName();
-            username = userService.getUserName(useremail);
+            username = userService.getUserInfo(useremail).getName();
             model.addAttribute("username",username);
         } else { //아니면 로그값 출력
             log.info("Principal is null or principal.getName() is null");
