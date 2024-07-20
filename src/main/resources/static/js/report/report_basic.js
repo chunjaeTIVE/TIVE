@@ -136,46 +136,51 @@ window.onload = function () {
             // 받아온 데이터를 처리하고 테이블에 출력
             let tbody = document.getElementById('basicSubjectivelist');
 
+            if(data != null && data.length !=0) {
+                //서답형 정오표 hidden 해제
+                document.querySelector('.report_sub').style.display = 'block';
 
-            for (let i = 0; i < data.length; i++) {
-                let subject = data[i];
 
-                let orderName = subject["orderName"];
-                let correct = subject["correct"];
-                let answer, userAns;
+                for (let i = 0; i < data.length; i++) {
+                    let subject = data[i];
 
-                // 정답 가져오기
-                let answerlist = subject["answer"];
-                let userAnswerlist = subject["userAns"];
+                    let orderName = subject["orderName"];
+                    let correct = subject["correct"];
+                    let answer, userAns;
 
-                // console.log(answerlist);
-                // console.log(userAnswerlist);
+                    // 정답 가져오기
+                    let answerlist = subject["answer"];
+                    let userAnswerlist = subject["userAns"];
 
-                // 문자열을 JSON 객체로 변환
-                let answerJS = JSON.parse(answerlist);
-                let userAnswerJS = JSON.parse(userAnswerlist);
-                // let userAnswerJS = JSON.parse(userAnswerlist);
-                // console.log(answerJS);
-                // console.log(typeof answerJS);
-                // console.log(answerJS["answer"].length);
+                    // console.log(answerlist);
+                    // console.log(userAnswerlist);
 
-                if(answerJS["answer"].length == 1 && Array.isArray(answerJS["answer"])){
-                    let textContent = answerJS["answer"][0].replace(/<[^>]*>/g, '');
-                    answer = textContent;
-                }  else {
-                    answer = answerJS["answer"];
+                    // 문자열을 JSON 객체로 변환
+                    let answerJS = JSON.parse(answerlist);
+                    let userAnswerJS = JSON.parse(userAnswerlist);
+                    // let userAnswerJS = JSON.parse(userAnswerlist);
+                    // console.log(answerJS);
+                    // console.log(typeof answerJS);
+                    // console.log(answerJS["answer"].length);
+
+                    if (answerJS["answer"].length == 1 && Array.isArray(answerJS["answer"])) {
+                        let textContent = answerJS["answer"][0].replace(/<[^>]*>/g, '');
+                        answer = textContent;
+                    } else {
+                        answer = answerJS["answer"];
+                    }
+
+                    if (userAnswerJS["answer"].length == 1 && Array.isArray(userAnswerJS["answer"])) {
+                        let textContent = userAnswerJS["answer"][0].replace(/<[^>]*>/g, '');
+                        userAns = textContent;
+                    } else {
+                        userAns = userAnswerJS["answer"];
+                    }
+
+
+                    insertTable4(tbody, orderName, correct, answer, userAns);
+
                 }
-
-                if(userAnswerJS["answer"].length == 1 && Array.isArray(userAnswerJS["answer"])){
-                    let textContent = userAnswerJS["answer"][0].replace(/<[^>]*>/g, '');
-                    userAns = textContent;
-                }  else {
-                    userAns = userAnswerJS["answer"];
-                }
-
-
-                insertTable4(tbody, orderName, correct, answer, userAns);
-
             }
         })
         .catch(error => {

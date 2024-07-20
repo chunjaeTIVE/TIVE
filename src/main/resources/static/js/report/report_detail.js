@@ -53,7 +53,7 @@ let insertTable6 = function (tbodyID, orderName, contentArea, answer, userAns, c
     td4.appendChild(tagi);
 
 
-    td5.textContent = `${avgAll}`;
+    td5.textContent = `${avgAll}%`;
 
     tr.appendChild(td);
     tr.appendChild(td1);
@@ -88,7 +88,7 @@ window.onload = function () {
     let achievePointer = document.querySelector('.user_name');
 
     if (achieveLevel == 4) {
-        achievePointer.style.left = "82%";
+        achievePointer.style.left = "83%";
     } else if (achieveLevel == 3) {
         achievePointer.style.left = "58%";
     } else if (achieveLevel == 2) {
@@ -172,7 +172,7 @@ window.onload = function () {
                         data: levelMyArr,
                         borderColor: '#36A2EB',
                         backgroundColor: '#9BD0F5',
-                        barThickness: 35
+                        barThickness: 80
                     }],
                     labels: level
                 },
@@ -265,7 +265,7 @@ window.onload = function () {
                         data: contentMyArr,
                         borderColor: '#36A2EB',
                         backgroundColor: '#9BD0F5',
-                        barThickness: 35
+                        barThickness: 80
                     }],
                     labels: keys
                 },
@@ -355,7 +355,7 @@ window.onload = function () {
                         data: respMyArr,
                         borderColor: '#36A2EB',
                         backgroundColor: '#9BD0F5',
-                        barThickness: 35
+                        barThickness: 80
                     }],
                     labels: keys
                 },
@@ -416,7 +416,7 @@ window.onload = function () {
                 // 문자열을 JSON 객체로 변환
                 let answerJS = JSON.parse(answerlist);
                 let userAnswerJS = JSON.parse(userAnswerlist);
-                // let userAnswerJS = JSON.parse(userAnswerlist);
+
                 // console.log(answerJS);
                 // console.log(typeof answerJS);
                 // console.log(answerJS["answer"].length);
@@ -466,48 +466,54 @@ window.onload = function () {
             // 받아온 데이터를 처리하고 테이블에 출력
             let tbody = document.getElementById('subjectivelist');
 
+            if(data != null && data.length !=0) {
 
-            for (let i = 0; i < data.length; i++) {
-                let subject = data[i];
+                //서답형 정오표 hidden 해제
+                document.querySelector('.report_sub').style.display = 'block';
 
-                let orderName = subject["orderName"];
-                let contentArea = subject["categoryName"];
-                let correct = subject["correct"];
-                let avgAll = subject["avgAll"];
-                let answer, userAns;
 
-                // 정답 가져오기
-                let answerlist = subject["answer"];
-                let userAnswerlist = subject["userAns"];
+                for (let i = 0; i < data.length; i++) {
+                    let subject = data[i];
 
-                // console.log(answerlist);
-                // console.log(userAnswerlist);
+                    let orderName = subject["orderName"];
+                    let contentArea = subject["categoryName"];
+                    let correct = subject["correct"];
+                    let avgAll = subject["avgAll"];
+                    let answer, userAns;
 
-                // 문자열을 JSON 객체로 변환
-                let answerJS = JSON.parse(answerlist);
-                let userAnswerJS = JSON.parse(userAnswerlist);
-                // let userAnswerJS = JSON.parse(userAnswerlist);
-                // console.log(answerJS);
-                // console.log(typeof answerJS);
-                // console.log(answerJS["answer"].length);
+                    // 정답 가져오기
+                    let answerlist = subject["answer"];
+                    let userAnswerlist = subject["userAns"];
 
-                if(answerJS["answer"].length == 1 && Array.isArray(answerJS["answer"])){
-                    let textContent = answerJS["answer"][0].replace(/<[^>]*>/g, '');
-                    answer = textContent;
-                }  else {
-                    answer = answerJS["answer"];
+                    // console.log(answerlist);
+                    // console.log(userAnswerlist);
+
+                    // 문자열을 JSON 객체로 변환
+                    let answerJS = JSON.parse(answerlist);
+                    let userAnswerJS = JSON.parse(userAnswerlist);
+
+                    // console.log(answerJS);
+                    // console.log(typeof answerJS);
+                    // console.log(answerJS["answer"].length);
+
+                    if (answerJS["answer"].length == 1 && Array.isArray(answerJS["answer"])) {
+                        let textContent = answerJS["answer"][0].replace(/<[^>]*>/g, '');
+                        answer = textContent;
+                    } else {
+                        answer = answerJS["answer"];
+                    }
+
+                    if (userAnswerJS["answer"].length == 1 && Array.isArray(userAnswerJS["answer"])) {
+                        let textContent = userAnswerJS["answer"][0].replace(/<[^>]*>/g, '');
+                        userAns = textContent;
+                    } else {
+                        userAns = userAnswerJS["answer"];
+                    }
+
+
+                    insertTable6(tbody, orderName, contentArea, answer, userAns, correct, avgAll);
+
                 }
-
-                if(userAnswerJS["answer"].length == 1 && Array.isArray(userAnswerJS["answer"])){
-                    let textContent = userAnswerJS["answer"][0].replace(/<[^>]*>/g, '');
-                    userAns = textContent;
-                }  else {
-                    userAns = userAnswerJS["answer"];
-                }
-
-
-                insertTable6(tbody, orderName, contentArea, answer, userAns, correct, avgAll);
-
             }
         })
         .catch(error => {

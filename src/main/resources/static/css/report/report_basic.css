@@ -1,0 +1,170 @@
+.report_wrap {
+    width: 75%;
+    margin: 0px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.report_wrap ul li {
+    list-style: none;
+ }
+
+.report_wrap ul{
+    padding-left: 0;
+}
+
+/* 제목들 */
+.report_wrap h1{
+    display: flex;
+    font-size: 1.5rem;
+    font-weight: bold;
+    width: 80%;
+}
+/* 제목 아이콘*/
+.report_wrap h1 i{
+    margin-right: 8px;
+}
+
+
+/* 회차/과목명 이동 메뉴 */
+#selectForm{
+    display: flex;
+    justify-content: flex-end;
+}
+#selectForm select{
+    width: 80px;
+    height: 32px;
+    border-radius: 12px;
+    padding: 8px;
+    margin: 0 4px;
+}
+
+#selectForm button {
+    width: 73px;
+    height: 34px;
+    border-radius: 12px;
+    padding: 8px;
+    border: 0px;
+}
+
+/*기본 리포트 시험 참여 정보*/
+
+/*아이콘*/
+.basicBox1 ul i {
+    font-size: 20px;
+    width: 36px;
+    text-align: center;
+    padding-top: 7px;
+    color: #5DCCF3;
+    margin-right: 2px;
+}
+
+.basicBox1 ul{
+    font-size: 1.2rem;
+}
+.basicBox1 ul li {
+    font-size: 1.2rem;
+    display: inline-block;
+}
+
+/*이름부분은 항목 사이에 패딩 더 필요*/
+.basicBox1 ul li.first::before {
+    content: '|';
+    display: inline-block;
+    padding: 0 25px 0 58px;
+}
+
+.basicBox1 ul li::before {
+    content: '|';
+    display: inline-block;
+    padding: 0 25px;
+}
+
+
+/*점수*/
+.score_box {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 24px 0;
+    padding: 24px 0;
+    background-color: lightblue;
+    border-radius: 24px;
+}
+
+.score_box .score {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.score_box .score span {
+    color: #1e487d;
+}
+
+
+/* 문항별 정오표 테이블 */
+.report_basic table{
+    margin-top: 24px;
+    padding: 12px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 36px;
+    border: 1px solid #1e487d;
+    table-layout: fixed;
+    text-align: center;
+    font-size: 1.2rem;
+}
+.report_basic table thead tr{
+    border-bottom : 1px solid #1e487d;
+}
+.report_basic table thead tr th{
+    padding: 10px 0;
+}
+.report_basic table thead tr th:nth-child(1){
+    width:5%;
+}
+.report_basic table thead tr th:nth-child(2){
+    width:5%;
+}
+.report_basic table thead tr th:nth-child(3){
+    width:20%;
+}
+.report_basic table thead tr th:nth-child(4){
+    width:20%;
+}
+
+.report_basic table tbody tr td{
+    padding: 10px 0;
+    border-bottom: 1px dotted lightgray;
+    border-right: 1px dotted lightgray;
+}
+
+.report_basic table tbody tr td:last-child{
+    border-right: 1px solid #1e487d;
+}
+.report_basic table tbody tr:last-child td{
+    border-bottom: 1px solid #1e487d;
+}
+
+
+/* 서답형 정오표 테이블 - 정답칸 정렬만 왼쪽 정렬로 */
+#basicSubjectivelist tr td:nth-child(3), #basicSubjectivelist tr td:nth-child(4) {
+    text-align: left;
+    padding: 10px 10px;
+}
+
+
+/* 정오표 채점결과 정답/오답 표시 */
+.fa-circle-check {
+    color: green;
+}
+.fa-circle-xmark {
+    color: red;
+}
+
+/** 서답형 hidden 처리 -> 값이 있는 경우에 보여주기*/
+.report_sub{
+    display: none;
+}
+
