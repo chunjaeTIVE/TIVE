@@ -1,43 +1,6 @@
-window.onload = function () {
-
+window.addEventListener('load', function () {
     let navHeader = document.getElementById('nav_header');
-    // let logo = document.getElementById('logo');
     let mainMenu = navHeader.querySelectorAll('.main_menu');
-    // let mainMenuSelectColor = 'transparent';
-    //
-    // function updateNavBar() { //상단 메뉴바 스타일 변경 함수
-    //
-    //     if (window.scrollY >= 0) { //마우스 스크롤로 50px 내리면 상단바 디자인 변경
-    //
-    //         // 흰배경 있는 버전
-    //         logo.src = '/img2/logo2.png'; //로고 변경
-    //         navHeader.style.backgroundColor = 'rgba(255,255,255,0.8)'; //배경 변경
-    //         navHeader.style.boxShadow = '4px 4px 4px rgba(0, 0, 0, 0.1)'; //그림자 추가
-    //         mainMenu.forEach(function(li) {
-    //             li.style.color = 'black'; //글자색 변경
-    //         });
-    //         mainMenuSelectColor = '#5DCCF3';
-    //
-    //     } else { // 스크롤이 50px 위이면
-    //
-    //         // 투명 배경 버전
-    //         logo.src = '/img2/logo1.png';
-    //         navHeader.style.backgroundColor = 'transparent';
-    //         navHeader.style.boxShadow = 'none'; //그림자 빼기
-    //         mainMenu.forEach(function(li) {
-    //             li.style.color = 'white';
-    //         });
-    //         mainMenuSelectColor = 'white';
-    //
-    //     }
-    // }
-
-    // window.addEventListener('scroll', updateNavBar);
-
-    // 페이지가 로드될 때 한 번 호출하여 초기 상태 설정
-    // updateNavBar();
-
-
 
     // 서브메뉴 토글 기능 추가
     mainMenu.forEach(function(menu) {
@@ -104,4 +67,5 @@ window.onload = function () {
     if(document.getElementById('up_arrow')){
         updateSliderBtn();
     }
-}
+})
+

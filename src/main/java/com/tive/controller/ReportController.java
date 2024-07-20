@@ -35,8 +35,8 @@ public class ReportController {
 
         model.addAttribute("report", report);
         model.addAttribute("subject", subject);
-
-        return "report/report_basic";
+        model.addAttribute("view", "report/report_basic");
+        return "index";
     }
 
 
@@ -54,8 +54,8 @@ public class ReportController {
 
         model.addAttribute("report", report);
         model.addAttribute("subject", subject);
-
-        return "report/report_detail";
+        model.addAttribute("view", "report/report_detail");
+        return "index";
     }
 
     /**정오표 - 서답형 미포함 리스트*/
