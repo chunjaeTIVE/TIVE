@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.springframework.org/schema/security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -11,6 +12,26 @@
 
 </head>
 <body>
+<form id="selectForm">
+    <select id="round" name="round">
+        <option value="1" selected>1회</option>
+        <option value="2">2회</option>
+    </select>
+
+    <select id="subject" name="subject">
+        <option value="국어" selected>국어</option>
+        <option value="영어">영어</option>
+        <option value="수학">수학</option>
+        <option value="사회">사회</option>
+        <option value="과학">과학</option>
+    </select>
+
+    <button type="button" id="submitForm">확인</button>
+</form>
+
+<div>
+
+</div>
 
 <div>
     <h1>평가결과 요약</h1>
@@ -110,18 +131,7 @@
             <th>시험응시자<br>평균 정답률</th>
         </tr>
         </thead>
-        <tbody>
-        <tr th:each="item:${detailList}">
-            <td th:text="${item.orderName}"></td>
-            <td th:text="${item.categoryName}"></td>
-            <td th:text="${item.answer}"></td>
-            <td th:text="${item.userAns}"></td>
-            <td th:if="${item.correct == 1}"><i
-                    class="fa-regular fa-circle-check"></i></td>
-            <td th:if="${item.correct == 0}"><i
-                    class="fa-regular fa-circle-xmark"></i></td>
-            <td th:text="|${item.avgAll}%|"></td>
-        </tr>
+        <tbody  id="detailList">
         </tbody>
     </table>
 
@@ -144,12 +154,12 @@
 </div>
 
 
-<script th:src="@{/js/report/report.js}"></script>
+<script th:src="@{/js/report/report_detail.js}"></script>
 <script>
 
     let inits = {
-        utid: 0
-        , eid: 0
+        utid          : 0
+        , eid         : 0
         , achieveLevel: 0
     }
 
