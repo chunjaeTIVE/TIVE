@@ -1,0 +1,270 @@
+.report_wrap {
+    width: 75%;
+    margin: 0px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.report_wrap ul li {
+    list-style: none;
+}
+
+.report_wrap ul {
+    padding-left: 0;
+}
+
+/* 제목들 */
+.report_wrap h1 {
+    display: flex;
+    font-size: 1.5rem;
+    font-weight: bold;
+    width: 80%;
+    margin: 72px 0 16px;
+}
+
+/* 제목 아이콘*/
+.report_wrap h1 i {
+    margin-right: 8px;
+}
+
+/* 회차/과목명 이동 메뉴 */
+#selectForm {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#selectForm select {
+    width: 80px;
+    height: 32px;
+    border-radius: 12px;
+    padding: 8px;
+    margin: 0 4px;
+}
+
+#selectForm button {
+    width: 73px;
+    height: 34px;
+    border-radius: 12px;
+    padding: 8px;
+    border: 0px;
+}
+
+/* 평가결과 요약 */
+.detailBox1 {
+    font-size: 1.2rem;
+}
+
+.detailBox1 table {
+    margin-top: 24px;
+    padding: 12px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 36px;
+    border: 1px solid #1e487d;
+    table-layout: fixed;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.detailBox1 table tr td {
+    padding: 12px 0;
+    font-weight: bold;
+    border-right: 1px dotted lightgray;
+}
+
+/* 성취 수준 - webapp 파일에서 가져옴 -----*/
+.bar_wrap {
+    width: 100%;
+    position: relative;
+}
+
+.bar_wrap .user_name {
+    position: absolute;
+    font-size: 20px;
+    font-weight: 700;
+    color: #007bff;
+    left: 80%;
+    cursor: pointer;
+}
+
+.bar_wrap .user_name i {
+    font-size: 25px;
+    display: block;
+}
+
+.bar_wrap .bar {
+    display: flex;
+    width: 100%;
+    padding-top: 40px;
+    margin-bottom: 76px;
+}
+
+.bar_wrap .bar > div {
+    flex: 1;
+    font-size: 18px;
+    display: inline-block;
+    width: 195px;
+    height: 50px;
+    margin: -1.3px;
+    padding: 0;
+}
+
+.bar_wrap .bar > div em {
+    text-align: center;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    padding: 18px 0;
+}
+
+.bar_wrap .bar > div p {
+    font-size: 1rem;
+}
+
+.bar_wrap .bar > div:nth-child(1) {
+    background: #caf0f8;
+    border-radius: 25px 0 0 25px;
+}
+
+.bar_wrap .bar > div:nth-child(2) {
+    background: #ade8f4;
+}
+
+.bar_wrap .bar > div:nth-child(3) {
+    background: #90e0ef;
+}
+
+.bar_wrap .bar > div:nth-child(4) {
+    background: #48cae4;
+    border-radius: 0 25px 25px 0;
+}
+
+.pt20 {
+    padding-top: 20px;
+}
+
+.bar p {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 30px;
+}
+
+/* -----------------------------------*/
+
+/* 통계표 */
+.chart_box {
+    padding: 4.5vw 3vh;
+    background-color: transparent;
+    box-shadow: 0px 0px 5px 5px rgba(225, 225, 255, 0.2);
+    border-radius: 60px;
+    text-align: center;
+}
+
+.chart_box table {
+    padding: 12px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 36px;
+    border: 1px solid #1e487d;
+    table-layout: fixed;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.chart_box table thead tr {
+    border-bottom: 1px solid #1e487d;
+}
+
+.chart_box table thead tr th {
+    padding: 10px 0;
+}
+
+.chart_box table tbody tr td {
+    padding: 10px 0;
+    border-bottom: 1px dotted lightgray;
+    border-right: 1px dotted lightgray;
+}
+
+.chart_box table tbody tr td:last-child {
+    border-right: 1px solid #1e487d;
+}
+
+.chart_box table tbody tr:last-child td {
+    border-bottom: 1px solid #1e487d;
+}
+
+
+/* 참고* 그래프 색/두께는 js파일에서 수정가능. report_detail.js */
+
+
+/* 정오표 */
+.report_detail table{
+    margin-top: 24px;
+    padding: 12px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 36px;
+    border: 1px solid #1e487d;
+    table-layout: fixed;
+    text-align: center;
+    font-size: 1rem;
+}
+.report_detail table thead tr{
+    border-bottom : 1px solid #1e487d;
+}
+.report_detail table thead tr th{
+    padding: 10px 0;
+}
+.report_detail table thead tr th:nth-child(1){
+    width:10%;
+}
+.report_detail table thead tr th:nth-child(2){
+    width:10%;
+}
+.report_detail table thead tr th:nth-child(3){
+    width:30%;
+}
+.report_detail table thead tr th:nth-child(4){
+    width:30%;
+}
+.report_detail table thead tr th:nth-child(5){
+    width:10%;
+}
+.report_detail table thead tr th:nth-child(6){
+    width:10%;
+}
+
+.report_detail table tbody tr td{
+    padding: 10px 0;
+    border-bottom: 1px dotted lightgray;
+    border-right: 1px dotted lightgray;
+}
+
+.report_detail table tbody tr td:last-child{
+    border-right: 1px solid #1e487d;
+}
+.report_detail table tbody tr:last-child td{
+    border-bottom: 1px solid #1e487d;
+}
+
+/* 서답형 정오표 테이블 - 정답칸 정렬만 왼쪽 정렬로 */
+#subjectivelist tr td:nth-child(3), #subjectivelist tr td:nth-child(4) {
+    text-align: left;
+    padding: 10px 10px;
+}
+
+/* 정오표 채점결과 정답/오답 표시 */
+.fa-circle-check {
+    color: green;
+}
+
+.fa-circle-xmark {
+    color: red;
+}
+
+/** 서답형 hidden 처리 -> 값이 있는 경우에 보여주기*/
+.report_sub{
+    display: none;
+}

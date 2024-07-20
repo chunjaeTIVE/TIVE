@@ -8,6 +8,7 @@ import com.tive.dto.ReportExamDTO;
 import com.tive.dto.ReportQuestionDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -52,6 +53,7 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
     }
 
     @Override
+    @Transactional
     public List<ReportQuestionDTO> getReportDetailList(Long utId) {
         List<ReportQuestionDTO> list = queryFactory.select(Projections.fields(ReportQuestionDTO.class
                         , questionItem.qid
@@ -74,6 +76,7 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
     }
 
     @Override
+    @Transactional
     public List<ReportQuestionDTO> getSubjectiveList(Long ut_id) {
         List<ReportQuestionDTO> list = queryFactory.select(Projections.fields(ReportQuestionDTO.class
                         , questionItem.qid

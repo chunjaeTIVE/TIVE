@@ -7,6 +7,7 @@ import com.tive.repository.report.ReportRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +42,7 @@ public class ReportServiceImpl implements ReportService{
 
     /**정오표 - 서답형 제외*/
     @Override
+    @Transactional
     public List<ReportQuestionDTO> getReportDetailList(Long utId, Long eid) {
         // 문항데이터
         List<ReportQuestionDTO> list = reportRepository.getReportDetailList(utId);
@@ -61,6 +63,7 @@ public class ReportServiceImpl implements ReportService{
 
     /**정오표 - 서답형*/
     @Override
+    @Transactional
     public List<ReportQuestionDTO> getSubjectiveList(Long ut_id, Long eid) {
 
         // 문항데이터
@@ -180,9 +183,30 @@ public class ReportServiceImpl implements ReportService{
         Map<String, Object> data = new HashMap<>();
 
         for(Tuple result :results){
-            String difficulty = result.get(0, String.class);
+            String resp = result.get(0, String.class);
+            String qtype = "";
+            if("IT01".equals(resp) || "IT02".equals(resp) || "IT18".equals(resp)){
+                qtype = "선다형";
+            } else if("IT09".equals(resp) || "IT12".equals(resp)){
+                qtype = "단답형";
+            } else if("IT10".equals(resp) || "IT13".equals(resp) || "IT14".equals(resp) || "IT15".equals(resp) || "IT17".equals(resp)){
+                qtype = "서술형";
+            } else if("IT11".equals(resp)){
+                qtype = "확장 선택형";
+            } else if("IT16".equals(resp) || "TT07".equals(resp)){
+                qtype = "순서 배열형";
+            } else if("TT03".equals(resp)){
+                qtype = "자료 연결형";
+            } else if("TT04".equals(resp)){
+                qtype = "아래로 펼치기";
+            } else if("TT11".equals(resp)){
+                qtype = "수정형";
+            } else {
+                qtype = "선다형";
+            }
+
             int achievementRate =(int)Math.round(result.get(1, Double.class));
-            data.put(difficulty, achievementRate);
+            data.put(qtype, achievementRate);
         }
 
         return data;
@@ -196,9 +220,29 @@ public class ReportServiceImpl implements ReportService{
         Map<String, Object> data = new HashMap<>();
 
         for(Tuple result :results){
-            String difficulty = result.get(0, String.class);
+            String resp = result.get(0, String.class);
+            String qtype = "";
+            if("IT01".equals(resp) || "IT02".equals(resp) || "IT18".equals(resp)){
+                qtype = "선다형";
+            } else if("IT09".equals(resp) || "IT12".equals(resp)){
+                qtype = "단답형";
+            } else if("IT10".equals(resp) || "IT13".equals(resp) || "IT14".equals(resp) || "IT15".equals(resp) || "IT17".equals(resp)){
+                qtype = "서술형";
+            } else if("IT11".equals(resp)){
+                qtype = "확장선택형";
+            } else if("IT16".equals(resp) || "TT07".equals(resp)){
+                qtype = "순서 배열형";
+            } else if("TT03".equals(resp)){
+                qtype = "자료 연결형";
+            } else if("TT04".equals(resp)){
+                qtype = "아래로 펼치기";
+            } else if("TT11".equals(resp)){
+                qtype = "수정형";
+            } else {
+                qtype = "선다형";
+            }
             int achievementRate =(int)Math.round(result.get(1, Double.class));
-            data.put(difficulty, achievementRate);
+            data.put(qtype, achievementRate);
         }
 
         return data;

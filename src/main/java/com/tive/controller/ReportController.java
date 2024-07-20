@@ -33,12 +33,7 @@ public class ReportController {
         // 시험 기본 정보 가져오기
         ReportExamDTO report = reportService.getTest(uid, round, subject);
 
-        // 정오표 - 서답형 제외
-        List<ReportQuestionDTO> detailList
-                = reportService.getReportDetailList(report.getUtId(), report.getEid());
-
         model.addAttribute("report", report);
-        model.addAttribute("detailList", detailList);
         model.addAttribute("subject", subject);
 
         return "report/report_basic";
