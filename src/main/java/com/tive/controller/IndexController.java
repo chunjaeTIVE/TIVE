@@ -1,6 +1,8 @@
 package com.tive.controller;
 
+import com.tive.dto.ExamDTO;
 import com.tive.dto.NoticeDTO;
+import com.tive.service.ExamService;
 import com.tive.service.NoticeService;
 import com.tive.service.UserDetailService;
 import com.tive.service.UserService;
@@ -22,8 +24,9 @@ import java.util.List;
 public class IndexController {
 
     private final NoticeService noticeService;
-    private final UserDetailService userDetailService;
     private final UserService userService;
+
+    private final ExamService examService;
 
     @GetMapping("/index")
     public String main2(Model model, Principal principal){
@@ -48,9 +51,9 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping("/playTest/{examKind}")
+    @GetMapping("/playTest/{eid}")
     public String playTest(
-            @PathVariable String examKind
+            @PathVariable long eid
             , Model model
             , Principal principal
     ){
@@ -67,16 +70,16 @@ public class IndexController {
             log.info("Principal is null or principal.getName() is null");
         }
 
-        model.addAttribute("examKind", examKind);
+        model.addAttribute("eid", eid);
         model.addAttribute("view", "info/play_test");
 
         return "index";
     }
 
 
-    @GetMapping("/warnInfo/{examKind}")
+    @GetMapping("/warnInfo/{eid}")
     public String warnInfo(
-            @PathVariable String examKind
+            @PathVariable int eid
             , Model model
             , Principal principal
     ){
@@ -91,7 +94,7 @@ public class IndexController {
         } else { //아니면 로그값 출력
             log.info("Principal is null or principal.getName() is null");
         }
-        model.addAttribute("examKind", examKind);
+        model.addAttribute("examKind", eid);
         model.addAttribute("view", "info/warn_info");
 
         return "index";
@@ -115,6 +118,7 @@ public class IndexController {
             log.info("Principal is null or principal.getName() is null");
         }
 
+        model.addAttribute("schoolLevel", schoolLevel);
         model.addAttribute("view", "info/cbt_test");
         return "index";
     }
@@ -122,19 +126,41 @@ public class IndexController {
     /** 응시페이지 */
     @GetMapping("/testgogo/{examKind}")
     public String testGogo(
-            @PathVariable String examKind
+            @PathVariable int examKind
             , Model model
             , Principal principal
     ){
 
-        //현재 세션으로 유저 이름 가져오기
+        //현재 세션으로 유저 이름, 학교급 가져오기
         String useremail = "";
         String username = "";
+        String userSL = "";
 
         if (principal != null && principal.getName() != null){ //로그인 한 경우에만 받아옴
             useremail = principal.getName();
-            username = userService.getUserInfo(useremail).getName();
+            username = userService.getUserInfo(useremail).getName(); // 유저 이름
+            userSL = userService.getUserInfo(useremail).getSchoolLevel(); // 학교급
             model.addAttribute("username",username);
+            model.addAttribute("userSL", userSL);
+
+            //각 과목 eid 가져오기
+            ExamDTO korean, math, english, society, science;
+
+            korean = examService.findExamInfo(userSL,"국어",examKind);
+            math = examService.findExamInfo(userSL,"수학",examKind);
+            english = examService.findExamInfo(userSL,"영어",examKind);
+
+            model.addAttribute("korean", korean);
+            model.addAttribute("math",math);
+            model.addAttribute("english",english);
+
+            if (!userSL.equals("HL")){ //고등학생이 아니면 사회, 과학도 받음
+                society = examService.findExamInfo(userSL,"사회",examKind);
+                science = examService.findExamInfo(userSL,"과학",examKind);
+                model.addAttribute("society",society);
+                model.addAttribute("science",science);
+            }
+
         } else { //아니면 로그값 출력
             log.info("Principal is null or principal.getName() is null");
         }

@@ -9,4 +9,6 @@ public interface ExamService {
     List<ExamDTO> findExamList();
 
     List<QuestionDTO> findExam(Long eid);
+
+    ExamDTO findExamInfo(String userSL, String subject, int examKind);
 }
