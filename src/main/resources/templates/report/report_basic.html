@@ -5,96 +5,126 @@
     <title>Title</title>
 
     <script src="https://kit.fontawesome.com/266dd736a0.js" crossorigin="anonymous"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{/css/info/bg_template.css}">
     <link rel="stylesheet" th:href="@{/css/report/report_basic.css}">
+
 </head>
 <body>
 
-<div class="report_wrap">
+<div id="wrap">
+
+    <h1>
+<!--        <img class="title_icon" th:src="@{/img/report/shell1.png}" th:alt="다이버"/>-->
+        기본 리포트
+<!--        <img class="title_icon" th:src="@{/img/report/shell1.png}" th:alt="다이버"/>-->
+    </h1>
+
+    <img class="top_deco" th:src="@{/img/index/sea_light.png}" th:alt="바다빛">
+
+    <div class="report_wrap">
 
 
-    <form id="selectForm">
-        <select id="round" name="round">
-            <option value="1" selected>1회</option>
-            <option value="2">2회</option>
-        </select>
+        <form id="selectForm">
+            <select id="round" name="round">
+                <option value="1" selected>1회</option>
+                <option value="2">2회</option>
+            </select>
 
-        <select id="subject" name="subject">
-            <option value="국어" selected>국어</option>
-            <option value="영어">영어</option>
-            <option value="수학">수학</option>
-            <option value="사회">사회</option>
-            <option value="과학">과학</option>
-        </select>
+            <select id="subject" name="subject">
+                <option value="국어" selected>국어</option>
+                <option value="영어">영어</option>
+                <option value="수학">수학</option>
+                <option value="사회">사회</option>
+                <option value="과학">과학</option>
+            </select>
 
-        <button type="button" id="submitForm">확인</button>
-    </form>
-
-
-    <div class="basicBox1">
-
-        <h1><i class="fa-regular fa-pen-to-square"></i> 시험참여 정보</h1>
-
-        <ul><i class="fa-regular fa-user"></i>이름
-            <li class="first">
-                [[${report.name}]]
-            </li>
-        </ul>
-        <ul><i class="fa-solid fa-file"></i>응시과목
-            <li>
-                [[${subject}]]
-            </li>
-        </ul>
-        <ul><i class="fa-regular fa-calendar-days"></i>응시일자
-            <li>
-                [[${#temporals.format(report.examDate,'yy-MM-dd')}]]
-            </li>
-        </ul>
-    </div>
+            <button type="button" id="submitForm">확인</button>
+        </form>
 
 
-    <div class="score_box">
+        <div class="basicBox1">
+
+            <h1><i class="fa-regular fa-pen-to-square"></i> 시험참여 정보</h1>
+
+            <ul>
+                <li>
+                    <img class="exam_info_icon" th:src="@{/img/report/diver.png}" th:alt="다이버"/>
+                    <span class="exam_info_title">이름</span>
+                    <span>| &nbsp; &nbsp;[[${report.name}]]</span>
+                </li>
+
+                <li>
+                    <img class="exam_info_icon2" th:src="@{/img/report/star_fish.png}" th:alt="불가사리"/>
+                    <span class="exam_info_title">응시과목</span>
+                    <span>| &nbsp; &nbsp;[[${subject}]]</span>
+                </li>
+
+                <li>
+                    <img class="exam_info_icon2" th:src="@{/img/report/calendar.png}" th:alt="달력"/>
+                    <span class="exam_info_title">응시일자</span>
+                    <span>| &nbsp; &nbsp;[[${#temporals.format(report.examDate,'yyyy년 MM월 dd일')}]]</span>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <div class="score_box">
         <span class="score">
            <span>[[${report.achievementRate}]]점</span>/100점
         </span>
+        </div>
+
+
+        <div class="report_basic">
+            <h1><i class="fa-regular fa-pen-to-square"></i> 문항별 정오표</h1>
+            <table>
+                <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>채점결과</th>
+                    <th>정답</th>
+                    <th>본인 응답</th>
+                </tr>
+                </thead>
+                <tbody id="basicList">
+            </table>
+        </div>
+
+
+        <!--서답형 리스트-->
+        <div class="report_basic report_sub">
+            <h1><i class="fa-regular fa-pen-to-square"></i> 서답형 정오표</h1>
+            <table>
+                <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>채점결과</th>
+                    <th>정답</th>
+                    <th>본인 응답</th>
+                </tr>
+                </thead>
+                <tbody id="basicSubjectivelist">
+                </tbody>
+            </table>
+        </div>
+
     </div>
 
+    <img class="bubble_left" th:src="@{/img/index/bubble2.png}" th:alt="버블2">
+    <img class="bubble_right" th:src="@{/img/index/bubble1.png}" th:alt="버블1">
 
-    <div class="report_basic">
-        <h1><i class="fa-regular fa-pen-to-square"></i> 문항별 정오표</h1>
-        <table>
-            <thead>
-            <tr>
-                <th>번호</th>
-                <th>채점결과</th>
-                <th>정답</th>
-                <th>본인 응답</th>
-            </tr>
-            </thead>
-            <tbody id="basicList">
-        </table>
+    <div class="coral_reef">
+        <img class="coral_reef_item" th:src="@{/img/index/coral_reef_left.png}" th:alt="산호초_좌" draggable="false">
+        <img class="coral_reef_item" th:src="@{/img/index/coral_reef_right.png}" th:alt="산호초_우" draggable="false">
     </div>
 
-
-    <!--서답형 리스트-->
-    <div class="report_basic report_sub">
-        <h1><i class="fa-regular fa-pen-to-square"></i> 서답형 정오표</h1>
-        <table>
-            <thead>
-            <tr>
-                <th>번호</th>
-                <th>채점결과</th>
-                <th>정답</th>
-                <th>본인 응답</th>
-            </tr>
-            </thead>
-            <tbody id="basicSubjectivelist">
-            </tbody>
-        </table>
-    </div>
-
+    <img class="bottom_deco" th:src="@{/img/index/sea_sand.png}" th:alt="모래바닥" draggable="false">
 </div>
+
 
 <script th:src="@{/js/report/report_basic.js}"></script>
 <script>
