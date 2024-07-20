@@ -509,35 +509,6 @@ window.onload = function () {
                 insertTable6(tbody, orderName, contentArea, answer, userAns, correct, avgAll);
 
             }
-
-            // for (let i = 0; i < data.length; i++) {
-            //     let subject = data[i];
-            //
-            //     // 정답 가져오기
-            //     let answerlist = subject["answer"];
-            //
-            //     // '['와 ']' 사이의 내용을 추출
-            //     let startIndex = answerlist.indexOf('[') + 1;
-            //     let endIndex = answerlist.lastIndexOf(']');
-            //     let contents = answerlist.substring(startIndex, endIndex);
-            //
-            //     // 쉼표로 분리하여 배열로 만들기
-            //     let answers = contents.split('","');
-            //
-            //     // 각 요소의 큰따옴표 제거
-            //     answers = answers.map(item => item.replace(/"/g, ''));
-            //
-            //     let orderName = subject["orderName"];
-            //     let contentArea = subject["categoryName"];
-            //     let userAns = subject["userAns"];
-            //     let correct = subject["correct"];
-            //     let avgAll = subject["avgAll"];
-            //
-            //     insertTable6(tbody, orderName, contentArea, answers, userAns, correct, avgAll);
-            //
-            // }
-
-
         })
         .catch(error => {
             console.error('Error fetching subjective list data:', error);

@@ -57,16 +57,23 @@ public class ReportController {
         // 시험 기본 정보 가져오기
         ReportExamDTO report = reportService.getTest(uid, round, subject);
 
-        // 정오표 - 서답형 제외
-        List<ReportQuestionDTO> detailList
-                = reportService.getReportDetailList(report.getUtId(), report.getEid());
-
-
         model.addAttribute("report", report);
-        model.addAttribute("detailList", detailList);
         model.addAttribute("subject", subject);
 
         return "report/report_detail";
+    }
+
+    /**정오표 - 서답형 미포함 리스트*/
+    @GetMapping("/reportdetaillist/{ut_id}/{eid}")
+    @ResponseBody
+    public List<ReportQuestionDTO> getReportDetailList(@PathVariable("ut_id") Long ut_id
+            , @PathVariable("eid") Long eid
+    ){
+        // 정오표 - 서답형 제외
+        List<ReportQuestionDTO> detailList
+                = reportService.getReportDetailList(ut_id, eid);
+
+        return detailList;
     }
 
     /**정오표 - 서답형 리스트*/

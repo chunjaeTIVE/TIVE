@@ -11,6 +11,25 @@
 </head>
 <body>
 
+<form id="selectForm">
+    <select id="round" name="round">
+        <option value="1" selected>1회</option>
+        <option value="2">2회</option>
+    </select>
+
+    <select id="subject" name="subject">
+        <option value="국어" selected>국어</option>
+        <option value="영어">영어</option>
+        <option value="수학">수학</option>
+        <option value="사회">사회</option>
+        <option value="과학">과학</option>
+    </select>
+
+    <button type="button" id="submitForm">확인</button>
+</form>
+
+
+
 <div>
 
 <h1>시험참여 정보</h1>
@@ -63,21 +82,43 @@
         <tr>
             <th>번호</th>
             <th>채점결과</th>
-            <th>문제 및 해설 보기</th>
+            <th>정답</th>
+            <th>본인 응답</th>
         </tr>
         </thead>
-        <tbody>
-        <tr th:each="item:${detailList}">
-            <td th:text="${item.order}"></td>
-            <td th:if="${item.correct == 1}"><i
-                    class="fa-regular fa-circle-check"></i></td>
-            <td th:if="${item.correct == 0}"><i
-                    class="fa-regular fa-circle-xmark"></i></td>
-            <td th:text="상세보기"></td>
+        <tbody  id="basicList">
+    </table>
+
+    <!--서답형 리스트-->
+    <h2>서답형</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>채점결과</th>
+            <th>정답</th>
+            <th>본인 응답</th>
         </tr>
+        </thead>
+        <tbody id="basicSubjectivelist">
         </tbody>
     </table>
 </div>
+
+<script th:src="@{/js/report/report_basic.js}"></script>
+<script>
+
+    let inits = {
+        utid          : 0
+        , eid         : 0
+    }
+
+    inits['utid'] = [[${report.utId}]]
+    inits['eid'] = [[${report.eid}]]
+
+    init(inits);
+
+</script>
 
 
 </body>
