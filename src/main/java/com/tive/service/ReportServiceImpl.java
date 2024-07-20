@@ -4,6 +4,7 @@ import com.querydsl.core.Tuple;
 import com.tive.dto.ReportExamDTO;
 import com.tive.dto.ReportQuestionDTO;
 import com.tive.repository.report.ReportRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,7 @@ public class ReportServiceImpl implements ReportService{
 
     /**정오표 - 서답형 제외*/
     @Override
+    @Transactional
     public List<ReportQuestionDTO> getReportDetailList(Long utId, Long eid) {
         // 문항데이터
         List<ReportQuestionDTO> list = reportRepository.getReportDetailList(utId);
@@ -61,6 +63,7 @@ public class ReportServiceImpl implements ReportService{
 
     /**정오표 - 서답형*/
     @Override
+    @Transactional
     public List<ReportQuestionDTO> getSubjectiveList(Long ut_id, Long eid) {
 
         // 문항데이터

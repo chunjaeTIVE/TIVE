@@ -35,7 +35,8 @@ public class SecurityConfig {
                 authorize.requestMatchers(/*"/login","/join"*/"/**" ).permitAll()
  /*                       .requestMatchers("/main/**").hasAnyRole("USERS", "ADMIN") // 다 들어오세요*/
  /*                       .requestMatchers("").hasRole("ADMIN")// 여긴 안됨*/
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
+//                        .anyRequest().authenticated()
                 );
 
         http.formLogin(formLogin -> formLogin

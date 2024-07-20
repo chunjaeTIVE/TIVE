@@ -7,28 +7,103 @@ let buttonTemp = [];
 let hotspotTemp = [];
 let dragdropTemp = [];
 
+function mergeTemp(temp) {
+    let merge = [];
+    if(temp.length>0){
+        for(let i=0; i<temp.length; i++){
+            let goAhead = false;
+            if(merge.length===0){
+                goAhead = true;
+            } else {
+                let m=0;
+                while(m<merge.length){
+                    if(merge[m].qid === temp[i].qid)
+                        break;
+                    m++;
+                }
+                if(m === merge.length)
+                    goAhead = true;
+            }
+            if(goAhead){
+                let dqid = temp[i].qid;
+                let value = [temp[i].answer];
+                for(let j=i+1; j<temp.length; j++){
+                    if(temp[j].qid === dqid){
+                        value.push(temp[j].answer);
+                    }
+                }
+                if(value.length===1)
+                    value = value.pop();
+                merge.push({"qid" :dqid,"answer" :value});
+            }
+        }
+        console.log(merge);
+    }
+    return merge;
+}
+
 function completeExam() {
-    // console.log(textTemp);
-    // console.log(textareaTemp);
-    // console.log(selectTemp);
-    // console.log(checkboxTemp);
-    // console.log(radioTemp);
-    // console.log(buttonTemp);
-    // console.log(hotspotTemp);
-    // console.log(dragdropTemp);
-    let all = [textareaTemp,textTemp,selectTemp,radioTemp,buttonTemp,hotspotTemp,dragdropTemp];
+    // drag drop, hotspot 문제 하나로 정답 통합
+    let mergedDragdropTemp = [];
+    let mergedHotspotTemp = [];
+    if(dragdropTemp.length>0 || hotspotTemp.length>0){
+        if(dragdropTemp.length>0)
+            mergedDragdropTemp = mergeTemp(dragdropTemp);
+        else{
+            mergedHotspotTemp = mergeTemp(hotspotTemp);
+            for(let h=0; h<mergedHotspotTemp.length; h++){
+                if(mergedHotspotTemp[h].answer.length>1)
+                    mergedHotspotTemp[h].answer.sort((a,b)=>a-b);
+            }
+        }
+    }
+    // 전체 문제 문항번호 순으로 sort
+    let all = [textareaTemp,textTemp,selectTemp,radioTemp,buttonTemp,mergedHotspotTemp,mergedDragdropTemp];
     let resultTemp = [].concat.apply([],all);
-    let studentAnswer = [];
     for(let i=0; i<resultTemp.length; i++){
-        resultTemp.sort((a, b) => Number(a[0]) - Number(b[0]));
+        resultTemp.sort((a, b) => Number(a.qid) - Number(b.qid));
     }
     console.log("resultTemp :",resultTemp);
     console.log("응답 개수 :", resultTemp.length);
+    // 최종 정답 모양 만들기
+    for(let j=0; j<resultTemp.length; j++){
+        if(j!== resultTemp.length-1 && resultTemp[j].qid === resultTemp[j+1].qid){
+            resultTemp[j]["answer"] = resultTemp[j+1].answer;
+            resultTemp.splice(j+1,1);
+        }
+    }
+    console.log("최종 통합 후 : ",resultTemp);
+    const token = document.querySelector("meta[name='_csrf']").content;
+    const header = document.querySelector("meta[name='_csrf_header']").content;
+    fetch(`/submit_exam`, {
+        method: "POST",
+        headers: {
+            'X-Requested-With': "XMLHttpRequest",
+            'Accept': 'application/json',
+            'X-XSRF-Token': token,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            //uid: params.p_uid,
+            eid: document.querySelector('.wrap').id
+            ,body: resultTemp
+        })
+    }).then(response=>{
+        console.log(response);
+        if(!response.ok)
+            throw new Error();
+        else
+            return response.text();
+    }).then(data=>{console.log(data);
+    }).catch (error=>{
+        console.error(error);
+    });
 }
+
 function answerExtract(els, el) {
     //console.log(el.type);
     let ancestor = $(el).closest('.swiper-slide').find('input[type="hidden"]').prop('id');
-    console.log(ancestor);
+    //console.log(ancestor);
     let val = Array.from(els)
         .filter(el => {
             let condition;
@@ -44,7 +119,12 @@ function answerExtract(els, el) {
 
         })
         .map(el => el.value);
-    return [ancestor, val];
+    if(val.length===1)
+        val = val.pop();
+    if(el.type ==='textarea')
+        return { "qid" : ancestor, "textarea" : val };
+    else
+        return { "qid" : ancestor, "answer" : val };
 }
 
 function dupleElementPop(temp, answer) {
@@ -54,7 +134,7 @@ function dupleElementPop(temp, answer) {
             if (i == temp.length) {
                 temp.push(answer);
                 break;
-            } else if (temp[i][0] === answer[0]) {
+            } else if (temp[i].qid === answer.qid) {
                 temp[i] = answer;
                 //console.log("0보다 크고 if")
                 break;
@@ -74,7 +154,7 @@ function dupleBtnHotspotPop(on,temp,answer) {
     } else {
         if(temp.length>0){
             for(let i=0; i < temp.length; i++) {
-                if (temp[i][0] === answer[0] && temp[i][1] === answer[1]) {
+                if (temp[i].qid === answer.qid && temp[i].ans === answer.ans) {
                     temp.splice(i,1);
                     break;
                 }
@@ -91,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let answer = answerExtract(textareas,textarea);
             //console.log(answer);
             dupleElementPop(textareaTemp,answer);
-            console.log("textarea : ",textareaTemp);
+            //console.log("textarea : ",textareaTemp);
         });
     });
 
@@ -102,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let answer = answerExtract(texts,text);
             //console.log(answer);
             dupleElementPop(textTemp,answer);
-            console.log("input text : ",textTemp);
+            //console.log("input text : ",textTemp);
         });
     });
 
@@ -113,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let answer = answerExtract(selects,select);
             //console.log(answer);
             dupleElementPop(selectTemp,answer);
-            console.log("select : ",selectTemp);
+            //console.log("select : ",selectTemp);
         });
     });
 
@@ -124,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let answer = answerExtract(checkboxes,checkbox);
             //console.log(answer);
             dupleElementPop(checkboxTemp,answer);
-            console.log("checkbox : ",checkboxTemp);
+            //console.log("checkbox : ",checkboxTemp);
         });
     });
 
@@ -135,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let answer = answerExtract(radios,radio);
             //console.log(answer);
             dupleElementPop(radioTemp,answer);
-            console.log("radio : ",radioTemp);
+            //console.log("radio : ",radioTemp);
         });
     });
 
@@ -146,19 +226,19 @@ document.addEventListener('DOMContentLoaded', function () {
             //console.log(e.target.textContent);
             e.target.classList.toggle('btn-ans');
             let ancestor = $(this).closest('.swiper-slide').find('input[type="hidden"]').prop('id');
-            console.log(ancestor);
-            let answer = [ancestor];
+            //console.log(ancestor);
+            let answer = {"qid" : ancestor};
             let siblings = e.target.parentElement.children;
             for(let s=0; s<siblings.length; s++){
                 if(siblings[s] === e.target){
                     //answer = [...answer,[s+1]];
-                    answer.splice(answer.length,0,s+1);
+                    answer["answer"]= s+1;
                 }
             }
             //console.log(answer);
-            console.log(`click: ${index + 1} in exam, ${answer[1]} in question`);
+            //console.log(`click: ${index + 1} in exam, ${answer.answer} in question`);
             dupleBtnHotspotPop(e.target.classList.length,buttonTemp,answer);
-            console.log("button : ",buttonTemp);
+            //console.log("button : ",buttonTemp);
         });
     });
 
@@ -168,28 +248,19 @@ document.addEventListener('DOMContentLoaded', function () {
         group.addEventListener('click', function (e) {
             e.target.classList.toggle('on');
             let ancestor = $(this).closest('.swiper-slide').find('input[type="hidden"]').prop('id');
-            console.log(ancestor);
-            let answer = [ancestor];
+            //console.log(ancestor);
+            let answer = {"qid" : ancestor};
             let siblings = e.target.parentElement.parentElement.children;
             for(let s=0; s<siblings.length; s++){
-                if(siblings[s] === e.target.parentElement){
-                    //answer = [...answer,[s+1]];
-                    answer.splice(answer.length,0,s+1);
-                }
+                if(siblings[s] === e.target.parentElement)
+                    answer["answer"] = s+1;
             }
             //console.log(answer);
-            console.log(`click: ${index + 1} in exam, ${answer[1]} in question`);
+            //console.log(`click: ${index + 1} in exam, ${answer.ans} in question`);
             dupleBtnHotspotPop(e.target.classList.length,hotspotTemp,answer);
-            console.log("hotspot : ",hotspotTemp);
+            //console.log("hotspot : ",hotspotTemp);
         });
     });
-    // let svgLines = document.querySelectorAll('svg line');
-    //
-    // svgLines.forEach(function (line) {
-    //     line.addEventListener('click', function () {
-    //         this.remove();
-    //     });
-    // });
 
     // TT07 drag and drop
     let draggables = document.querySelectorAll('.drag');
@@ -199,53 +270,79 @@ document.addEventListener('DOMContentLoaded', function () {
             e.dataTransfer.setData('text/plain', e.target.getAttribute('data-name'));
         });
     });
-    // dropArea.addEventListener('dragover', function (e) {
-    //     e.preventDefault();
-    // })
     dropArea.forEach(drop=>{
         setTimeout(()=>{
             drop.addEventListener('drop', function (e) {
                 e.preventDefault();
-                let ancestor = $(e.target).closest('.swiper-slide').find('input[type="hidden"]').prop('id');
-                console.log(ancestor);
-                //let val = e.dataTransfer.getData('text/plain');
-                let val = e.target.children[0].outerHTML;
-                let answer = [ancestor, val];
-                let siblings = e.target.parentElement.children;
-                for(let s=0; s<siblings.length; s++){
-                    if(siblings[s] === e.target){
-                        console.log("yes : ",s);
-                        answer.splice(answer.length,0,s+1);
+                let ancestor = $(this).closest('.swiper-slide').find('input[type="hidden"]').prop('id');
+                //console.log(ancestor);
+                let target = (e.target.classList[0] === 'drop') ? e.target.children : e.target.parentElement.children;
+                //console.log(target);
+                let t=0;
+                let goAhead = false;
+                let alerttxt = '';
+                // 한 칸에 복수개 정답 올렸는지 유효성 검사
+                while(t<target.length){
+                    if(t+1===target.length){
+                        goAhead = true;
+                        break;
                     }
-                }
-                console.log(answer);
-                if (dragdropTemp.length > 0) {
-                    let i = 0;
-                    while (i <= dragdropTemp.length) {
-                        if (i == dragdropTemp.length) {
-                            dragdropTemp.push(answer);
-                            break;
-                        } else if (dragdropTemp[i][0] === ancestor && dragdropTemp[i][2] === answer[2]) {
-                            dragdropTemp[i] = answer;
-                            //console.log("0보다 크고 if")
+                    for(let a=t+1; a<=target.length-1; a++){
+                        if(target[t].nodeName === target[a].nodeName){
+                            target[a].remove();
+                            alerttxt = "한 칸에 하나의 정답만 입력하세요.";
                             break;
                         }
-                        i++;
                     }
-                } else {
-                    //dragdropTemp = [...dragdropTemp, answer];
-                    dragdropTemp.push(answer);
-                    //console.log("0 보다 크지 않음")
+                    if(alerttxt !== ''){
+                        alert(alerttxt);
+                        break;
+                    }
+                    t++;
                 }
-                console.log("drop : ",dragdropTemp);
+                // 유효성 검사 통과 경우에만 정답 받기 진행
+                if(goAhead){
+                    let val = (target.length !==3) ? target[0] : target[1];
+                    //console.log(val);
+                    if(val.nodeName === 'IMG')
+                        val = val.src;
+                    else
+                        val = val.textContent;
+                    let answer = {"qid":ancestor};
+                    let siblings = e.target.parentElement.children;
+                    for(let s=0; s<siblings.length; s++){
+                        if(siblings[s] === e.target){
+                            answer["answer"] = [s+1,val];
+                        }
+                    }
+                    //console.log(answer);
+                    // 중복 제거
+                    if (dragdropTemp.length > 0) {
+                        let i = 0;
+                        while (i <= dragdropTemp.length) {
+                            if (i == dragdropTemp.length) {
+                                dragdropTemp.push(answer);
+                                break;
+                            } else if (dragdropTemp[i].qid === ancestor && dragdropTemp[i].answer[0] === answer.answer[0]) {
+                                dragdropTemp[i] = answer;
+                                break;
+                            }
+                            i++;
+                        }
+                    } else {
+                        dragdropTemp.push(answer);
+                    }
+                    //console.log("drop : ",dragdropTemp);
+                }
             });
         },1000);
+        // drop 클릭 시 받은 정답 다시 빼기
         drop.addEventListener('click',function (e) {
             for(let j=0; j<dragdropTemp.length; j++){
-                if(dragdropTemp[j][1].includes('span')||dragdropTemp[j][1].includes('img'))
+                if(dragdropTemp[j].answer[1].includes('span')||dragdropTemp[j].answer[1].includes('img'))
                     dragdropTemp.splice(j,1);
             }
-            console.log("dropcancel : ",dragdropTemp);
+            //console.log("dropcancel : ",dragdropTemp);
         });
     });
 
