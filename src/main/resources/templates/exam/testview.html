@@ -111,7 +111,7 @@
                 el: ".swiper-pagination",
                 clickable: true,
                 renderBullet: function (index, className) {
-                    return '<span class="' + className + '">' + list[index] + "</span>";
+                    return '<span class="' + className + '" id="swiper' + (index) + '">' + list[index] + "</span>";
                 },
             },
         });

@@ -173,6 +173,30 @@ document.addEventListener('DOMContentLoaded', function () {
             dupleElementPop(textareaTemp,answer);
             //console.log("textarea : ",textareaTemp);
         });
+    // let textareas = document.querySelectorAll('.question textarea');
+    // let swiperBullets = document.querySelectorAll('.swiper-pagination-bullet'); // 모든 swiper-pagination-bullet 요소 선택
+    //
+    // textareas.forEach((textarea, index) => {
+    //     textarea.setAttribute('data-index', index);
+    // });
+    //
+    //
+    // textareas.forEach(textarea => {
+    //     textarea.addEventListener('change', function () {
+    //         let answer = answerExtract(textareas, textarea);
+    //         // console.log(answer);
+    //         dupleElementPop(textareaTemp, answer);
+    //         console.log("textarea : ", textareaTemp);
+    //
+    //         let index = textarea.getAttribute('data-index');
+    //         let swiperBullet = document.querySelector('#swiper' + (parseInt(index)));
+    //
+    //         if (textarea.value.trim() !== '') {
+    //             if (swiperBullet) swiperBullet.style.backgroundColor = '#d4edda'; // 원하는 배경색
+    //         } else {
+    //             if (swiperBullet) swiperBullet.style.backgroundColor = ''; // 배경색을 원래대로 돌림
+    //         }
+    //    });
     });
 
     // 단답 - text
