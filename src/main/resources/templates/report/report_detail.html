@@ -19,7 +19,7 @@
 </head>
 <body>
 
-<div id="detail_wrap">
+<div id="detail_wrap" th:if="${agree==1}">
 
     <h1>
         <!--        <img class="title_icon" th:src="@{/img/report/shell1.png}" th:alt="진주"/>-->
@@ -200,6 +200,33 @@
     </div>
 
     <img class="bottom_deco" th:src="@{/img/index/sea_sand.png}"/>
+</div>
+
+
+<div id="detail_wrap2" th:unless="${agree==1}">
+    <img class="top_deco" style="height: 35%;" th:src="@{/img/index/sea_light.png}" th:alt="바다빛">
+    <h1>
+        상세 리포트
+    </h1>
+
+    <div class="report_wrap2">
+        <section class="info_section">
+            <img id="warn_icon" th:src="@{/img/report/warning1.png}" th:alt="경고">
+            <h1>상세 리포트를 볼 수 없습니다!</h1>
+            <h2>개인 정보 마케팅 활용 동의 후 시험결과 상세리포트 조회가 가능합니다.</h2>
+            <a id="agree_btn">동의 하고 상세리포트 보기</a>
+        </section>
+    </div>
+
+    <img class="bubble_left" th:src="@{/img/index/bubble2.png}" th:alt="버블2">
+    <img class="bubble_right" th:src="@{/img/index/bubble1.png}" th:alt="버블1">
+
+    <div class="coral_reef">
+        <img class="coral_reef_item" th:src="@{/img/index/coral_reef_left.png}" th:alt="산호초_좌" draggable="false">
+        <img class="coral_reef_item" th:src="@{/img/index/coral_reef_right.png}" th:alt="산호초_우" draggable="false">
+    </div>
+
+    <img class="bottom_deco" style="height: 10%;" th:src="@{/img/index/sea_sand.png}"/>
 </div>
 
 

@@ -72,12 +72,17 @@ public class ReportController {
         //현재 세션으로 유저 이름 가져오기
         String useremail = "";
         String username = "";
+        //현재 로그인한 사용자 마케팅 동의 여부 가져오기
+        int agree = 0;
 
         if (principal != null && principal.getName() != null){ //로그인 한 경우에만 받아옴
             useremail = principal.getName();
             username = userService.getUserInfo(useremail).getName();
 
+            agree = userService.getUserInfo(useremail).getAgree();
+
             model.addAttribute("username",username);
+            model.addAttribute("agree", agree);
         } else { //아니면 로그값 출력
             log.info("Principal is null or principal.getName() is null");
         }

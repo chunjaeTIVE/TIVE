@@ -1,5 +1,6 @@
 
 function pdfPrint() {
+
     var printArea = document.getElementById('print_area');
     var options = {
         scale: 2, // 스케일을 높여 해상도를 개선
@@ -35,11 +36,12 @@ function pdfPrint() {
 
 window.addEventListener('load', function () {
 
+    if (document.getElementById('print_btn')){
+        let print_btn = document.getElementById('print_btn');
 
+        print_btn.addEventListener('click', function () {
+            pdfPrint();
+        });
+    }
 
-    let print_btn = document.getElementById('print_btn');
-
-    print_btn.addEventListener('click', function () {
-        pdfPrint();
-    });
 })
