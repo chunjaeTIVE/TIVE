@@ -6,9 +6,10 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import static com.tive.domain.QQuestionCategory.*;
 import com.tive.dto.ReportExamDTO;
 import com.tive.dto.ReportQuestionDTO;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 
