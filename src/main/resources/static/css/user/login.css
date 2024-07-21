@@ -2,7 +2,7 @@
     font-family: omyu_pretty;
     width: 100%;
     height: 120vh;
-    margin: 0px;
+    margin: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -21,7 +21,7 @@
     padding: 4.5vw 3vh;
     background-color: transparent;
     box-shadow: 0px 0px 5px 5px rgba(225, 225, 255, 0.2);
-    border-radius: 60px;
+    border-radius: 5vw;
     backdrop-filter: blur(20px);
     color: white;
     font-weight: bold;
@@ -33,10 +33,10 @@
 .join_box{
     width: 30vw;
     margin: 0 auto;
-    padding: 3.5vw 3vh;
+    padding: 3vw 3vh;
     background-color: transparent;
     box-shadow: 0px 0px 5px 5px rgba(225, 225, 255, 0.2);
-    border-radius: 60px;
+    border-radius: 5vw;
     backdrop-filter: blur(20px);
     color: white;
     font-weight: bold;
@@ -48,13 +48,13 @@
 .login-form {
     width: 100%;
     margin-bottom: 5%;
-    font-size: 1.5rem;
+    font-size: 1.1vw;
 }
 .form_title{
-    font-size: 2.8rem;
+    font-size: 2.3vw;
     font-family: chab;
     font-weight: lighter;
-    padding-bottom: 30px;
+    padding-bottom: 2vw;
 }
 
 .login_wrap label{
@@ -65,12 +65,12 @@
 
 .logininput{
     width: 80%;
-    height: 40px;
+    height: 4.5vh;
     margin: 3% 0;
     font-size: 1.2rem;
     font-family: omyu_pretty;
-    border-radius: 30px;
-    padding-left: 10px;
+    border-radius: 5vw;
+    padding-left: 0.7vw;
     border: none;
 }
 .logininput:focus{
@@ -85,15 +85,15 @@
     justify-content: space-between;
 }
 .emailCk_btn{
-    border-radius: 15px;
+    border-radius: 2vw;
     background-color: white;
     border: 2px solid #5DCCF3;
     color: #5DCCF3;
-    padding: 10px 10px;
+    padding: 1vh 0.8vw;
     font-family: omyu_pretty;
-    font-size: 1.2rem;
+    font-size: 1vw;
     font-weight: bold;
-    margin-left: 10px;
+    margin-left: 0.5vw;
 }
 
 .schoolselect{
@@ -104,21 +104,21 @@
 }
 .schoolselect label{
     padding: 0.5vw 0.5vw 0 0;
-    font-size: 1.15vw;
 }
 
 #schoolLevel{
-    border-radius: 20px;
+    border-radius: 2vw;
     border: 2px solid #5DCCF3;
     color: #5DCCF3;
     background-color: white;
     font-family: omyu_pretty;
-    font-size: 1.2rem;
+    font-size: 1vw;
     font-weight: bold;
-    padding: 7px;
+    padding: 0.5vw;
     width: 21vw;
     text-align: center;
     outline: 1px solid #5DCCF3;
+    margin-top: 1vh;
 }
 
 
@@ -128,15 +128,15 @@
 }
 
 #pwd{
-    margin-bottom: 20px;
+    margin-bottom: 1.5vw;
 }
 
 .login_btn, .join_btn{
     background-color: #5DCCF3;
     border: none;
     color: white;
-    font-size: 24px;
-    height: 50px;
+    font-size: 1.2vw;
+    height: 5vh;
     width: 82%;
     font-family: omyu_pretty;
     display: flex;
@@ -144,7 +144,7 @@
     align-items: center;
     margin: 0 auto;
     cursor: pointer;
-    border-radius: 30px;
+    border-radius: 5vw;
 }
 .login_btn:hover{
     background-color: #6DD8F9;
@@ -164,17 +164,17 @@
         justify-self: center;
         position: relative;
         padding-top: 40%;
-        margin: 0px;
+        margin: 0;
     }
 }
 
 .agree{
-    font-size: 1.2rem;
+    font-size: 1.1vw;
     width: 80%;
     text-align: left;
     white-space: nowrap;
     font-weight: normal;
-    margin: 35px 0 15px 0;
+    margin: 3vh 0 2vh 0;
 }
 
 .input-group {
@@ -190,14 +190,15 @@
 }
 
 .joingo, .logingo{
-    font-size: 1.3rem;
+    font-size: 1.1vw;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: -2vh;
 }
 
 .joingogo, .logingogo {
     cursor: pointer;
     color: #5DCCF3;
-    padding-left: 10px;
+    padding-left: 0.5vw;
 }
