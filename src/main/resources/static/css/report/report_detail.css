@@ -1,12 +1,12 @@
-#wrap{ /*영역 잡기*/
+#detail_wrap{ /*영역 잡기*/
     width: 100%;
-    height: 190vh;
+    height: 250vh;
     background-color: #46B1B7;
     position: relative;
     font-family: omyu_pretty;
 }
 
-#wrap>h1{ /*페이지 타이틀*/
+#detail_wrap>h1{ /*페이지 타이틀*/
     font-family: chab;
     color: white;
     top: 8vh;
@@ -25,7 +25,7 @@
 
 /*배경 커스텀 시작*/
 .top_deco{ /* 위에 물결 장식 */
-    height: 30%;
+    height: 15%;
 }
 
 .bubble_left{ /*왼쪽 거품*/
@@ -43,9 +43,14 @@
         opacity: 1;
     }
     100% {
-        transform: translateY(-185vh);
-        opacity: 0;
+        transform: translateY(-250vh);
+        opacity: 0.2;
     }
+}
+
+/* 바다 바닥 장식 */
+.bottom_deco{
+    height: 3%;
 }
 
 /*배경 커스텀 끝*/
@@ -55,22 +60,40 @@
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     position: relative;
     top: 12vh;
     z-index: 3;
-    padding: 4vw 6vw 5vw;
+    padding: 1vw 5vw 1vw;
     border-radius: 5vw;
     background: white;
+    height: 200vh;
+    overflow: scroll;
+    overflow-x: hidden;
+    border-top: 3vw solid white;
+    border-bottom: 3vw solid white;
+    border-right: 0.5vw solid white;
+    border-left: 0.5vw solid white;
 }
 
-.report_wrap {
-    width: 75%;
-    margin: 0px auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.report_wrap::-webkit-scrollbar {
+    /* 스크롤바의 너비 */
+    width: 0.5vw;
 }
+.report_wrap::-webkit-scrollbar-thumb {
+    /* 스크롤바의 길이 */
+    height: 30%;
+    /* 스크롤바의 색상 */
+    background: rgba(182,190,237,0.4);
+    border-radius: 1vw;
+}
+
+.report_wrap::-webkit-scrollbar-track {
+    /*스크롤바 뒷 배경 색상*/
+    background: rgba(215,221,247,0.3);
+    border-radius: 5vw;
+    margin: 10vh 0;
+}
+
 
 .report_wrap ul li {
     list-style: none;
@@ -83,15 +106,15 @@
 /* 제목들 */
 .report_wrap h1 {
     display: flex;
-    font-size: 1.5rem;
+    font-size: 1.3vw;
     font-weight: bold;
     width: 80%;
-    margin: 72px 0 16px;
+    padding: 1.5vw 2vw 0.5vw;
 }
 
 /* 제목 아이콘*/
 .report_wrap h1 i {
-    margin-right: 8px;
+    margin-right: 0.8vw;
 }
 
 /* 회차/과목명 이동 메뉴 */
@@ -100,63 +123,55 @@
     justify-content: flex-end;
 }
 
-#selectForm select {
-    width: 80px;
-    height: 32px;
-    border-radius: 12px;
-    padding: 8px;
-    margin: 0 4px;
+#selectForm select, #selectForm button {
+    width: 4vw;
+    height: 3.3vh;
+    border-radius: 0.7vw;
+    padding: 0.4vw;
+    margin: 0 0.2vw;
+    font-size: 0.7vw;
 }
 
 #selectForm button {
-    width: 73px;
-    height: 34px;
-    border-radius: 12px;
-    padding: 8px;
-    border: 0px;
+    border: none;
 }
 
 /* 평가결과 요약 */
 .detailBox1 {
-    font-size: 1.2rem;
+    font-size: 1.2vw;
 }
 
-.detailBox1 table {
-    margin-top: 24px;
-    padding: 12px;
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 36px;
-    border: 1px solid #1e487d;
-    table-layout: fixed;
-    text-align: center;
-    font-size: 1.2rem;
-}
-
-.detailBox1 table tr td {
-    padding: 12px 0;
-    font-weight: bold;
-    border-right: 1px dotted lightgray;
-}
-
-/* 성취 수준 - webapp 파일에서 가져옴 -----*/
+/* 성취 수준 */
 .bar_wrap {
     width: 100%;
     position: relative;
 }
 
-.bar_wrap .user_name {
+.bar_wrap .user_level {
     position: absolute;
-    font-size: 20px;
+    font-size: 1vw;
     font-weight: 700;
-    color: #007bff;
-    left: 80%;
+    color: #46B1B7;
     cursor: pointer;
+    top: 1.3vh;
 }
 
-.bar_wrap .user_name i {
-    font-size: 25px;
-    display: block;
+
+.fish_icon{
+    width: 2vw;
+    animation: floating 3s infinite ease-in-out;
+}
+
+@keyframes floating { /*둥둥 떠다니는 물고기 애니메이션*/
+    0%{
+        transform: translateY(0);
+    }
+    50%{
+        transform: translateY(0.5vh);
+    }
+    100%{
+        transform: translateY(0);
+    }
 }
 
 .bar_wrap .bar {
@@ -178,10 +193,10 @@
 
 .bar_wrap .bar > div em {
     text-align: center;
-    font-size: 18px;
+    font-size: 1vw;
     display: flex;
     justify-content: center;
-    padding: 18px 0;
+    padding: 0.8vw 0;
 }
 
 .bar_wrap .bar > div p {
@@ -190,7 +205,7 @@
 
 .bar_wrap .bar > div:nth-child(1) {
     background: #caf0f8;
-    border-radius: 25px 0 0 25px;
+    border-radius: 1.5vw 0 0 1.5vw
 }
 
 .bar_wrap .bar > div:nth-child(2) {
@@ -203,7 +218,7 @@
 
 .bar_wrap .bar > div:nth-child(4) {
     background: #48cae4;
-    border-radius: 0 25px 25px 0;
+    border-radius: 0 1.5vw 1.5vw 0;
 }
 
 .pt20 {
@@ -212,19 +227,14 @@
 
 .bar p {
     text-align: center;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 30px;
+    line-height: 3vh;
 }
 
 /* -----------------------------------*/
 
 /* 통계표 */
 .chart_box {
-    padding: 4.5vw 3vh;
-    background-color: transparent;
-    box-shadow: 0px 0px 5px 5px rgba(225, 225, 255, 0.2);
-    border-radius: 60px;
+    padding: 1vw 3vw;
     text-align: center;
 }
 
@@ -233,14 +243,13 @@
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 36px;
-    border: 1px solid #1e487d;
     table-layout: fixed;
     text-align: center;
     font-size: 1.2rem;
 }
 
 .chart_box table thead tr {
-    border-bottom: 1px solid #1e487d;
+    background: rgba(88, 196, 196, 0.4);
 }
 
 .chart_box table thead tr th {
@@ -250,16 +259,10 @@
 .chart_box table tbody tr td {
     padding: 10px 0;
     border-bottom: 1px dotted lightgray;
-    border-right: 1px dotted lightgray;
 }
 
-.chart_box table tbody tr td:last-child {
-    border-right: 1px solid #1e487d;
-}
 
-.chart_box table tbody tr:last-child td {
-    border-bottom: 1px solid #1e487d;
-}
+
 
 
 /* 참고* 그래프 색/두께는 js파일에서 수정가능. report_detail.js */
@@ -267,21 +270,17 @@
 
 /* 정오표 */
 .report_detail table{
-    margin-top: 24px;
-    padding: 12px;
-    width: 100%;
+    margin: 1vw auto 3vw;
+    width: 88%;
     border-collapse: collapse;
-    margin-bottom: 36px;
-    border: 1px solid #1e487d;
     table-layout: fixed;
     text-align: center;
-    font-size: 1rem;
+    font-size: 0.9vw;
 }
-.report_detail table thead tr{
-    border-bottom : 1px solid #1e487d;
-}
+
 .report_detail table thead tr th{
-    padding: 10px 0;
+    padding: 0.4vh 0;
+    background: rgba(88, 196, 196, 0.4);
 }
 .report_detail table thead tr th:nth-child(1){
     width:10%;
@@ -306,14 +305,10 @@
     padding: 10px 0;
     border-bottom: 1px dotted lightgray;
     border-right: 1px dotted lightgray;
+    border-left: 1px dotted lightgray;
 }
 
-.report_detail table tbody tr td:last-child{
-    border-right: 1px solid #1e487d;
-}
-.report_detail table tbody tr:last-child td{
-    border-bottom: 1px solid #1e487d;
-}
+
 
 /* 서답형 정오표 테이블 - 정답칸 정렬만 왼쪽 정렬로 */
 #subjectivelist tr td:nth-child(3), #subjectivelist tr td:nth-child(4) {
@@ -334,3 +329,138 @@
 .report_sub{
     display: none;
 }
+
+
+/*pdf 출력 버튼 시작*/
+#print_btn{
+    margin: 0 auto;
+    background: #46B1B7;
+    padding: 0.7vw;
+    border-radius: 1vw;
+    font-size: 1.3vw;
+    width: 30%;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+
+#print_btn:hover{
+    background: #5CC7CE;
+}
+
+
+/* 인쇄 스타일 초기화 */
+@media print {
+    * {
+        box-shadow: none !important;
+        background: transparent !important;
+        color: black !important;
+        text-shadow: none !important;
+    }
+
+    a, a:visited {
+        text-decoration: underline;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    .noprint {
+        display: none !important;
+    }
+
+    img {
+        page-break-inside: avoid;
+    }
+
+    p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2, h3 {
+        page-break-after: avoid;
+    }
+}
+
+/* 인쇄 스타일 정의 */
+@media print {
+    body {
+        font-family: omyu_pretty;
+        font-size: 12pt;
+        line-height: 1.5;
+    }
+
+    #detail_wrap {
+        width: 100%;
+        height: 800vh;
+        background-color: white; /* 배경색 조정 */
+        position: static;
+    }
+
+    #detail_wrap > h1 {
+        font-size: 2em;
+        color: black;
+        text-align: center;
+        margin: 1em 0;
+    }
+
+    .top_deco, .bubble_left, .bubble_right, .bottom_deco, .coral_reef {
+        display: none;
+    }
+
+    .report_wrap {
+        width: 100%;
+        margin: 0;
+        padding: 1em;
+        background: white;
+        height: auto;
+        overflow: visible;
+        border: none;
+    }
+
+    .chart_box {
+        page-break-inside: avoid;
+    }
+
+    .chart_box table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 1.5em;
+    }
+
+    .chart_box table thead {
+        background: #d9d9d9;
+    }
+
+    .chart_box table th, .chart_box table td {
+        padding: 0.5em;
+        border: 1px solid #d9d9d9;
+    }
+
+    .report_detail table {
+        width: 100%;
+        margin: 1em 0;
+        border-collapse: collapse;
+    }
+
+    .report_detail table th, .report_detail table td {
+        padding: 0.5em;
+        border: 1px solid #d9d9d9;
+    }
+
+    .report_detail table thead {
+        background: #d9d9d9;
+    }
+
+    #print_btn {
+        display: none;
+    }
+}
+
+/*pdf 출력 버튼 끝*/

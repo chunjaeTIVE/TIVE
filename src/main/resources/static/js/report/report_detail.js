@@ -85,7 +85,7 @@ window.onload = function () {
 
 
     /**내 성취 수준 위치 이동*/
-    let achievePointer = document.querySelector('.user_name');
+    let achievePointer = document.querySelector('.user_level');
 
     if (achieveLevel == 4) {
         achievePointer.style.left = "83%";
