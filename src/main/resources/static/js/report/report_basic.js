@@ -6,18 +6,21 @@ let init = function (inits) {
 }
 
 /**정오표 tbody에 결과 값 저장하기*/
-let insertTable4 = function (tbodyID, orderName, correct, answer, userAns) {
+let insertTable5 = function (tbodyID, orderName, correct, answer, userAns, qid) {
     let tr = document.createElement('tr');
     let td = document.createElement('td');
     let td1 = document.createElement('td');
     let td2 = document.createElement('td');
     let td3 = document.createElement('td');
+    let td4 = document.createElement('td');
 
     let tagi = document.createElement('i');
+    let q_link = document.createElement('button');
 
     td.textContent = `${orderName}`
     td2.textContent = `${answer}`;
     td3.textContent = `${userAns}`
+    q_link.textContent = '상세 보기';
 
     // i 태그 생성 - 정답 여부 아이콘으로 표시
     if(correct == 1){
@@ -28,13 +31,28 @@ let insertTable4 = function (tbodyID, orderName, correct, answer, userAns) {
     // td 요소에 i 태그 추가 - 정답/오답 표시
     td1.appendChild(tagi);
 
+    // td 요소에 button 속성 추가 - 상세 보기
+    q_link.setAttribute('onclick', 'openQuestion('+qid+')');
+    q_link.setAttribute('class', 'btn_question');
+    // td 요소에 a 태그 추가
+    td4.appendChild(q_link);
+
+
     tr.appendChild(td);
     tr.appendChild(td1);
     tr.appendChild(td2);
     tr.appendChild(td3);
+    tr.appendChild(td4);
 
     tbodyID.appendChild(tr);
 }
+
+
+function openQuestion(qid) {
+    // 새 창을 열고 문제 번호로 이동
+    window.open('/report_question/'+qid, '_blank', 'width=400,height=400');
+}
+
 
 window.onload = function () {
 
@@ -74,6 +92,7 @@ window.onload = function () {
 
                 let orderName = report["orderName"];
                 let correct = report["correct"];
+                let qid = report["qid"];
                 let answer, userAns;
 
                 // 정답 가져오기
@@ -91,22 +110,26 @@ window.onload = function () {
                 // console.log(typeof answerJS);
                 // console.log(answerJS["answer"].length);
 
+                // answer 값은 하나인데 그 안에 배열이 들어있을 때
                 if(answerJS["answer"].length == 1 && Array.isArray(answerJS["answer"])){
                     let textContent = answerJS["answer"][0].replace(/<[^>]*>/g, '');
                     answer = textContent;
-                }  else {
+                }  else { // answer 단답이거나, 답이 여러개 이거나, 배열이 여러개 들어있을 때
                     answer = answerJS["answer"];
                 }
 
+                // answer 값은 하나인데 그 안에 배열이 들어있을 때
                 if(userAnswerJS["answer"].length == 1 && Array.isArray(userAnswerJS["answer"])){
                     let textContent = userAnswerJS["answer"][0].replace(/<[^>]*>/g, '');
                     userAns = textContent;
-                }  else {
+                }  else { // answer 단답이거나, 답이 여러개 이거나, 배열이 여러개 들어있을 때
                     userAns = userAnswerJS["answer"];
                 }
 
+                // 상세보기 버튼 추가
 
-                insertTable4(tbody, orderName, correct, answer, userAns);
+
+                insertTable5(tbody, orderName, correct, answer, userAns, qid);
 
             }
 
@@ -146,6 +169,7 @@ window.onload = function () {
 
                     let orderName = subject["orderName"];
                     let correct = subject["correct"];
+                    let qid = subject["qid"];
                     let answer, userAns;
 
                     // 정답 가져오기
@@ -178,7 +202,7 @@ window.onload = function () {
                     }
 
 
-                    insertTable4(tbody, orderName, correct, answer, userAns);
+                    insertTable5(tbody, orderName, correct, answer, userAns, qid);
 
                 }
             }

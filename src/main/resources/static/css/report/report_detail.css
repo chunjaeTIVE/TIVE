@@ -160,6 +160,7 @@
     padding: 0.4vw;
     margin: 0 0.2vw;
     font-size: 0.7vw;
+    font-family: omyu_pretty;
 }
 
 #selectForm button {
@@ -313,21 +314,24 @@
     background: rgba(88, 196, 196, 0.4);
 }
 .report_detail table thead tr th:nth-child(1){
-    width:10%;
+    width:5%;
 }
 .report_detail table thead tr th:nth-child(2){
     width:10%;
 }
 .report_detail table thead tr th:nth-child(3){
-    width:30%;
+    width:15%;
 }
 .report_detail table thead tr th:nth-child(4){
-    width:30%;
+    width:15%;
 }
 .report_detail table thead tr th:nth-child(5){
     width:10%;
 }
 .report_detail table thead tr th:nth-child(6){
+    width:10%;
+}
+.report_detail table thead tr th:nth-child(7){
     width:10%;
 }
 
@@ -336,6 +340,17 @@
     border-bottom: 1px dotted lightgray;
     border-right: 1px dotted lightgray;
     border-left: 1px dotted lightgray;
+}
+
+.report_detail table tbody tr td .btn_question{
+    width: 80%;
+    height: 80%;
+    border-radius: 12px;
+    padding: 8px;
+    border: 0px;
+    font-size: 1.1vw;
+    cursor: pointer;
+    font-family: omyu_pretty;
 }
 
 
