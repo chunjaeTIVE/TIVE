@@ -60,7 +60,7 @@
                 <div class="swiper-wrapper">
                     <th:block th:each="item:${exam}">
                         <div class="swiper-slide" th:id="${item.qid}">
-                            <input type="hidden" th:id="${item.qid}" name="studentAnswer" value>
+                            <input type="hidden" th:id="${item.qid}" name="studentAnswer" th:value="${item.order}">
                             <th:block th:utext="${item.qContents}"></th:block>
                         </div>
                     </th:block>
@@ -111,7 +111,7 @@
                 el: ".swiper-pagination",
                 clickable: true,
                 renderBullet: function (index, className) {
-                    return '<span class="' + className + '" id="swiper' + (index) + '">' + list[index] + "</span>";
+                    return '<span class="' + className + '" id="swiper' + ((index)+1) + '">' + list[index] + "</span>";
                 },
             },
         });
