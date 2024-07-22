@@ -344,11 +344,10 @@
 
 .report_detail table tbody tr td .btn_question{
     width: 80%;
-    height: 80%;
-    border-radius: 12px;
-    padding: 8px;
-    border: 0px;
-    font-size: 1.1vw;
+    border-radius: 0.8vw;
+    padding: 0.4vw;
+    border: none;
+    font-size: 0.8vw;
     cursor: pointer;
     font-family: omyu_pretty;
 }
