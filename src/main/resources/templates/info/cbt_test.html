@@ -24,10 +24,10 @@
                         <li>헤드셋 혹은 이어폰을 착용해 주시기 바랍니다.</li>
                     </ul>
                     <div>
-                        <!--초등 CBT 데이터 들어오면 바꿔야 함-->
-                        <a class="testbtn" th:href="@{/test}" target="_blank" th:if="${schoolLevel.equals('EL')}">시험시작</a>
+                        <!--초등 CBT 데이터 -->
+                        <a class="testbtn" th:href="@{/exam1/24}" target="_blank" th:if="${schoolLevel.equals('EL')}">시험시작</a>
 
-                        <!--중고등 CBT 데이터 없음-->
+                        <!--중고등 CBT 데이터 -->
                         <a class="testbtn" th:href="@{/exam1/13}" target="_blank" th:if="${!schoolLevel.equals('EL')}">시험시작</a>
                     </div>
                 </div>

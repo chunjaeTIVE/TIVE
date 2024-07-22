@@ -170,8 +170,10 @@ document.addEventListener('DOMContentLoaded', function () {
     textareas.forEach(textarea => {
         textarea.addEventListener('change', function () {
             let parentSlide = textarea.closest('.swiper-slide');
+            // hiddenInput값을 가져옴
             let hiddenInput = parentSlide.querySelector('input[type="hidden"]');
             if (hiddenInput) {
+                // value를 문제번호로 받음
                 let questionOrder = hiddenInput.value;
                 console.log('hidden val: ', questionOrder);
                 let swiperBullet = document.querySelector('#swiper' + questionOrder);
@@ -182,27 +184,29 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (swiperBullet) swiperBullet.style.backgroundColor = "";
                 }
             }
-        let answer = answerExtract(textareas, textarea);
-        //console.log(answer);
-        dupleElementPop(textareaTemp, answer);
-        //console.log("textarea : ",textareaTemp);
+            let answer = answerExtract(textareas, textarea);
+            //console.log(answer);
+            dupleElementPop(textareaTemp, answer);
+            //console.log("textarea : ",textareaTemp);
+        });
     });
-});
 
     // 단답 - text
     let texts = document.querySelectorAll('.question input[type="text"]');
     texts.forEach(text => {
         text.addEventListener('change', function () {
             let parentSlide = text.closest('.swiper-slide');
+            // hiddenInput값을 가져옴
             let hiddenInput = parentSlide.querySelector('input[type="hidden"]');
-            if(hiddenInput){
+            if (hiddenInput) {
+                // value를 문제번호로 받음
                 let questionOrder = hiddenInput.value;
-                console.log('hidden val: ',questionOrder);
-                let swiperBullet = document.querySelector('#swiper'+questionOrder);
-                if(text.value.trim() !== ''){
-                    if(swiperBullet) swiperBullet.style.backgroundColor = '#255897';
-                }else {
-                    if(swiperBullet) swiperBullet.style.backgroundColor = "";
+                console.log('hidden val: ', questionOrder);
+                let swiperBullet = document.querySelector('#swiper' + questionOrder);
+                if (text.value.trim() !== '') {
+                    if (swiperBullet) swiperBullet.style.backgroundColor = '#255897';
+                } else {
+                    if (swiperBullet) swiperBullet.style.backgroundColor = "";
                 }
             }
             let answer = answerExtract(texts, text);
@@ -217,16 +221,18 @@ document.addEventListener('DOMContentLoaded', function () {
     selects.forEach(select => {
         select.addEventListener('change', function () {
             let parentSlide = select.closest('.swiper-slide');
-            if(parentSlide){
+            if (parentSlide) {
+                // hidden값 불러오기
                 let hiddenInput = parentSlide.querySelector('input[type="hidden"]');
-                if(hiddenInput){
+                if (hiddenInput) {
+                    // 문제번호를 value로
                     let questionOrder = hiddenInput.value;
-                    console.log('select hidden',questionOrder);
-                    let swiperBullet = document.querySelector('#swiper'+questionOrder);
-                    if(select.value.trim()!==''){
-                        if(swiperBullet) swiperBullet.style.backgroundColor = '#255897';
-                    }else {
-                        if(swiperBullet) swiperBullet.style.backgroundColor="";
+                    console.log('select hidden', questionOrder);
+                    let swiperBullet = document.querySelector('#swiper' + questionOrder);
+                    if (select.value.trim() !== '') {
+                        if (swiperBullet) swiperBullet.style.backgroundColor = '#255897';
+                    } else {
+                        if (swiperBullet) swiperBullet.style.backgroundColor = "";
                     }
                 }
             }
@@ -242,17 +248,19 @@ document.addEventListener('DOMContentLoaded', function () {
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', function () {
             let parentSlide = checkbox.closest('.swiper-slide');
-            if(parentSlide){
+            if (parentSlide) {
+                // hidden값 불러오기
                 let hiddenInput = parentSlide.querySelector('input[type="hidden"]');
-                if(hiddenInput){
+                if (hiddenInput) {
+                    // 문제번호를 value로
                     let questionOrder = hiddenInput.value;
-                    console.log('checkbox hidden',questionOrder);
-                    let swiperBullet = document.querySelector('#swiper'+questionOrder);
-                    let anyChecked = Array.from(checkboxes).some(e=>e.checked);
-                    if (anyChecked){
-                        if(swiperBullet) swiperBullet.style.backgroundColor ='#255897';
-                    }else {
-                        if(swiperBullet) swiperBullet.style.backgroundColor="";
+                    console.log('checkbox hidden', questionOrder);
+                    let swiperBullet = document.querySelector('#swiper' + questionOrder);
+                    let anyChecked = Array.from(checkboxes).some(e => e.checked);
+                    if (anyChecked) {
+                        if (swiperBullet) swiperBullet.style.backgroundColor = '#255897';
+                    } else {
+                        if (swiperBullet) swiperBullet.style.backgroundColor = "";
                     }
                 }
             }
@@ -269,8 +277,10 @@ document.addEventListener('DOMContentLoaded', function () {
         radio.addEventListener('change', function () {
             let parentSlide = radio.closest('.swiper-slide');
             if (parentSlide) {
+                // hidden값 불러오기
                 let hiddenInput = parentSlide.querySelector('input[type="hidden"]');
                 if (hiddenInput) {
+                    // 문제번호를 value값으로
                     let questionOrder = hiddenInput.value;
                     console.log('hidden val: ', questionOrder);
                     let swiperBullet = document.querySelector('#swiper' + questionOrder);
@@ -294,32 +304,30 @@ document.addEventListener('DOMContentLoaded', function () {
     let btns = document.querySelectorAll('.text-box button');
     btns.forEach((btn, index) => {
         btn.addEventListener('click', function (e) {
-            // 버튼의 상태를 토글합니다.
             e.target.classList.toggle('btn-ans');
 
-            // 버튼의 부모 swiper-slide 요소를 찾습니다.
+            // 버튼의 부모 swiper-slide 요소를 찾기
             let parentSlide = e.target.closest('.swiper-slide');
 
             if (parentSlide) {
-                // 현재 swiper-slide 내의 숨겨진 input을 찾습니다.
+                // 현재 swiper-slide 내의 숨겨진 input을 찾음
                 let hiddenInput = parentSlide.querySelector('input[type="hidden"]');
 
                 if (hiddenInput) {
-                    let ancestor = hiddenInput.id; // 숨겨진 input의 id를 가져옵니다.
-                    let answer = {"qid": ancestor}; // answer 객체를 생성합니다.
+                    let ancestor = hiddenInput.id; // 숨겨진 input의 id를 가져옴
+                    let answer = {"qid": ancestor}; // answer 객체를 생성
                     let questionOrder = hiddenInput.value;
-                    // 클릭된 버튼의 인덱스를 찾아서 answer 객체에 추가합니다.
+                    // 클릭된 버튼의 인덱스를 찾아서 answer 객체에 추가
                     let siblings = e.target.parentElement.children;
                     for (let s = 0; s < siblings.length; s++) {
                         if (siblings[s] === e.target) {
-                            answer["answer"] = s + 1; // 1부터 시작하는 인덱스를 설정합니다.
+                            answer["answer"] = s + 1; // 1부터 시작하는 인덱스를 설정
                         }
                     }
 
-                    // 버튼 상태와 관련 정보를 사용하여 특정 작업을 수행합니다.
                     dupleBtnHotspotPop(e.target.classList.length, buttonTemp, answer);
 
-                    // swiper-bullet의 배경색을 업데이트합니다.
+                    // swiper-bullet의 배경색을 업데이트
                     let swiperBullet = document.querySelector('#swiper' + questionOrder);
                     if (e.target.classList.contains('btn-ans')) {
                         if (swiperBullet) swiperBullet.style.backgroundColor = '#255897'; // 원하는 배경색
@@ -358,28 +366,28 @@ document.addEventListener('DOMContentLoaded', function () {
     // });
 
     //TT03 핫스팟
-    // 모든 svg g 요소를 선택합니다.
+    // 모든 svg g 요소를 선택
     let svgElements = document.querySelectorAll('svg g');
 
     svgElements.forEach((group, index) => {
         group.addEventListener('click', function (e) {
-            // 클릭된 그룹의 상태를 토글합니다.
+            // 클릭된 그룹의 상태를 토글
             e.target.classList.toggle('on');
 
-            // 클릭된 그룹의 부모 swiper-slide 요소를 찾습니다.
+            // 클릭된 그룹의 부모 swiper-slide 요소를 찾는다.
             let parentSlide = e.target.closest('.swiper-slide');
 
             if (parentSlide) {
-                // swiper-slide 내의 숨겨진 input 요소를 찾습니다.
+                // swiper-slide 내의 숨겨진 input 요소를 찾는다.
                 let hiddenInput = parentSlide.querySelector('input[type="hidden"]');
 
                 if (hiddenInput) {
-                    let ancestor = hiddenInput.id; // 숨겨진 input의 id를 가져옵니다.
-                    let answer = {"qid": ancestor}; // answer 객체를 생성합니다.
+                    let ancestor = hiddenInput.id; // 숨겨진 input의 id를 가져옴
+                    let answer = {"qid": ancestor}; // answer 객체를 생성
                     let questionOrder = hiddenInput.value;
 
 
-                    // 클릭된 그룹의 형제 요소들을 가져와서 인덱스를 찾습니다.
+                    // 클릭된 그룹의 형제 요소들을 가져와서 인덱스를 찾음
                     let siblings = e.target.parentElement.parentElement.children;
                     for (let s = 0; s < siblings.length; s++) {
                         if (siblings[s] === e.target.parentElement) {
@@ -387,18 +395,15 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                     }
 
-                    // 로그를 출력합니다.
                     console.log(answer);
                     console.log(`click: ${index + 1} in exam, ${answer.answer} in question`);
 
-                    // dupleBtnHotspotPop 함수를 호출하여 관련 작업을 수행합니다.
+
                     dupleBtnHotspotPop(e.target.classList.length, hotspotTemp, answer);
                     console.log("hotspot : ", hotspotTemp);
-                    let allSiblings = parentSlide.querySelectorAll('svg g');
-                    let anyOn = Array.from(allSiblings).some(svg=>svg.classList.contains('on'));
-                    // swiper-bullet의 배경색을 업데이트합니다.
+
                     let swiperBullet = document.querySelector('#swiper' + questionOrder);
-                    if (e.target.classList.contains('on')) {
+                    if (hotspotTemp.some(hotspot => hotspot.length !== 0)) {
                         if (swiperBullet) swiperBullet.style.backgroundColor = '#255897'; // 원하는 배경색
                     } else {
                         if (swiperBullet) swiperBullet.style.backgroundColor = ''; // 배경색을 원래대로 돌림
@@ -431,108 +436,115 @@ document.addEventListener('DOMContentLoaded', function () {
     //     });
     // });
 
+
     // TT07 drag and drop
     let draggables = document.querySelectorAll('.drag');
-    let dropAreas = document.querySelectorAll('.drop');
+    let dropArea = document.querySelectorAll('.drop');
+    let dragdropTemp = [];
 
-// 드래그 가능한 요소들에 대해 이벤트 리스너 추가
     draggables.forEach(draggable => {
         draggable.addEventListener('dragstart', function (e) {
             e.dataTransfer.setData('text/plain', e.target.getAttribute('data-name'));
         });
     });
 
-// 드롭 가능한 영역들에 대해 이벤트 리스너 추가
-    dropAreas.forEach(dropArea => {
-        dropArea.addEventListener('dragover', function (e) {
-            e.preventDefault(); // 기본 드롭 동작 방지
-        });
+    dropArea.forEach(drop => {
+        setTimeout(() => {
+            drop.addEventListener('drop', function (e) {
+                e.preventDefault();
+                let parentSlide = e.target.closest('.swiper-slide');
+                if (parentSlide) {
+                    let hiddenInput = parentSlide.querySelector('input[type="hidden"]');
+                    if (hiddenInput) {
+                        let ancestor = hiddenInput.id;
+                        let questionOrder = hiddenInput.value;
 
-        dropArea.addEventListener('drop', function (e) {
-            e.preventDefault(); // 기본 드롭 동작 방지
+                        // let ancestor = $(this).closest('.swiper-slide').find('input[type="hidden"]').prop('id');
+                        let target = (e.target.classList[0] === 'drop') ? e.target.children : e.target.parentElement.children;
+                        let t = 0;
+                        let goAhead = false;
+                        let alerttxt = '';
 
-            // 현재 드롭된 요소의 상위 swiper-slide 요소 찾기
-            let parentSlide = e.target.closest('.swiper-slide');
-
-            if (parentSlide) {
-                // swiper-slide 내의 숨겨진 input 요소 찾기
-                let hiddenInput = parentSlide.querySelector('input[type="hidden"]');
-                if (hiddenInput) {
-                    let ancestor = hiddenInput.id; // 숨겨진 input의 id를 가져옵니다.
-                    let questionOrder = hiddenInput.value; // 문제 번호
-
-                    // 드롭된 요소를 관리하기 위한 작업
-                    let dropTargets = (e.target.classList.contains('drop')) ? e.target.children : e.target.parentElement.children;
-
-                    // 유효성 검사: 한 칸에 복수개 정답 올리지 않도록 검사
-                    let hasDuplicate = false;
-                    let dropValues = [];
-                    for (let i = 0; i < dropTargets.length; i++) {
-                        let currentElement = dropTargets[i];
-                        // e.target이 null이 아닌지 확인
-                        if (currentElement && (currentElement.nodeName === 'IMG' || currentElement.nodeName === 'SPAN')) {
-                            if (dropValues.includes(currentElement.textContent || currentElement.src)) {
-                                hasDuplicate = true;
-                                alert("한 칸에 하나의 정답만 입력하세요.");
+                        // 한 칸에 복수개 정답 올렸는지 유효성 검사
+                        while (t < target.length) {
+                            if (t + 1 === target.length) {
+                                goAhead = true;
                                 break;
                             }
-                            dropValues.push(currentElement.textContent || currentElement.src);
+                            for (let a = t + 1; a <= target.length - 1; a++) {
+                                if (target[t].nodeName === target[a].nodeName) {
+                                    target[a].remove();
+                                    alerttxt = "한 칸에 하나의 정답만 입력하세요.";
+                                    break;
+                                }
+                            }
+                            if (alerttxt !== '') {
+                                alert(alerttxt);
+                                break;
+                            }
+                            t++;
                         }
-                    }
 
-                    if (!hasDuplicate) {
-                        let value = (dropTargets.length !== 3) ? dropTargets[0] : dropTargets[1];
-                        value = (value && value.nodeName === 'IMG') ? value.src : (value ? value.textContent : '');
+                        // 유효성 검사 통과 경우에만 정답 받기 진행
+                        if (goAhead) {
+                            let val = (target.length !== 3) ? target[0] : target[1];
+                            if (val.nodeName === 'IMG') val = val.src;
+                            else val = val.textContent;
 
-                        let answer = { "qid": ancestor };
-                        let siblings = e.target.parentElement.children;
-                        for (let s = 0; s < siblings.length; s++) {
-                            if (siblings[s] === e.target) {
-                                answer["answer"] = [s + 1, value];
+                            let answer = {"qid": ancestor};
+                            let siblings = e.target.parentElement.children;
+                            for (let s = 0; s < siblings.length; s++) {
+                                if (siblings[s] === e.target) {
+                                    answer["answer"] = [s + 1, val];
+                                }
+                            }
+
+                            // 중복 제거
+                            let existingAnswerIndex = dragdropTemp.findIndex(item => item.qid === ancestor && item.answer[0] === answer.answer[0]);
+                            if (existingAnswerIndex !== -1) {
+                                dragdropTemp[existingAnswerIndex] = answer;
+                            } else {
+                                dragdropTemp.push(answer);
+                            }
+
+                            console.log("drop : ", dragdropTemp, dragdropTemp.length);
+
+                            // 배경색 업데이트
+                            let swiperBullet = document.querySelector('#swiper' + questionOrder);
+                            if (dragdropTemp.length > 0) {
+                                if (swiperBullet) swiperBullet.style.backgroundColor = '#255897'; // 원하는 배경색
+                            } else {
+                                if (swiperBullet) swiperBullet.style.backgroundColor = ''; // 배경색을 원래대로 돌림
                             }
                         }
-
-                        // 중복 제거 및 상태 업데이트
-                        let existingAnswer = dragdropTemp.find(item => item.qid === ancestor && item.answer[0] === answer.answer[0]);
-                        if (existingAnswer) {
-                            Object.assign(existingAnswer, answer);
-                        } else {
-                            dragdropTemp.push(answer);
-                        }
-
-                        console.log("drop : ", dragdropTemp);
-
-                        // 배경색 업데이트
-                        let swiperBullet = document.querySelector('#swiper' + questionOrder);
-                        if (swiperBullet) swiperBullet.style.backgroundColor = '#255897'; // 원하는 배경색
                     }
-                } else {
-                    console.log("No hidden input found in this swiper-slide.");
                 }
-            } else {
-                console.log("No swiper-slide found for this drop area.");
-            }
-        });
 
-        // 드롭 영역 클릭 시 받은 정답 다시 빼기
-        dropArea.addEventListener('click', function (e) {
-            dragdropTemp = dragdropTemp.filter(item => !item.answer[1].includes('span') && !item.answer[1].includes('img'));
+            });
+        }, 1000);
 
-            // 배경색 초기화
+        // drop 클릭 시 받은 정답 다시 빼기
+        drop.addEventListener('click', function (e) {
             let parentSlide = e.target.closest('.swiper-slide');
             if (parentSlide) {
                 let hiddenInput = parentSlide.querySelector('input[type="hidden"]');
                 if (hiddenInput) {
+                    let ancestor = hiddenInput.id; // 숨겨진 input의 id를 가져옴
                     let questionOrder = hiddenInput.value;
+                    // 클릭한 요소와 일치하는 항목 제거
+                    dragdropTemp = dragdropTemp.filter(item => !(item.qid === ancestor && item.answer[1] === (e.target.textContent || e.target.src)));
+
+                    console.log("dropcancel : ", dragdropTemp, dragdropTemp.length);
+
+                    // 배경색 초기화
                     let swiperBullet = document.querySelector('#swiper' + questionOrder);
-                    if (swiperBullet) swiperBullet.style.backgroundColor = ''; // 배경색을 원래대로 돌림
+                    if (dragdropTemp.length === 0) {
+                        if (swiperBullet) swiperBullet.style.backgroundColor = ''; // 배경색을 원래대로 돌림
+                    }
                 }
             }
-
-            console.log("dropcancel : ", dragdropTemp);
         });
     });
-
     // let draggables = document.querySelectorAll('.drag');
     // let dropArea = document.querySelectorAll('.drop');
     // draggables.forEach(draggable => {
@@ -602,7 +614,7 @@ document.addEventListener('DOMContentLoaded', function () {
     //                 } else {
     //                     dragdropTemp.push(answer);
     //                 }
-    //                 // console.log("drop : ",dragdropTemp);
+    //                  console.log("drop : ",dragdropTemp,dragdropTemp.length);
     //             }
     //         });
     //     }, 1000);
@@ -612,7 +624,7 @@ document.addEventListener('DOMContentLoaded', function () {
     //             if (dragdropTemp[j].answer[1].includes('span') || dragdropTemp[j].answer[1].includes('img'))
     //                 dragdropTemp.splice(j, 1);
     //         }
-    //         //console.log("dropcancel : ",dragdropTemp);
+    //         console.log("dropcancel : ",dragdropTemp,dragdropTemp.length);
     //     });
     // });
 
