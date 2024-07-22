@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
@@ -12,11 +14,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@EntityListeners(AuditingEntityListener.class)
 public class UserTest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ut_id")
     private Long utId;
+    @CreatedDate
     @Column(name="exam_date",nullable = false)
     private LocalDateTime examDate;
     @Column(name="count_correct")

@@ -84,7 +84,6 @@ function completeExam() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            //uid: params.p_uid,
             eid: document.querySelector('.wrap').id
             , body: resultTemp
         })

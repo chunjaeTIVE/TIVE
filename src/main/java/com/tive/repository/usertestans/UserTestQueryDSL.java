@@ -1,4 +1,4 @@
 package com.tive.repository.usertestans;
 
-public interface UserTestAnsQueryDSL {
+public interface UserTestQueryDSL {
 }

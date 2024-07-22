@@ -1,8 +1,12 @@
 package com.tive.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tive.dto.ExamDTO;
 import com.tive.dto.QuestionDTO;
+import com.tive.dto.UsersDTO;
 import com.tive.service.ExamService;
+import com.tive.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +24,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ExamController {
     private final ExamService examService;
+    private final UserService userService;
+
     @GetMapping("/test")
     public @ResponseBody List<ExamDTO> index(){
         List<ExamDTO> examDTOList = examService.findExamList();
@@ -40,10 +48,18 @@ public class ExamController {
     }
 
     @PostMapping("/submit_exam")
-    public ResponseEntity<String> submitExam(@RequestBody HashMap<String,Object> hm){
-        System.out.println(hm.get("body"));
-        List<HashMap<String,Object>> list = (List<HashMap<String,Object>>) hm.get("body");
-        System.out.println(list.get(0).get("answer"));
-        return new ResponseEntity<>("ok",HttpStatus.OK);
+    public ResponseEntity<Long> submitExam(@RequestBody HashMap<String,Object> hm, Principal principal){
+        String email = "";
+        if(principal!=null)
+            email = principal.getName();
+        System.out.println(hm.get("body") instanceof String[]);
+//        try{
+//            new ObjectMapper().readValue((String)
+//                    , new TypeReference<HashMap<String, Object>>() {});
+//        }catch (IOException e){
+//            System.out.println(e);
+//        }
+        //Long result = examService.submitExam(email,hm);
+        return new ResponseEntity<>(1L,HttpStatus.OK);
     }
 }
