@@ -2,6 +2,7 @@ package com.tive.controller;
 
 import com.tive.dto.ReportExamDTO;
 import com.tive.dto.ReportQuestionDTO;
+import com.tive.dto.UsersDTO;
 import com.tive.service.ReportService;
 import com.tive.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -28,9 +29,9 @@ public class ReportController {
     private final UserService userService;
 
     /**기본 리포트로 이동*/
-    @GetMapping("/report_basic/{uid}")
-    public String reportBasic(@PathVariable("uid") Long uid
-            , @RequestParam(name = "round", required = false, defaultValue = "0") int round
+    @GetMapping("/report_basic")
+    public String reportBasic(
+            @RequestParam(name = "round", required = false, defaultValue = "0") int round
             , @RequestParam(name = "subject", required = false) String subject
             , Model model
             , Principal principal
@@ -39,10 +40,13 @@ public class ReportController {
         //현재 세션으로 유저 이름 가져오기
         String useremail = "";
         String username = "";
+        Long uid = 0L;
 
         if (principal != null && principal.getName() != null){ //로그인 한 경우에만 받아옴
             useremail = principal.getName();
-            username = userService.getUserInfo(useremail).getName();
+            UsersDTO userInfo = userService.getUserInfo(useremail);
+            username = userInfo.getName();
+            uid = userInfo.getUid();
 
             model.addAttribute("username",username);
         } else { //아니면 로그값 출력
@@ -112,9 +116,9 @@ public class ReportController {
 
 
     /**상세 리포트로 이동*/
-    @GetMapping("/report_detail/{uid}")
-    public String reportDetail(@PathVariable("uid") Long uid
-            , @RequestParam(name = "round", required = false, defaultValue = "0") int round
+    @GetMapping("/report_detail")
+    public String reportDetail(
+            @RequestParam(name = "round", required = false, defaultValue = "0") int round
             , @RequestParam(name = "subject", required = false) String subject
             , Model model
             , Principal principal
@@ -123,12 +127,15 @@ public class ReportController {
         //현재 세션으로 유저 이름 가져오기
         String useremail = "";
         String username = "";
+        Long uid = 0L;
         //현재 로그인한 사용자 마케팅 동의 여부 가져오기
         int agree = 0;
 
         if (principal != null && principal.getName() != null){ //로그인 한 경우에만 받아옴
             useremail = principal.getName();
-            username = userService.getUserInfo(useremail).getName();
+            UsersDTO userInfo = userService.getUserInfo(useremail);
+            username = userInfo.getName();
+            uid = userInfo.getUid();
 
             agree = userService.getUserInfo(useremail).getAgree();
 
