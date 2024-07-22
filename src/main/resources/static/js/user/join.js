@@ -24,7 +24,6 @@ function passConfirm() {
 document.addEventListener('DOMContentLoaded', function() {
     /** 이메일 중복체크 */
     // 이메일 중복체크가 되기 전엔 가입하기 버튼 비활성화
-
     document.querySelectorAll('.join_btn')[0].disabled = true;
     let emailvalue;
     document.getElementById('emailCk').onclick = function () {
@@ -47,10 +46,15 @@ document.addEventListener('DOMContentLoaded', function() {
             return; // 정규식이 맞지 않으면 중복 체크 요청을 보내지 않음
         }
 
+        const token = document.querySelector("meta[name='_csrf']").content;
+
         fetch("/emailCheck", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',  // 요청을 JSON으로 보내기 위해 설정
+                'X-Requested-With': "XMLHttpRequest",
+                'Accept': 'application/json',
+                'X-XSRF-Token': token,
             },
             body: JSON.stringify({ email: emailvalue })
         }).then(response => {
@@ -59,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             return response.json();
         }).then((data) => {
-
+            console.log(data);
             // 중복체크 버튼 초기화
             // 기존 span 요소를 찾고, 있으면 제거
             let existingSpan = document.getElementById('email-check-span');
@@ -86,7 +90,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
 
                     // 다시 수정 못하게 이메일 입력창 비활성화
-                    document.getElementById('email').disabled = true;
+                    document.getElementById('email').setAttribute("readonly", true);
+                    //disable로 설정하니까 이메일값 널로 들어감 readonly 사용해야됨.........
                 } else { // 이미 존재하는 아이디
                     let alreadytext = document.createTextNode('이미 존재하는 이메일입니다.');
                     checkspan.appendChild(alreadytext);
@@ -99,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }).catch(error => {
             console.log(error);
         }).finally(
-            () => console.log('finally')
+            () => console.log('finally', emailvalue)
         )
     }
 

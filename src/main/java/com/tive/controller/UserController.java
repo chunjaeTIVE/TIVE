@@ -39,6 +39,7 @@ public class UserController {
     @PostMapping("/join")
     public String joinResult(@Valid @ModelAttribute("dto") UsersDTO dto, BindingResult bindingResult, Model model ){
 
+        System.out.println(">>>>>>>>>>>>>>>>>"+ dto.getEmail()+dto.getPhone());
         if (bindingResult.hasErrors()){
 
             model.addAttribute("view","user/join");
