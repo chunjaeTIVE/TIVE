@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    let check = [[${check}]];
+
+    if(check == 2){ // 기본 리포트로 이동
+        alert("선택한 회차와 과목의 응시 이력이 없습니다.");
+        location.href = "/report_basic/"+[[${uid}]];
+
+    } else if(check == 3){ // 상세리포트로 이동
+        alert("선택한 회차와 과목의 응시 이력이 없습니다.");
+        location.href = "/report_detail/"+[[${uid}]];
+
+    }  else {  // 메인으로 이동
+        alert("응시 이력이 없습니다.");
+        location.href = "/index";
+
+    }
+</script>
+</body>
+</html>

@@ -19,9 +19,10 @@ public class ReportExamDTO {
     private Integer countCorrect;
 
     private String name;
-//    private SchoolLV schoolLevel;
 
     private Integer itemCount;
+    private String subject;
+    private Integer round;
 
 
     private int achievementRate;

@@ -3,7 +3,9 @@ package com.tive.repository.report;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+
 import static com.tive.domain.QQuestionCategory.*;
+
 import com.tive.dto.ReportExamDTO;
 import com.tive.dto.ReportQuestionDTO;
 import jakarta.transaction.Transactional;
@@ -26,6 +28,23 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
     private final JPAQueryFactory queryFactory;
 
     @Override
+    public List<ReportExamDTO> getExamHistory(Long uid) {
+
+        List<ReportExamDTO> list = queryFactory.select(Projections.fields(ReportExamDTO.class
+                        , userTest.utId
+                        , examItem.subject
+                        , examItem.round))
+                .from(userTest)
+                .innerJoin(examItem)
+                .on(userTest.utToExam.eid.eq(examItem.eid).and(userTest.utToUsers.uid.eq(uid)))
+                .groupBy(examItem.round).groupBy(examItem.subject)
+                .orderBy(userTest.examDate.desc())
+                .fetch();
+
+        return list;
+    }
+
+    @Override
     public ReportExamDTO getTest(Long uid, int round, String subject) {
 
         ReportExamDTO reportDTO = queryFactory.select(Projections.fields(ReportExamDTO.class
@@ -35,7 +54,6 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
                         , userTest.examDate
                         , userTest.countCorrect
                         , users.name
-//                        , users.schoolLevel
                         , examItem.itemCount))
                 .from(userTest)
                 .innerJoin(examItem)
@@ -242,7 +260,6 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
 
         return rate;
     }
-
 
 
 }

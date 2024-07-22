@@ -24,4 +24,6 @@ public interface ReportService {
     Map<String, Object> getRespRateMe(Long ut_id);
 
     List<ReportQuestionDTO> getSubjectiveList(Long ut_id, Long eid);
+
+    List<ReportExamDTO> getExamHistory(Long uid);
 }

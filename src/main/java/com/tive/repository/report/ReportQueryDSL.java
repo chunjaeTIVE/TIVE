@@ -28,4 +28,6 @@ public interface ReportQueryDSL {
     List<ReportQuestionDTO> getSubjectiveList(Long ut_id);
 
     List<Tuple> getSubjectiveAvgAll(Long eid);
+
+    List<ReportExamDTO> getExamHistory(Long uid);
 }
