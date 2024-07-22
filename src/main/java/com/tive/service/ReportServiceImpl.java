@@ -22,6 +22,14 @@ public class ReportServiceImpl implements ReportService{
 
     private final ReportRepository reportRepository;
 
+    /**응시 이력 가져오기*/
+    @Override
+    public List<ReportExamDTO> getExamHistory(Long uid) {
+        List<ReportExamDTO> list = reportRepository.getExamHistory(uid);
+
+        return list;
+    }
+
     /**유저의 시험 기본 정보 가져오기*/
     @Override
     public ReportExamDTO getTest(Long uid, int round, String subject) {

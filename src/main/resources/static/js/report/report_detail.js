@@ -79,7 +79,7 @@ window.onload = function () {
             let subject = document.getElementById('subject').value;
 
             // GET 방식으로 값 보내기
-            let url = `report_detail/2?round=${round}&subject=${encodeURIComponent(subject)}`;
+            let url = `/report_detail/2?round=${round}&subject=${encodeURIComponent(subject)}`;
             location.href = url;
         }
 

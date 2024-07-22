@@ -30,8 +30,8 @@ public class ReportController {
     /**기본 리포트로 이동*/
     @GetMapping("/report_basic/{uid}")
     public String reportBasic(@PathVariable("uid") Long uid
-            , @RequestParam(name = "round", required = false, defaultValue = "1") int round
-            , @RequestParam(name = "subject", required = false, defaultValue = "국어") String subject
+            , @RequestParam(name = "round", required = false, defaultValue = "0") int round
+            , @RequestParam(name = "subject", required = false) String subject
             , Model model
             , Principal principal
     ){
@@ -47,13 +47,64 @@ public class ReportController {
             model.addAttribute("username",username);
         } else { //아니면 로그값 출력
             log.info("Principal is null or principal.getName() is null");
+
         }
 
-        // 시험 기본 정보 가져오기
-        ReportExamDTO report = reportService.getTest(uid, round, subject);
+        // 응시 이력 가져오기
+        List<ReportExamDTO> list =  reportService.getExamHistory(uid);
 
-        model.addAttribute("report", report);
-        model.addAttribute("subject", subject);
+
+        // 응시 이력 하나도 없으면 알림창으로 이동
+        int check = 0;
+        if(list.size() == 0 || list.get(0).getUtId() == null || "".equals(list.get(0).getUtId())){
+
+            model.addAttribute("check", check);
+
+            return "report/report_alert";
+        }
+
+
+        if(subject != null && round != 0 && !"0".equals(round)){
+            // 전달 받은 값이 있으면 -> 값에 맞는 응시 이력이 있는지 체크
+
+
+            for(int i =0; i<list.size(); i++ ){
+                int check_round = list.get(i).getRound();
+                String check_subject = list.get(i).getSubject();
+
+
+                if(check_round == round && check_subject.equals(subject)){
+                    check = 1;
+                    break;
+                }
+            }
+            if(check == 1){
+                // 시험 기본 정보 가져오기
+                ReportExamDTO report = reportService.getTest(uid, round, subject);
+                model.addAttribute("report", report);
+                model.addAttribute("round", round);
+                model.addAttribute("subject", subject);
+            } else {
+                // 값에 맞는 응시 이력 없음 -> 알림창 이동
+                check = 2;
+
+                model.addAttribute("uid", uid);
+                model.addAttribute("check", check);
+                return "report/report_alert";
+            }
+
+        } else {
+            // 전달 받은 값이 없으면 가장 최근에 본 시험 정보 가져옴
+            round = list.get(0).getRound();
+            subject = list.get(0).getSubject();
+
+            ReportExamDTO report = reportService.getTest(uid, round, subject);
+            model.addAttribute("report", report);
+            model.addAttribute("round", round);
+            model.addAttribute("subject", subject);
+
+        }
+
         model.addAttribute("view", "report/report_basic");
         return "index";
     }
@@ -63,8 +114,8 @@ public class ReportController {
     /**상세 리포트로 이동*/
     @GetMapping("/report_detail/{uid}")
     public String reportDetail(@PathVariable("uid") Long uid
-            , @RequestParam(name = "round", required = false, defaultValue = "1") int round
-            , @RequestParam(name = "subject", required = false, defaultValue = "국어") String subject
+            , @RequestParam(name = "round", required = false, defaultValue = "0") int round
+            , @RequestParam(name = "subject", required = false) String subject
             , Model model
             , Principal principal
     ) {
@@ -87,14 +138,71 @@ public class ReportController {
             log.info("Principal is null or principal.getName() is null");
         }
 
-        // 시험 기본 정보 가져오기
-        ReportExamDTO report = reportService.getTest(uid, round, subject);
+        // 응시 이력 가져오기
+        List<ReportExamDTO> list =  reportService.getExamHistory(uid);
 
-        model.addAttribute("report", report);
-        model.addAttribute("subject", subject);
+
+        // 응시 이력 하나도 없으면 알림창으로 이동
+        int check = 0;
+        if(list.size() == 0 || list.get(0).getUtId() == null || "".equals(list.get(0).getUtId())){
+
+            model.addAttribute("check", check);
+
+            return "report/report_alert";
+        }
+
+
+        if(subject != null && round != 0 && !"0".equals(round)){
+            // 전달 받은 값이 있으면 -> 값에 맞는 응시 이력이 있는지 체크
+
+
+            for(int i =0; i<list.size(); i++ ){
+                int check_round = list.get(i).getRound();
+                String check_subject = list.get(i).getSubject();
+
+
+                if(check_round == round && check_subject.equals(subject)){
+                    check = 1;
+                    break;
+                }
+            }
+            if(check == 1){
+                // 시험 기본 정보 가져오기
+                ReportExamDTO report = reportService.getTest(uid, round, subject);
+                model.addAttribute("report", report);
+                model.addAttribute("round", round);
+                model.addAttribute("subject", subject);
+            } else {
+                // 값에 맞는 응시 이력 없음 -> 알림창 이동
+                check = 3;
+
+                model.addAttribute("uid", uid);
+                model.addAttribute("check", check);
+                return "report/report_alert";
+            }
+
+        } else {
+            // 전달 받은 값이 없으면 가장 최근에 본 시험 정보 가져옴
+            round = list.get(0).getRound();
+            subject = list.get(0).getSubject();
+
+            ReportExamDTO report = reportService.getTest(uid, round, subject);
+            model.addAttribute("report", report);
+            model.addAttribute("round", round);
+            model.addAttribute("subject", subject);
+
+        }
+
         model.addAttribute("view", "report/report_detail");
         return "index";
     }
+
+    /**응시 이력 없으면 알럿창으로 이동*/
+    @GetMapping("/report_alert")
+    public String reportAlert(){
+        return "report/report_alert";
+    }
+
 
     /**정오표 - 서답형 미포함 리스트*/
     @GetMapping("/reportdetaillist/{ut_id}/{eid}")

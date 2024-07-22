@@ -34,16 +34,16 @@
         <div id="print_area">
             <form id="selectForm">
                 <select id="round" name="round">
-                    <option value="1" selected>1회</option>
-                    <option value="2">2회</option>
+                    <option value="1" th:selected="${round == 1}">1회</option>
+                    <option value="2" th:selected="${round == 2}">2회</option>
                 </select>
 
                 <select id="subject" name="subject">
-                    <option value="국어" selected>국어</option>
-                    <option value="영어">영어</option>
-                    <option value="수학">수학</option>
-                    <option value="사회">사회</option>
-                    <option value="과학">과학</option>
+                    <option value="국어" th:selected="${subject == '국어'}">국어</option>
+                    <option value="영어" th:selected="${subject == '영어'}">영어</option>
+                    <option value="수학" th:selected="${subject == '수학'}">수학</option>
+                    <option value="사회" th:selected="${subject == '사회'}">사회</option>
+                    <option value="과학" th:selected="${subject == '과학'}">과학</option>
                 </select>
 
                 <button type="button" id="submitForm">확인</button>
