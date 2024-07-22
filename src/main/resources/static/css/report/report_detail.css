@@ -96,7 +96,7 @@
     top: 12vh;
     z-index: 3;
     padding: 1vw 5vw 1vw;
-    border-radius: 9vw;
+    border-radius: 6vw;
     background: white;
     height: 50vh;
     border-top: 3vw solid white;
@@ -385,29 +385,29 @@
 .info_section{
     text-align: center;
     position: relative;
-    top: 4vh;
+    top: 3vh;
 }
 
 .info_section h1{
-    font-size: 2.5vw;
+    font-size: 2vw;
     margin-bottom: 2vh;
 }
 
 .info_section h2{
-    font-size: 1.5vw;
+    font-size: 1.2vw;
     margin-bottom: 8vh;
     color: #757575;
 }
 
 #warn_icon{
-    width: 8vw;
+    width: 10vw;
     margin-bottom: 3vh;
 }
 
 #agree_btn{
     background: #46B1B7;
-    padding: 1.5vw;
-    border-radius: 2vw;
+    padding: 1vw;
+    border-radius: 1.3vw;
     color: white;
     font-size: 1.5vw;
     font-weight: bold;
