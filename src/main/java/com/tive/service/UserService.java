@@ -9,4 +9,6 @@ public interface UserService {
     Long emailCheck(String email);
 
     UsersDTO getUserInfo(String email);
+
+    void updateAgreeByEmail(String name);
 }

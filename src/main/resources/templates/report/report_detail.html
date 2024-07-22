@@ -245,6 +245,24 @@
 
     init(inits);
 
+    if (document.getElementById('agree_btn')){ //마케팅 동의 창일 경우
+        //마케팅 동의 클릭 시
+        document.getElementById('agree_btn').addEventListener('click', function() {
+            fetch('/check/users/agree', {
+                method: 'GET'
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('마케팅 동의 여부 변경 실패');
+                    }
+                    location.reload(); // 동의 후 페이지 다시 로드 -> 상세리포트 보여짐
+                })
+                .catch(error => {
+                    console.error('동의 여부 변경 중 오류 발생: ', error);
+                });
+        });
+    }
+
 </script>
 </body>
 </html>
