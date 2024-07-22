@@ -32,8 +32,8 @@ public class UserServiceImpl implements UserService{
         SchoolLV schoolLV = SchoolLV.valueOf(dto.getSchoolLevel());
 
         //이메일 중복 체크 UserDetailService랑 연결된거 / 이거 없어도 될거같은디 잘 모르겠으니까 일단 냄겨놓음
-        boolean userCheck = findUserCheck(dto.getEmail());
-        if (userCheck) {
+        Long userCheck = emailCheck(dto.getEmail());
+        if (userCheck>0) {
             throw new RuntimeException("이미 있어");
         }
 
@@ -63,14 +63,11 @@ public class UserServiceImpl implements UserService{
     @Override
     public UsersDTO getUserInfo(String email) {
         Users userinfo = repository.findByEmail(email);
-        UsersDTO dto = modelMapper.map(userinfo, UsersDTO.class);
+        UsersDTO dto = new UsersDTO();
+        if (userinfo!=null){
+            dto = modelMapper.map(userinfo, UsersDTO.class);
+        }
         return dto;
-    }
-
-    private boolean findUserCheck(String email) { //UserDetailService랑 연결된거
-        Users users = repository.findByEmail(email);
-
-        return users!=null;
     }
 
 
