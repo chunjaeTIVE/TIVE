@@ -65,10 +65,14 @@ public class IndexController {
         //현재 세션으로 유저 이름 가져오기
         String useremail = "";
         String username = "";
+        Long uid=0L;
 
         if (principal != null && principal.getName() != null){ //로그인 한 경우에만 받아옴
             useremail = principal.getName();
+            uid=userService.getUserInfo(useremail).getUid();
             username = userService.getUserInfo(useremail).getName();
+
+            model.addAttribute("uid", uid);
             model.addAttribute("username",username);
         } else { //아니면 로그값 출력
             log.info("Principal is null or principal.getName() is null");
@@ -90,10 +94,14 @@ public class IndexController {
         //현재 세션으로 유저 이름 가져오기
         String useremail = "";
         String username = "";
+        Long uid=0L;
 
         if (principal != null && principal.getName() != null){ //로그인 한 경우에만 받아옴
             useremail = principal.getName();
+            uid=userService.getUserInfo(useremail).getUid();
             username = userService.getUserInfo(useremail).getName();
+
+            model.addAttribute("uid", uid);
             model.addAttribute("username",username);
         } else { //아니면 로그값 출력
             log.info("Principal is null or principal.getName() is null");
@@ -113,10 +121,14 @@ public class IndexController {
         //현재 세션으로 유저 이름 가져오기
         String useremail = "";
         String username = "";
+        Long uid=0L;
 
         if (principal != null && principal.getName() != null){ //로그인 한 경우에만 받아옴
             useremail = principal.getName();
+            uid=userService.getUserInfo(useremail).getUid();
             username = userService.getUserInfo(useremail).getName();
+
+            model.addAttribute("uid", uid);
             model.addAttribute("username",username);
         } else { //아니면 로그값 출력
             log.info("Principal is null or principal.getName() is null");
@@ -139,12 +151,16 @@ public class IndexController {
         String useremail = "";
         String username = "";
         String userSL = "";
+        Long uid=0L;
 
         if (principal != null && principal.getName() != null){ //로그인 한 경우에만 받아옴
             useremail = principal.getName();
             username = userService.getUserInfo(useremail).getName(); // 유저 이름
+            uid=userService.getUserInfo(useremail).getUid();
             userSL = userService.getUserInfo(useremail).getSchoolLevel(); // 학교급
+
             model.addAttribute("username",username);
+            model.addAttribute("uid", uid);
             model.addAttribute("userSL", userSL);
 
             //각 과목 eid 가져오기
