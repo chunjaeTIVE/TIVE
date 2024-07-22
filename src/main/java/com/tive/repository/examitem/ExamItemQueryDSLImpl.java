@@ -43,6 +43,7 @@ public class ExamItemQueryDSLImpl implements ExamItemQueryDSL {
                         , questionItem.qType
                         , questionItem.qContents
                         , questionItem.orderName
+                        , questionItem.order
                         , examItem.examName
                         , examItem.eid
                 )).from(questionItem)
@@ -55,15 +56,15 @@ public class ExamItemQueryDSLImpl implements ExamItemQueryDSL {
     @Override
     public ExamDTO findExamInfo(String userSL, String subject, int examKind) {
         ExamDTO dto = queryFactory.select(Projections.fields(ExamDTO.class
-                , examItem.eid
-                , examItem.examName
-                , examItem.schoolLevel
-                , examItem.subject
-                , examItem.round
-                , examItem.itemCount
-                , examItem.createDate
-                , examItem.testTime
-                , examItem.year))
+                        , examItem.eid
+                        , examItem.examName
+                        , examItem.schoolLevel
+                        , examItem.subject
+                        , examItem.round
+                        , examItem.itemCount
+                        , examItem.createDate
+                        , examItem.testTime
+                        , examItem.year))
                 .from(examItem)
                 .where(examItem.schoolLevel.eq(SchoolLV.valueOf(userSL))
                         .and(examItem.subject.eq(subject))
