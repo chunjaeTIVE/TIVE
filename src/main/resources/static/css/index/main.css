@@ -196,6 +196,7 @@
     border-radius: 3vw;
     padding: 2vw;
     color: white;
+    overflow: hidden;
 }
 
 #img_section1{
@@ -228,14 +229,14 @@
 .img_section .info_icon{
     width: 4.5vw;
     position: relative;
-    top: -5vh;
+    top: -7vh;
     left: 7.8vw;
 }
 
 #info_icon1{
     width: 5vw;
     left: 7.5vw;
-    top: -4.7vh;
+    top: -6vh;
 }
 
 
