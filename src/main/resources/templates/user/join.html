@@ -2,18 +2,20 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}">
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}">
     <title>회원가입</title>
     <script th:src="@{/js/user/join.js}"></script>
     <link rel="stylesheet" th:href="@{/css/user/login.css}">
-    <style>
 
-    </style>
+
 </head>
 <body>
 <div class="login_wrap">
     <div class="join_box">
     <div class="form_title">회원가입</div>
     <form method="post" th:action="@{/join}" th:object="${dto}" class="login-form">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         <ul>
             <li class="input-group">
                 <label for="email">이메일</label>
@@ -42,7 +44,7 @@
             </li>
             <li class="input-group">
                 <label for="phone">전화번호</label>
-                <input type="text" id="phone" name="phone" th:field="*{phone}" placeholder="Phone" class="logininput">
+                <input type="text" id="phone" name="phone" th:field="*{phone}" placeholder="-를 빼고 작성하세요" class="logininput">
                 <span><th:block th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></th:block></span>
             </li>
             <li class="input-group2">
