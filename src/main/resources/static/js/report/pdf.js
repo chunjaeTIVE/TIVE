@@ -76,7 +76,7 @@ function pdfPrint() {
         var heightLeft = imgHeight;
 
         var doc = new jsPDF('p', 'mm'); //페이지 방향, 단위
-        var position = 100;
+        var position = 10;
 
         // 첫 페이지 추가
         doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);

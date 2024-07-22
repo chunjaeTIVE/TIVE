@@ -11,4 +11,10 @@ public class TestController { /*에러화면 확인용 controller - 나중에 �
         model.addAttribute("view", "error/error500");
         return "index";
     }
+
+    @GetMapping("/error404")
+    public String error2(Model model){
+        model.addAttribute("view", "error/error404");
+        return "index";
+    }
 }
