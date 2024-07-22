@@ -26,7 +26,7 @@ let insertTable3 = function (tbodyID, key, valueAll, valueMe) {
 }
 
 /**정오표 tbody에 결과 값 저장하기*/
-let insertTable6 = function (tbodyID, orderName, contentArea, answer, userAns, correct, avgAll) {
+let insertTable7 = function (tbodyID, orderName, contentArea, answer, userAns, correct, avgAll, qid) {
     let tr = document.createElement('tr');
     let td = document.createElement('td');
     let td1 = document.createElement('td');
@@ -34,14 +34,17 @@ let insertTable6 = function (tbodyID, orderName, contentArea, answer, userAns, c
     let td3 = document.createElement('td');
     let td4 = document.createElement('td');
     let td5 = document.createElement('td');
+    let td6 = document.createElement('td');
 
     let tagi = document.createElement('i');
+    let q_link = document.createElement('button');
 
     td.textContent = `${orderName}`
     td1.textContent = `${contentArea}`;
     td2.textContent = `${answer}`;
 
     td3.textContent = `${userAns}`
+    q_link.textContent = '상세 보기';
 
     // i 태그 생성 - 정답 여부 아이콘으로 표시
     if(correct == 1){
@@ -55,15 +58,29 @@ let insertTable6 = function (tbodyID, orderName, contentArea, answer, userAns, c
 
     td5.textContent = `${avgAll}%`;
 
+
+    // td 요소에 button 속성 추가 - 상세 보기
+    q_link.setAttribute('onclick', 'openQuestion('+qid+')');
+    q_link.setAttribute('class', 'btn_question');
+    // td 요소에 a 태그 추가
+    td6.appendChild(q_link);
+
     tr.appendChild(td);
     tr.appendChild(td1);
     tr.appendChild(td2);
     tr.appendChild(td3);
     tr.appendChild(td4);
     tr.appendChild(td5);
+    tr.appendChild(td6);
 
     tbodyID.appendChild(tr);
 }
+
+function openQuestion(qid) {
+    // 새 창을 열고 문제 번호로 이동
+    window.open('/report_question/'+qid, '_blank', 'width=400,height=400');
+}
+
 
 
 window.onload = function () {
@@ -405,6 +422,7 @@ window.onload = function () {
                     let contentArea = report["categoryName"];
                     let correct = report["correct"];
                     let avgAll = report["avgAll"];
+                    let qid = report["qid"];
                     let answer, userAns;
 
                     // 정답 가져오기
@@ -437,7 +455,7 @@ window.onload = function () {
                     }
 
 
-                    insertTable6(tbody, orderName, contentArea, answer, userAns, correct, avgAll);
+                    insertTable7(tbody, orderName, contentArea, answer, userAns, correct, avgAll, qid);
 
                 }
 
@@ -480,6 +498,7 @@ window.onload = function () {
                         let contentArea = subject["categoryName"];
                         let correct = subject["correct"];
                         let avgAll = subject["avgAll"];
+                        let qid = subject["qid"];
                         let answer, userAns;
 
                         // 정답 가져오기
@@ -512,7 +531,7 @@ window.onload = function () {
                         }
 
 
-                        insertTable6(tbody, orderName, contentArea, answer, userAns, correct, avgAll);
+                        insertTable7(tbody, orderName, contentArea, answer, userAns, correct, avgAll, qid);
 
                     }
                 }

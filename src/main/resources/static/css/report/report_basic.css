@@ -132,6 +132,7 @@
     border-radius: 12px;
     padding: 8px;
     margin: 0 4px;
+    font-family: omyu_pretty;
 }
 
 #selectForm button {
@@ -140,6 +141,7 @@
     border-radius: 12px;
     padding: 8px;
     border: 0px;
+    font-family: omyu_pretty;
 }
 
 /*기본 리포트 시험 참여 정보*/
@@ -223,13 +225,25 @@
 .report_basic table thead tr th:nth-child(4){
     width:20%;
 }
+.report_basic table thead tr th:nth-child(5){
+    width:10%;
+}
 
 .report_basic table tbody tr td{
     padding: 10px 0;
     border-bottom: 1px dotted lightgray;
 }
 
-
+.report_basic table tbody tr td .btn_question{
+    width: 80%;
+    height: 80%;
+    border-radius: 12px;
+    padding: 8px;
+    border: 0px;
+    font-size: 1.1vw;
+    cursor: pointer;
+    font-family: omyu_pretty;
+}
 
 
 /* 서답형 정오표 테이블 - 정답칸 정렬만 왼쪽 정렬로 */
