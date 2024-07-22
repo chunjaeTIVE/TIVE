@@ -10,7 +10,7 @@
 
 .sand{ /*파도 아래 모래*/
     position: absolute;
-    top: -100vh;
+    top: -114vh;
     width: 100%;
     height: 100vw;
     background-image: url("../../img/index/wet_sand_1.png");
@@ -23,7 +23,7 @@
 
 .wave { /*파도*/
     position: absolute;
-    top: -100vh;
+    top: -114vh;
     width: 100%;
     height: 100vw;
     background-image: url("../../img/index/wave1.png");
@@ -35,7 +35,7 @@
 }
 
 #wave2 { /*파도2*/
-    top: -109vh;
+    top: -123vh;
     animation: wave2 6s infinite linear;
     background-image: url("../../img/index/wave2.png");
     opacity: 1;
@@ -44,7 +44,7 @@
 }
 
 #wave3 { /*파도3*/
-    top: -119vh;
+    top: -133vh;
     animation: wave3 6s infinite linear;
     background-image: url("../../img/index/wave3.png");
     opacity: 1;
@@ -107,80 +107,13 @@
 /*파도 배경 끝*/
 
 
-/*움직이는 상어 시작*/
-.left_shark{
-    width: 8vw;
-    position: absolute;
-    z-index: 5;
-    left: 10vw;
-    top: 10vh;
-    transform: scaleX(1);
-    animation: move_lr 18s infinite ease-in-out;
-}
-
-.right_shark{
-    width: 9vw;
-    position: absolute;
-    z-index: 5;
-    right: 10vw;
-    top: 15vh;
-    transform: scaleX(-1);
-    animation: move_rl 18s infinite ease-in-out;
-    animation-delay: 1s;
-}
-
-
-@keyframes move_lr {
-    0% {
-        transform: translateX(0) translateY(0) scaleX(1);
-    }
-    25% {
-        transform: translateX(11vw) translateY(0) scaleX(1);
-    }
-    30%{
-        transform: translateX(11vw) translateY(-2vh) scaleX(-1);
-    }
-    75% {
-        transform: translateX(0) translateY(-2vh) scaleX(-1);
-    }
-    80% {
-        transform: translateX(0) translateY(0) scaleX(1);
-    }
-    100% {
-        transform: translateX(0) translateY(0) scaleX(1);
-    }
-}
-
-@keyframes move_rl {
-    0% {
-        transform: translateX(0) translateY(0) scaleX(-1);
-    }
-    25% {
-        transform: translateX(-9vw) translateY(0) scaleX(-1);
-    }
-    30% {
-        transform: translateX(-9vw) translateY(2vh) scaleX(1);
-    }
-    75% {
-        transform: translateX(0) translateY(2vh) scaleX(1);
-    }
-    80% {
-        transform: translateX(0) translateY(0) scaleX(-1);
-    }
-    100% {
-        transform: translateX(0) translateY(0) scaleX(-1);
-    }
-}
-
-/*움직이는 상어 끝*/
-
 
 /*에러 메시지 시작*/
 .beach>h1{
     position: absolute;
     z-index: 5;
     text-align: center;
-    top: 25vh;
+    top: 15vh;
     font-family: chab;
     color: white;
     width: 100%;
@@ -192,7 +125,7 @@
     position: absolute;
     z-index: 5;
     text-align: center;
-    top: 36vh;
+    top: 26vh;
     font-family: chab;
     color: white;
     width: 100%;
@@ -202,34 +135,19 @@
 
 /*에러 메시지 끝*/
 
-/*아래 다이버, 쓰레기 시작*/
+/*아래 장식 시작*/
 
 .bottom_deco{
     position: absolute;
-    z-index: 5;
+    z-index: 0;
     bottom: -5vh;
     width: 100%;
     text-align: center;
     perspective: 40vw;
 }
 
-#diver{
-    width: 20vw;
+#ee{
+    width: 50vw;
 }
 
-#banana_trash{
-    width: 7vw;
-    position: relative;
-    left: -10vw;
-    top: -2vh;
-    transform: rotateX(10deg);
-}
-
-#sea_star{
-    width: 7vw;
-    position: relative;
-    left: 10vw;
-    transform: rotateX(20deg);
-}
-
-/*아래 다이버, 쓰레기 끝*/
+/*아래 장식 끝*/

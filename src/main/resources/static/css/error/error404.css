@@ -10,13 +10,12 @@
 
 .sand{ /*젖은 모래*/
     position: absolute;
-    top: -94vh;
+    top: -100vh;
     width: 100%;
     height: 100vw;
     background-image: url("../../img/index/wet_sand_1.png");
     background-size: contain;
     background-repeat: no-repeat;
-    opacity: 0.4;
     animation: sand 6s infinite ease-in-out;
     rotate: 180deg;
 }
@@ -29,7 +28,7 @@
     position: absolute;
     z-index: 5;
     text-align: center;
-    top: 25vh;
+    top: 15vh;
     font-family: chab;
     color: white;
     width: 100%;
@@ -41,7 +40,7 @@
     position: absolute;
     z-index: 5;
     text-align: center;
-    top: 36vh;
+    top: 27vh;
     font-family: chab;
     color: white;
     width: 100%;
@@ -49,11 +48,24 @@
     font-weight: lighter;
 }
 
+
+.btn_box{
+    position: absolute;
+    top: 40vh;
+    text-align: center;
+    width: 100%;
+    z-index: 5;
+}
+
 .home_btn{
-    background: dodgerblue;
-    padding: 1vw;
+    text-decoration: none;
+    color: #E0A368;
+    background: #FFCE99;
     font-family: chab;
-    font-size: 1.5vw;
+    font-size: 2vw;
+    font-weight: lighter;
+    padding: 1vh 1vw;
+    border-radius: 2vw;
 }
 
 /*에러 메시지 끝*/
