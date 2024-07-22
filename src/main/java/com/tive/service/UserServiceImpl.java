@@ -5,6 +5,7 @@ import com.tive.domain.UserRole;
 import com.tive.domain.Users;
 import com.tive.dto.UsersDTO;
 import com.tive.repository.users.UsersRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -70,6 +71,20 @@ public class UserServiceImpl implements UserService{
         Users users = repository.findByEmail(email);
 
         return users!=null;
+    }
+
+
+    @Transactional
+    @Override
+    public void updateAgreeByEmail(String email) {
+        Users user = repository.findByEmail(email);
+
+        if (user != null) {
+            user.setAgree(1); // 마케팅 동의 여부를 1로 설정
+            repository.save(user);
+        } else {
+            throw new RuntimeException("유저 정보를 찾을 수 없습니다 : " + email);
+        }
     }
 
 }
