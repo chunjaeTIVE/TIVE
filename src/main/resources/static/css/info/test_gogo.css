@@ -21,25 +21,25 @@
 }
 
 .gogo_wrap h2{
-    font-size: 40px;
+    font-size: 2.1vw;
     font-weight: bold;
     color: #46B1B7;
-    padding: 25px 0px;
+    padding: 3vh 0;
 }
 
 .gogo_wrap span{
-    font-size: 23px;
+    font-size: 1.4vw;
     color: #757575;
-    line-height: 30px;
+    line-height: 3.5vh;
     font-weight: normal;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 20px;
-    margin: 30px 0;
-    border-radius: 30px 30px 0 0;
+    font-size: 1.2vw;
+    margin: 3vh 0;
+    border-radius: 4vh;
     overflow: hidden;
 }
 
@@ -49,11 +49,11 @@ thead {
 }
 
 thead th {
-    padding: 13px;
+    padding: 1vw;
 }
 
 tbody td {
-    padding: 13px;
+    padding: 0.8vw;
     border-bottom: 1px solid #ddd;
     color: #3b434a;
 }
@@ -71,6 +71,10 @@ tbody td a {
     text-align: center;
     align-items: center;
 }
+.test_guide p{
+    font-size: 1vw;
+}
+
 .test_guide1{
     display: flex;
     flex-direction: row;
@@ -79,25 +83,25 @@ tbody td a {
 
 .testgo{
     background-color: #FEF8C8;
-    border-radius: 30px;
-    padding: 7px 15px;
-    font-size: 16px;
-    margin-right: 10px;
+    border-radius: 1vw;
+    padding: 1vh 1vw;
+    font-size: 1vw;
+    margin-right: 1vw;
 }
 .retry{
     background-color: #FEE5E2;
-    border-radius: 30px;
-    padding: 7px 15px;
-    font-size: 16px;
-    margin-right: 10px;
+    border-radius: 1vw;
+    padding: 1vh 1vw;
+    font-size: 1vw;
+    margin-right: 1vw;
 }
 
 .result_btn{
-    margin-top: 40px;
+    margin-top: 4vh;
     display: inline-block;
     background-color: #46B1B7;
-    border-radius: 30px;
+    border-radius: 2vw;
     color: white;
-    font-size: 25px;
-    padding: 10px 25px;
+    font-size: 1.5vw;
+    padding: 1vh 1.2vw;
 }
