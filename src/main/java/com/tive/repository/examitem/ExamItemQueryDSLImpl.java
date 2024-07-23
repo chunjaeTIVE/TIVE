@@ -50,6 +50,7 @@ public class ExamItemQueryDSLImpl implements ExamItemQueryDSL {
                 .innerJoin(questionItem.questionToExam, examItem)
                 .where(examItem.eid.eq(eid))
                 .where(questionItem.qContents.isNotNull())
+                .where(questionItem.status.eq(13).or(questionItem.status.eq(12)).or(questionItem.status.eq(11)).or(questionItem.status.isNull()))
                 .orderBy(questionItem.order.asc())
                 .fetch();
         return list;
