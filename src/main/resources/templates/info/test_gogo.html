@@ -93,7 +93,12 @@
                     <div class="test_guide1"><div class="testgo">응시하기</div><p>시험을 응시할 수 있는 상태</p></div>
                     <div class="test_guide1"><div class="retry">재응시</div><p>시험을 재응시 할 수 있는 상태</p></div>
                 </div>
-                <a><div class="result_btn">결과보기</div></a>
+                <th:block th:if="${hasTakenEnglish and hasTakenKorean and hasTakenMath and hasTakenSociety and hasTakenScience}">
+                    <div class="result_btn"><a th:href="@{/report_basic}">결과보기</a></div>
+                </th:block>
+                <th:block th:unless="${hasTakenEnglish and hasTakenKorean and hasTakenMath and hasTakenSociety and hasTakenScience}">
+                    <div class="result_btn"><a id="result_back">결과보기</a></div>
+                </th:block>
             </div>
 
 
@@ -109,4 +114,12 @@
 
     </div>
 </body>
+<script>
+    if(document.getElementById('result_back')){
+      let result_back = document.getElementById('result_back');
+      result_back.addEventListener('click', function () {
+          alert("시험을 모두 응시해 주세요!");
+      })
+    }
+</script>
 </html>

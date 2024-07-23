@@ -1,6 +1,6 @@
 #wrap{
     width: 100%;
-    height: 110vh;
+    height: 100vh;
     background-color: #46B1B7;
     position: relative;
     font-family: omyu_pretty;
@@ -10,7 +10,7 @@
     align-content: center;
     text-align: center;
     font-weight: bold;
-    top: 15vh;
+    top: 12vh;
     position: relative;
     background-color: white;
     width: 45vw;
@@ -28,7 +28,7 @@
 }
 
 .gogo_wrap span{
-    font-size: 1.4vw;
+    font-size: 1.3vw;
     color: #757575;
     line-height: 3.5vh;
     font-weight: normal;
@@ -104,4 +104,13 @@ tbody td a {
     color: white;
     font-size: 1.5vw;
     padding: 1vh 1.2vw;
+}
+
+.result_btn:hover{
+    background-color: #5CC7CE;
+}
+
+.result_btn a{
+    text-decoration: none;
+    color: white;
 }
