@@ -16,14 +16,18 @@
     background-color: white;
 }
 
+.viewer-paper .head .btn-wrap{
+    margin-right: 12px;
+    align-items: center;
+}
+
 .header .btn-wrap button{
     border-radius: 50px;
     font-family: omyu_pretty;
-    /* font-size: 20px; */
     height: 70%;
     margin-right: 5px;
     background: white;
-    border: 1px solid #5ECDF3;
+    border: 1px solid powderblue;
     width: 50px;
 }
 
@@ -36,10 +40,6 @@
 }
 
 
-.header .btn-wrap button:focus{
-    background: #f1f1f1;
-}
-
 .header .btn-wrap button.clear-btn{
     background: white;
     border: 1px solid #5ECDF3;
@@ -47,10 +47,11 @@
 
 
 .header .time-box{
-    border-radius: 15px;
-    height: 80%;
+    border-radius: 25px;
+    height: 70%;
     background: white;
-    border: 1px solid #5ECDF3;
+    border: 1px solid powderblue;
+    margin-right: 10px;
 }
 
 .header .time-box .txt{
@@ -58,17 +59,27 @@
 }
 
 .header .time-box .time-txt{
-    border-radius: 15px;
+    border-radius: 25px;
     margin-left: 10px;
-    background-color: white;
+    background-color: #f1f1f1;
     color: #5DCCF3;
-    border: 1px solid #5DCCF3;
+    border: 1px solid #f1f1f1;
+    font-size: 22px;
+    position: relative;
+    padding: 10px 0 12px 0;
 }
 
 .swiper-button-next, .swiper-button-prev{
-    border-radius: 20px;
     background-color: #5DCCF3;
     border: 1px solid #5DCCF3;
+    height: 35px;
+    width: 70px;
+    border-radius: 15px;
+}
+
+.swiper-button-next:hover, .swiper-button-prev:hover{
+    background: powderblue;
+    border: 1px solid powderblue;
 }
 
 .swiper-button-next:after{
@@ -85,6 +96,11 @@
     width: 30px;
 }
 
+.viewer-paper .head .txt{
+    font-family: 'omyu_pretty';
+    font-size: 22px;
+    margin-left: 15px;
+}
 
 .header .btn-submit{
     background-color: #5DCCF3;
@@ -111,6 +127,49 @@
 .page .question .num{
     border-radius: 30px;
 }
+
+.pop-memo{
+    display: block;
+    border-radius: 30px;
+    border: 1px;
+    background: white;
+    box-shadow: 0 0 18px rgba(0, 0, 0, 0.2);
+}
+
+.pop-memo .pop-cnt{
+    padding: 10px;
+}
+
+.pop-memo .pop-cnt:focus{
+    border: none;
+    outline: none;
+}
+
+.pop-memo .pop-header{
+    border-radius: 20px 20px 0 0;
+    background: powderblue;
+}
+
+.pop-memo .pop-header .txt{
+    font-family: 'omyu_pretty';
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+.pop-memo .pop-cnt textarea{
+    border-radius: 20px;
+    padding: 10px;
+    font-family: 'omyu_pretty';
+    background: #f1f1f1;
+    border: none;
+}
+
+.pop-memo .pop-header .pop-close{
+    margin-right: 5px;
+}
+
+
+
 .btn-ans {
     color:blue;
 }
