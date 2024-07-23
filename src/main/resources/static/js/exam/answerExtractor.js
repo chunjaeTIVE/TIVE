@@ -85,7 +85,7 @@ function completeExam() {
         },
         body: JSON.stringify({
             eid: document.querySelector('.wrap').id
-            , body: resultTemp
+            , body:  resultTemp
         })
     }).then(response => {
         console.log(response);
@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     let siblings = e.target.parentElement.children;
                     for (let s = 0; s < siblings.length; s++) {
                         if (siblings[s] === e.target) {
-                            answer["answer"] = s + 1; // 1부터 시작하는 인덱스를 설정
+                            answer["answer"] = (s + 1).toString(); // 1부터 시작하는 인덱스를 설정
                         }
                     }
 
@@ -390,7 +390,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     let siblings = e.target.parentElement.parentElement.children;
                     for (let s = 0; s < siblings.length; s++) {
                         if (siblings[s] === e.target.parentElement) {
-                            answer["answer"] = s + 1; // 1부터 시작하는 인덱스를 설정합니다.
+                            answer["answer"] = (s + 1).toString(); // 1부터 시작하는 인덱스를 설정합니다.
                         }
                     }
 
@@ -494,7 +494,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             let siblings = e.target.parentElement.children;
                             for (let s = 0; s < siblings.length; s++) {
                                 if (siblings[s] === e.target) {
-                                    answer["answer"] = [s + 1, val];
+                                    answer["answer"] = [(s + 1).toString(), val];
                                 }
                             }
 

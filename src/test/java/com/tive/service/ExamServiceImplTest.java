@@ -35,33 +35,6 @@ class ExamServiceImplTest {
 //        }
     }
 
-    @Test
-    void findAnswer(){
-//        List<Object[]> answer = questionItemRepository.findAnswer(14L);
-//        Assertions.assertThat(answer).isNotNull();
-//        for(Object[] o:answer){
-//            System.out.println(o[1]);
-//            //HashMap<String,Object> ans = (HashMap<String, Object>) o[1];
-//           // System.out.println(ans.get("answer"));
-//        }
-        List<Object[]> examAnswers = questionItemRepository.findAnswer(14L);
-        for(Object[] o:examAnswers){
-            System.out.println((String)o[1]);
-        }
-        for(Object[] o:examAnswers) {
-            System.out.println("start:" + o[0]);
-            try {
-                ObjectMapper mapper = new ObjectMapper();
-                HashMap<String, Object> qAnswer = mapper.readValue((String) o[1]
-                        , new TypeReference<HashMap<String, Object>>() {
-                        });
-                System.out.println("qTextarea:" + qAnswer.get("answer")+", casting String:"+(qAnswer.get("answer") instanceof String));
-            } catch (IOException e) {
-                System.out.println(e);
-            }
-
-        }
-    }
 
     @Test
     void test(){
