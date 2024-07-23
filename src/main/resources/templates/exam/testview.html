@@ -15,7 +15,19 @@
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
     <script th:src="@{/js/exam/getfile.js}"></script>
     <script th:src="@{/js/exam/class.js}"></script>
-    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        // Configure MathJax to use color.js extension
+        TeX: {
+            extensions: ["color.js"]  // color.js 확장 모듈 추가
+        },
+        // Remove unnecessary settings for your case
+        showProcessingMessages: false,
+        messageStyle: "none"
+    });
+
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </head>
 <body>
 <!--<div th:each="item:${exam}" th:id="${item.eid}" class="exam-id"></div>-->
@@ -111,7 +123,7 @@
                 el: ".swiper-pagination",
                 clickable: true,
                 renderBullet: function (index, className) {
-                    return '<span class="' + className + '" id="swiper' + ((index)+1) + '">' + list[index] + "</span>";
+                    return '<span class="' + className + '" id="swiper' + ((index) + 1) + '">' + list[index] + "</span>";
                 },
             },
         });
@@ -211,7 +223,7 @@
             },
             'drop': function (e) {
                 e.preventDefault();
-                if(element.includes('<img src')){
+                if (element.includes('<img src')) {
                     $(this).append(element);
                 }
                 $(this).append('<span class="txt">' + txt + '</span>');
@@ -386,5 +398,6 @@
 </script>
 <script th:src="@{/js/exam/answerExtractor.js}"></script>
 <script th:src="@{/js/exam/testtime.js}"></script>
+<script th:src="@{/js/exam/dropdown.js}"></script>
 </body>
 </html>
