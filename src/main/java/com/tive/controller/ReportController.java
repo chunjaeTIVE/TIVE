@@ -55,7 +55,7 @@ public class ReportController {
         }
 
         // 응시 이력 가져오기
-        List<ReportExamDTO> list =  reportService.getExamHistory(uid);
+        List<ReportExamDTO> list =  reportService.getTest(uid);
 
 
         // 응시 이력 하나도 없으면 알림창으로 이동
@@ -76,20 +76,20 @@ public class ReportController {
                 int check_round = list.get(i).getRound();
                 String check_subject = list.get(i).getSubject();
 
-
+                // 받은 값과 회차/과목이 일치하는 이력이 있음
                 if(check_round == round && check_subject.equals(subject)){
                     check = 1;
+
+                    ReportExamDTO report = list.get(i);
+                    model.addAttribute("report", report);
+                    model.addAttribute("round", report.getRound());
+                    model.addAttribute("subject", report.getSubject());
                     break;
                 }
             }
-            if(check == 1){
-                // 시험 기본 정보 가져오기
-                ReportExamDTO report = reportService.getTest(uid, round, subject);
-                model.addAttribute("report", report);
-                model.addAttribute("round", round);
-                model.addAttribute("subject", subject);
-            } else {
-                // 값에 맞는 응시 이력 없음 -> 알림창 이동
+
+            // 값에 맞는 응시 이력 없음 -> 알림창 이동
+            if(check != 1) {
                 check = 2;
 
                 model.addAttribute("uid", uid);
@@ -99,13 +99,12 @@ public class ReportController {
 
         } else {
             // 전달 받은 값이 없으면 가장 최근에 본 시험 정보 가져옴
-            round = list.get(0).getRound();
-            subject = list.get(0).getSubject();
 
-            ReportExamDTO report = reportService.getTest(uid, round, subject);
+            ReportExamDTO report = list.get(0);
+
             model.addAttribute("report", report);
-            model.addAttribute("round", round);
-            model.addAttribute("subject", subject);
+            model.addAttribute("round", report.getRound());
+            model.addAttribute("subject", report.getSubject());
 
         }
 
@@ -146,7 +145,7 @@ public class ReportController {
         }
 
         // 응시 이력 가져오기
-        List<ReportExamDTO> list =  reportService.getExamHistory(uid);
+        List<ReportExamDTO> list =  reportService.getTest(uid);
 
 
         // 응시 이력 하나도 없으면 알림창으로 이동
@@ -167,21 +166,21 @@ public class ReportController {
                 int check_round = list.get(i).getRound();
                 String check_subject = list.get(i).getSubject();
 
-
+                // 받은 값과 회차/과목이 일치하는 이력이 있음
                 if(check_round == round && check_subject.equals(subject)){
                     check = 1;
+
+                    ReportExamDTO report = list.get(i);
+                    model.addAttribute("report", report);
+                    model.addAttribute("round", report.getRound());
+                    model.addAttribute("subject", report.getSubject());
                     break;
                 }
             }
-            if(check == 1){
-                // 시험 기본 정보 가져오기
-                ReportExamDTO report = reportService.getTest(uid, round, subject);
-                model.addAttribute("report", report);
-                model.addAttribute("round", round);
-                model.addAttribute("subject", subject);
-            } else {
-                // 값에 맞는 응시 이력 없음 -> 알림창 이동
-                check = 3;
+
+            // 값에 맞는 응시 이력 없음 -> 알림창 이동
+            if(check != 1) {
+                check = 2;
 
                 model.addAttribute("uid", uid);
                 model.addAttribute("check", check);
@@ -190,13 +189,11 @@ public class ReportController {
 
         } else {
             // 전달 받은 값이 없으면 가장 최근에 본 시험 정보 가져옴
-            round = list.get(0).getRound();
-            subject = list.get(0).getSubject();
 
-            ReportExamDTO report = reportService.getTest(uid, round, subject);
+            ReportExamDTO report = list.get(0);
             model.addAttribute("report", report);
-            model.addAttribute("round", round);
-            model.addAttribute("subject", subject);
+            model.addAttribute("round", report.getRound());
+            model.addAttribute("subject", report.getSubject());
 
         }
 

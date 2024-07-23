@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface ReportService {
-    ReportExamDTO getTest(Long uid, int round, String subject);
+    List<ReportExamDTO> getTest(Long uid);
 
     List<ReportQuestionDTO> getReportDetailList(Long utId, Long eid);
 
@@ -25,5 +25,4 @@ public interface ReportService {
 
     List<ReportQuestionDTO> getSubjectiveList(Long ut_id, Long eid);
 
-    List<ReportExamDTO> getExamHistory(Long uid);
 }

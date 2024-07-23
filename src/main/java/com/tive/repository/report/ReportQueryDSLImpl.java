@@ -27,48 +27,52 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
 
     private final JPAQueryFactory queryFactory;
 
-    @Override
-    public List<ReportExamDTO> getExamHistory(Long uid) {
-
-        List<ReportExamDTO> list = queryFactory.select(Projections.fields(ReportExamDTO.class
-                        , userTest.utId
-                        , examItem.subject
-                        , examItem.round))
-                .from(userTest)
-                .innerJoin(examItem)
-                .on(userTest.utToExam.eid.eq(examItem.eid).and(userTest.utToUsers.uid.eq(uid)))
-                .groupBy(examItem.round).groupBy(examItem.subject)
-                .orderBy(userTest.examDate.desc())
-                .fetch();
-
-        return list;
-    }
 
     @Override
-    public ReportExamDTO getTest(Long uid, int round, String subject) {
+    public List<ReportExamDTO> getTest(Long uid) {
 
-        ReportExamDTO reportDTO = queryFactory.select(Projections.fields(ReportExamDTO.class
+        List<ReportExamDTO> list  = queryFactory.select(Projections.fields(ReportExamDTO.class
                         , userTest.utToUsers.uid
                         , userTest.utId
                         , userTest.utToExam.eid
                         , userTest.examDate
                         , userTest.countCorrect
                         , users.name
-                        , examItem.itemCount))
+                        , users.schoolLevel
+                        , examItem.itemCount
+                        , examItem.subject
+                        , examItem.round))
                 .from(userTest)
                 .innerJoin(examItem)
                 .on(userTest.utToExam.eid.eq(examItem.eid))
                 .innerJoin(users)
                 .on(userTest.utToUsers.uid.eq(users.uid))
                 .where(userTest.utToUsers.uid.eq(uid)
-                        .and(examItem.round.eq(round))
-                        .and(examItem.subject.eq(subject)))
+                        .and(examItem.useYn.eq("Y")))
                 .orderBy(userTest.examDate.desc())
-                .limit(1)
+                .fetch();
+
+
+        return list;
+    }
+
+
+    @Override
+    public Integer getScore(Long utId) {
+        Integer score = queryFactory
+                .select(questionItem.points.sum())
+                .from(userAnswer)
+                .innerJoin(questionItem)
+                .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid))
+                .where(userAnswer.uaToUt.utId.eq(utId).and(userAnswer.correct.eq(1)))
+                .groupBy(userAnswer.correct)
                 .fetchOne();
 
+        if(score == null){
+            score = 0;
+        }
 
-        return reportDTO;
+        return score;
     }
 
     @Override

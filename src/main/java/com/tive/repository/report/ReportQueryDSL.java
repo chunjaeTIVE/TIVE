@@ -7,7 +7,7 @@ import com.tive.dto.ReportQuestionDTO;
 import java.util.List;
 
 public interface ReportQueryDSL {
-    ReportExamDTO getTest(Long uid, int round, String subject);
+    List<ReportExamDTO> getTest(Long uid);
 
     List<ReportQuestionDTO> getReportDetailList(Long utId);
 
@@ -29,5 +29,5 @@ public interface ReportQueryDSL {
 
     List<Tuple> getSubjectiveAvgAll(Long eid);
 
-    List<ReportExamDTO> getExamHistory(Long uid);
+    Integer getScore(Long utId);
 }
