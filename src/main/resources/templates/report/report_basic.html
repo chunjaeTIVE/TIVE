@@ -16,9 +16,9 @@
 <div id="basic_wrap">
 
     <h1>
-<!--        <img class="title_icon" th:src="@{/img/report/shell1.png}" th:alt="진주"/>-->
+        <!--        <img class="title_icon" th:src="@{/img/report/shell1.png}" th:alt="진주"/>-->
         기본 리포트
-<!--        <img class="title_icon" th:src="@{/img/report/shell1.png}" th:alt="진주"/>-->
+        <!--        <img class="title_icon" th:src="@{/img/report/shell1.png}" th:alt="진주"/>-->
     </h1>
 
     <img class="top_deco" th:src="@{/img/index/sea_light.png}" th:alt="바다빛">
@@ -36,8 +36,10 @@
                 <option value="국어" th:selected="${subject == '국어'}">국어</option>
                 <option value="영어" th:selected="${subject == '영어'}">영어</option>
                 <option value="수학" th:selected="${subject == '수학'}">수학</option>
-                <option value="사회" th:selected="${subject == '사회'}">사회</option>
-                <option value="과학" th:selected="${subject == '과학'}">과학</option>
+                <th:block th:unless="${report.schoolLevel.toString() eq 'HL'}">
+                    <option value="사회" th:selected="${subject == '사회'}">사회</option>
+                    <option value="과학" th:selected="${subject == '과학'}">과학</option>
+                </th:block>
             </select>
 
             <button type="button" id="submitForm">확인</button>
@@ -132,7 +134,7 @@
 <script>
 
     let inits = {
-        utid : 0
+        utid: 0
         , eid: 0
     }
 
