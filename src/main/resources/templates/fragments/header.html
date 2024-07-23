@@ -62,7 +62,7 @@
                                 <!--    <input type="hidden" th:name="${_csrf.parameterName}"
                                                          th:value="${_csrf.token}">-->
                                 <div class="user_box">
-                                    <span id="user_info" th:text="|${username} 님|" th:if="${#authentication.name}"></span>
+                                    <span id="user_info" th:text="${username}" th:if="${#authentication.name}"></span>
                                     <button type="submit" id="logout_btn">로그아웃</button>
                                 </div>
                             </form>

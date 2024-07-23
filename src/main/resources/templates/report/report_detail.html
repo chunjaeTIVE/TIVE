@@ -32,6 +32,13 @@
     <div class="report_wrap">
 
         <div id="print_area">
+            <div id="pdf_btn_box">
+                <div id="print_btn">
+                    <img id="pdf_icon" th:src="@{/img/report/down_icon.png}" th:alt="pdf">
+                    <span>다운로드</span>
+                </div>
+            </div>
+
             <form id="selectForm">
                 <select id="round" name="round">
                     <option value="1" th:selected="${round == 1}">1회</option>
@@ -192,7 +199,7 @@
             </div>
         </div>
 
-        <p id="print_btn">다운로드</p>
+<!--        <p id="print_btn">다운로드</p>-->
 
     </div>
 

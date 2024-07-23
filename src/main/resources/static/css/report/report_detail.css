@@ -1,9 +1,9 @@
 #detail_wrap{ /*영역 잡기*/
     width: 100%;
-    height: 250vh;
     background-color: #46B1B7;
     position: relative;
     font-family: omyu_pretty;
+    padding-bottom: 30vh;
 }
 
 #detail_wrap2{ /*영역 잡기*/
@@ -33,16 +33,16 @@
 
 /*배경 커스텀 시작*/
 .top_deco{ /* 위에 물결 장식 */
-    height: 15%;
+    height: 40vh;
 }
 
 .bubble_left{ /*왼쪽 거품*/
-    animation: move_up 18s infinite ease-in-out;
+    animation: move_up 25s infinite ease-in-out;
     animation-delay: 3s; /*3초 지연*/
 }
 
 .bubble_right{ /*오른쪽 거품*/
-    animation: move_up 18s infinite ease-in-out;
+    animation: move_up 25s infinite ease-in-out;
 }
 
 @keyframes move_up { /* 위로 올라가는 공기방울 애니메이션 */
@@ -51,9 +51,13 @@
         opacity: 1;
     }
     100% {
-        transform: translateY(-250vh);
+        transform: translateY(-600vh);
         opacity: 0.2;
     }
+}
+
+.coral_reef_item {
+    width: 50vh;
 }
 
 /* 바다 바닥 장식 */
@@ -78,10 +82,9 @@
     padding: 1vw 5vw 1vw;
     border-radius: 5vw;
     background: white;
-    height: 200vh;
-    overflow: scroll;
-    overflow-x: hidden;
-    border-top: 3vw solid white;
+    /*overflow: scroll;*/
+    /*overflow-x: hidden;*/
+    border-top: 2vw solid white;
     border-bottom: 3vw solid white;
     border-right: 0.5vw solid white;
     border-left: 0.5vw solid white;
@@ -105,24 +108,24 @@
     border-left: 0.5vw solid white;
 }
 
-.report_wrap::-webkit-scrollbar {
-    /* 스크롤바의 너비 */
-    width: 0.5vw;
-}
-.report_wrap::-webkit-scrollbar-thumb {
-    /* 스크롤바의 길이 */
-    height: 30%;
-    /* 스크롤바의 색상 */
-    background: rgba(182,190,237,0.4);
-    border-radius: 1vw;
-}
+/*.report_wrap::-webkit-scrollbar {*/
+/*    !* 스크롤바의 너비 *!*/
+/*    width: 0.5vw;*/
+/*}*/
+/*.report_wrap::-webkit-scrollbar-thumb {*/
+/*    !* 스크롤바의 길이 *!*/
+/*    height: 30%;*/
+/*    !* 스크롤바의 색상 *!*/
+/*    background: rgba(182,190,237,0.4);*/
+/*    border-radius: 1vw;*/
+/*}*/
 
-.report_wrap::-webkit-scrollbar-track {
-    /*스크롤바 뒷 배경 색상*/
-    background: rgba(215,221,247,0.3);
-    border-radius: 5vw;
-    margin: 10vh 0;
-}
+/*.report_wrap::-webkit-scrollbar-track {*/
+/*    !*스크롤바 뒷 배경 색상*!*/
+/*    background: rgba(215,221,247,0.3);*/
+/*    border-radius: 5vw;*/
+/*    margin: 10vh 0;*/
+/*}*/
 
 
 .report_wrap ul li {
@@ -376,21 +379,32 @@
 
 
 /*pdf 출력 버튼 시작*/
+
+#pdf_btn_box{
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    position: relative;
+    top: -2.7vh;
+    left: -0.5vw;
+}
+
 #print_btn{
-    margin: 0 auto;
-    background: #46B1B7;
-    padding: 0.7vw;
-    border-radius: 1vw;
-    font-size: 1.3vw;
-    width: 30%;
-    text-align: center;
-    color: white;
+    font-size: 1vw;
+    color: #46B1B7;
     font-weight: bold;
+    align-items: center;
+    display: flex;
 }
 
 #print_btn:hover{
-    background: #5CC7CE;
+    color: #5CC7CE;
 }
+
+#pdf_icon{
+    width: 1.5vw;
+}
+
 /*pdf 출력 버튼 끝*/
 
 

@@ -1,10 +1,9 @@
 #basic_wrap{ /*영역 잡기*/
     width: 100%;
-    height: 180vh;
     background-color: #46B1B7;
     position: relative;
     font-family: omyu_pretty;
-    padding-bottom: 15vh;
+    padding-bottom: 30vh;
 }
 
 #basic_wrap>h1{ /*페이지 타이틀*/
@@ -26,7 +25,7 @@
 
 /*배경 커스텀 시작*/
 .top_deco{ /* 위에 물결 장식 */
-    height: 20%;
+    height: 40vh;
 }
 
 .bubble_left{ /*왼쪽 거품*/
@@ -44,13 +43,13 @@
         opacity: 1;
     }
     100% {
-        transform: translateY(-180vh);
-        opacity: 0;
+        transform: translateY(-300vh);
+        opacity: 0.2;
     }
 }
 
 .coral_reef_item{ /*산호초 좌,우 아이템*/
-    width: 24vw;
+    width: 50vh;
     top: -1vw;
 }
 
@@ -72,33 +71,32 @@
     padding: 1vw 5vw 1vw;
     border-radius: 5vw;
     background: white;
-    height: 150vh;
-    overflow: scroll;
-    overflow-x: hidden;
-    border-top: 3vw solid white;
+    /*overflow: scroll;*/
+    /*overflow-x: hidden;*/
+    border-top: 2vw solid white;
     border-bottom: 3vw solid white;
     border-right: 0.5vw solid white;
     border-left: 0.5vw solid white;
 }
 
-.report_wrap::-webkit-scrollbar {
-    /* 스크롤바의 너비 */
-    width: 0.5vw;
-}
-.report_wrap::-webkit-scrollbar-thumb {
-    /* 스크롤바의 길이 */
-    height: 30%;
-    /* 스크롤바의 색상 */
-    background: rgba(182,190,237,0.4);
-    border-radius: 1vw;
-}
+/*.report_wrap::-webkit-scrollbar {*/
+/*    !* 스크롤바의 너비 *!*/
+/*    width: 0.5vw;*/
+/*}*/
+/*.report_wrap::-webkit-scrollbar-thumb {*/
+/*    !* 스크롤바의 길이 *!*/
+/*    height: 30%;*/
+/*    !* 스크롤바의 색상 *!*/
+/*    background: rgba(182,190,237,0.4);*/
+/*    border-radius: 1vw;*/
+/*}*/
 
-.report_wrap::-webkit-scrollbar-track {
-    /*스크롤바 뒷 배경 색상*/
-    background: rgba(215,221,247,0.3);
-    border-radius: 5vw;
-    margin: 10vh 0;
-}
+/*.report_wrap::-webkit-scrollbar-track {*/
+/*    !*스크롤바 뒷 배경 색상*!*/
+/*    background: rgba(215,221,247,0.3);*/
+/*    border-radius: 5vw;*/
+/*    margin: 10vh 0;*/
+/*}*/
 
 .report_wrap ul li {
     list-style: none;
