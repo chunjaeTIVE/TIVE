@@ -52,14 +52,8 @@ public class ExamController {
         String email = "";
         if(principal!=null)
             email = principal.getName();
-        System.out.println(hm.get("body") instanceof String[]);
-//        try{
-//            new ObjectMapper().readValue((String)
-//                    , new TypeReference<HashMap<String, Object>>() {});
-//        }catch (IOException e){
-//            System.out.println(e);
-//        }
-        //Long result = examService.submitExam(email,hm);
+        System.out.println(hm.get("body"));
+        Long result = examService.submitExam(email,hm);
         return new ResponseEntity<>(1L,HttpStatus.OK);
     }
 }

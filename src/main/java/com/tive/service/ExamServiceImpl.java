@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.concurrent.atomic.LongAccumulator;
 
 @Service
 @RequiredArgsConstructor
@@ -57,50 +58,119 @@ public class ExamServiceImpl implements ExamService{
 //        System.out.println(user.getEmail()+","+examInfo.getExamName());
         //userTestRepository.save(userTest);
         // 2. 채점
-        List<HashMap<String,Object>> list = new ArrayList<>(); //= (List<HashMap<String,Object>>) hm.get("body");
-        List<Object[]> examAnswers = questionItemRepository.findAnswer(Long.parseLong((String) hm.get("eid")));
-        for(Object[] o:examAnswers){
-            System.out.println("start:"+o[0]);
-            HashMap<String,Object> qAnswer = new HashMap<>();
-            try{
-                qAnswer = new ObjectMapper().readValue((String)o[1]
-                        , new TypeReference<HashMap<String, Object>>() {});
-            }catch (IOException e){
-                System.out.println(e);
-            }
-
-            System.out.println("qAnswer: "+qAnswer.get("answer"));
-            for(int i=0; i<list.size(); i++){
-
-                //Set<String> keys = list.get(i).keySet();
-                Integer correct = 0;
-                String qansString;
-                String[] qansArr;
-                String qtxtString;
-                String[] qtxtArr;
-                Object ans = list.get(i).get("answer");
-                Object txt = list.get(i).get("textarea");
-                if((Long)o[0]==Long.parseLong((String)list.get(i).get("qid"))){
-                    if(ans!=null && ans instanceof String){
-                        qansString = (String) ans;
-                        System.out.println(qansString);
-                    } else if(ans!=null) {
-                        System.out.println("else if:"+list);
-                    } else {
-                        System.out.println("else:"+ans);
+        List<Object> list = (List<Object>) hm.get("body");
+        String c = "수소, 5mL";
+        List<Object[]> real = questionItemRepository.findAnswer(Long.parseLong((String) hm.get("eid")));
+        int k=0,j=0;
+        String qanswer ="";
+        int[] corrects = new int[real.size()];
+        while(j<real.size()){
+            if(k<list.size()){
+                HashMap<String,Object> ans = (HashMap<String, Object>) list.get(k);
+                String uqid = (String) ans.get("qid");
+                System.out.println(uqid+","+real.get(j)[0]);
+                Long idx = Long.parseLong(uqid) - (Long)real.get(j)[0];
+                if(j>=0 && idx>0){
+                    for(int i=0; i<idx; i++){
+                        corrects[j+i] = 0;
                     }
-                    if(txt!=null && txt instanceof String){
-                        qtxtString = (String) txt;
-                        System.out.println(qtxtString);
-                    } else if(txt!=null) {
-                        qtxtArr = (String[]) txt;
-                        System.out.println(qtxtArr[0]);
+                    j += idx;
+                }
+                qanswer = (String) real.get(j)[1];
+
+//                HashMap<String, String> stringObjectHashMap = new HashMap<>();
+//                try{
+//                    stringObjectHashMap = new ObjectMapper().readValue(qanswer, new TypeReference<HashMap<String, String>>() {
+//                    });
+//                }catch (IOException e){
+//                    System.out.println(e);
+//                }
+
+                System.out.println("idx:"+idx+", realqid:"+real.get(j)[0]);
+                // 채점을 해서 맞으면 correct[j]=1 아니면 0
+                Object answer = ans.get("answer");
+                Object textarea = ans.get("textarea");
+                StringBuilder userAnswer = new StringBuilder();
+                if(answer!=null){
+                    if(answer instanceof String){
+                        String stringAns = (String) answer;
+                        System.out.println(ans.get("qid")+" : "+stringAns+", "+qanswer);
+                        System.out.println(qanswer.contains(stringAns));
+                        userAnswer.append(stringAns);
+                    } else if(answer instanceof List){
+                        List<String> answerarr = (List<String>) answer;
+                        System.out.println(ans.get("qid")+", "+answerarr.get(0)+", "+qanswer);
+                        HashMap<String, String[]> stringObjectHashMap = new HashMap<>();
+                        try{
+                            stringObjectHashMap = new ObjectMapper().readValue(qanswer, new TypeReference<HashMap<String, String[]>>() {
+                            });
+                        }catch (IOException e){
+                            System.out.println(e);
+                        }
+                        for(int i=0; i<stringObjectHashMap.get("answer").length; i++){
+                            System.out.println(stringObjectHashMap.get("answer")[i].contains(answerarr.get(i)));
+                        }
+                        for(String s : answerarr){userAnswer.append(s+",");}
+                    }
+                    if(textarea !=null && textarea instanceof String){
+                        String singletxt = (String) textarea;
+                        System.out.println(ans.get("qid")+", "+singletxt+", "+qanswer);
+                        System.out.println(qanswer.contains(singletxt));
+                        userAnswer.append(singletxt);
+                    } else if (textarea!=null && textarea instanceof List){
+                        List<String> textareaarr = (List<String>) textarea;
+                        System.out.println(ans.get("qid")+", "+textareaarr.get(0)+", "+qanswer);
+                        HashMap<String, String[]> stringObjectHashMap = new HashMap<>();
+                        try{
+                            stringObjectHashMap = new ObjectMapper().readValue(qanswer, new TypeReference<HashMap<String, String[]>>() {
+                            });
+                        }catch (IOException e){
+                            System.out.println(e);
+                        }
+                        for(int i=0; i<stringObjectHashMap.get("textarea").length; i++){
+                            System.out.println(stringObjectHashMap.get("textarea")[i].contains(textareaarr.get(i)));
+                        }
+                        for(String s : textareaarr){userAnswer.append(s+",");}
+                    }
+                } else {
+                    if(textarea !=null && textarea instanceof String){
+                        String singletxt = (String) textarea;
+                        System.out.println(ans.get("qid")+", "+singletxt+", "+qanswer);
+                        System.out.println(qanswer.contains(singletxt));
+                        userAnswer.append(singletxt);
+                    } else if (textarea!=null && textarea instanceof List){
+                        List<String> answerarr = (List<String>) textarea;
+                        System.out.println(ans.get("qid")+", "+answerarr.get(0)+", "+qanswer);
+                        HashMap<String, String[]> stringObjectHashMap = new HashMap<>();
+                        try{
+                            stringObjectHashMap = new ObjectMapper().readValue(qanswer, new TypeReference<HashMap<String, String[]>>() {
+                            });
+                        }catch (IOException e){
+                            System.out.println(e);
+                        }
+                        for(int i=0; i<stringObjectHashMap.get("answer").length; i++){
+                            System.out.println(stringObjectHashMap.get("answer")[i].contains(answerarr.get(i)));
+                        }
+                        for(String s : answerarr){userAnswer.append(s+",");}
                     }
                 }
+
+
+                if(userAnswer.toString().equals("")){
+                    corrects[j] = 0;
+                } else {
+                    corrects[j] = 1;
+                }
+            } else {
+                corrects[j] = 0;
             }
+            j++; k++;
+        }
+        for(int in : corrects){
+            System.out.print(in+",");
         }
 
-        //questionItemRepository.findById()
+
         // 3. user answer bulk insert
         return null;
     }
