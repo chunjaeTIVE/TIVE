@@ -1,7 +1,116 @@
-.logo img {
-    display: inline-block; width: 150px; margin-left: 10px;
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url("../../font/omyuPretty.ttf") format('truetype');
 }
 
+.logo img {
+    display: inline-block;
+    width: 110px;
+    position: relative;
+    top: 10px;
+    left: 20px;
+    margin-right: 5px;
+}
+
+.header{
+    background-color: white;
+}
+
+.header .btn-wrap button{
+    border-radius: 50px;
+    font-family: omyu_pretty;
+    /* font-size: 20px; */
+    height: 70%;
+    margin-right: 5px;
+    background: white;
+    border: 1px solid #5ECDF3;
+    width: 50px;
+}
+
+.header .btn-wrap button:hover{
+    background: #f1f1f1;
+}
+
+.header .btn-wrap button.active{
+    background: #f1f1f1;
+}
+
+
+.header .btn-wrap button:focus{
+    background: #f1f1f1;
+}
+
+.header .btn-wrap button.clear-btn{
+    background: white;
+    border: 1px solid #5ECDF3;
+}
+
+
+.header .time-box{
+    border-radius: 15px;
+    height: 80%;
+    background: white;
+    border: 1px solid #5ECDF3;
+}
+
+.header .time-box .txt{
+    font-family: omyu_pretty;
+}
+
+.header .time-box .time-txt{
+    border-radius: 15px;
+    margin-left: 10px;
+    background-color: white;
+    color: #5DCCF3;
+    border: 1px solid #5DCCF3;
+}
+
+.swiper-button-next, .swiper-button-prev{
+    border-radius: 20px;
+    background-color: #5DCCF3;
+    border: 1px solid #5DCCF3;
+}
+
+.swiper-button-next:after{
+    font-family: omyu_pretty;
+    font-size: 18px;
+}
+
+.swiper-button-prev:after {
+    font-family: omyu_pretty;
+    font-size: 18px;
+}
+
+.custom_icon{
+    width: 30px;
+}
+
+
+.header .btn-submit{
+    background-color: #5DCCF3;
+    border-radius: 20px;
+    border: 1px solid #5DCCF3;
+    font-family: omyu_pretty;
+    font-size: 22px;
+    font-weight: normal;
+}
+
+.swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet{
+    background-color: #5DCCF3;
+    color: white;
+    border-radius: 5px;
+    border: 1px solid #5DCCF3;
+    margin-bottom: 5px;
+    font-family: omyu_pretty;
+    font-size: 18px;
+}
+.viewer-omr{
+    background-color: whitesmoke;
+}
+
+.page .question .num{
+    border-radius: 30px;
+}
 .btn-ans {
     color:blue;
 }

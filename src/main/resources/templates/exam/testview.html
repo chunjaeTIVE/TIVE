@@ -39,13 +39,19 @@
         <div class="top-area">
             <!-- s: 220711 추가 -->
             <div class="btn-wrap">
-                <button type="button" class="pop-btn">메모장</button>
-                <button type="button" class="drawing-btn" id="drawing_btn">그리기</button>
-                <button type="button" class="clear-btn">지우기</button>
+                <button type="button" class="pop-btn">
+                    <img class="custom_icon" th:src="@{/examimg/memo.png}" th:alt="메모장">
+                </button>
+                <button type="button" class="drawing-btn" id="drawing_btn">
+                    <img class="custom_icon" th:src="@{/examimg/pen.png}" th:alt="그리기">
+                </button>
+                <button type="button" class="clear-btn">
+                    <img class="custom_icon" th:src="@{/examimg/eraser.png}" th:alt="지우기">
+                </button>
             </div>
             <!-- e: 220711 추가 -->
             <div class="time-box">
-                <span class="txt">남은<br>시간</span>
+                <span class="txt"><img class="custom_icon" th:src="@{/examimg/clock.png}"></span>
                 <span class="time-txt" id="timer">00:00</span>
             </div>
             <a href="javascript:completeExam();" class="btn-submit">최종제출</a>
