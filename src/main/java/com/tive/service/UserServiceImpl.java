@@ -84,4 +84,9 @@ public class UserServiceImpl implements UserService{
         }
     }
 
+    @Override
+    public boolean hasTakenExam(Long uid, Long eid) {
+        return repository.existsByUserIdAndExamId(uid,eid);
+    }
+
 }

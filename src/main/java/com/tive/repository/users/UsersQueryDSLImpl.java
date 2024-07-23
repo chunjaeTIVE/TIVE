@@ -2,6 +2,9 @@ package com.tive.repository.users;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import static com.tive.domain.QUsers.*;
+import static com.tive.domain.QUserTest.*;
+
+import com.tive.domain.UserTest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -19,5 +22,15 @@ public class UsersQueryDSLImpl implements UsersQueryDSL {
                 .fetchOne();
 
         return emailCk;
+    }
+
+    @Override
+    public boolean existsByUserIdAndExamId(Long uid, Long eid) {
+        Integer count = queryFactory.selectOne()
+                .from(userTest)
+                .where(userTest.utToUsers.uid.eq(uid).and(userTest.utToExam.eid.eq(eid)))
+                .fetchFirst();
+
+        return count!=null;
     }
 }

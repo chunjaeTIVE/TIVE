@@ -11,4 +11,6 @@ public interface UserService {
     UsersDTO getUserInfo(String email);
 
     void updateAgreeByEmail(String name);
+
+    boolean hasTakenExam(Long uid, Long eid);
 }

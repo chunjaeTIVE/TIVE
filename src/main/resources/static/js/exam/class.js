@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded',(e)=>{
     exam.forEach(ele=>{
         let eid = ele.id;
         console.log("ExamId: ",eid);
+        // 시험지 아이디별 wrap 클래스에 세부  css 추가
         if(eid==='1' || eid==='16'){
             ele.classList.add('class1-korean');
         }
