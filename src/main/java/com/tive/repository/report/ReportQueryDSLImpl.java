@@ -91,7 +91,9 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
                 .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid))
                 .innerJoin(questionCategory)
                 .on(questionItem.contentArea.eq(questionCategory.categoryCode))
-                .where(userAnswer.uaToUt.utId.eq(utId).and(questionItem.orderName.startsWith("서답형").not()))
+                .where(userAnswer.uaToUt.utId.eq(utId)
+                        .and(questionItem.orderName.startsWith("서답형").not()
+                                .and(questionItem.status.eq(99).not())))
                 .orderBy(questionItem.order.asc())
                 .fetch();
 
@@ -114,7 +116,9 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
                 .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid))
                 .innerJoin(questionCategory)
                 .on(questionItem.contentArea.eq(questionCategory.categoryCode))
-                .where(userAnswer.uaToUt.utId.eq(ut_id).and(questionItem.orderName.startsWith("서답형")))
+                .where(userAnswer.uaToUt.utId.eq(ut_id)
+                        .and(questionItem.orderName.startsWith("서답형")
+                        .and(questionItem.status.eq(99).not())))
                 .orderBy(questionItem.order.asc())
                 .fetch();
 
@@ -132,7 +136,9 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
                 .from(userAnswer)
                 .innerJoin(questionItem)
                 .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid)
-                        .and(questionItem.questionToExam.eid.eq(eid).and(questionItem.orderName.startsWith("서답형").not())))
+                        .and(questionItem.questionToExam.eid.eq(eid)
+                                .and(questionItem.orderName.startsWith("서답형").not()
+                                        .and(questionItem.status.eq(99).not()))))
                 .groupBy(questionItem.qid)
                 .orderBy(questionItem.order.asc())
                 .fetch();
@@ -150,7 +156,9 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
                 .from(userAnswer)
                 .innerJoin(questionItem)
                 .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid)
-                        .and(questionItem.questionToExam.eid.eq(eid).and(questionItem.orderName.startsWith("서답형"))))
+                        .and(questionItem.questionToExam.eid.eq(eid)
+                                .and(questionItem.orderName.startsWith("서답형")
+                                        .and(questionItem.status.eq(99).not()))))
                 .groupBy(questionItem.qid)
                 .orderBy(questionItem.order.asc())
                 .fetch();
@@ -168,7 +176,9 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
                 )
                 .from(userAnswer)
                 .innerJoin(questionItem)
-                .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid).and(questionItem.questionToExam.eid.eq(eid)))
+                .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid)
+                        .and(questionItem.questionToExam.eid.eq(eid)
+                                .and(questionItem.status.eq(99).not())))
                 .groupBy(questionItem.difficulty)
                 .fetch();
 
@@ -186,7 +196,9 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
                 )
                 .from(userAnswer)
                 .innerJoin(questionItem)
-                .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid).and(userAnswer.uaToUt.utId.eq(ut_id)))
+                .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid)
+                        .and(userAnswer.uaToUt.utId.eq(ut_id)
+                                .and(questionItem.status.eq(99).not())))
                 .groupBy(questionItem.difficulty)
                 .fetch();
 
@@ -203,7 +215,9 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
                 )
                 .from(userAnswer)
                 .innerJoin(questionItem)
-                .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid).and(questionItem.questionToExam.eid.eq(eid)))
+                .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid)
+                        .and(questionItem.questionToExam.eid.eq(eid)
+                                .and(questionItem.status.eq(99).not())))
                 .innerJoin(questionCategory)
                 .on(questionItem.contentArea.eq(questionCategory.categoryCode))
                 .groupBy(questionItem.contentArea)
@@ -222,7 +236,9 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
                 )
                 .from(userAnswer)
                 .innerJoin(questionItem)
-                .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid).and(userAnswer.uaToUt.utId.eq(ut_id)))
+                .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid)
+                        .and(userAnswer.uaToUt.utId.eq(ut_id)
+                                .and(questionItem.status.eq(99).not())))
                 .innerJoin(questionCategory)
                 .on(questionItem.contentArea.eq(questionCategory.categoryCode))
                 .groupBy(questionItem.contentArea)
@@ -241,7 +257,9 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
                 )
                 .from(userAnswer)
                 .innerJoin(questionItem)
-                .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid).and(questionItem.questionToExam.eid.eq(eid)))
+                .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid)
+                        .and(questionItem.questionToExam.eid.eq(eid)
+                                .and(questionItem.status.eq(99).not())))
                 .groupBy(questionItem.qType)
                 .fetch();
 
@@ -257,7 +275,9 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
                 )
                 .from(userAnswer)
                 .innerJoin(questionItem)
-                .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid).and(userAnswer.uaToUt.utId.eq(ut_id)))
+                .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid)
+                        .and(userAnswer.uaToUt.utId.eq(ut_id)
+                                .and(questionItem.status.eq(99).not())))
                 .groupBy(questionItem.qType)
                 .fetch();
 

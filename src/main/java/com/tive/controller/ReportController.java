@@ -1,8 +1,10 @@
 package com.tive.controller;
 
+import com.tive.dto.QuestionDTO;
 import com.tive.dto.ReportExamDTO;
 import com.tive.dto.ReportQuestionDTO;
 import com.tive.dto.UsersDTO;
+import com.tive.service.ExamService;
 import com.tive.service.ReportService;
 import com.tive.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,9 @@ public class ReportController {
     private final ReportService reportService;
 
     private final UserService userService;
+
+    private final ExamService examService;
+
 
     /**기본 리포트로 이동*/
     @GetMapping("/report_basic")
@@ -298,6 +303,10 @@ public class ReportController {
     /**정오표 - 상세보기*/
     @GetMapping("/report_question/{qid}")
     public String questionView(@PathVariable("qid") Long qid){
+
+
+
+
         return "/report/report_question_view";
     }
 

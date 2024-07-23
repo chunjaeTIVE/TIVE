@@ -275,6 +275,7 @@ public class ReportServiceImpl implements ReportService {
             } else {
                 qtype = "선다형";
             }
+
             int achievementRate = (int) Math.round(result.get(1, Double.class));
             data.put(qtype, achievementRate);
         }
