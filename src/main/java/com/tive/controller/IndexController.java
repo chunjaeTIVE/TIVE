@@ -157,9 +157,9 @@ public class IndexController {
             username = userService.getUserInfo(useremail).getName(); // 유저 이름
 
             userSL = userService.getUserInfo(useremail).getSchoolLevel(); // 학교급
-
+            Long uid = userService.getUserInfo(useremail).getUid(); //uid 받아오기
             model.addAttribute("username",username);
-
+            model.addAttribute("uid",uid);
             model.addAttribute("userSL", userSL);
 
             //각 과목 eid 가져오기
@@ -169,15 +169,27 @@ public class IndexController {
             math = examService.findExamInfo(userSL,"수학",examKind);
             english = examService.findExamInfo(userSL,"영어",examKind);
 
+            boolean hasTakenKorean = userService.hasTakenExam(uid, korean.getEid());
+            boolean hasTakenMath = userService.hasTakenExam(uid, math.getEid());
+            boolean hasTakenEnglish = userService.hasTakenExam(uid, english.getEid());
+
             model.addAttribute("korean", korean);
             model.addAttribute("math",math);
             model.addAttribute("english",english);
+            model.addAttribute("hasTakenKorean", hasTakenKorean);
+            model.addAttribute("hasTakenMath", hasTakenMath);
+            model.addAttribute("hasTakenEnglish", hasTakenEnglish);
 
             if (!userSL.equals("HL")){ //고등학생이 아니면 사회, 과학도 받음
                 society = examService.findExamInfo(userSL,"사회",examKind);
                 science = examService.findExamInfo(userSL,"과학",examKind);
+                boolean hasTakenSociety = userService.hasTakenExam(uid,society.getEid());
+                boolean hasTakenScience = userService.hasTakenExam(uid, science.getEid());
                 model.addAttribute("society",society);
                 model.addAttribute("science",science);
+                model.addAttribute("hasTakenSociety",hasTakenSociety);
+                model.addAttribute("hasTakenScience",hasTakenScience);
+
             }
 
         } else { //아니면 로그값 출력

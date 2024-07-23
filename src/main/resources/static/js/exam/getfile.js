@@ -1,17 +1,4 @@
 window.onload = function () {
-    /*
-        let target = document.getElementsByTagName('audio')[0];
-        console.log(target.src);
-        let path = decodeURIComponent(target.src);
-        console.log(path);
-        let arr = path.split("http://localhost:8080");
-        console.log(arr[0]);
-        console.log(arr[1]);
-        arr[0] = "https://kdt-java-5-2.s3.ap-northeast-2.amazonaws.com";
-        target.src = arr[0]+arr[1];
-        let newpath = decodeURIComponent(target.src);
-        console.log('new',newpath);
-    */
 
 // 모든 <audio> 요소를 선택
     let audioElements = document.getElementsByTagName('audio');
@@ -100,7 +87,7 @@ window.onload = function () {
         // <video> 요소에 controlslist 속성을 설정합니다.
         video.setAttribute('controlslist', 'nodownload noplaybackrate');
 
-        // Picture-in-Picture 기능을 비활성화합니다.
+        // Picture-in-Picture 기능을 비활성화
         video.disablePictureInPicture = true;
 
         // 비디오가 일시 정지되지 않도록 pause 이벤트를 감지하고 다시 재생합니다.
@@ -108,15 +95,6 @@ window.onload = function () {
             video.play(); // 일시 정지된 경우 다시 재생
         });
 
-        // // 비디오 재생을 시작할 때 다른 컨트롤을 비활성화할 수 있습니다.
-        // video.addEventListener('play', (event) => {
-        //     video.style.pointerEvents = 'none'; // 재생 중에 비디오 컨트롤 비활성화
-        // });
     });
 
-    // let videoList = document.querySelectorAll('source');
-    // videoList.forEach((item,index)=>{
-    //     item.setAttribute('controlslist','nodownload noplaybackrate');
-    //     item.disablePictureInPicture = true;
-    // })
 }

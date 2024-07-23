@@ -31,35 +31,60 @@
                             <td>국어</td>
                             <td th:text="|응시 시각으로부터 ${korean.testTime}분|"></td>
                             <td th:text="|${korean.itemCount}문항|"></td>
-                            <td><a th:href="@{|/playTest/${korean.eid}|}">응시하기</a></td>
+                            <td th:if="${!hasTakenKorean}">
+                                <a th:href="@{|/playTest/${korean.eid}|}">응시하기</a>
+                            </td>
+                            <td th:if="${hasTakenKorean}">
+                                <a th:href="@{|/playTest/${korean.eid}|}">재응시</a>
+                            </td>
                         </tr>
                         <tr>
                             <td>2교시</td>
                             <td>영어</td>
                             <td th:text="|응시 시각으로부터 ${english.testTime}분|"></td>
                             <td th:text="|${english.itemCount}문항|"></td>
-                            <td><a th:href="@{|/playTest/${english.eid}|}">응시하기</a></td>
+                            <td th:if="${!hasTakenEnglish}">
+                                <a th:href="@{|/playTest/${english.eid}|}">응시하기</a>
+                            </td>
+                            <td th:if="${hasTakenEnglish}">
+                                <a th:href="@{|/playTest/${english.eid}|}">재응시</a>
+                            </td>
                         </tr>
                         <tr>
                             <td>3교시</td>
                             <td>수학</td>
                             <td th:text="|응시 시각으로부터 ${math.testTime}분|"></td>
                             <td th:text="|${math.itemCount}문항|"></td>
-                            <td><a th:href="@{|/playTest/${math.eid}|}">응시하기</a></td>
+                            <td th:if="${!hasTakenMath}">
+                                <a th:href="@{|/playTest/${math.eid}|}">응시하기</a>
+                            </td>
+                            <td th:if="${hasTakenMath}">
+                                <a th:href="@{|/playTest/${math.eid}|}">재응시</a>
+                            </td>
                         </tr>
                         <tr th:if="${userSL!='HL'}">
                             <td>4교시</td>
                             <td>사회</td>
                             <td th:text="|응시 시각으로부터 ${society.testTime}분|"></td>
                             <td th:text="|${society.itemCount}문항|"></td>
-                            <td><a th:href="@{|/playTest/${society.eid}|}">응시하기</a></td>
+                            <td th:if="${!hasTakenSociety}">
+                                <a th:href="@{|/playTest/${society.eid}|}">응시하기</a>
+                            </td>
+                            <td th:if="${hasTakenSociety}">
+                                <a th:href="@{|/playTest/${society.eid}|}">재응시</a>
+                            </td>
                         </tr>
                         <tr th:if="${userSL!='HL'}">
                             <td>5교시</td>
                             <td>과학</td>
                             <td th:text="|응시 시각으로부터 ${science.testTime}분|"></td>
                             <td th:text="|${science.itemCount}문항|"></td>
-                            <td><a th:href="@{|/playTest/${science.eid}|}">응시하기</a></td>
+                            <td th:if="${!hasTakenScience}">
+                                <a th:href="@{|/playTest/${science.eid}|}">응시하기</a>
+                            </td>
+                            <td th:if="${hasTakenScience}">
+                                <a th:href="@{|/playTest/${science.eid}|}">재응시</a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
