@@ -18,9 +18,9 @@ public class TestController { /*에러화면 확인용 controller - 나중에 �
         return "index";
     }
 
-    @GetMapping("/special404")
+    @GetMapping("/error403")
     public String special(Model model){
-        model.addAttribute("view", "error/special404");
+        model.addAttribute("view", "error/error403");
         return "index";
     }
 }
