@@ -2,6 +2,7 @@ package com.tive.controller;
 
 import com.tive.dto.ExamDTO;
 import com.tive.dto.NoticeDTO;
+import com.tive.exception.CustomException;
 import com.tive.service.ExamService;
 import com.tive.service.NoticeService;
 import com.tive.service.UserDetailService;
@@ -194,6 +195,7 @@ public class IndexController {
 
         } else { //아니면 로그값 출력
             log.info("Principal is null or principal.getName() is null");
+            throw new CustomException("custom Exception");
         }
 
         model.addAttribute("examKind", examKind);
