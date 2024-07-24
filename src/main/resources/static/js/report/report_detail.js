@@ -346,7 +346,6 @@ window.onload = function () {
                     let respvalue = keys[i];
                     let respvalueAll = respRateAll[respvalue];  //전체성취율
                     let respvalueMe = respRateMe[respvalue]; // 내 성취율
-
                     insertTable3(tbody, respvalue, respvalueAll, respvalueMe);
 
                     respAllArr.push(respvalueAll);
@@ -373,7 +372,7 @@ window.onload = function () {
                             data: respMyArr,
                             borderColor: '#36A2EB',
                             backgroundColor: '#9BD0F5',
-                            barThickness: 80
+                            barThickness: 50
                         }],
                         labels: keys
                     },
