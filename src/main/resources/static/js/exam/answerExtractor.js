@@ -178,7 +178,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 let swiperBullet = document.querySelector('#swiper' + questionOrder);
                 //슬라이더 색상 변경
                 if (textarea.value.trim() !== '') {
-                    if (swiperBullet) swiperBullet.style.backgroundColor = '#255897';
+                    if (swiperBullet) {
+                        swiperBullet.style.backgroundColor = '#5DCCF3';
+                        swiperBullet.style.border = '1px solid #5DCCF3';
+                        swiperBullet.style.color = 'white';
+                        swiperBullet.classList.add('button-clicked');
+                    }
+
                 } else {
                     if (swiperBullet) swiperBullet.style.backgroundColor = "";
                 }
@@ -203,7 +209,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log('hidden val: ', questionOrder);
                 let swiperBullet = document.querySelector('#swiper' + questionOrder);
                 if (text.value.trim() !== '') {
-                    if (swiperBullet) swiperBullet.style.backgroundColor = '#255897';
+                    if (swiperBullet) {
+                        swiperBullet.style.backgroundColor = '#5DCCF3';
+                        swiperBullet.style.border = '1px solid #5DCCF3';
+                        swiperBullet.style.color = 'white';
+                        swiperBullet.classList.add('button-clicked');
+                    }
                 } else {
                     if (swiperBullet) swiperBullet.style.backgroundColor = "";
                 }
@@ -229,7 +240,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.log('select hidden', questionOrder);
                     let swiperBullet = document.querySelector('#swiper' + questionOrder);
                     if (select.value.trim() !== '') {
-                        if (swiperBullet) swiperBullet.style.backgroundColor = '#255897';
+                        if (swiperBullet) {
+                            swiperBullet.style.backgroundColor = '#5DCCF3';
+                            swiperBullet.style.border = '1px solid #5DCCF3';
+                            swiperBullet.style.color = 'white';
+                            swiperBullet.classList.add('button-clicked');
+                        }
                     } else {
                         if (swiperBullet) swiperBullet.style.backgroundColor = "";
                     }
@@ -257,7 +273,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     let swiperBullet = document.querySelector('#swiper' + questionOrder);
                     let anyChecked = Array.from(checkboxes).some(e => e.checked);
                     if (anyChecked) {
-                        if (swiperBullet) swiperBullet.style.backgroundColor = '#255897';
+                        if (swiperBullet) {
+                            swiperBullet.style.backgroundColor = '#5DCCF3';
+                            swiperBullet.style.border = '1px solid #5DCCF3';
+                            swiperBullet.style.color = 'white';
+                            swiperBullet.classList.add('button-clicked');
+                        }
                     } else {
                         if (swiperBullet) swiperBullet.style.backgroundColor = "";
                     }
@@ -285,7 +306,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     let swiperBullet = document.querySelector('#swiper' + questionOrder);
                     //슬라이더 색상 변경
                     if (radio.checked) {
-                        if (swiperBullet) swiperBullet.style.backgroundColor = '#255897';
+                        if (swiperBullet) {
+                            swiperBullet.style.backgroundColor = '#5DCCF3';
+                            swiperBullet.style.border = '1px solid #5DCCF3';
+                            swiperBullet.style.color = 'white';
+                            swiperBullet.classList.add('button-clicked');
+                        }
                     } else {
                         if (swiperBullet) swiperBullet.style.backgroundColor = "";
                     }
@@ -329,7 +355,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     // swiper-bullet의 배경색을 업데이트
                     let swiperBullet = document.querySelector('#swiper' + questionOrder);
                     if (e.target.classList.contains('btn-ans')) {
-                        if (swiperBullet) swiperBullet.style.backgroundColor = '#255897'; // 원하는 배경색
+                        if (swiperBullet) {
+                            swiperBullet.style.backgroundColor = '#5DCCF3';
+                            swiperBullet.style.border = '1px solid #5DCCF3';
+                            swiperBullet.style.color = 'white';
+                            swiperBullet.classList.add('button-clicked');
+                        } // 원하는 배경색
                     } else {
                         if (swiperBullet) swiperBullet.style.backgroundColor = ''; // 배경색을 원래대로 돌림
                     }
@@ -403,7 +434,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     let swiperBullet = document.querySelector('#swiper' + questionOrder);
                     if (hotspotTemp.some(hotspot => hotspot.length !== 0)) {
-                        if (swiperBullet) swiperBullet.style.backgroundColor = '#255897'; // 원하는 배경색
+                        if (swiperBullet) {
+                            swiperBullet.style.backgroundColor = '#5DCCF3';
+                            swiperBullet.style.border = '1px solid #5DCCF3';
+                            swiperBullet.style.color = 'white';
+                            swiperBullet.classList.add('button-clicked');
+                        } // 원하는 배경색
                     } else {
                         if (swiperBullet) swiperBullet.style.backgroundColor = ''; // 배경색을 원래대로 돌림
                     }
@@ -511,7 +547,12 @@ document.addEventListener('DOMContentLoaded', function () {
                             // 배경색 업데이트
                             let swiperBullet = document.querySelector('#swiper' + questionOrder);
                             if (dragdropTemp.length > 0) {
-                                if (swiperBullet) swiperBullet.style.backgroundColor = '#255897'; // 원하는 배경색
+                                if (swiperBullet) {
+                                    swiperBullet.style.backgroundColor = '#5DCCF3';
+                                    swiperBullet.style.border = '1px solid #5DCCF3';
+                                    swiperBullet.style.color = 'white';
+                                    swiperBullet.classList.add('button-clicked');
+                                } // 원하는 배경색
                             } else {
                                 if (swiperBullet) swiperBullet.style.backgroundColor = ''; // 배경색을 원래대로 돌림
                             }
