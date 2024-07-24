@@ -504,6 +504,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         // 한 칸에 복수개 정답 올렸는지 유효성 검사
                         while (t < target.length) {
+                            if((target[0].nodeName === 'SPAN' && !target[0].classList.contains("txt"))
+                                ||(target[0].nodeName === 'EM')){
+                                goAhead = true;
+                                break;
+                            }
                             if (t + 1 === target.length) {
                                 goAhead = true;
                                 break;
@@ -524,7 +529,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         // 유효성 검사 통과 경우에만 정답 받기 진행
                         if (goAhead) {
-                            let val = (target.length !== 3) ? target[0] : target[1];
+                            if((target[0].nodeName === 'SPAN' && !target[0].classList.contains("txt"))
+                                ||(target[0].nodeName === 'EM')){
+                                target[0].remove();
+                            }
+                            let val = target[0];
                             if (val.nodeName === 'IMG') val = val.src;
                             else val = val.textContent;
 
@@ -532,6 +541,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             let siblings = e.target.parentElement.children;
                             for (let s = 0; s < siblings.length; s++) {
                                 if (siblings[s] === e.target) {
+                                    console.log(e.target);
                                     answer["answer"] = [(s + 1).toString(), val];
                                 }
                             }

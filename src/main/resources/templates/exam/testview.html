@@ -231,8 +231,9 @@
                 e.preventDefault();
                 if (element.includes('<img src')) {
                     $(this).append(element);
+                } else {
+                    $(this).append('<span class="txt">' + txt + '</span>');
                 }
-                $(this).append('<span class="txt">' + txt + '</span>');
                 $(this).addClass('on');
                 $(this).on('click', function () {
                     $(this).find('span').remove();
