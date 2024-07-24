@@ -188,7 +188,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
 
                 } else {
-                    if (swiperBullet) swiperBullet.style.backgroundColor = "";
+                    if (swiperBullet) {
+                        swiperBullet.style.backgroundColor = 'white';
+                        swiperBullet.style.color = '#5DCCF3';
+                    }
                 }
             }
             let answer = answerExtract(textareas, textarea);
@@ -218,7 +221,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         swiperBullet.classList.add('button-clicked');
                     }
                 } else {
-                    if (swiperBullet) swiperBullet.style.backgroundColor = "";
+                    if (swiperBullet) {
+                        swiperBullet.style.backgroundColor = 'white';
+                        swiperBullet.style.color = '#5DCCF3';
+                    }
                 }
             }
             let answer = answerExtract(texts, text);
@@ -249,7 +255,10 @@ document.addEventListener('DOMContentLoaded', function () {
                             swiperBullet.classList.add('button-clicked');
                         }
                     } else {
-                        if (swiperBullet) swiperBullet.style.backgroundColor = "";
+                        if (swiperBullet) {
+                            swiperBullet.style.backgroundColor = 'white';
+                            swiperBullet.style.color = '#5DCCF3';
+                        }
                     }
                 }
             }
@@ -282,7 +291,10 @@ document.addEventListener('DOMContentLoaded', function () {
                             swiperBullet.classList.add('button-clicked');
                         }
                     } else {
-                        if (swiperBullet) swiperBullet.style.backgroundColor = "";
+                        if (swiperBullet) {
+                            swiperBullet.style.backgroundColor = 'white';
+                            swiperBullet.style.color = '#5DCCF3';
+                        }
                     }
                 }
             }
@@ -315,7 +327,10 @@ document.addEventListener('DOMContentLoaded', function () {
                             swiperBullet.classList.add('button-clicked');
                         }
                     } else {
-                        if (swiperBullet) swiperBullet.style.backgroundColor = "";
+                        if (swiperBullet) {
+                            swiperBullet.style.backgroundColor = 'white';
+                            swiperBullet.style.color = '#5DCCF3';
+                        }
                     }
                 }
             }
@@ -364,7 +379,10 @@ document.addEventListener('DOMContentLoaded', function () {
                             swiperBullet.classList.add('button-clicked');
                         } // 원하는 배경색
                     } else {
-                        if (swiperBullet) swiperBullet.style.backgroundColor = ''; // 배경색을 원래대로 돌림
+                        if (swiperBullet) {
+                            swiperBullet.style.backgroundColor = 'white';
+                            swiperBullet.style.color = '#5DCCF3';
+                        } // 배경색을 원래대로 돌림
                     }
                 } else {
                     console.log("No hidden input found in this swiper-slide.");
@@ -400,7 +418,6 @@ document.addEventListener('DOMContentLoaded', function () {
     //TT03 핫스팟
     // 모든 svg g 요소를 선택
     let svgElements = document.querySelectorAll('svg g');
-
     svgElements.forEach((group, index) => {
         group.addEventListener('click', function (e) {
             // 클릭된 그룹의 상태를 토글
@@ -432,7 +449,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
                     dupleBtnHotspotPop(e.target.classList.length, hotspotTemp, answer);
-                    console.log("hotspot : ", hotspotTemp);
+                    console.log("hotspot : ", hotspotTemp,hotspotTemp.length);
 
                     let swiperBullet = document.querySelector('#swiper' + questionOrder);
                     if (hotspotTemp.some(hotspot => hotspot.length !== 0)) {
@@ -443,7 +460,10 @@ document.addEventListener('DOMContentLoaded', function () {
                             swiperBullet.classList.add('button-clicked');
                         } // 원하는 배경색
                     } else {
-                        if (swiperBullet) swiperBullet.style.backgroundColor = ''; // 배경색을 원래대로 돌림
+                        if (swiperBullet) {
+                            swiperBullet.style.backgroundColor = 'white';
+                            swiperBullet.style.color = '#5DCCF3';
+                        } // 배경색을 원래대로 돌림
                     }
                 } else {
                     console.log("No hidden input found in this swiper-slide.");
@@ -556,7 +576,10 @@ document.addEventListener('DOMContentLoaded', function () {
                                     swiperBullet.classList.add('button-clicked');
                                 } // 원하는 배경색
                             } else {
-                                if (swiperBullet) swiperBullet.style.backgroundColor = ''; // 배경색을 원래대로 돌림
+                                if (swiperBullet) {
+                                    swiperBullet.style.backgroundColor = 'white';
+                                    swiperBullet.style.color = '#5DCCF3';
+                                } // 배경색을 원래대로 돌림
                             }
                         }
                     }
@@ -581,7 +604,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     // 배경색 초기화
                     let swiperBullet = document.querySelector('#swiper' + questionOrder);
                     if (dragdropTemp.length === 0) {
-                        if (swiperBullet) swiperBullet.style.backgroundColor = ''; // 배경색을 원래대로 돌림
+                        if (swiperBullet) {
+                            swiperBullet.style.backgroundColor = 'white';
+                            swiperBullet.style.color = '#5DCCF3';
+                        } // 배경색을 원래대로 돌림
                     }
                 }
             }
