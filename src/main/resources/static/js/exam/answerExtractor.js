@@ -32,8 +32,8 @@ function mergeTemp(temp) {
                         value.push(temp[j].answer);
                     }
                 }
-                if (value.length === 1)
-                    value = value.pop();
+                // if (value.length === 1)
+                //     value = value.pop();
                 merge.push({"qid": dqid, "answer": value});
             }
         }
@@ -47,8 +47,9 @@ function completeExam() {
     let mergedDragdropTemp = [];
     let mergedHotspotTemp = [];
     if (dragdropTemp.length > 0 || hotspotTemp.length > 0) {
-        if (dragdropTemp.length > 0)
+        if (dragdropTemp.length > 0){
             mergedDragdropTemp = mergeTemp(dragdropTemp);
+        }
         else {
             mergedHotspotTemp = mergeTemp(hotspotTemp);
             for (let h = 0; h < mergedHotspotTemp.length; h++) {
@@ -58,7 +59,7 @@ function completeExam() {
         }
     }
     // 전체 문제 문항번호 순으로 sort
-    let all = [textareaTemp, textTemp, selectTemp, radioTemp, buttonTemp, mergedHotspotTemp, mergedDragdropTemp];
+    let all = [textareaTemp, textTemp, selectTemp, checkboxTemp, radioTemp, buttonTemp, mergedHotspotTemp, mergedDragdropTemp];
     let resultTemp = [].concat.apply([], all);
     for (let i = 0; i < resultTemp.length; i++) {
         resultTemp.sort((a, b) => Number(a.qid) - Number(b.qid));
@@ -119,6 +120,7 @@ function answerExtract(els, el) {
 
         })
         .map(el => el.value);
+    //console.log(val);
     if (val.length === 1)
         val = val.pop();
     if (el.type === 'textarea')
@@ -475,7 +477,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // TT07 drag and drop
     let draggables = document.querySelectorAll('.drag');
     let dropArea = document.querySelectorAll('.drop');
-    let dragdropTemp = [];
+    //let dragdropTemp = [];
 
     draggables.forEach(draggable => {
         draggable.addEventListener('dragstart', function (e) {

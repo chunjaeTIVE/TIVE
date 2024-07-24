@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface QuestionItemRepository extends JpaRepository<QuestionItem,Long> , QuestionItemQueryDSL {
-    @Query(" select q.qid, q.answer from QuestionItem q where q.questionToExam.eid=:eid")
-    List<Object[]> findAnswer(long eid);
+    @Query(" select q from QuestionItem q where q.questionToExam.eid=:eid")
+    List<QuestionItem> findAnswer(long eid);
 
 }
