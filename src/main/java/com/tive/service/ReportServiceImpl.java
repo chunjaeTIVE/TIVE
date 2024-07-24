@@ -11,9 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.Array;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -214,32 +213,74 @@ public class ReportServiceImpl implements ReportService {
 
         Map<String, Object> data = new HashMap<>();
 
+        // 응답유형별 결과 저장용 배열
+        int[] IT01 = {0,0,0};
+        int[] IT05 = {0,0,0};
+        int[] IT09 = {0,0,0};
+        int[] IT10 = {0,0,0};
+        int[] IT11 = {0,0,0};
+        int[] IT16 = {0,0,0};
+        int[] TT11 = {0,0,0};
+
+
         for (Tuple result : results) {
+
             String resp = result.get(0, String.class);
-            String qtype = "";
-            if ("IT01".equals(resp) || "IT02".equals(resp) || "IT18".equals(resp)) {
-                qtype = "선다형";
-            } else if ("IT09".equals(resp) || "IT12".equals(resp)) {
-                qtype = "단답형";
+            int correctSum = result.get(1, Integer.class).intValue();
+            int countAll = result.get(2, Long.class).intValue();
+
+
+            if ("IT01".equals(resp) || "IT02".equals(resp)) {
+                IT01[0] += correctSum;
+                IT01[1] += countAll;
+                IT01[2] = (int)Math.round(((float)IT01[0]/IT01[1])*100);
+
+            } else if ("IT05".equals(resp)) {
+                IT05[0] += correctSum;
+                IT05[1] += countAll;
+                IT05[2] = (int)Math.round(((float)IT05[0]/IT05[1])*100);
+
+            } else if ("IT09".equals(resp) || "IT12".equals(resp) || "IT18".equals(resp)) {
+                IT09[0] += correctSum;
+                IT09[1] += countAll;
+                IT09[2] = (int)Math.round(((float)IT09[0]/IT09[1])*100);
+
             } else if ("IT10".equals(resp) || "IT13".equals(resp) || "IT14".equals(resp) || "IT15".equals(resp) || "IT17".equals(resp)) {
-                qtype = "서술형";
-            } else if ("IT11".equals(resp)) {
-                qtype = "확장 선택형";
-            } else if ("IT16".equals(resp) || "TT07".equals(resp)) {
-                qtype = "순서 배열형";
-            } else if ("TT03".equals(resp)) {
-                qtype = "자료 연결형";
-            } else if ("TT04".equals(resp)) {
-                qtype = "아래로 펼치기";
+                IT10[0] += correctSum;
+                IT10[1] += countAll;
+                IT10[2] = (int)Math.round(((float)IT10[0]/IT10[1])*100);
+
+            } else if ("IT11".equals(resp) || "TT03".equals(resp) || "TT04".equals(resp)) {
+                IT11[0] += correctSum;
+                IT11[1] += countAll;
+                IT11[2] = (int)Math.round(((float)IT11[0]/IT11[1])*100);
+
+            } else if ("IT16".equals(resp) || "TT06".equals(resp) || "TT07".equals(resp) || "TT08".equals(resp)) {
+                IT16[0] += correctSum;
+                IT16[1] += countAll;
+                IT16[2] = (int)Math.round(((float)IT16[0]/IT16[1])*100);
+
             } else if ("TT11".equals(resp)) {
-                qtype = "수정형";
+                TT11[0] += correctSum;
+                TT11[1] += countAll;
+                TT11[2] = (int)Math.round(((float)TT11[0]/TT11[1])*100);
+
             } else {
-                qtype = "선다형";
+                IT01[0] += correctSum;
+                IT01[1] += countAll;
+                IT01[2] = (int)Math.round(((float)IT01[0]/IT01[1])*100);
+
             }
 
-            int achievementRate = (int) Math.round(result.get(1, Double.class));
-            data.put(qtype, achievementRate);
         }
+
+        if(IT01[1]!=0) data.put("선다형", IT01[2]);
+        if(IT05[1]!=0) data.put("자료연결형", IT05[2]);
+        if(IT09[1]!=0) data.put("단답형", IT09[2]);
+        if(IT10[1]!=0) data.put("서술형", IT10[2]);
+        if(IT11[1]!=0) data.put("확장 선택형", IT11[2]);
+        if(IT16[1]!=0) data.put("순서 배열형", IT16[2]);
+        if(TT11[1]!=0) data.put("수정형", TT11[2]);
 
         return data;
     }
@@ -253,32 +294,74 @@ public class ReportServiceImpl implements ReportService {
 
         Map<String, Object> data = new HashMap<>();
 
+        // 응답유형별 결과 저장용 배열
+        int[] IT01 = {0,0,0};
+        int[] IT05 = {0,0,0};
+        int[] IT09 = {0,0,0};
+        int[] IT10 = {0,0,0};
+        int[] IT11 = {0,0,0};
+        int[] IT16 = {0,0,0};
+        int[] TT11 = {0,0,0};
+
+
         for (Tuple result : results) {
+
             String resp = result.get(0, String.class);
-            String qtype = "";
-            if ("IT01".equals(resp) || "IT02".equals(resp) || "IT18".equals(resp)) {
-                qtype = "선다형";
-            } else if ("IT09".equals(resp) || "IT12".equals(resp)) {
-                qtype = "단답형";
+            int correctSum = result.get(1, Integer.class).intValue();
+            int countAll = result.get(2, Long.class).intValue();
+
+
+            if ("IT01".equals(resp) || "IT02".equals(resp)) {
+                IT01[0] += correctSum;
+                IT01[1] += countAll;
+                IT01[2] = (int)Math.round(((float)IT01[0]/IT01[1])*100);
+
+            } else if ("IT05".equals(resp)) {
+                IT05[0] += correctSum;
+                IT05[1] += countAll;
+                IT05[2] = (int)Math.round(((float)IT05[0]/IT05[1])*100);
+
+            } else if ("IT09".equals(resp) || "IT12".equals(resp) || "IT18".equals(resp)) {
+                IT09[0] += correctSum;
+                IT09[1] += countAll;
+                IT09[2] = (int)Math.round(((float)IT09[0]/IT09[1])*100);
+
             } else if ("IT10".equals(resp) || "IT13".equals(resp) || "IT14".equals(resp) || "IT15".equals(resp) || "IT17".equals(resp)) {
-                qtype = "서술형";
-            } else if ("IT11".equals(resp)) {
-                qtype = "확장선택형";
-            } else if ("IT16".equals(resp) || "TT07".equals(resp)) {
-                qtype = "순서 배열형";
-            } else if ("TT03".equals(resp)) {
-                qtype = "자료 연결형";
-            } else if ("TT04".equals(resp)) {
-                qtype = "아래로 펼치기";
+                IT10[0] += correctSum;
+                IT10[1] += countAll;
+                IT10[2] = (int)Math.round(((float)IT10[0]/IT10[1])*100);
+
+            } else if ("IT11".equals(resp) || "TT03".equals(resp) || "TT04".equals(resp)) {
+                IT11[0] += correctSum;
+                IT11[1] += countAll;
+                IT11[2] = (int)Math.round(((float)IT11[0]/IT11[1])*100);
+
+            } else if ("IT16".equals(resp) || "TT06".equals(resp) || "TT07".equals(resp) || "TT08".equals(resp)) {
+                IT16[0] += correctSum;
+                IT16[1] += countAll;
+                IT16[2] = (int)Math.round(((float)IT16[0]/IT16[1])*100);
+
             } else if ("TT11".equals(resp)) {
-                qtype = "수정형";
+                TT11[0] += correctSum;
+                TT11[1] += countAll;
+                TT11[2] = (int)Math.round(((float)TT11[0]/TT11[1])*100);
+
             } else {
-                qtype = "선다형";
+                IT01[0] += correctSum;
+                IT01[1] += countAll;
+                IT01[2] = (int)Math.round(((float)IT01[0]/IT01[1])*100);
+
             }
 
-            int achievementRate = (int) Math.round(result.get(1, Double.class));
-            data.put(qtype, achievementRate);
         }
+
+        if(IT01[1]!=0) data.put("선다형", IT01[2]);
+        if(IT05[1]!=0) data.put("자료연결형", IT05[2]);
+        if(IT09[1]!=0) data.put("단답형", IT09[2]);
+        if(IT10[1]!=0) data.put("서술형", IT10[2]);
+        if(IT11[1]!=0) data.put("확장 선택형", IT11[2]);
+        if(IT16[1]!=0) data.put("순서 배열형", IT16[2]);
+        if(TT11[1]!=0) data.put("수정형", TT11[2]);
 
         return data;
     }
