@@ -2,23 +2,20 @@ package com.tive.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tive.domain.ExamItem;
-import com.tive.domain.QuestionItem;
-import com.tive.domain.UserTest;
-import com.tive.domain.Users;
+import com.tive.domain.*;
 import com.tive.dto.ExamDTO;
 import com.tive.dto.QuestionDTO;
 import com.tive.repository.examitem.ExamItemRepository;
 import com.tive.repository.questionitem.QuestionItemRepository;
 import com.tive.repository.users.UsersRepository;
+import com.tive.repository.usertestans.UserAnswerRepository;
 import com.tive.repository.usertestans.UserTestRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.concurrent.atomic.LongAccumulator;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +24,7 @@ public class ExamServiceImpl implements ExamService{
     private final QuestionItemRepository questionItemRepository;
     private final UsersRepository usersRepository;
     private final UserTestRepository userTestRepository;
+    private final UserAnswerRepository userAnswerRepository;
     @Override
     public List<ExamDTO> findExamList() {
         List<ExamDTO> list = examItemRepository.findExamList();
@@ -46,133 +44,166 @@ public class ExamServiceImpl implements ExamService{
     }
 
     @Override
+    @Transactional
     public Long submitExam(String email, HashMap<String, Object> hm) {
         // 1. user test insert
-//        Users user = usersRepository.findByEmail(email);
-//        Optional<ExamItem> examItem = examItemRepository.findById(Long.parseLong((String)hm.get("eid")));
-//        ExamItem examInfo = examItem.orElseThrow(()->{throw new RuntimeException();});
-//        UserTest userTest = UserTest.builder()
-//                .utToExam(examInfo)
-//                .utToUsers(user)
-//                .build();
-//        System.out.println(user.getEmail()+","+examInfo.getExamName());
-        //userTestRepository.save(userTest);
+        Users user = usersRepository.findByEmail(email);
+        Optional<ExamItem> examItem = examItemRepository.findById(Long.parseLong((String)hm.get("eid")));
+        ExamItem examInfo = examItem.orElseThrow(()->{throw new RuntimeException();});
+        UserTest userTest = UserTest.builder()
+                .utToExam(examInfo)
+                .utToUsers(user)
+                .countCorrect(0)
+                .build();
+        System.out.println(user.getEmail()+","+examInfo.getExamName());
+        UserTest saveUserTest = userTestRepository.save(userTest);
         // 2. 채점
         List<Object> list = (List<Object>) hm.get("body");
-        String c = "수소, 5mL";
-        List<Object[]> real = questionItemRepository.findAnswer(Long.parseLong((String) hm.get("eid")));
+        List<QuestionItem> real = questionItemRepository.findAnswer(Long.parseLong((String) hm.get("eid")));
         int k=0,j=0;
-        String qanswer ="";
+        String qanswer;
         int[] corrects = new int[real.size()];
+        List<UserAnswer> userAnswers = new ArrayList<>();
         while(j<real.size()){
             if(k<list.size()){
                 HashMap<String,Object> ans = (HashMap<String, Object>) list.get(k);
                 String uqid = (String) ans.get("qid");
-                System.out.println(uqid+","+real.get(j)[0]);
-                Long idx = Long.parseLong(uqid) - (Long)real.get(j)[0];
+                System.out.println(uqid+","+real.get(j).getQid());
+                Long idx = Long.parseLong(uqid) - real.get(j).getQid();
                 if(j>=0 && idx>0){
                     for(int i=0; i<idx; i++){
                         corrects[j+i] = 0;
                     }
                     j += idx;
                 }
-                qanswer = (String) real.get(j)[1];
+                qanswer = real.get(j).getAnswer();
+                System.out.println("idx:"+idx+", realqid:"+real.get(j).getQid());
 
-//                HashMap<String, String> stringObjectHashMap = new HashMap<>();
-//                try{
-//                    stringObjectHashMap = new ObjectMapper().readValue(qanswer, new TypeReference<HashMap<String, String>>() {
-//                    });
-//                }catch (IOException e){
-//                    System.out.println(e);
-//                }
-
-                System.out.println("idx:"+idx+", realqid:"+real.get(j)[0]);
                 // 채점을 해서 맞으면 correct[j]=1 아니면 0
                 Object answer = ans.get("answer");
                 Object textarea = ans.get("textarea");
+                // real answer casting
+                HashMap<String, Object> stringObjectHashMap = new HashMap<>();
+                try{
+                    stringObjectHashMap = new ObjectMapper().readValue(qanswer, new TypeReference<HashMap<String, Object>>() {
+                    });
+                }catch (IOException e){
+                    System.out.println(e);
+                }
                 StringBuilder userAnswer = new StringBuilder();
-                if(answer!=null){
-                    if(answer instanceof String){
+                int correct = 0;
+                if(answer!=null && textarea!=null) {
+                    if (answer instanceof String) {
+                        // user answer casting 및 채점
                         String stringAns = (String) answer;
-                        System.out.println(ans.get("qid")+" : "+stringAns+", "+qanswer);
-                        System.out.println(qanswer.contains(stringAns));
-                        userAnswer.append(stringAns);
-                    } else if(answer instanceof List){
+                        String[] answerResult = Marking.stringAnswer(uqid, stringAns, qanswer);
+                        // textarea 채점
+                        String[] textResult;
+                        if (textarea instanceof String) { // answer string, textarea string
+                            // textarea 채점
+                            String stringTxt = (String) textarea;
+                            textResult = Marking.stringAnswer(uqid, stringTxt, qanswer);
+                        } else { // answer string , textarea string[]
+                            // textarea[] 채점
+                            List<String> textareaarr = (List<String>) textarea;
+                            textResult = Marking.listAnswer(uqid,stringObjectHashMap,"textarea",textareaarr,qanswer);
+                        }
+                        //answerResult,textResult 를 가지고 최종 채점
+                        userAnswer.append(answerResult[0]);
+                        userAnswer.append(textResult[0]);
+                        if(Integer.parseInt(answerResult[1])+Integer.parseInt(textResult[1])==2)
+                            correct = 1;
+                    } else if (answer instanceof List) {
+                        // user answer[] casting 및 채점
                         List<String> answerarr = (List<String>) answer;
-                        System.out.println(ans.get("qid")+", "+answerarr.get(0)+", "+qanswer);
-                        HashMap<String, String[]> stringObjectHashMap = new HashMap<>();
-                        try{
-                            stringObjectHashMap = new ObjectMapper().readValue(qanswer, new TypeReference<HashMap<String, String[]>>() {
-                            });
-                        }catch (IOException e){
-                            System.out.println(e);
+                        String[] answerResult = Marking.listAnswer(uqid,stringObjectHashMap,"answer",answerarr,qanswer);
+                        // textarea 채점
+                        String[] textResult;
+                        if (textarea instanceof String) { // answer string[], textarea string
+                            // textarea 채점
+                            String stringTxt = (String) textarea;
+                            textResult = Marking.stringAnswer(uqid, stringTxt, qanswer);
+                        } else { // answer string[], textarea string[]
+                            // textarea[] 채점
+                            List<String> textareaarr = (List<String>) textarea;
+                            textResult = Marking.listAnswer(uqid,stringObjectHashMap,"textarea",textareaarr,qanswer);
                         }
-                        for(int i=0; i<stringObjectHashMap.get("answer").length; i++){
-                            System.out.println(stringObjectHashMap.get("answer")[i].contains(answerarr.get(i)));
-                        }
-                        for(String s : answerarr){userAnswer.append(s+",");}
+                        userAnswer.append(answerResult[0]);
+                        userAnswer.append(textResult[0]);
+                        if(Integer.parseInt(answerResult[1])+Integer.parseInt(textResult[1])==2)
+                            correct = 1;
                     }
-                    if(textarea !=null && textarea instanceof String){
-                        String singletxt = (String) textarea;
-                        System.out.println(ans.get("qid")+", "+singletxt+", "+qanswer);
-                        System.out.println(qanswer.contains(singletxt));
-                        userAnswer.append(singletxt);
-                    } else if (textarea!=null && textarea instanceof List){
+                } else if (answer!=null && textarea == null){
+                    String[] answerResult = new String[2];
+                    if(answer instanceof String){
+                        // user answer casting 및 채점
+                        String stringAns = (String) answer;
+                        answerResult = Marking.stringAnswer(uqid, stringAns, qanswer);
+                    } else if (answer instanceof List){
+                        // user answer[] casting 및 채점
+                        List<Object> answerList = (List<Object>) answer;
+                        if(answerList.get(0) instanceof String) {
+                            List<String> stringAnsList = (List<String>) answer;
+                            answerResult = Marking.listAnswer(uqid, stringObjectHashMap, "answer", stringAnsList, qanswer);
+                        }else if (answerList.get(0) instanceof List) {
+                            List<List<String>> dropAnswerList = (List<List<String>>) answer;
+                            answerResult = Marking.dragDropAnswer(uqid,stringObjectHashMap,dropAnswerList,qanswer);
+                        }
+                    }
+                    userAnswer.append(answerResult[0]);
+                    correct = Integer.parseInt(answerResult[1]);
+                } else if (answer==null && textarea!=null){
+                    String[] textResult;
+                    if (textarea instanceof String) { // answer string[], textarea string
+                        // textarea 채점
+                        String stringTxt = (String) textarea;
+                        textResult = Marking.stringAnswer(uqid, stringTxt, qanswer);
+                    } else { // answer string[], textarea string[]
+                        // textarea[] 채점
                         List<String> textareaarr = (List<String>) textarea;
-                        System.out.println(ans.get("qid")+", "+textareaarr.get(0)+", "+qanswer);
-                        HashMap<String, String[]> stringObjectHashMap = new HashMap<>();
-                        try{
-                            stringObjectHashMap = new ObjectMapper().readValue(qanswer, new TypeReference<HashMap<String, String[]>>() {
-                            });
-                        }catch (IOException e){
-                            System.out.println(e);
-                        }
-                        for(int i=0; i<stringObjectHashMap.get("textarea").length; i++){
-                            System.out.println(stringObjectHashMap.get("textarea")[i].contains(textareaarr.get(i)));
-                        }
-                        for(String s : textareaarr){userAnswer.append(s+",");}
+                        textResult = Marking.listAnswer(uqid,stringObjectHashMap,"answer",textareaarr,qanswer);
                     }
+                    userAnswer.append(textResult[0]);
+                    correct = Integer.parseInt(textResult[1]);
                 } else {
-                    if(textarea !=null && textarea instanceof String){
-                        String singletxt = (String) textarea;
-                        System.out.println(ans.get("qid")+", "+singletxt+", "+qanswer);
-                        System.out.println(qanswer.contains(singletxt));
-                        userAnswer.append(singletxt);
-                    } else if (textarea!=null && textarea instanceof List){
-                        List<String> answerarr = (List<String>) textarea;
-                        System.out.println(ans.get("qid")+", "+answerarr.get(0)+", "+qanswer);
-                        HashMap<String, String[]> stringObjectHashMap = new HashMap<>();
-                        try{
-                            stringObjectHashMap = new ObjectMapper().readValue(qanswer, new TypeReference<HashMap<String, String[]>>() {
-                            });
-                        }catch (IOException e){
-                            System.out.println(e);
-                        }
-                        for(int i=0; i<stringObjectHashMap.get("answer").length; i++){
-                            System.out.println(stringObjectHashMap.get("answer")[i].contains(answerarr.get(i)));
-                        }
-                        for(String s : answerarr){userAnswer.append(s+",");}
-                    }
+                    // 둘다 널인 경우는 예외처리
                 }
-
-
-                if(userAnswer.toString().equals("")){
-                    corrects[j] = 0;
-                } else {
-                    corrects[j] = 1;
-                }
+                corrects[j] = correct;
+                System.out.println(userAnswer);
+                // 여기서 user answer insert
+                UserAnswer uaEntity = UserAnswer.builder()
+                        .userAns(userAnswer.toString())
+                        .correct(correct)
+                        .uaToUsers(user)
+                        .uaToQuestion(real.get(j))
+                        .uaToUt(saveUserTest)
+                        .build();
+                userAnswers.add(uaEntity);
             } else {
                 corrects[j] = 0;
+                // userAnswer 는 ""
+                // 여기서 user answer insert
+                UserAnswer uaEntity = UserAnswer.builder()
+                        .userAns("")
+                        .correct(0)
+                        .uaToUsers(user)
+                        .uaToQuestion(real.get(j))
+                        .uaToUt(saveUserTest)
+                        .build();
+                userAnswers.add(uaEntity);
             }
             j++; k++;
         }
+        int countCorrect = 0;
         for(int in : corrects){
+            if(in==1)
+                countCorrect += 1;
             System.out.print(in+",");
         }
-
-
-        // 3. user answer bulk insert
-        return null;
+        userAnswerRepository.saveAll(userAnswers);
+        saveUserTest.setCountCorrect(countCorrect);
+        return 1L;
     }
+
 
 }
