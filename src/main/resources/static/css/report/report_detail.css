@@ -377,6 +377,11 @@
     display: none;
 }
 
+/* 정오표 테이블 안의 이미지 */
+.report_detail table tbody img {
+    width: 90%;
+}
+
 
 /*pdf 출력 버튼 시작*/
 
