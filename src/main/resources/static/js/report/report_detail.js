@@ -428,13 +428,24 @@ let detailPrint = function (data, tbody) {
             if (qType == 'IT11') {  // IT11 -> 정답 배열 순서가 문제 순서와 다름
                 textAnswer = `${answerJS["answer"][2]}, ${answerJS["answer"][0]}, ${answerJS["answer"][1]}`;
 
-            } else if (qType == 'IT14') {  // IT14 -> 숫자를 알파벳으로 바꾸고 textarea 부분 출력
-                let ex = ["", "A", "B", "C", "D", "E"];
-                textAnswer = `${ex[userAnswerJS["answer"]]} / ${userAnswerJS["textarea"]}`;
+            } else if (qType == 'IT14' || qType == 'IT15') {  // IT14 -> 숫자를 알파벳으로 바꾸고 textarea 부분 출력
+                let ex1 = ["", "A", "B", "C", "D", "E"];
+                let ex2 = ["", "태현", "민주", "상희"];
+                let ex3 = ["", "가", "나", "다", "라"];
+                if (qid == 589) {
+                    textAnswer = `${ex2[answerJS["answer"]]} / ${answerJS["textarea"]}`;
+                } else if (qid == 588) {
+                    textAnswer = `${ex3[answerJS["answer"]]} / ${answerJS["shortText"]} / ${answerJS["textarea"]}`;
+                } else {
+                    textAnswer = `${ex1[answerJS["answer"]]} / ${answerJS["textarea"]}`;
+                }
 
-            } else if (qType == 'IT13') {
+            } else if (qType == 'IT13' || qType == 'IT18') {
                 if (qid == 299) { // 불규칙적인 부분 입력..
                     textAnswer = "감소한다, 변화없다";
+
+                } else if (qid == 747) { // 불규칙적인 부분 입력..
+                    textAnswer = '" ", "○"';
 
                 } else {
                     textAnswer = `${answerJS["answer"]} / ${answerJS["textarea"]}`;
@@ -442,6 +453,9 @@ let detailPrint = function (data, tbody) {
 
             } else if (qType == 'IT12') { //IT12 첫번째 값 하나만 출력
                 textAnswer = `${answerJS["answer"][0]}`;
+
+            } else if (qType == 'IT17') { //IT12 첫번째 값 하나만 출력
+                textAnswer = `${answerJS["answer"]} / ${answerJS["social_rule"]}`;
 
             } else {
 
@@ -465,7 +479,7 @@ let detailPrint = function (data, tbody) {
                             if (match) { // src 속성이 찾아가기
 
                                 let srcValue = match[1].split('..'); // src 속성 값 추출하고 앞에 ../부분 자르기
-                                let srcRoot= srcValue[srcValue.length-1];
+                                let srcRoot = srcValue[srcValue.length - 1];
 
                                 // 절대 경로로 변환
                                 let absoluteSrc = `https://kdt-java-5-2.s3.ap-northeast-2.amazonaws.com${srcRoot}`;
@@ -510,7 +524,7 @@ let detailPrint = function (data, tbody) {
 
                                 if (match) { // src 속성이 찾아가기
                                     let srcValue = match[1].split('..'); // src 속성 값 추출하고 앞에 ../부분 자르기
-                                    let srcRoot= srcValue[srcValue.length-1];
+                                    let srcRoot = srcValue[srcValue.length - 1];
 
                                     // 절대 경로로 변환
                                     let absoluteSrc = `https://kdt-java-5-2.s3.ap-northeast-2.amazonaws.com${srcRoot}`;
@@ -581,9 +595,6 @@ let insertTable7 = function (tbodyID, orderName, contentArea, answer, userAns, c
     td4.appendChild(tagi);
 
 
-
-
-
     // 정답
     if (Array.isArray(answer)) {  // answer가 배열이면
 
@@ -617,7 +628,7 @@ let insertTable7 = function (tbodyID, orderName, contentArea, answer, userAns, c
 
             if (userAns != '') {
                 let spanTag = document.createElement('span');
-                spanTag.innerHTML = `${userAns[i]}, `;
+                spanTag.innerHTML = `${userAns[i]} `;
                 td3.appendChild(spanTag);
             }
         }
@@ -628,7 +639,15 @@ let insertTable7 = function (tbodyID, orderName, contentArea, answer, userAns, c
         }
     } else { // userAns가 배열이 아니면
 
-        td3.textContent = userAns;
+        // 문자열의 마지막 글자가 쉼표인지 확인
+        if (userAns.endsWith(',')) {
+            // 쉼표를 제외한 부분만 잘라서 새로운 변수에 저장
+            let userAns2 = userAns.slice(0, -1);
+            td3.textContent = userAns2;
+
+        } else {
+            td3.textContent = userAns;
+        }
 
     }
 
