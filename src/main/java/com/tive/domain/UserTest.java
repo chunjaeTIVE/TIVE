@@ -25,6 +25,9 @@ public class UserTest {
     @Column(name="count_correct")
     private Integer countCorrect;
 
+    @Column(name = "local_code")
+    private Integer localCode;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="eid")
     private ExamItem utToExam;
