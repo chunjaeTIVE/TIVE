@@ -6,6 +6,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="user_test")
@@ -35,5 +37,8 @@ public class UserTest {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="uid")
     private Users utToUsers;
+
+    @OneToMany(mappedBy = "uaToUt")
+    List<UserAnswer> uaList = new ArrayList<>();
 
 }

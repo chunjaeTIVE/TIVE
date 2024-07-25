@@ -24,19 +24,26 @@ public class Marking {
         List<Object> realListAns = (List<Object>) stringObjectHashMap.get(type);
         StringBuilder userAnswer = new StringBuilder();
         String correct = "1";
-        for (int i = 0; i < realListAns.size(); i++) {
-            if(realListAns.get(0) instanceof String){
-                String realAns = (String)realListAns.get(i);
-                System.out.println(realAns.contains(userListAns.get(i)));
-                userAnswer.append(userListAns.get(i) + ",");
-                if(!realAns.contains(userListAns.get(i)))
-                    correct = "0";
-            } else {
-                Integer realAns = (Integer) realListAns.get(i);
-                System.out.println(realAns==Integer.parseInt(userListAns.get(i)));
-                userAnswer.append(userListAns.get(i) + ",");
-                if(realAns!=Integer.parseInt(userListAns.get(i)))
-                    correct = "0";
+        if(realListAns.size()!= userListAns.size()){
+            for(int u=0; u<userListAns.size(); u++){
+                userAnswer.append(userListAns.get(u)+",");
+            }
+            correct = "0";
+        } else {
+            for (int i = 0; i < realListAns.size(); i++) {
+                if(realListAns.get(0) instanceof String){
+                    String realAns = (String)realListAns.get(i);
+                    System.out.println(realAns.contains(userListAns.get(i)));
+                    userAnswer.append(userListAns.get(i) + ",");
+                    if(!realAns.contains(userListAns.get(i)))
+                        correct = "0";
+                } else {
+                    Integer realAns = (Integer) realListAns.get(i);
+                    System.out.println(realAns==Integer.parseInt(userListAns.get(i)));
+                    userAnswer.append(userListAns.get(i) + ",");
+                    if(realAns!=Integer.parseInt(userListAns.get(i)))
+                        correct = "0";
+                }
             }
         }
         return new String[]{userAnswer.toString(),correct};

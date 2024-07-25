@@ -46,18 +46,31 @@ public class ExamServiceImpl implements ExamService{
     @Override
     @Transactional
     public Long submitExam(String email, HashMap<String, Object> hm) {
-        // 1. user test insert
+        // 1. 최초 응시 / 재응시 여부 파악
+        Long eid = Long.parseLong((String)hm.get("eid"));
         Users user = usersRepository.findByEmail(email);
-        Optional<ExamItem> examItem = examItemRepository.findById(Long.parseLong((String)hm.get("eid")));
-        ExamItem examInfo = examItem.orElseThrow(()->{throw new RuntimeException();});
-        UserTest userTest = UserTest.builder()
-                .utToExam(examInfo)
-                .utToUsers(user)
-                .countCorrect(0)
-                .build();
-        System.out.println(user.getEmail()+","+examInfo.getExamName());
-        UserTest saveUserTest = userTestRepository.save(userTest);
-        // 2. 채점
+        UserTest findUserTest = userTestRepository.findByUser(user.getUid(), eid);
+        UserTest saveUserTest;
+        boolean reTry = false;
+        List<UserAnswer> findUserAnsList = new ArrayList<>();
+        if(findUserTest==null){
+            // 2. user test insert
+            Optional<ExamItem> examItem = examItemRepository.findById(eid);
+            ExamItem examInfo = examItem.orElseThrow(()->{throw new RuntimeException();});
+            UserTest userTest = UserTest.builder()
+                    .utToExam(examInfo)
+                    .utToUsers(user)
+                    .countCorrect(0)
+                    .build();
+            System.out.println(user.getEmail()+","+examInfo.getExamName());
+            saveUserTest = userTestRepository.save(userTest);
+        } else {
+            saveUserTest = findUserTest;
+            reTry = true;
+            findUserAnsList = findUserTest.getUaList();
+            System.out.println("findUserAnsList size : "+findUserAnsList.size());
+        }
+        // 3. 채점
         List<Object> list = (List<Object>) hm.get("body");
         List<QuestionItem> real = questionItemRepository.findAnswer(Long.parseLong((String) hm.get("eid")));
         int k=0,j=0;
@@ -77,7 +90,7 @@ public class ExamServiceImpl implements ExamService{
                     j += idx;
                 }
                 qanswer = real.get(j).getAnswer();
-                System.out.println("idx:"+idx+", realqid:"+real.get(j).getQid());
+                System.out.println("idx:"+idx+", j:"+j+", realqid:"+real.get(j).getQid());
 
                 // 채점을 해서 맞으면 correct[j]=1 아니면 0
                 Object answer = ans.get("answer");
@@ -171,26 +184,37 @@ public class ExamServiceImpl implements ExamService{
                 corrects[j] = correct;
                 System.out.println(userAnswer);
                 // 여기서 user answer insert
-                UserAnswer uaEntity = UserAnswer.builder()
-                        .userAns(userAnswer.toString())
-                        .correct(correct)
-                        .uaToUsers(user)
-                        .uaToQuestion(real.get(j))
-                        .uaToUt(saveUserTest)
-                        .build();
-                userAnswers.add(uaEntity);
+                if(reTry){
+                    findUserAnsList.get(j).setUserAns(userAnswers.toString());
+                    findUserAnsList.get(j).setCorrect(correct);
+                } else {
+                    UserAnswer uaEntity = UserAnswer.builder()
+                            .userAns(userAnswer.toString())
+                            .correct(correct)
+                            .uaToUsers(user)
+                            .uaToQuestion(real.get(j))
+                            .uaToUt(saveUserTest)
+                            .build();
+                    userAnswers.add(uaEntity);
+                }
             } else {
                 corrects[j] = 0;
                 // userAnswer 는 ""
                 // 여기서 user answer insert
-                UserAnswer uaEntity = UserAnswer.builder()
-                        .userAns("")
-                        .correct(0)
-                        .uaToUsers(user)
-                        .uaToQuestion(real.get(j))
-                        .uaToUt(saveUserTest)
-                        .build();
-                userAnswers.add(uaEntity);
+                if(reTry){
+                    findUserAnsList.get(j).setUserAns("");
+                    findUserAnsList.get(j).setCorrect(0);
+                } else {
+                    UserAnswer uaEntity = UserAnswer.builder()
+                            .userAns("")
+                            .correct(0)
+                            .uaToUsers(user)
+                            .uaToQuestion(real.get(j))
+                            .uaToUt(saveUserTest)
+                            .build();
+                    userAnswers.add(uaEntity);
+                }
+
             }
             j++; k++;
         }
@@ -200,7 +224,8 @@ public class ExamServiceImpl implements ExamService{
                 countCorrect += 1;
             System.out.print(in+",");
         }
-        userAnswerRepository.saveAll(userAnswers);
+        if(!reTry)
+            userAnswerRepository.saveAll(userAnswers);
         saveUserTest.setCountCorrect(countCorrect);
         return 1L;
     }
