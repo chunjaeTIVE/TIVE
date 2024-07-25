@@ -103,17 +103,14 @@ let detailPrint = function (data, tbody) {
 
         try {
             let answerJS = JSON.parse(answerlist);
-            //let userAnswerJS = JSON.parse(userAnswerlist);
 
 
             if (qType == 'IT11') {  // IT11 -> 정답 배열 순서가 문제 순서와 다름
                 textAnswer = `${answerJS["answer"][2]}, ${answerJS["answer"][0]}, ${answerJS["answer"][1]}`;
-                // textUser = `${userAnswerJS["answer"][2]}, ${userAnswerJS["answer"][0]}, ${userAnswerJS["answer"][1]}`;
 
             } else if (qType == 'IT14') {  // IT14 -> 숫자를 알파벳으로 바꾸고 textarea 부분 출력
                 let ex = ["", "A", "B", "C", "D", "E"];
                 textAnswer = `${ex[userAnswerJS["answer"]]} / ${userAnswerJS["textarea"]}`;
-                // textUser = `${ex[userAnswerJS["answer"]]} / ${userAnswerJS["textarea"]}`;
 
             } else if (qType == 'IT13') {
                 if (qid == 299) { // 불규칙적인 부분 입력..
@@ -121,15 +118,15 @@ let detailPrint = function (data, tbody) {
 
                 } else {
                     textAnswer = `${answerJS["answer"]} / ${answerJS["textarea"]}`;
-                    // textUser = `${userAnswerJS["answer"]} / ${userAnswerJS["textarea"]}`;
                 }
 
             } else if (qType == 'IT12') { //IT12 첫번째 값 하나만 출력
                 textAnswer = `${answerJS["answer"][0]}`;
-                // textUser = `${userAnswerJS["answer"][0]}`;
 
             } else {
 
+                // 이미지 태그 확인용
+                let imgRegex = /<img[^>]*>/i;
 
                 // answer 값은 하나인데 그 안에 배열이 들어있을 때
                 if (answerJS["answer"].length == 1 && Array.isArray(answerJS["answer"])) {
@@ -137,10 +134,8 @@ let detailPrint = function (data, tbody) {
 
                     if (regex.test(answerJS["answer"][0])) { //answer안에 태그가 있으면
 
-                        let imgRegex = /<img[^>]*>/i;
-                        if (imgRegex.test(answerJS["answer"][0])) { // 이미지 태그인지 확인
 
-                            console.log(answerJS["answer"][0]);
+                        if (imgRegex.test(answerJS["answer"][0])) { // 이미지 태그인지 확인
 
 
                             //// src 속성 값 추출
@@ -148,23 +143,19 @@ let detailPrint = function (data, tbody) {
                             let match = answerJS["answer"][0].match(srcRegex);
 
                             if (match) { // src 속성이 찾아가기
-                                let srcValue = match[1]; // src 속성 값 추출
 
-                                console.log(srcValue);
+                                let srcValue = match[1].split('..'); // src 속성 값 추출하고 앞에 ../부분 자르기
+                                let srcRoot= srcValue[srcValue.length-1];
 
                                 // 절대 경로로 변환
-                                let absoluteSrc = `https://kdt-java-5-2.s3.ap-northeast-2.amazonaws.com${srcValue}`;
-                                console.log(absoluteSrc);
+                                let absoluteSrc = `https://kdt-java-5-2.s3.ap-northeast-2.amazonaws.com${srcRoot}`;
 
 
                                 // 새로운 img 태그 생성
                                 let img2 = `<img src="${absoluteSrc}" class="this">`;
 
-                                console.log(img2);
                                 textAnswer = [];
                                 textAnswer.push(img2);
-
-                                console.log(typeof textAnswer);
 
 
                             } else {
@@ -178,33 +169,46 @@ let detailPrint = function (data, tbody) {
                         }
 
 
-
-
                     } else { //answer안에 태그 패턴이 없을 때
                         textAnswer = answerJS["answer"];
 
                     }
 
                 } else { // answer 단답이거나, 답이 여러개 있거나, 배열이 여러개 들어있을 때
-                    textAnswer = answerJS["answer"];
-                }
 
-                // answer 값은 하나인데 그 안에 배열이 들어있을 때
-                // if (userAnswerJS["answer"].length == 1 && Array.isArray(userAnswerJS["answer"])) {
-                //
-                //
-                //     if (regex.test(userAnswerJS["answer"][0])) { //answer안에 태그 패턴이 있으면
-                //         //태그 지우고 그 안의 text만 전달
-                //         textUser = userAnswerJS["answer"][0].replace(/<[^>]*>/g, '');
-                //
-                //     } else { //answer안에 태그 패턴이 없을 때
-                //         textUser = userAnswerJS["answer"];
-                //
-                //     }
-                //
-                // } else { // answer 단답이거나, 답이 여러개 이거나, 배열이 여러개 들어있을 때
-                //     textUser = userAnswerJS["answer"];
-                // }
+
+                    if (regex.test(answerJS["answer"][0])) { //answer안에 태그가 있으면
+
+
+                        if (imgRegex.test(answerJS["answer"][0])) { // 이미지 태그인지 확인
+
+
+                            for (let i = 0; i < answerJS["answer"].length; i++) {
+                                //// src 속성 값 추출
+                                let srcRegex = /<img[^>]*src=["']([^"']+)["']/i;
+                                let match = answerJS["answer"][i].match(srcRegex);
+
+                                if (match) { // src 속성이 찾아가기
+                                    let srcValue = match[1].split('..'); // src 속성 값 추출하고 앞에 ../부분 자르기
+                                    let srcRoot= srcValue[srcValue.length-1];
+
+                                    // 절대 경로로 변환
+                                    let absoluteSrc = `https://kdt-java-5-2.s3.ap-northeast-2.amazonaws.com${srcRoot}`;
+
+
+                                    // 새로운 img 태그 생성
+                                    let img3 = `<img src="${absoluteSrc}" class="this">`;
+
+                                    answerJS["answer"][i] = img3;
+
+                                }
+                            }
+                        }
+                    }
+                    textAnswer = answerJS["answer"];
+
+                    console.log(textAnswer);
+                }
 
             }
         } catch (error) {
@@ -251,18 +255,24 @@ let insertTable5 = function (tbodyID, orderName, correct, answer, userAns, qid) 
     td1.appendChild(tagi);
 
 
-
     // 정답
     if (Array.isArray(answer)) {  // answer가 배열이면
 
-        for (let i = 0; i < answer.length; i++) {
+        let i;
+        for (i = 0; i < answer.length - 1; i++) {
 
             if (answer != '') {
                 let spanTag = document.createElement('span');
-                spanTag.innerHTML = answer[i];
+                spanTag.innerHTML = `${answer[i]}, `;
                 td2.appendChild(spanTag);
             }
         }
+        if (answer[i] != '') { // 배열의 맨 마지막은 쉼표 없음
+            let spanTag = document.createElement('span');
+            spanTag.innerHTML = answer[i];
+            td2.appendChild(spanTag);
+        }
+
     } else { // userAns가 배열이 아니면
 
         td2.textContent = answer;
@@ -273,13 +283,19 @@ let insertTable5 = function (tbodyID, orderName, correct, answer, userAns, qid) 
     //본인 응답
     if (Array.isArray(userAns)) {  // userAns가 배열이면
 
-        for (let i = 0; i < userAns.length; i++) {
+        let i;
+        for (i = 0; i < userAns.length - 1; i++) {
 
             if (userAns != '') {
                 let spanTag = document.createElement('span');
-                spanTag.innerHTML = userAns[i];
+                spanTag.innerHTML = `${userAns[i]}, `;
                 td3.appendChild(spanTag);
             }
+        }
+        if (userAns[i] != '') { // 배열의 맨 마지막은 쉼표 없음
+            let spanTag = document.createElement('span');
+            spanTag.innerHTML = userAns[i];
+            td3.appendChild(spanTag);
         }
     } else { // userAns가 배열이 아니면
 
