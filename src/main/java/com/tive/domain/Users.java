@@ -26,6 +26,8 @@ public class Users {
     private Integer agree;
     @Column(nullable = false)
     private String phone;
+    @Column(name = "local_code")
+    private Integer localCode;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserRole role;
