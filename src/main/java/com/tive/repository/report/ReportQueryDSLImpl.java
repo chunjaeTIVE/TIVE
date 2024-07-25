@@ -6,6 +6,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import static com.tive.domain.QQuestionCategory.*;
 
+import com.tive.dto.QuestionDTO;
 import com.tive.dto.ReportExamDTO;
 import com.tive.dto.ReportQuestionDTO;
 import jakarta.transaction.Transactional;
@@ -287,5 +288,14 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
         return rate;
     }
 
-
+    @Override
+    public QuestionDTO findByqId(Long qid) {
+        QuestionDTO dto = queryFactory.select(Projections.fields(QuestionDTO.class
+                        ,questionItem.qid
+                        , questionItem.qContents))
+                .from(questionItem)
+                .where(questionItem.qid.eq(qid))
+                .fetchOne();
+        return dto;
+    }
 }

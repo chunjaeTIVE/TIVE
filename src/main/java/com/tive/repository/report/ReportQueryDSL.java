@@ -1,6 +1,7 @@
 package com.tive.repository.report;
 
 import com.querydsl.core.Tuple;
+import com.tive.dto.QuestionDTO;
 import com.tive.dto.ReportExamDTO;
 import com.tive.dto.ReportQuestionDTO;
 
@@ -30,4 +31,6 @@ public interface ReportQueryDSL {
     List<Tuple> getSubjectiveAvgAll(Long eid);
 
     Integer getScore(Long utId);
+
+    QuestionDTO findByqId(Long qid);
 }
