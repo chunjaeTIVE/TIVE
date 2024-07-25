@@ -1,0 +1,194 @@
+/*파도 배경 시작*/
+#ranking_wrap{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: #FFCE99;
+}
+
+.sand{ /*파도 아래 모래*/
+    position: absolute;
+    top: -114vh;
+    width: 100%;
+    height: 100vw;
+    background-image: url("../../img/index/wet_sand_1.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.4;
+    animation: sand 6s infinite ease-in-out;
+    rotate: 180deg;
+}
+
+.wave { /*파도*/
+    position: absolute;
+    top: -114vh;
+    width: 100%;
+    height: 100vw;
+    background-image: url("../../img/index/wave1.png");
+    animation: wave1 6s infinite linear ;
+    opacity: 1;
+    background-size: contain;
+    background-repeat: no-repeat;
+    rotate: 180deg;
+}
+
+#wave2 { /*파도2*/
+    top: -123vh;
+    animation: wave2 6s infinite linear;
+    background-image: url("../../img/index/wave2.png");
+    opacity: 1;
+    z-index: 1;
+    rotate: 180deg;
+}
+
+#wave3 { /*파도3*/
+    top: -133vh;
+    animation: wave3 6s infinite linear;
+    background-image: url("../../img/index/wave3.png");
+    opacity: 1;
+    z-index: 2;
+    rotate: 180deg;
+}
+
+
+@keyframes sand { /*젖은 모래 표현 애니메이션*/
+    0%{
+        opacity: 0.4;
+    }
+    50%{
+        opacity: 0.1;
+    }
+    75%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+
+@keyframes wave1 { /*파도1 애니메이션*/
+    0% {
+        transform: translateY(0);
+    }
+    50%{
+        transform: translateY(6vh);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes wave2 { /*파도2 애니메이션*/
+    0% {
+        transform: translateY(0);
+    }
+    50%{
+        transform: translateY(8vh);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes wave3 { /*파도3 애니메이션*/
+    0% {
+        transform: translateY(0);
+    }
+    50%{
+        transform: translateY(11vh);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/*파도 배경 끝*/
+
+/*타이틀 시작*/
+#ranking_wrap>h1{
+    position: absolute;
+    z-index: 5;
+    text-align: center;
+    top: 15vh;
+    font-family: chab;
+    color: white;
+    width: 100%;
+    font-size: 4vw;
+    font-weight: lighter;
+}
+/*타이틀 끝*/
+
+#ranking_box{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    z-index: 5;
+    background: white;
+    bottom: -8vh;
+    left: 15vw;
+    padding: 5vw;
+    border-radius: 6vw;
+}
+
+#ranking_box h1{
+    text-align: center;
+}
+
+#map_box{
+    background-color: lightskyblue;
+    padding: 3vw;
+    border-radius: 3vw;
+    margin-right: 1vw;
+}
+
+#rank_box{
+    background-color: lightskyblue;
+    padding: 3vw;
+    border-radius: 3vw;
+}
+
+
+#map{
+    border-radius: 3vw;
+    width: 25vw;
+    height: 25vw;
+
+}
+
+#rank{
+    border-radius: 3vw;
+    width: 25vw;
+    height: 25vw;
+    background: lightgrey;
+}
+
+
+/* 바닥 장식 시작*/
+
+.deco_box{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.deco_item{
+    width: 15vw;
+    position: relative;
+    top: -1vw;
+}
+
+#ball{
+    position: relative;
+    left: 3vw;
+}
+
+#sea_star{
+    position: relative;
+    right: 1vw;
+}
+
+/* 바닥 장식 끝*/
