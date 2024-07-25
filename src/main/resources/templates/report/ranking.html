@@ -6,25 +6,19 @@
     <script type="text/javascript"
             src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=eia313vssq"></script>
     <script th:src="@{/js/report/map.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/report/map.css}">
 
-    <style>
-        #ranking_box{
-            padding-top: 10vh;
-            display: flex;
-            flex-direction: row;
-        }
-        #map{
-            border-radius: 50px;
-            width:500px;
-            height:500px;
-        }
-
-
-    </style>
 </head>
 <body>
 
 <div id="ranking_wrap">
+
+    <h1>지역별 평균점수 랭킹</h1>
+
+    <div class="sand"></div>
+    <div class="wave" id="wave1"></div>
+    <div class="wave" id="wave2"></div>
+    <div class="wave" id="wave3"></div>
 
     <div id="ranking_box">
         <div id="map_box">
@@ -34,7 +28,13 @@
 
         <div id="rank_box">
             <h1>순위</h1>
+            <div id="rank"></div>
         </div>
+    </div>
+
+    <div class="deco_box">
+        <img id="ball" class="deco_item" th:src="@{/img/report/ball.png}" th:alt="발리볼" draggable="false">
+        <img id="sea_star" class="deco_item" th:src="@{/img/report/sea_star.png}" th:alt="불가사리" draggable="false">
     </div>
 </div>
 
