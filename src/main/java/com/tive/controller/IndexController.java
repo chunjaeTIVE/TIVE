@@ -203,4 +203,10 @@ public class IndexController {
 
         return "index";
     }
+
+    @GetMapping("/ranking")
+    public String showRank(Model model){
+        model.addAttribute("view", "report/ranking");
+        return "index";
+    }
 }
