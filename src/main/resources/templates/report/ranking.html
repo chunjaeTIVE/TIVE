@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript"
+            src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=eia313vssq"></script>
+    <script th:src="@{/js/report/map.js}"></script>
+
+    <style>
+        #ranking_box{
+            padding-top: 10vh;
+            display: flex;
+            flex-direction: row;
+        }
+        #map{
+            border-radius: 50px;
+            width:500px;
+            height:500px;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<div id="ranking_wrap">
+
+    <div id="ranking_box">
+        <div id="map_box">
+            <h1>우리 팀</h1>
+            <div id="map"></div>
+        </div>
+
+        <div id="rank_box">
+            <h1>순위</h1>
+        </div>
+    </div>
+</div>
+
+
+
+
+</body>
+</html>
