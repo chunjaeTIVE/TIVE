@@ -27,6 +27,8 @@ public class UsersDTO {
     @Pattern(regexp = "(01[016789])(\\d{3,4})(\\d{4})", message = "올바른 형식으로 입력하세요.")
     private String phone;
 
+    private Integer localCode;
+
     @Builder.Default // 기본값을 USER로 설정
     private String role = "USER";
 

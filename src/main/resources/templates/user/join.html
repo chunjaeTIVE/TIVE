@@ -48,6 +48,30 @@
                 <span><th:block th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></th:block></span>
             </li>
             <li class="input-group2">
+                <div class="localselect">
+                    <label>관할 교육청</label>
+                    <select name="localCode" id="localCode" th:field="*{localCode}">
+                        <option value="7801000">강원특별자치도교육청</option>
+                        <option value="7530000">경기도교육청</option>
+                        <option value="9010000">경상남도교육청</option>
+                        <option value="8750000">경상북도교육청</option>
+                        <option value="7380000">광주광역시교육청</option>
+                        <option value="7240000">대구광역시교육청</option>
+                        <option value="7430000">대전광역시교육청</option>
+                        <option value="7430000">부산광역시교육청</option>
+                        <option value="7010000">서울특별시교육청</option>
+                        <option value="9300000">세종특별자치시교육청</option>
+                        <option value="7480000">울산광역시교육청</option>
+                        <option value="7310000">인천광역시교육청</option>
+                        <option value="8490000">전라남도교육청</option>
+                        <option value="8321000">전북특별자치도교육청</option>
+                        <option value="9290000">제주특별자치도교육청</option>
+                        <option value="8140000">충청남도교육청</option>
+                        <option value="8000000">충청북도교육청</option>
+                    </select>
+                </div>
+            </li>
+            <li class="input-group2">
                 <div class="schoolselect">
                         <label>학교급</label>
                         <select name="schoolLevel" id="schoolLevel" th:field="*{schoolLevel}">
@@ -59,10 +83,10 @@
             </li>
             <li class="input-group">
                 <div class="agree">
-                <input type="checkbox" id="agree" name="agree" th:field="*{agree}" value="1">
-                (선택)마케팅 활용 동의<br>
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;(동의시 시험결과 상세리포트 조회가 가능합니다)</span>
-                <input type="hidden" name="agree" th:value="0">
+                    <input type="checkbox" id="agree" name="agree" th:field="*{agree}" value="1">
+                    (선택)마케팅 활용 동의<br>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;(동의시 시험결과 상세리포트 조회가 가능합니다)</span>
+                    <input type="hidden" name="agree" th:value="0">
                 </div>
             </li>
             <li class="login_btnbox">

@@ -21,7 +21,8 @@ public class SecurityConfig {
                 .requestMatchers("/resources/**")
                 .requestMatchers("/css/**")
                 .requestMatchers("/js/**")
-                .requestMatchers("/images/**")
+                .requestMatchers("/img/**")
+                .requestMatchers("/font/**")
                 //.requestMatchers("/emailCheck")//이메일 중복체크
                 ;
     }
