@@ -84,7 +84,8 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
                         , questionCategory.categoryName
                         , questionItem.answer
                         , userAnswer.userAns
-                        , userAnswer.correct)
+                        , userAnswer.correct
+                        , questionItem.qType)
                 )
                 .from(userAnswer)
                 .innerJoin(questionItem)
@@ -109,7 +110,8 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
                         , questionCategory.categoryName
                         , questionItem.answer
                         , userAnswer.userAns
-                        , userAnswer.correct)
+                        , userAnswer.correct
+                        , questionItem.qType)
                 )
                 .from(userAnswer)
                 .innerJoin(questionItem)

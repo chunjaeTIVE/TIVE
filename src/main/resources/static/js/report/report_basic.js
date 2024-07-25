@@ -5,59 +5,10 @@ let init = function (inits) {
     e_id = inits['eid'];
 }
 
-/**정오표 tbody에 결과 값 저장하기*/
-let insertTable5 = function (tbodyID, orderName, correct, answer, userAns, qid) {
-    let tr = document.createElement('tr');
-    let td = document.createElement('td');
-    let td1 = document.createElement('td');
-    let td2 = document.createElement('td');
-    let td3 = document.createElement('td');
-    let td4 = document.createElement('td');
-
-    let tagi = document.createElement('i');
-    let q_link = document.createElement('button');
-
-    td.textContent = `${orderName}`
-    td2.textContent = `${answer}`;
-    td3.textContent = `${userAns}`
-    q_link.textContent = '상세 보기';
-
-    // i 태그 생성 - 정답 여부 아이콘으로 표시
-    if(correct == 1){
-        tagi.setAttribute('class', 'fa-regular fa-circle-check');
-    } else {
-        tagi.setAttribute('class', 'fa-regular fa-circle-xmark');
-    }
-    // td 요소에 i 태그 추가 - 정답/오답 표시
-    td1.appendChild(tagi);
-
-    // td 요소에 button 속성 추가 - 상세 보기
-    q_link.setAttribute('onclick', 'openQuestion('+qid+')');
-    q_link.setAttribute('class', 'btn_question');
-    // td 요소에 a 태그 추가
-    td4.appendChild(q_link);
-
-
-    tr.appendChild(td);
-    tr.appendChild(td1);
-    tr.appendChild(td2);
-    tr.appendChild(td3);
-    tr.appendChild(td4);
-
-    tbodyID.appendChild(tr);
-}
-
-
-function openQuestion(qid) {
-    // 새 창을 열고 문제 번호로 이동
-    window.open('/report_question/'+qid, '_blank', 'width=400,height=400');
-}
-
-
 window.onload = function () {
 
     /**상단 회차, 과목 선택박스*/
-    document.getElementById('submitForm').onclick = function() {
+    document.getElementById('submitForm').onclick = function () {
         // 선택된 값을 가져오기
         let round = document.getElementById('round').value;
         let subject = document.getElementById('subject').value;
@@ -86,59 +37,12 @@ window.onload = function () {
             // 받아온 데이터를 처리하고 테이블에 출력
             let tbody = document.getElementById('basicList');
 
-
-            for (let i = 0; i < data.length; i++) {
-                let report = data[i];
-
-                let orderName = report["orderName"];
-                let correct = report["correct"];
-                let qid = report["qid"];
-                let answer, userAns;
-
-                // 정답 가져오기
-                let answerlist = report["answer"];
-                let userAnswerlist = report["userAns"];
-
-                // console.log(answerlist);
-                // console.log(userAnswerlist);
-
-                // 문자열을 JSON 객체로 변환
-                let answerJS = JSON.parse(answerlist);
-                let userAnswerJS = JSON.parse(userAnswerlist);
-                // let userAnswerJS = JSON.parse(userAnswerlist);
-                // console.log(answerJS);
-                // console.log(typeof answerJS);
-                // console.log(answerJS["answer"].length);
-
-                // answer 값은 하나인데 그 안에 배열이 들어있을 때
-                if(answerJS["answer"].length == 1 && Array.isArray(answerJS["answer"])){
-                    let textContent = answerJS["answer"][0].replace(/<[^>]*>/g, '');
-                    answer = textContent;
-                }  else { // answer 단답이거나, 답이 여러개 이거나, 배열이 여러개 들어있을 때
-                    answer = answerJS["answer"];
-                }
-
-                // answer 값은 하나인데 그 안에 배열이 들어있을 때
-                if(userAnswerJS["answer"].length == 1 && Array.isArray(userAnswerJS["answer"])){
-                    let textContent = userAnswerJS["answer"][0].replace(/<[^>]*>/g, '');
-                    userAns = textContent;
-                }  else { // answer 단답이거나, 답이 여러개 이거나, 배열이 여러개 들어있을 때
-                    userAns = userAnswerJS["answer"];
-                }
-
-                // 상세보기 버튼 추가
-
-
-                insertTable5(tbody, orderName, correct, answer, userAns, qid);
-
-            }
-
+            detailPrint(data, tbody);
 
         })
         .catch(error => {
             console.error('Error fetching report detail list data:', error);
         });
-
 
 
     /**정오표 - 서답형 부분 Fetch 요청*/
@@ -159,52 +63,12 @@ window.onload = function () {
             // 받아온 데이터를 처리하고 테이블에 출력
             let tbody = document.getElementById('basicSubjectivelist');
 
-            if(data != null && data.length !=0) {
+            if (data != null && data.length != 0) {
                 //서답형 정오표 hidden 해제
                 document.querySelector('.report_sub').style.display = 'block';
 
+                detailPrint(data, tbody);
 
-                for (let i = 0; i < data.length; i++) {
-                    let subject = data[i];
-
-                    let orderName = subject["orderName"];
-                    let correct = subject["correct"];
-                    let qid = subject["qid"];
-                    let answer, userAns;
-
-                    // 정답 가져오기
-                    let answerlist = subject["answer"];
-                    let userAnswerlist = subject["userAns"];
-
-                    // console.log(answerlist);
-                    // console.log(userAnswerlist);
-
-                    // 문자열을 JSON 객체로 변환
-                    let answerJS = JSON.parse(answerlist);
-                    let userAnswerJS = JSON.parse(userAnswerlist);
-                    // let userAnswerJS = JSON.parse(userAnswerlist);
-                    // console.log(answerJS);
-                    // console.log(typeof answerJS);
-                    // console.log(answerJS["answer"].length);
-
-                    if (answerJS["answer"].length == 1 && Array.isArray(answerJS["answer"])) {
-                        let textContent = answerJS["answer"][0].replace(/<[^>]*>/g, '');
-                        answer = textContent;
-                    } else {
-                        answer = answerJS["answer"];
-                    }
-
-                    if (userAnswerJS["answer"].length == 1 && Array.isArray(userAnswerJS["answer"])) {
-                        let textContent = userAnswerJS["answer"][0].replace(/<[^>]*>/g, '');
-                        userAns = textContent;
-                    } else {
-                        userAns = userAnswerJS["answer"];
-                    }
-
-
-                    insertTable5(tbody, orderName, correct, answer, userAns, qid);
-
-                }
             }
         })
         .catch(error => {
@@ -213,3 +77,237 @@ window.onload = function () {
 
 
 }
+
+/**정오표 데이터 받아서 테이블에 입력*/
+let detailPrint = function (data, tbody) {
+
+    for (let i = 0; i < data.length; i++) {
+
+        let dto = data[i];
+
+        let orderName = dto["orderName"];
+        let correct = dto["correct"];
+        let qid = dto["qid"];
+        let qType = dto["qtype"];
+
+
+        // 정답 데이터 가져오기
+        let answerlist = dto["answer"];
+        let userAnswerlist = dto["userAns"];
+
+        let textAnswer, textUser; // 출력할 텍스트
+
+
+        // 문자열을 JSON 객체로 변환
+        let regex = /<[^>]*>/; // 태그 패턴을 정의한 정규표현식 -> 태그 있는지 확인용
+
+        try {
+            let answerJS = JSON.parse(answerlist);
+            //let userAnswerJS = JSON.parse(userAnswerlist);
+
+
+            if (qType == 'IT11') {  // IT11 -> 정답 배열 순서가 문제 순서와 다름
+                textAnswer = `${answerJS["answer"][2]}, ${answerJS["answer"][0]}, ${answerJS["answer"][1]}`;
+                // textUser = `${userAnswerJS["answer"][2]}, ${userAnswerJS["answer"][0]}, ${userAnswerJS["answer"][1]}`;
+
+            } else if (qType == 'IT14') {  // IT14 -> 숫자를 알파벳으로 바꾸고 textarea 부분 출력
+                let ex = ["", "A", "B", "C", "D", "E"];
+                textAnswer = `${ex[userAnswerJS["answer"]]} / ${userAnswerJS["textarea"]}`;
+                // textUser = `${ex[userAnswerJS["answer"]]} / ${userAnswerJS["textarea"]}`;
+
+            } else if (qType == 'IT13') {
+                if (qid == 299) { // 불규칙적인 부분 입력..
+                    textAnswer = "감소한다, 변화없다";
+
+                } else {
+                    textAnswer = `${answerJS["answer"]} / ${answerJS["textarea"]}`;
+                    // textUser = `${userAnswerJS["answer"]} / ${userAnswerJS["textarea"]}`;
+                }
+
+            } else if (qType == 'IT12') { //IT12 첫번째 값 하나만 출력
+                textAnswer = `${answerJS["answer"][0]}`;
+                // textUser = `${userAnswerJS["answer"][0]}`;
+
+            } else {
+
+
+                // answer 값은 하나인데 그 안에 배열이 들어있을 때
+                if (answerJS["answer"].length == 1 && Array.isArray(answerJS["answer"])) {
+
+
+                    if (regex.test(answerJS["answer"][0])) { //answer안에 태그가 있으면
+
+                        let imgRegex = /<img[^>]*>/i;
+                        if (imgRegex.test(answerJS["answer"][0])) { // 이미지 태그인지 확인
+
+                            console.log(answerJS["answer"][0]);
+
+
+                            //// src 속성 값 추출
+                            let srcRegex = /<img[^>]*src=["']([^"']+)["']/i;
+                            let match = answerJS["answer"][0].match(srcRegex);
+
+                            if (match) { // src 속성이 찾아가기
+                                let srcValue = match[1]; // src 속성 값 추출
+
+                                console.log(srcValue);
+
+                                // 절대 경로로 변환
+                                let absoluteSrc = `https://kdt-java-5-2.s3.ap-northeast-2.amazonaws.com${srcValue}`;
+                                console.log(absoluteSrc);
+
+
+                                // 새로운 img 태그 생성
+                                let img2 = `<img src="${absoluteSrc}" class="this">`;
+
+                                console.log(img2);
+                                textAnswer = [];
+                                textAnswer.push(img2);
+
+                                console.log(typeof textAnswer);
+
+
+                            } else {
+                                textAnswer = answerJS["answer"][0]
+                            }
+
+
+                        } else { // 이미지 태그가 아니면
+                            //태그 지우고 그 안의 text만 전달
+                            textAnswer = answerJS["answer"][0].replace(/<[^>]*>/g, '');
+                        }
+
+
+
+
+                    } else { //answer안에 태그 패턴이 없을 때
+                        textAnswer = answerJS["answer"];
+
+                    }
+
+                } else { // answer 단답이거나, 답이 여러개 있거나, 배열이 여러개 들어있을 때
+                    textAnswer = answerJS["answer"];
+                }
+
+                // answer 값은 하나인데 그 안에 배열이 들어있을 때
+                // if (userAnswerJS["answer"].length == 1 && Array.isArray(userAnswerJS["answer"])) {
+                //
+                //
+                //     if (regex.test(userAnswerJS["answer"][0])) { //answer안에 태그 패턴이 있으면
+                //         //태그 지우고 그 안의 text만 전달
+                //         textUser = userAnswerJS["answer"][0].replace(/<[^>]*>/g, '');
+                //
+                //     } else { //answer안에 태그 패턴이 없을 때
+                //         textUser = userAnswerJS["answer"];
+                //
+                //     }
+                //
+                // } else { // answer 단답이거나, 답이 여러개 이거나, 배열이 여러개 들어있을 때
+                //     textUser = userAnswerJS["answer"];
+                // }
+
+            }
+        } catch (error) {
+            // JSON 파싱 중 오류가 발생한 경우
+            console.error('JSON 파싱 오류:', error.message);
+        }
+
+        // 본인 응답!!
+        let userAnswer = userAnswerlist;
+        textUser = userAnswer.split(',');
+
+
+        insertTable5(tbody, orderName, correct, textAnswer, textUser, qid);
+
+    }
+
+}
+
+
+/**정오표 tbody에 결과 값 저장하기*/
+let insertTable5 = function (tbodyID, orderName, correct, answer, userAns, qid) {
+    let tr = document.createElement('tr');
+    let td = document.createElement('td');
+    let td1 = document.createElement('td');
+    let td2 = document.createElement('td');
+    let td3 = document.createElement('td');
+    let td4 = document.createElement('td');
+
+    let tagi = document.createElement('i');
+    let q_link = document.createElement('button');
+
+    td.textContent = orderName;
+
+
+    q_link.textContent = '상세 보기';
+
+    // i 태그 생성 - 정답 여부 아이콘으로 표시
+    if (correct == 1) {
+        tagi.setAttribute('class', 'fa-regular fa-circle-check');
+    } else {
+        tagi.setAttribute('class', 'fa-regular fa-circle-xmark');
+    }
+    // td 요소에 i 태그 추가 - 정답/오답 표시
+    td1.appendChild(tagi);
+
+
+
+    // 정답
+    if (Array.isArray(answer)) {  // answer가 배열이면
+
+        for (let i = 0; i < answer.length; i++) {
+
+            if (answer != '') {
+                let spanTag = document.createElement('span');
+                spanTag.innerHTML = answer[i];
+                td2.appendChild(spanTag);
+            }
+        }
+    } else { // userAns가 배열이 아니면
+
+        td2.textContent = answer;
+
+    }
+
+
+    //본인 응답
+    if (Array.isArray(userAns)) {  // userAns가 배열이면
+
+        for (let i = 0; i < userAns.length; i++) {
+
+            if (userAns != '') {
+                let spanTag = document.createElement('span');
+                spanTag.innerHTML = userAns[i];
+                td3.appendChild(spanTag);
+            }
+        }
+    } else { // userAns가 배열이 아니면
+
+        td3.textContent = userAns;
+
+    }
+
+
+    // td 요소에 button 속성 추가 - 상세 보기
+    q_link.setAttribute('onclick', 'openQuestion(' + qid + ')');
+    q_link.setAttribute('class', 'btn_question');
+    // td 요소에 a 태그 추가
+    td4.appendChild(q_link);
+
+
+    tr.appendChild(td);
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    tr.appendChild(td3);
+    tr.appendChild(td4);
+
+    tbodyID.appendChild(tr);
+}
+
+
+/**상세보기 버튼 새창 열기*/
+function openQuestion(qid) {
+    // 새 창을 열고 문제 번호로 이동
+    window.open('/report_question/' + qid, '_blank', 'width=400,height=400');
+}
+

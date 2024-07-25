@@ -14,6 +14,7 @@ public class ReportQuestionDTO {
     private String answer;
     private String userAns;
     private Integer correct;
+    private String qType;
 
     private int avgAll;
 }
