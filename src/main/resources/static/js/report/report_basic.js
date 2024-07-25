@@ -237,7 +237,6 @@ let insertTable5 = function (tbodyID, orderName, correct, answer, userAns, qid) 
     let q_link = document.createElement('button');
 
     td.textContent = orderName;
-    td2.textContent = answer;
 
 
     q_link.textContent = '상세 보기';
@@ -250,6 +249,25 @@ let insertTable5 = function (tbodyID, orderName, correct, answer, userAns, qid) 
     }
     // td 요소에 i 태그 추가 - 정답/오답 표시
     td1.appendChild(tagi);
+
+
+
+    // 정답
+    if (Array.isArray(answer)) {  // answer가 배열이면
+
+        for (let i = 0; i < answer.length; i++) {
+
+            if (answer != '') {
+                let spanTag = document.createElement('span');
+                spanTag.innerHTML = answer[i];
+                td2.appendChild(spanTag);
+            }
+        }
+    } else { // userAns가 배열이 아니면
+
+        td2.textContent = answer;
+
+    }
 
 
     //본인 응답
