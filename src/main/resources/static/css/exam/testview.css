@@ -173,8 +173,9 @@ textarea:focus{
 
 .page .question .num{
     border-radius: 10px;
-    width: 42px;
     border: none;
+    white-space: nowrap;
+    padding: 10px 30px;
 }
 
 .pop-memo{
