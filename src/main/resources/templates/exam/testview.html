@@ -249,16 +249,18 @@
 
         //tab
         $('.tab-btn a').on('click', function () {
-            let _this = $(this)
-            let _idx = $(this).index();
+            let _this = $(this);
+            let _parentContainer = _this.closest('.tab-wrap'); // 클릭한 탭 버튼의 부모 .tab-wrap 요소 찾기
+            let _idx = _this.index(); // 클릭한 탭 버튼의 인덱스
 
-            $('.tab-btn a').removeClass('on');
-            $(this).addClass('on');
+            // Update tab button classes
+            _parentContainer.find('.tab-btn a').removeClass('on');
+            _this.addClass('on');
 
-            $('.tab-cnt .cnt').removeClass('on');
-            $('.tab-cnt .cnt').eq(_idx).addClass('on');
-        })
-
+            // Update tab content classes
+            _parentContainer.find('.tab-cnt .cnt').removeClass('on');
+            _parentContainer.find('.tab-cnt .cnt').eq(_idx).addClass('on');
+        });
         //line
         let btn = $('.btn');
         let leftBtn = $('.left');
