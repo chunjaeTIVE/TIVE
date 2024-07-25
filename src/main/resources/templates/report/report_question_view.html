@@ -3,9 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/exam/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/exam/paper.css}">
+    <script th:src="@{/js/exam/getfile.js}"></script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        // Configure MathJax to use color.js extension
+        TeX: {
+            extensions: ["color.js"]  // color.js 확장 모듈 추가
+        },
+        // Remove unnecessary settings for your case
+        showProcessingMessages: false,
+        messageStyle: "none"
+    });
+
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
 </head>
 <body>
-
+<th:block th:each="item:${dto}">
+    <div th:utext="${item.qContents}"></div>
+</th:block>
 
 
 </body>

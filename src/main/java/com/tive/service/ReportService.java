@@ -1,5 +1,6 @@
 package com.tive.service;
 
+import com.tive.dto.QuestionDTO;
 import com.tive.dto.ReportExamDTO;
 import com.tive.dto.ReportQuestionDTO;
 
@@ -25,4 +26,5 @@ public interface ReportService {
 
     List<ReportQuestionDTO> getSubjectiveList(Long ut_id, Long eid);
 
+    QuestionDTO findQuestion(Long qid);
 }

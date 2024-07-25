@@ -302,11 +302,11 @@ public class ReportController {
 
     /**정오표 - 상세보기*/
     @GetMapping("/report_question/{qid}")
-    public String questionView(@PathVariable("qid") Long qid){
+    public String questionView(@PathVariable("qid") Long qid,Model model){
 
 
-
-
+        QuestionDTO dto = reportService.findQuestion(qid);
+        model.addAttribute("dto",dto);
         return "/report/report_question_view";
     }
 

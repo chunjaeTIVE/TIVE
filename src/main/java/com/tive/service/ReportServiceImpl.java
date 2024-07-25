@@ -1,6 +1,8 @@
 package com.tive.service;
 
 import com.querydsl.core.Tuple;
+import com.tive.domain.UserAnswer;
+import com.tive.dto.QuestionDTO;
 import com.tive.dto.ReportExamDTO;
 import com.tive.dto.ReportQuestionDTO;
 import com.tive.repository.report.ReportRepository;
@@ -366,4 +368,10 @@ public class ReportServiceImpl implements ReportService {
         return data;
     }
 
+
+    @Override
+    public QuestionDTO findQuestion(Long qid) {
+        QuestionDTO dto = reportRepository.findByqId(qid);
+        return dto;
+    }
 }
