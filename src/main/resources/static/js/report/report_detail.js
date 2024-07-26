@@ -671,5 +671,5 @@ let insertTable7 = function (tbodyID, orderName, contentArea, answer, userAns, c
 
 function openQuestion(qid) {
     // 새 창을 열고 문제 번호로 이동
-    window.open('/report_question/' + qid, '_blank', 'width=400,height=400');
+    window.open('/report_question/' + qid, '_blank', 'width=1000,height=900');
 }

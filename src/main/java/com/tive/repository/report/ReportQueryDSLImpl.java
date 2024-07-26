@@ -32,7 +32,7 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
     @Override
     public List<ReportExamDTO> getTest(Long uid) {
 
-        List<ReportExamDTO> list  = queryFactory.select(Projections.fields(ReportExamDTO.class
+        List<ReportExamDTO> list = queryFactory.select(Projections.fields(ReportExamDTO.class
                         , userTest.utToUsers.uid
                         , userTest.utId
                         , userTest.utToExam.eid
@@ -69,7 +69,7 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
                 .groupBy(userAnswer.correct)
                 .fetchOne();
 
-        if(score == null){
+        if (score == null) {
             score = 0;
         }
 
@@ -181,7 +181,7 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
                 .innerJoin(questionItem)
                 .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid)
                         .and(questionItem.questionToExam.eid.eq(eid))
-                        .and(questionItem.status.in(13,12,11).or(questionItem.status.isNull())))
+                        .and(questionItem.status.in(13, 12, 11).or(questionItem.status.isNull())))
                 .groupBy(questionItem.difficulty)
                 .fetch();
 
@@ -201,7 +201,7 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
                 .innerJoin(questionItem)
                 .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid)
                         .and(userAnswer.uaToUt.utId.eq(ut_id))
-                                .and(questionItem.status.in(13,12,11).or(questionItem.status.isNull())))
+                        .and(questionItem.status.in(13, 12, 11).or(questionItem.status.isNull())))
                 .groupBy(questionItem.difficulty)
                 .fetch();
 
@@ -220,7 +220,7 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
                 .innerJoin(questionItem)
                 .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid)
                         .and(questionItem.questionToExam.eid.eq(eid))
-                        .and(questionItem.status.in(13,12,11).or(questionItem.status.isNull())))
+                        .and(questionItem.status.in(13, 12, 11).or(questionItem.status.isNull())))
                 .innerJoin(questionCategory)
                 .on(questionItem.contentArea.eq(questionCategory.categoryCode))
                 .groupBy(questionItem.contentArea)
@@ -241,7 +241,7 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
                 .innerJoin(questionItem)
                 .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid)
                         .and(userAnswer.uaToUt.utId.eq(ut_id))
-                        .and(questionItem.status.in(13,12,11).or(questionItem.status.isNull())))
+                        .and(questionItem.status.in(13, 12, 11).or(questionItem.status.isNull())))
                 .innerJoin(questionCategory)
                 .on(questionItem.contentArea.eq(questionCategory.categoryCode))
                 .groupBy(questionItem.contentArea)
@@ -262,7 +262,7 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
                 .innerJoin(questionItem)
                 .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid)
                         .and(questionItem.questionToExam.eid.eq(eid))
-                        .and(questionItem.status.in(13,12,11).or(questionItem.status.isNull())))
+                        .and(questionItem.status.in(13, 12, 11).or(questionItem.status.isNull())))
                 .groupBy(questionItem.qType)
                 .fetch();
 
@@ -280,7 +280,7 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
                 .innerJoin(questionItem)
                 .on(userAnswer.uaToQuestion.qid.eq(questionItem.qid)
                         .and(userAnswer.uaToUt.utId.eq(ut_id))
-                        .and(questionItem.status.in(13,12,11).or(questionItem.status.isNull())))
+                        .and(questionItem.status.in(13, 12, 11).or(questionItem.status.isNull())))
                 .groupBy(questionItem.qType)
                 .fetch();
 
@@ -291,8 +291,11 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
     @Override
     public QuestionDTO findByqId(Long qid) {
         QuestionDTO dto = queryFactory.select(Projections.fields(QuestionDTO.class
-                        ,questionItem.qid
-                        , questionItem.qContents))
+                        , questionItem.qid
+                        , questionItem.qContents
+                        , questionItem.qType
+                        , questionItem.answer
+                        , questionItem.commentary))
                 .from(questionItem)
                 .where(questionItem.qid.eq(qid))
                 .fetchOne();

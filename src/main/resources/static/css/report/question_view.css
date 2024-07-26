@@ -1,0 +1,23 @@
+.box_qContents{
+    width: 885px;
+}
+.box_comment {
+    width: 885px;
+    margin: 0 auto;
+    padding: 3vw 3vh;
+    box-shadow: 0px 0px 5px 5px rgba(225, 225, 255);
+    border-radius: 1vw;
+    position: relative;
+}
+
+.box_comment h3 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 2vh;
+}
+
+.box_comment p {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 2vh;
+}
