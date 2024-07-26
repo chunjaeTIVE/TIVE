@@ -96,6 +96,7 @@ function completeExam() {
             return response.text();
     }).then(data => {
         console.log(data);
+        location.href = "/report_basic";
     }).catch(error => {
         console.error(error);
     });

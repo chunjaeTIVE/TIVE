@@ -30,6 +30,8 @@ public class UserTest {
     @Column(name = "local_code")
     private Integer localCode;
 
+    private Integer score;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="eid")
     private ExamItem utToExam;

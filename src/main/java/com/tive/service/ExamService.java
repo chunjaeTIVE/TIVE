@@ -15,4 +15,6 @@ public interface ExamService {
     ExamDTO findExamInfo(String userSL, String subject, int examKind);
 
     Long submitExam(String email, HashMap<String, Object> hm);
+
+    int addScore(Long utid);
 }

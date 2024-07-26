@@ -7,6 +7,7 @@ import com.tive.dto.QuestionDTO;
 import com.tive.dto.UsersDTO;
 import com.tive.exception.CustomException;
 import com.tive.service.ExamService;
+import com.tive.service.ReportService;
 import com.tive.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -52,12 +53,14 @@ public String exam1(@PathVariable Long eid, Model model) {
     return "exam/testview";
 }
     @PostMapping("/submit_exam")
-    public ResponseEntity<Long> submitExam(@RequestBody HashMap<String,Object> hm, Principal principal){
+    public ResponseEntity<Integer> submitExam(@RequestBody HashMap<String,Object> hm, Principal principal){
         String email = "";
         if(principal!=null)
             email = principal.getName();
         System.out.println(hm.get("body"));
-        Long result = examService.submitExam(email,hm);
-        return new ResponseEntity<>(1L,HttpStatus.OK);
+        Long utid = examService.submitExam(email,hm);
+        System.out.println("utid있슈? :"+utid);
+        int result = examService.addScore(utid);
+        return new ResponseEntity<>(result,HttpStatus.OK);
     }
 }
