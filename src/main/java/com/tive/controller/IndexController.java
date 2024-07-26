@@ -1,5 +1,6 @@
 package com.tive.controller;
 
+import com.tive.domain.SchoolLV;
 import com.tive.dto.ExamDTO;
 import com.tive.dto.NoticeDTO;
 import com.tive.exception.CustomException;
@@ -114,7 +115,7 @@ public class IndexController {
   
 /** cbt안내 */
     @GetMapping("/cbtTest/{schoolLevel}")
-    public String cbtTest( @PathVariable String schoolLevel
+    public String cbtTest( @PathVariable SchoolLV schoolLevel
             , Model model
             , Principal principal){
 
