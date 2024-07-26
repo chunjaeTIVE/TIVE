@@ -13,7 +13,7 @@
 
 <div id="ranking_wrap">
 
-    <h1>지역별 평균점수 랭킹</h1>
+    <h1>지역별 랭킹</h1>
 
     <div class="sand"></div>
     <div class="wave" id="wave1"></div>
@@ -21,15 +21,37 @@
     <div class="wave" id="wave3"></div>
 
     <div id="ranking_box">
-        <div id="map_box">
-            <h1>우리 팀</h1>
-            <div id="map"></div>
+        <div class="box_left">
+            <div class="paper">
+
+            </div>
+            <section class="section_box">
+                <div class="spring_box">
+                    <img class="spring" th:src="@{/img/report/spring_one.png}" th:alt="스프링">
+                    <img class="spring" th:src="@{/img/report/spring_one.png}" th:alt="스프링">
+                </div>
+
+                <h1>우리 팀</h1>
+                <div id="map"></div>
+            </section>
         </div>
 
-        <div id="rank_box">
-            <h1>순위</h1>
-            <div id="rank"></div>
+        <div class="box_right">
+            <div class="paper">
+
+            </div>
+
+            <section class="section_box">
+                <div class="spring_box">
+                    <img class="spring" th:src="@{/img/report/spring_one.png}" th:alt="스프링">
+                    <img class="spring" th:src="@{/img/report/spring_one.png}" th:alt="스프링">
+                </div>
+
+                <h1>순위</h1>
+                <div id="rank"></div>
+            </section>
         </div>
+
     </div>
 
     <div class="deco_box">
