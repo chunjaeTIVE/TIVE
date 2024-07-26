@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -48,6 +49,7 @@ public class ExamServiceImpl implements ExamService{
     public Long submitExam(String email, HashMap<String, Object> hm) {
         // 1. 최초 응시 / 재응시 여부 파악
         Long eid = Long.parseLong((String)hm.get("eid"));
+        System.out.println("submitExam eid: "+eid);
         Users user = usersRepository.findByEmail(email);
         UserTest findUserTest = userTestRepository.findByUser(user.getUid(), eid);
         UserTest saveUserTest;
@@ -61,13 +63,18 @@ public class ExamServiceImpl implements ExamService{
                     .utToExam(examInfo)
                     .utToUsers(user)
                     .countCorrect(0)
+                    .examDate(LocalDateTime.now())
+                    .localCode(user.getLocalCode())
                     .build();
             System.out.println(user.getEmail()+","+examInfo.getExamName());
             saveUserTest = userTestRepository.save(userTest);
         } else {
             saveUserTest = findUserTest;
+            saveUserTest.setLocalCode(user.getLocalCode());
+            saveUserTest.setExamDate(LocalDateTime.now());
             reTry = true;
-            findUserAnsList = findUserTest.getUaList();
+            //findUserAnsList = findUserTest.getUaList();
+            findUserAnsList = userAnswerRepository.findByUserExam(user.getUid(),eid);
             System.out.println("findUserAnsList size : "+findUserAnsList.size());
         }
         // 3. 채점
@@ -82,7 +89,27 @@ public class ExamServiceImpl implements ExamService{
                 HashMap<String,Object> ans = (HashMap<String, Object>) list.get(k);
                 String uqid = (String) ans.get("qid");
                 System.out.println(uqid+","+real.get(j).getQid());
-                Long idx = Long.parseLong(uqid) - real.get(j).getQid();
+                //Long idx = Long.parseLong(uqid) - real.get(j).getQid();
+                Long order = Long.parseLong((String) ans.get("order"))-1;
+                if(k==0 && order!=0){
+                    for(int f=0; f<order; f++){
+                        corrects[f] = 0;
+                        if(reTry){
+                            findUserAnsList.get(f).setUserAns("");
+                            findUserAnsList.get(f).setCorrect(0);
+                        } else {
+                            UserAnswer uaEntity = UserAnswer.builder()
+                                    .userAns("")
+                                    .correct(0)
+                                    .uaToUsers(user)
+                                    .uaToQuestion(real.get(f))
+                                    .uaToUt(saveUserTest)
+                                    .build();
+                            userAnswers.add(uaEntity);
+                        }
+                    }
+                }
+                Long idx = order - j;
                 if(j>=0 && idx>0){
                     for(int i=0; i<idx; i++){
                         corrects[j+i] = 0;
@@ -185,8 +212,10 @@ public class ExamServiceImpl implements ExamService{
                 System.out.println(userAnswer);
                 // 여기서 user answer insert
                 if(reTry){
-                    findUserAnsList.get(j).setUserAns(userAnswers.toString());
+                    System.out.println("원래 정답: "+findUserAnsList.get(j).getUserAns()+", userAnswer:"+userAnswer.toString());
+                    findUserAnsList.get(j).setUserAns(userAnswer.toString());
                     findUserAnsList.get(j).setCorrect(correct);
+                    System.out.println("바뀐 정답: "+findUserAnsList.get(j).getUserAns());
                 } else {
                     UserAnswer uaEntity = UserAnswer.builder()
                             .userAns(userAnswer.toString())
@@ -202,8 +231,10 @@ public class ExamServiceImpl implements ExamService{
                 // userAnswer 는 ""
                 // 여기서 user answer insert
                 if(reTry){
+                    System.out.println("원래 정답: "+findUserAnsList.get(j).getUserAns());
                     findUserAnsList.get(j).setUserAns("");
                     findUserAnsList.get(j).setCorrect(0);
+                    System.out.println("바뀐 정답: "+findUserAnsList.get(j).getUserAns());
                 } else {
                     UserAnswer uaEntity = UserAnswer.builder()
                             .userAns("")

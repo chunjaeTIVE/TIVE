@@ -34,7 +34,7 @@ function mergeTemp(temp) {
                 }
                 // if (value.length === 1)
                 //     value = value.pop();
-                merge.push({"qid": dqid, "answer": value});
+                merge.push({"qid": dqid, "order": temp[i].order,"answer": value});
             }
         }
         console.log(merge);
@@ -103,7 +103,8 @@ function completeExam() {
 
 function answerExtract(els, el) {
     //console.log(el.type);
-    let ancestor = $(el).closest('.swiper-slide').find('input[type="hidden"]').prop('id');
+    //let ancestor = $(el).closest('.swiper-slide').find('input[type="hidden"]').prop('id');
+    let ancestor = $(el).closest('.swiper-slide').find('input[type="hidden"]');
     //console.log(ancestor);
     let val = Array.from(els)
         .filter(el => {
@@ -113,7 +114,7 @@ function answerExtract(els, el) {
             else
                 condition = el.checked;
             //console.log(condition);
-            if (condition && ancestor === $(el).closest('.swiper-slide').eq(0).prop('id')) {
+            if (condition && ancestor.prop('id') === $(el).closest('.swiper-slide').eq(0).prop('id')) {
                 //console.log(el, el.value);
                 return true;
             }
@@ -124,9 +125,9 @@ function answerExtract(els, el) {
     if (val.length === 1)
         val = val.pop();
     if (el.type === 'textarea')
-        return {"qid": ancestor, "textarea": val};
+        return {"qid": ancestor.prop('id'), "order":ancestor.prop('value'), "textarea": val};
     else
-        return {"qid": ancestor, "answer": val};
+        return {"qid": ancestor.prop('id'), "order":ancestor.prop('value'), "answer": val};
 }
 
 function dupleElementPop(temp, answer) {
@@ -357,8 +358,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (hiddenInput) {
                     let ancestor = hiddenInput.id; // 숨겨진 input의 id를 가져옴
-                    let answer = {"qid": ancestor}; // answer 객체를 생성
                     let questionOrder = hiddenInput.value;
+                    let answer = {"qid": ancestor, "order":questionOrder}; // answer 객체를 생성
                     // 클릭된 버튼의 인덱스를 찾아서 answer 객체에 추가
                     let siblings = e.target.parentElement.children;
                     for (let s = 0; s < siblings.length; s++) {
@@ -432,9 +433,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (hiddenInput) {
                     let ancestor = hiddenInput.id; // 숨겨진 input의 id를 가져옴
-                    let answer = {"qid": ancestor}; // answer 객체를 생성
                     let questionOrder = hiddenInput.value;
-
+                    let answer = {"qid": ancestor, "order":questionOrder}; // answer 객체를 생성
 
                     // 클릭된 그룹의 형제 요소들을 가져와서 인덱스를 찾음
                     let siblings = e.target.parentElement.parentElement.children;
@@ -557,7 +557,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             if (val.nodeName === 'IMG') val = val.src;
                             else val = val.textContent;
 
-                            let answer = {"qid": ancestor};
+                            let answer = {"qid": ancestor, "order":questionOrder};
                             let siblings = e.target.parentElement.children;
                             for (let s = 0; s < siblings.length; s++) {
                                 if (siblings[s] === e.target) {
