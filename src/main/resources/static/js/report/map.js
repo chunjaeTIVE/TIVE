@@ -3,6 +3,9 @@ window.onload = function () {
     var map;
     var markers = []; // 마커들을 담을 배열
 
+    const localCode = document.getElementById('localCode').value; // 시도교육청코드 설정
+    console.log("지역코드: ", localCode);
+
     // Naver Map 초기화
     function loadNaverMap(lat, lng) {
         console.log("네이버 맵 초기화:", lat, lng);
@@ -29,7 +32,6 @@ window.onload = function () {
     }
 
     function fetchData(){
-        const localCode = "7010000"; // 시도교육청코드 설정
 
         fetch(`/schools?localCode=${localCode}`, {
             method: "GET",
@@ -75,9 +77,20 @@ window.onload = function () {
         console.log("[테스트] 마커 추가됨:", marker);
     }
 
-    // 지도 초기화 호출
-    const seoulEduLat = 37.570452;
-    const seoulEduLng = 126.976792;
-    loadNaverMap(seoulEduLat, seoulEduLng);
+    //지도 초기화 호출
+    let EduLat = 0;
+    let EduLng = 0;
+    switch (localCode) {
+        case "7530000": //경기도 교육청일 경우
+            EduLat = 37.2835;
+            EduLng = 127.0467;
+            console.log("경기도 교육청.............")
+            break;
+        default:
+            EduLat = 37.570452;
+            EduLng = 126.976792;
+    }
+
+    loadNaverMap(EduLat, EduLng);
     fetchData();
 }

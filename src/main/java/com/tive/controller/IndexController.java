@@ -204,7 +204,26 @@ public class IndexController {
     }
 
     @GetMapping("/ranking")
-    public String showRank(Model model){
+    public String showRank(
+            Model model
+            , Principal principal){
+
+        //현재 세션으로 유저 이름, 지역 교육청 코드 가져오기
+        String useremail = "";
+        String username = "";
+        int userLC = 0;
+
+        if (principal != null && principal.getName() != null) { //로그인 한 경우에만 받아옴
+            useremail = principal.getName();
+
+            username = userService.getUserInfo(useremail).getName(); // 이름
+            userLC = userService.getUserInfo(useremail).getLocalCode(); // 학교급
+
+            model.addAttribute("username", username);
+            model.addAttribute("userLC", userLC);
+
+        }
+
         List<UsersDTO> rank = reportService.findRanking();
         model.addAttribute("rank",rank);
         model.addAttribute("view", "report/ranking");
