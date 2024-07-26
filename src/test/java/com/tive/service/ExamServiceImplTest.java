@@ -2,8 +2,12 @@ package com.tive.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tive.domain.UserAnswer;
+import com.tive.domain.UserTest;
 import com.tive.dto.QuestionDTO;
 import com.tive.repository.questionitem.QuestionItemRepository;
+import com.tive.repository.usertestans.UserTestRepository;
+import jakarta.transaction.Transactional;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +27,8 @@ class ExamServiceImplTest {
 
     @Autowired
     private QuestionItemRepository questionItemRepository;
+    @Autowired
+    private UserTestRepository userTestRepository;
 
     @Test
     void findExam() {
@@ -43,5 +49,16 @@ class ExamServiceImplTest {
         String[] arr = new String[]{"a","b"};
         String val = "1";
         System.out.println(json instanceof String);
+    }
+
+    @Test
+    @Transactional
+    void test2(){
+        UserTest byUser = userTestRepository.findByUser(44L, 9L);
+        for(UserAnswer a: byUser.getUaList()){
+            System.out.println(a.getUserAns());
+            a.setUserAns("answer");
+            System.out.println(a.getUserAns());
+        }
     }
 }

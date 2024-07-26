@@ -26,6 +26,13 @@ public class Marking {
         String correct = "1";
         if(realListAns.size()!= userListAns.size()){
             for(int u=0; u<userListAns.size(); u++){
+                if(realListAns.get(0) instanceof String){
+                    String realAns = (String)realListAns.get(u);
+                    System.out.println(realAns.contains(userListAns.get(u)));
+                } else {
+                    Integer realAns = (Integer) realListAns.get(u);
+                    System.out.println(realAns==Integer.parseInt(userListAns.get(u)));
+                }
                 userAnswer.append(userListAns.get(u)+",");
             }
             correct = "0";
