@@ -18,8 +18,10 @@
         messageStyle: "none"
     });
 
+
     </script>
-    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/javascript" async
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </head>
 <body>
@@ -31,25 +33,175 @@
 
 <div class="box_comment">
     <h3>해설</h3>
-    <p th:text="${dto.commentary}"></p>
+    <p>정답 : <span id="answer"></span></p>
+    <p th:text="${dto.commentary}" id="comment"></p>
 </div>
 
-[[${dto.answer}]]
-[[${dto.qType}]]
 
-<script th:src="@{/js/report/question_view.js}"></script>
-<script>
-    // let answers = {
-    //     setAnswer: ''
-    //     , setType: ''
-    // }
-    //
-    // answers['setAnswer'] = [[${dto.answer}]]
-    // answers['setType'] = [[${dto.qType}]]
-    //
-    // setAnswers(answers);
-    //
-    // console.log([[${dto.answer}]]);
+
+<script th:inline="javascript">
+    let answers = {
+        setQid: 0
+        , setAnswer: ''
+        , setType: ''
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+        answers['setQid'] = [[${dto.qid}]];
+        answers['setAnswer'] = [[${dto.answer}]];
+        answers['setType'] = [[${dto.qType}]];
+
+        let answertext = answerPrint(answers);
+        document.getElementById('answer').innerText = answertext;
+
+
+        console.log(answertext);
+
+    });
+
+
+    let answerPrint = function (answers) {
+
+
+        let answer = answers.setAnswer;
+        let qType = answers.setType;
+
+        let textAnswer; // 출력할 텍스트
+
+
+        // 문자열을 JSON 객체로 변환
+        let regex = /<[^>]*>/; // 태그 패턴을 정의한 정규표현식 -> 태그 있는지 확인용
+
+        try {
+            let answerJS = JSON.parse(answer);
+
+
+            if (qType == 'IT11') {  // IT11 -> 정답 배열 순서가 문제 순서와 다름
+                textAnswer = `${answerJS["answer"][2]}, ${answerJS["answer"][0]}, ${answerJS["answer"][1]}`;
+
+            } else if (qType == 'IT14' || qType == 'IT15') {  // IT14 -> 숫자를 알파벳으로 바꾸고 textarea 부분 출력
+                let ex1 = ["", "A", "B", "C", "D", "E"];
+                let ex2 = ["", "태현", "민주", "상희"];
+                let ex3 = ["", "가", "나", "다", "라"];
+                if (qid == 589) {
+                    textAnswer = `${ex2[answerJS["answer"]]} / ${answerJS["textarea"]}`;
+                } else if (qid == 588) {
+                    textAnswer = `${ex3[answerJS["answer"]]} / ${answerJS["shortText"]} / ${answerJS["textarea"]}`;
+                } else {
+                    textAnswer = `${ex1[answerJS["answer"]]} / ${answerJS["textarea"]}`;
+                }
+
+            } else if (qType == 'IT13' || qType == 'IT18') {
+                if (qid == 299) { // 불규칙적인 부분 입력..
+                    textAnswer = "감소한다, 변화없다";
+
+                } else if (qid == 747) { // 불규칙적인 부분 입력..
+                    textAnswer = '" ", "○"';
+
+                } else {
+                    textAnswer = `${answerJS["answer"]} / ${answerJS["textarea"]}`;
+                }
+
+            } else if (qType == 'IT12') { //IT12 첫번째 값 하나만 출력
+                textAnswer = `${answerJS["answer"][0]}`;
+
+            } else if (qType == 'IT17') { //IT12 첫번째 값 하나만 출력
+                textAnswer = `${answerJS["answer"]} / ${answerJS["social_rule"]}`;
+
+            } else {
+
+                // 이미지 태그 확인용
+                let imgRegex = /<img[^>]*>/i;
+
+                // answer 값은 하나인데 그 안에 배열이 들어있을 때
+                if (answerJS["answer"].length == 1 && Array.isArray(answerJS["answer"])) {
+
+
+                    if (regex.test(answerJS["answer"][0])) { //answer안에 태그가 있으면
+
+
+                        if (imgRegex.test(answerJS["answer"][0])) { // 이미지 태그인지 확인
+
+
+                            //// src 속성 값 추출
+                            let srcRegex = /<img[^>]*src=["']([^"']+)["']/i;
+                            let match = answerJS["answer"][0].match(srcRegex);
+
+                            if (match) { // src 속성이 찾아가기
+
+                                let srcValue = match[1].split('..'); // src 속성 값 추출하고 앞에 ../부분 자르기
+                                let srcRoot = srcValue[srcValue.length - 1];
+
+                                // 절대 경로로 변환
+                                let absoluteSrc = `https://kdt-java-5-2.s3.ap-northeast-2.amazonaws.com${srcRoot}`;
+
+
+                                // 새로운 img 태그 생성
+                                let img2 = `<img src="${absoluteSrc}" class="this">`;
+
+                                textAnswer = [];
+                                textAnswer.push(img2);
+
+
+                            } else {
+                                textAnswer = answerJS["answer"][0]
+                            }
+
+
+                        } else { // 이미지 태그가 아니면
+                            //태그 지우고 그 안의 text만 전달
+                            textAnswer = answerJS["answer"][0].replace(/<[^>]*>/g, '');
+                        }
+
+
+                    } else { //answer안에 태그 패턴이 없을 때
+                        textAnswer = answerJS["answer"];
+
+                    }
+
+                } else { // answer 단답이거나, 답이 여러개 있거나, 배열이 여러개 들어있을 때
+
+
+                    if (regex.test(answerJS["answer"][0])) { //answer안에 태그가 있으면
+
+
+                        if (imgRegex.test(answerJS["answer"][0])) { // 이미지 태그인지 확인
+
+
+                            for (let i = 0; i < answerJS["answer"].length; i++) {
+                                //// src 속성 값 추출
+                                let srcRegex = /<img[^>]*src=["']([^"']+)["']/i;
+                                let match = answerJS["answer"][i].match(srcRegex);
+
+                                if (match) { // src 속성이 찾아가기
+                                    let srcValue = match[1].split('..'); // src 속성 값 추출하고 앞에 ../부분 자르기
+                                    let srcRoot = srcValue[srcValue.length - 1];
+
+                                    // 절대 경로로 변환
+                                    let absoluteSrc = `https://kdt-java-5-2.s3.ap-northeast-2.amazonaws.com${srcRoot}`;
+
+
+                                    // 새로운 img 태그 생성
+                                    let img3 = `<img src="${absoluteSrc}" class="this">`;
+
+                                    answerJS["answer"][i] = img3;
+
+                                }
+                            }
+                        }
+                    }
+                    textAnswer = answerJS["answer"];
+
+                    console.log(textAnswer);
+                }
+
+            }
+        } catch (error) {
+            // JSON 파싱 중 오류가 발생한 경우
+            console.error('JSON 파싱 오류:', error.message);
+        }
+
+        return textAnswer;
+    }
 
 </script>
 
