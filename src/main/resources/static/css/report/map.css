@@ -5,6 +5,9 @@
     height: 100vh;
     overflow: hidden;
     background: #FFCE99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .sand{ /*파도 아래 모래*/
@@ -110,56 +113,85 @@
     position: absolute;
     z-index: 5;
     text-align: center;
-    top: 15vh;
+    top: 10vh;
     font-family: chab;
     color: white;
     width: 100%;
-    font-size: 4vw;
     font-weight: lighter;
+    font-size: 3.5vw;
 }
 /*타이틀 끝*/
 
 #ranking_box{
     display: flex;
     flex-direction: row;
-    position: absolute;
+    position: relative;
     z-index: 5;
-    background: white;
-    bottom: -8vh;
-    left: 15vw;
-    padding: 5vw;
-    border-radius: 6vw;
+    background: #E0A368;
+    padding: 3vw;
+    border-radius: 4vw;
+    top: 10vh;
 }
 
 #ranking_box h1{
     text-align: center;
+    margin-bottom: 1.5vh;
+    font-family: omyu_pretty;
+    font-size: 1.8vw;
 }
 
-#map_box{
-    background-color: lightskyblue;
-    padding: 3vw;
+.paper{
+    width: 20vw;
+    height: 23vw;
+    background-color: white;
+    position: absolute;
+    top: 7vh;
+    z-index: -1;
+    padding: 2vw;
     border-radius: 3vw;
-    margin-right: 1vw;
+    margin-left: 0.5vw;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-#rank_box{
-    background-color: lightskyblue;
-    padding: 3vw;
+.section_box{
+    background-color: white;
+    padding: 2vw;
     border-radius: 3vw;
+    width: 20vw;
+    height: 23vw;
+    position: relative;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.box_left .section_box{
+    margin-right: 3vw;
+}
+
+.spring_box{
+    position: absolute;
+    width: 84%;
+    display: flex;
+    justify-content: space-between;
+    top: -4vh;
+}
+
+.spring{
+    width: 3vw;
+    height: 5vw;
 }
 
 
 #map{
     border-radius: 3vw;
-    width: 25vw;
-    height: 25vw;
+    width: 20vw;
+    height: 20vw;
 
 }
 
 #rank{
     border-radius: 3vw;
-    width: 25vw;
-    height: 25vw;
+    width: 20vw;
+    height: 20vw;
     background: lightgrey;
 }
 
@@ -176,19 +208,18 @@
 }
 
 .deco_item{
-    width: 15vw;
+    width: 10vw;
     position: relative;
     top: -1vw;
+    z-index: 0;
 }
 
 #ball{
-    position: relative;
-    left: 3vw;
+    left: 8vw;
 }
 
 #sea_star{
-    position: relative;
-    right: 1vw;
+    right: 10vw;
 }
 
 /* 바닥 장식 끝*/
