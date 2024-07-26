@@ -7,6 +7,7 @@ import com.tive.dto.ExamDTO;
 import com.tive.dto.QuestionDTO;
 import com.tive.repository.examitem.ExamItemRepository;
 import com.tive.repository.questionitem.QuestionItemRepository;
+import com.tive.repository.report.ReportRepository;
 import com.tive.repository.users.UsersRepository;
 import com.tive.repository.usertestans.UserAnswerRepository;
 import com.tive.repository.usertestans.UserTestRepository;
@@ -26,6 +27,7 @@ public class ExamServiceImpl implements ExamService{
     private final UsersRepository usersRepository;
     private final UserTestRepository userTestRepository;
     private final UserAnswerRepository userAnswerRepository;
+    private final ReportRepository reportRepository;
     @Override
     public List<ExamDTO> findExamList() {
         List<ExamDTO> list = examItemRepository.findExamList();
@@ -258,8 +260,18 @@ public class ExamServiceImpl implements ExamService{
         if(!reTry)
             userAnswerRepository.saveAll(userAnswers);
         saveUserTest.setCountCorrect(countCorrect);
-        return 1L;
+        return saveUserTest.getUtId();
     }
 
-
+    @Override
+    @Transactional
+    public int addScore(Long utid) {
+        Integer score = reportRepository.getScore(utid);
+        Optional<UserTest> findUT = userTestRepository.findById(utid);
+        UserTest userTest = findUT.orElseThrow(() -> {
+            throw new RuntimeException();
+        });
+        userTest.setScore(score);
+        return 1;
+    }
 }
