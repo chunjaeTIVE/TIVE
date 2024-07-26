@@ -5,6 +5,7 @@
     <title>Title</title>
     <link rel="stylesheet" th:href="@{/css/exam/reset.css}">
     <link rel="stylesheet" th:href="@{/css/exam/paper.css}">
+    <link rel="stylesheet" th:href="@{/css/report/question_view.css}">
     <script th:src="@{/js/exam/getfile.js}"></script>
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -22,10 +23,35 @@
 
 </head>
 <body>
+
 <th:block th:each="item:${dto}">
     <div th:utext="${item.qContents}"></div>
 </th:block>
 
+
+<div class="box_comment">
+    <h3>해설</h3>
+    <p th:text="${dto.commentary}"></p>
+</div>
+
+[[${dto.answer}]]
+[[${dto.qType}]]
+
+<script th:src="@{/js/report/question_view.js}"></script>
+<script>
+    // let answers = {
+    //     setAnswer: ''
+    //     , setType: ''
+    // }
+    //
+    // answers['setAnswer'] = [[${dto.answer}]]
+    // answers['setType'] = [[${dto.qType}]]
+    //
+    // setAnswers(answers);
+    //
+    // console.log([[${dto.answer}]]);
+
+</script>
 
 </body>
 </html>

@@ -15,4 +15,6 @@ public class QuestionDTO {
     private String examName;
     private Long eid;
     private Integer order;
+    private String answer;
+    private String commentary;
 }

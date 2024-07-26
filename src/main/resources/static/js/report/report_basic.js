@@ -345,6 +345,6 @@ let insertTable5 = function (tbodyID, orderName, correct, answer, userAns, qid) 
 /**상세보기 버튼 새창 열기*/
 function openQuestion(qid) {
     // 새 창을 열고 문제 번호로 이동
-    window.open('/report_question/' + qid, '_blank', 'width=400,height=400');
+    window.open('/report_question/' + qid, '_blank', 'width=1000,height=900');
 }
 
