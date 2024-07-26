@@ -48,7 +48,24 @@
                 </div>
 
                 <h1>순위</h1>
-                <div id="rank"></div>
+                <div id="rank">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>순위</th>
+                            <th>교육청</th>
+                            <th>점수</th>
+                        </tr>
+                        </thead>
+                        <tbody >
+                        <tr th:each="item, stat : ${rank}">
+                            <td th:text="${stat.index + 1}"></td>
+                            <td th:text="${item.localName}"></td>
+                            <td th:text="${item.avgScore}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </section>
         </div>
 
@@ -59,8 +76,6 @@
         <img id="sea_star" class="deco_item" th:src="@{/img/report/sea_star.png}" th:alt="불가사리" draggable="false">
     </div>
 </div>
-
-
 
 
 </body>

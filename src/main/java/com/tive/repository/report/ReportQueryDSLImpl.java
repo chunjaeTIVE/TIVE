@@ -9,6 +9,7 @@ import static com.tive.domain.QQuestionCategory.*;
 import com.tive.dto.QuestionDTO;
 import com.tive.dto.ReportExamDTO;
 import com.tive.dto.ReportQuestionDTO;
+import com.tive.dto.UsersDTO;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -300,5 +301,21 @@ public class ReportQueryDSLImpl implements ReportQueryDSL {
                 .where(questionItem.qid.eq(qid))
                 .fetchOne();
         return dto;
+    }
+
+    @Override
+    public List<UsersDTO> findRanking() {
+        List<UsersDTO> list = queryFactory.select(Projections.fields(UsersDTO.class
+                        , userTest.score.avg().as("avgScore")
+                        , userTest.localCode
+                        , users.localName))
+                .from(userTest)
+                .innerJoin(users)
+                .on(userTest.utToUsers.uid.eq(users.uid))
+                .where(userTest.localCode.isNotNull())
+                .groupBy(userTest.localCode)
+                .orderBy(userTest.score.avg().desc())
+                .fetch();
+        return list;
     }
 }

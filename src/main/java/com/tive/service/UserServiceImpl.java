@@ -46,6 +46,7 @@ public class UserServiceImpl implements UserService{
                 .schoolLevel(schoolLV)
                 .agree(dto.getAgree())
                 .localCode(dto.getLocalCode())
+                .localName(dto.getLocalName())
                 .role(userRole)
                 .build();
 

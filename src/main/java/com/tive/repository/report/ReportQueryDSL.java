@@ -4,6 +4,7 @@ import com.querydsl.core.Tuple;
 import com.tive.dto.QuestionDTO;
 import com.tive.dto.ReportExamDTO;
 import com.tive.dto.ReportQuestionDTO;
+import com.tive.dto.UsersDTO;
 
 import java.util.List;
 
@@ -33,4 +34,6 @@ public interface ReportQueryDSL {
     Integer getScore(Long utId);
 
     QuestionDTO findByqId(Long qid);
+
+    List<UsersDTO> findRanking();
 }

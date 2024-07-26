@@ -31,4 +31,6 @@ public class Users {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserRole role;
+    @Column(name = "local_name")
+    private String localName;
 }

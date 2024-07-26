@@ -5,6 +5,7 @@ import com.tive.domain.UserAnswer;
 import com.tive.dto.QuestionDTO;
 import com.tive.dto.ReportExamDTO;
 import com.tive.dto.ReportQuestionDTO;
+import com.tive.dto.UsersDTO;
 import com.tive.repository.report.ReportRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -372,6 +373,12 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public QuestionDTO findQuestion(Long qid) {
         QuestionDTO dto = reportRepository.findByqId(qid);
+        return dto;
+    }
+
+    @Override
+    public List<UsersDTO> findRanking() {
+        List<UsersDTO> dto = reportRepository.findRanking();
         return dto;
     }
 }

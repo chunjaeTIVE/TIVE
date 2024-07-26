@@ -32,4 +32,7 @@ public class UsersDTO {
     @Builder.Default // 기본값을 USER로 설정
     private String role = "USER";
 
+    private Integer score;
+    private Double avgScore;
+    private String localName;
 }

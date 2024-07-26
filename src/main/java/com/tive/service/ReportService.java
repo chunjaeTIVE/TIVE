@@ -3,6 +3,7 @@ package com.tive.service;
 import com.tive.dto.QuestionDTO;
 import com.tive.dto.ReportExamDTO;
 import com.tive.dto.ReportQuestionDTO;
+import com.tive.dto.UsersDTO;
 
 import java.util.List;
 import java.util.Map;
@@ -27,4 +28,6 @@ public interface ReportService {
     List<ReportQuestionDTO> getSubjectiveList(Long ut_id, Long eid);
 
     QuestionDTO findQuestion(Long qid);
+
+    List<UsersDTO> findRanking();
 }

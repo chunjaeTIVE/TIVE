@@ -50,25 +50,26 @@
             <li class="input-group2">
                 <div class="localselect">
                     <label>관할 교육청</label>
-                    <select name="localCode" id="localCode" th:field="*{localCode}">
-                        <option value="7801000">강원특별자치도교육청</option>
-                        <option value="7530000">경기도교육청</option>
-                        <option value="9010000">경상남도교육청</option>
-                        <option value="8750000">경상북도교육청</option>
-                        <option value="7380000">광주광역시교육청</option>
-                        <option value="7240000">대구광역시교육청</option>
-                        <option value="7430000">대전광역시교육청</option>
-                        <option value="7430000">부산광역시교육청</option>
-                        <option value="7010000">서울특별시교육청</option>
-                        <option value="9300000">세종특별자치시교육청</option>
-                        <option value="7480000">울산광역시교육청</option>
-                        <option value="7310000">인천광역시교육청</option>
-                        <option value="8490000">전라남도교육청</option>
-                        <option value="8321000">전북특별자치도교육청</option>
-                        <option value="9290000">제주특별자치도교육청</option>
-                        <option value="8140000">충청남도교육청</option>
-                        <option value="8000000">충청북도교육청</option>
+                    <select name="localCode" id="localCode" onchange="updateLocalName()">
+                        <option value="7801000" data-name="강원특별자치도교육청">강원특별자치도교육청</option>
+                        <option value="7530000" data-name="경기도교육청">경기도교육청</option>
+                        <option value="9010000" data-name="경상남도교육청">경상남도교육청</option>
+                        <option value="8750000" data-name="경상북도교육청">경상북도교육청</option>
+                        <option value="7380000" data-name="광주광역시교육청">광주광역시교육청</option>
+                        <option value="7240000" data-name="대구광역시교육청">대구광역시교육청</option>
+                        <option value="7430000" data-name="대전광역시교육청">대전광역시교육청</option>
+                        <option value="7430000" data-name="부산광역시교육청">부산광역시교육청</option>
+                        <option value="7010000" data-name="서울특별시교육청">서울특별시교육청</option>
+                        <option value="9300000" data-name="세종특별자치시교육청">세종특별자치시교육청</option>
+                        <option value="7480000" data-name="울산광역시교육청">울산광역시교육청</option>
+                        <option value="7310000" data-name="인천광역시교육청">인천광역시교육청</option>
+                        <option value="8490000" data-name="전라남도교육청">전라남도교육청</option>
+                        <option value="8321000" data-name="전북특별자치도교육청">전북특별자치도교육청</option>
+                        <option value="9290000" data-name="제주특별자치도교육청">제주특별자치도교육청</option>
+                        <option value="8140000" data-name="충청남도교육청">충청남도교육청</option>
+                        <option value="8000000" data-name="충청북도교육청">충청북도교육청</option>
                     </select>
+                    <input type="hidden" name="localName" id="localName" th:field="*{localName}">
                 </div>
             </li>
             <li class="input-group2">
@@ -106,6 +107,12 @@
 <script>
     function toggle() {
         window.location.href = "/login";
+    }
+    function updateLocalName() {
+        const select = document.getElementById('localCode');
+        const selectedOption = select.options[select.selectedIndex];
+        const localName = selectedOption.getAttribute('data-name');
+        document.getElementById('localName').value = localName;
     }
 </script>
 </body>

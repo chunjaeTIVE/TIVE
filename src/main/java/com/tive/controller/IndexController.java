@@ -3,11 +3,9 @@ package com.tive.controller;
 import com.tive.domain.SchoolLV;
 import com.tive.dto.ExamDTO;
 import com.tive.dto.NoticeDTO;
+import com.tive.dto.UsersDTO;
 import com.tive.exception.CustomException;
-import com.tive.service.ExamService;
-import com.tive.service.NoticeService;
-import com.tive.service.UserDetailService;
-import com.tive.service.UserService;
+import com.tive.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -29,7 +27,7 @@ public class IndexController {
     private final UserService userService;
 
     private final ExamService examService;
-
+    private final ReportService reportService;
     @GetMapping("/index")
     public String main2(Model model, Principal principal){
 
@@ -207,6 +205,8 @@ public class IndexController {
 
     @GetMapping("/ranking")
     public String showRank(Model model){
+        List<UsersDTO> rank = reportService.findRanking();
+        model.addAttribute("rank",rank);
         model.addAttribute("view", "report/ranking");
         return "index";
     }
