@@ -186,7 +186,34 @@
     border-radius: 2vw;
     width: 20vw;
     height: 20vw;
+}
 
+#loading {
+    text-align: center;
+    font-size: 1vw;
+    border-radius: 2vw;
+    width: 20vw;
+    height: 20vw;
+    background: white;
+    border: 1px solid lightgrey;
+}
+
+#loading_box{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 10vh;
+}
+
+#load_img{
+    width: 6vw;
+    margin: 0 auto;
+}
+
+#load_txt{
+    width: 10vw;
+    margin: 0 auto;
+    padding-top: 1vw;
 }
 
 #rank{ /*랭킹 영역*/
