@@ -61,7 +61,10 @@
                         <tbody >
                         <tr th:each="item, stat : ${rank}">
                             <td th:text="${stat.index + 1}"></td>
-                            <td th:text="${item.localName}"></td>
+                            <td >
+                                <img class="edu_logo" th:src="|/img/logo/${item.localName}.png|" th:alt="로고">
+                                <span th:text="${item.localName}"></span>
+                            </td>
                             <td th:text="${item.avgScore}"></td>
                         </tr>
                         </tbody>

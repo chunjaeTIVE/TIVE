@@ -3,7 +3,11 @@ window.onload = function () {
     var map;
     var markers = []; // 마커들을 담을 배열
 
-    const localCode = document.getElementById('localCode').value; // 시도교육청코드 설정
+    let localCode = "7010000";
+    if (document.getElementById('localCode').value){
+        localCode = document.getElementById('localCode').value; // 시도교육청코드 설정
+    }
+
     console.log("지역코드: ", localCode);
 
     // Naver Map 초기화
@@ -81,12 +85,72 @@ window.onload = function () {
     let EduLat = 0;
     let EduLng = 0;
     switch (localCode) {
-        case "7530000": //경기도 교육청일 경우
+        case "7530000": //경기도교육청일 경우
             EduLat = 37.2835;
             EduLng = 127.0467;
             console.log("경기도 교육청.............")
             break;
-        default:
+        case "7150000": // 부산광역시교육청일 경우
+            EduLat = 35.1796;
+            EduLng = 129.0740;
+            break;
+        case "7240000": //대구광역시교육청일 경우
+            EduLat = 35.8715;
+            EduLng = 128.6015;
+            break;
+        case "7310000": //인천광역시교육청일 경우
+            EduLat=37.4484;
+            EduLng=126.6573;
+            break;
+        case "7380000": //광주광역시교육청일 경우
+            EduLat=35.1601;
+            EduLng=126.8514;
+            break;
+        case "7430000": //대전광역시교육청일 경우
+            EduLat=36.3482;
+            EduLng=127.3845;
+            break;
+        case "7480000": //울산광역시교육청일 경우
+            EduLat=35.5397;
+            EduLng=129.3114;
+            break;
+        case "7801000": //강원특별자치도교육청일 경우
+            EduLat=37.8662;
+            EduLng=127.7430;
+            break;
+        case "8000000": //충청북도교육청일 경우
+            EduLat=36.6342;
+            EduLng=127.4560;
+            break;
+        case "8140000": //충청남도교육청일 경우
+            EduLat=36.6554;
+            EduLng=126.8031;
+            break;
+        case "8321000": //전북특별자치도교육청일 경우
+            EduLat=35.8242;
+            EduLng=127.1084;
+            break;
+        case "8490000": //전라남도교육청일 경우
+            EduLat=34.8115;
+            EduLng=126.4418;
+            break;
+        case "8750000": //경상북도교육청일 경우
+            EduLat=36.5788;
+            EduLng=128.5050;
+            break;
+        case "9010000": //경상남도교육청일 경우
+            EduLat=35.2371;
+            EduLng=128.6926;
+            break;
+        case "9290000": //제주특별자치도교육청일 경우
+            EduLat=33.4987;
+            EduLng=126.5312;
+            break;
+        case "9300000": //세종특별자치시교육청일 경우
+            EduLat=36.4821;
+            EduLng=127.2894;
+            break;
+        default: //기본은 서울특별시교육청 좌표
             EduLat = 37.570452;
             EduLng = 126.976792;
     }
