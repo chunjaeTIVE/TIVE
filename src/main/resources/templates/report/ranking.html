@@ -34,6 +34,17 @@
                 <h1>우리 팀</h1>
                 <input id="localCode" type="hidden" th:value="${userLC}">
                 <input id="localName" type="hidden" th:value="${userLCname}">
+
+
+                <!--로딩 중 화면-->
+                <div id="loading" style="display: none;">
+                    <div id="loading_box">
+                        <img id="load_img" th:src="@{/img/report/cube.gif}" th:alt="큐브">
+                        <img id="load_txt" th:src="@{/img/report/loading.gif}" th:alt="로딩">
+                    </div>
+                </div>
+
+                <!--지도 화면-->
                 <div id="map"></div>
             </section>
         </div>

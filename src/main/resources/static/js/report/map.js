@@ -37,6 +37,10 @@ window.onload = function () {
 
     function fetchData(){
 
+        // 로딩 중인 화면 보이기
+        document.getElementById('loading').style.display = 'block';
+        document.getElementById('map').style.display = 'none';
+
         fetch(`/schools?localCode=${localCode}`, {
             method: "GET",
             headers: {
@@ -52,6 +56,11 @@ window.onload = function () {
         }).then(data => {
             console.log("받은 데이터:", data);
             addMarkersFromData(data);
+
+            // 로딩 중인 화면 숨기기, 지도 화면 보이기
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('map').style.display = 'block';
+
         }).catch(error => {
             console.error('Fetch error:', error);
         });
@@ -62,11 +71,11 @@ window.onload = function () {
         data.forEach(park => {
             const latitude = parseFloat(park.위도);
             const longitude = parseFloat(park.경도);
-            const schoolName = park.학교명;
+            //const schoolName = park.학교명;
 
-            console.log("[테스트] 위도: ", latitude, " 경도:", longitude);
+            //console.log("[테스트] 위도: ", latitude, " 경도:", longitude);
             addMarker(latitude, longitude);
-            console.log("학교 이름:", schoolName); // 학교 이름 콘솔에 출력
+            //console.log("학교 이름:", schoolName); // 학교 이름 콘솔에 출력
         });
     }
 
@@ -78,7 +87,7 @@ window.onload = function () {
             map: map
         });
         markers.push(marker); // 마커를 배열에 추가
-        console.log("[테스트] 마커 추가됨:", marker);
+        //console.log("[테스트] 마커 추가됨:", marker);
     }
 
     //지도 초기화 호출
@@ -88,7 +97,6 @@ window.onload = function () {
         case "7530000": //경기도교육청일 경우
             EduLat = 37.2835;
             EduLng = 127.0467;
-            console.log("경기도 교육청.............")
             break;
         case "7150000": // 부산광역시교육청일 경우
             EduLat = 35.1796;
@@ -159,14 +167,16 @@ window.onload = function () {
     fetchData();
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    const userLCname = document.getElementById('localName').value;
-    const rows = document.querySelectorAll('tbody tr');
 
-    rows.forEach(row => {
-        const localNameSpan = row.querySelector('.localName span').textContent;
-        if (localNameSpan === userLCname) {
-            row.classList.add('highlight_pen');
+//유저의 지역 교육청 이름과 순위 목록의 교육청 이름을 비교해서 유저에 해당하는 교육청에 형광펜 칠하는 코드
+document.addEventListener('DOMContentLoaded', function() {
+    const userLCname = document.getElementById('localName').value; //유저의 지역 교육청 이름
+    const rows = document.querySelectorAll('tbody tr'); // 순위 리스트 목록
+
+    rows.forEach(row => { // 순위 리스트 목록을 돌면서
+        const localNameSpan = row.querySelector('.localName span').textContent; // 순위 목록에 있는 지역 교육청 이름
+        if (localNameSpan === userLCname) { // 유저 지역 교육청 이름과 순위 목록에 있는 교육청 이름이 같다면
+            row.classList.add('highlight_pen'); // 강조표시
         }
     });
 });
