@@ -33,6 +33,7 @@
 
                 <h1>우리 팀</h1>
                 <input id="localCode" type="hidden" th:value="${userLC}">
+                <input id="localName" type="hidden" th:value="${userLCname}">
                 <div id="map"></div>
             </section>
         </div>
@@ -61,7 +62,7 @@
                         <tbody >
                         <tr th:each="item, stat : ${rank}">
                             <td th:text="${stat.index + 1}"></td>
-                            <td >
+                            <td class="localName">
                                 <img class="edu_logo" th:src="|/img/logo/${item.localName}.png|" th:alt="로고">
                                 <span th:text="${item.localName}"></span>
                             </td>
