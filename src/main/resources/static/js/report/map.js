@@ -158,3 +158,15 @@ window.onload = function () {
     loadNaverMap(EduLat, EduLng);
     fetchData();
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const userLCname = document.getElementById('localName').value;
+    const rows = document.querySelectorAll('tbody tr');
+
+    rows.forEach(row => {
+        const localNameSpan = row.querySelector('.localName span').textContent;
+        if (localNameSpan === userLCname) {
+            row.classList.add('highlight_pen');
+        }
+    });
+});

@@ -212,15 +212,18 @@ public class IndexController {
         String useremail = "";
         String username = "";
         int userLC = 0;
+        String userLCname = "";
 
         if (principal != null && principal.getName() != null) { //로그인 한 경우에만 받아옴
             useremail = principal.getName();
 
             username = userService.getUserInfo(useremail).getName(); // 이름
-            userLC = userService.getUserInfo(useremail).getLocalCode(); // 학교급
+            userLC = userService.getUserInfo(useremail).getLocalCode(); // 지역 교육청 코드
+            userLCname = userService.getUserInfo(useremail).getLocalName(); // 지역 이름
 
             model.addAttribute("username", username);
             model.addAttribute("userLC", userLC);
+            model.addAttribute("userLCname", userLCname);
 
         }
 

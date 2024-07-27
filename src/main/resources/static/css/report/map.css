@@ -122,6 +122,7 @@
 }
 /*타이틀 끝*/
 
+/*랭킹 게시판 보드 시작*/
 #ranking_box{
     display: flex;
     flex-direction: row;
@@ -140,7 +141,7 @@
     font-size: 1.8vw;
 }
 
-.paper{
+.paper{ /* 깔리는 종이 배경 */
     width: 20vw;
     height: 23vw;
     background-color: white;
@@ -153,7 +154,7 @@
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.section_box{
+.section_box{ /*콘텐트가 담기는 영역*/
     background-color: white;
     padding: 2vw;
     border-radius: 3vw;
@@ -167,7 +168,7 @@
     margin-right: 3vw;
 }
 
-.spring_box{
+.spring_box{ /* 스프링이 담긴 상자 */
     position: absolute;
     width: 84%;
     display: flex;
@@ -181,23 +182,76 @@
 }
 
 
-#map{
-    border-radius: 3vw;
+#map{ /*지도 영역*/
+    border-radius: 2vw;
     width: 20vw;
     height: 20vw;
 
 }
 
-#rank{
-    border-radius: 3vw;
+#rank{ /*랭킹 영역*/
+    border-radius: 2vw;
     width: 20vw;
     height: 20vw;
+    background: whitesmoke;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+#rank::-webkit-scrollbar{ /*스크롤바 커스텀*/
+    /*스크롤바의 너비*/
+    width: 0.5vw;
+}
+#rank::-webkit-scrollbar-thumb{ /*스크롤바 커스텀*/
+    /*스크롤바의 높이*/
+    height: 30%;
+    /*스크롤바의 색상*/
     background: lightgrey;
+    border-radius: 1vw;
+}
+#rank::-webkit-scrollbar-track{ /*스크롤바 커스텀*/
+    /*스크롤바 뒷 배경 색상*/
+    background: #f1f1f1;
+    border-radius: 1vw;
+    margin: 3vw 0 2vw 0;
 }
 
-.edu_logo{
-    width: 2.5vw;
+#rank table{ /*순위표*/
+    font-family: 'omyu_pretty';
+    font-size: 1.3vw;
+    text-align: center;
+    width: 90%;
+    margin: 1vh auto;
+    white-space: nowrap;
+    border-collapse: collapse;
 }
+
+#rank table th{
+    padding: 0 0 0.5vw;
+}
+
+.localName {
+    text-align: left;
+    align-items: center;
+    display: flex;
+    margin: 0 1vw;
+}
+
+.highlight_pen{
+    background: #FEF8C8;
+}
+
+.localName span{
+    margin-left: 0.5vw;
+}
+
+.edu_logo{ /*교육청 로고*/
+    width: 2vw;
+    margin: 0.4vw 0;
+}
+
+/*랭킹 게시판 보드 끝*/
+
 
 
 /* 바닥 장식 시작*/
