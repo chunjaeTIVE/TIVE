@@ -2,6 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+
+    <title>TIVE - 학업 성취도 평가 대비는 타이브에서!</title>
+    <link rel="icon" th:href="@{/img/index/logo3.png}" type="text/x-icon">
+
     <meta id="_csrf" name="_csrf" th:content="${_csrf.token}">
     <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}">
     <title>Title</title>
@@ -34,7 +38,9 @@
 <div class="wrap" th:id="${eid}">
     <div class="header">
         <div class="logo">
-            <img th:src="@{/examimg/logo2.png}" alt="logo">
+            <a th:href="@{/index}">
+                <img th:src="@{/examimg/logo2.png}" alt="logo">
+            </a>
         </div>
         <div class="top-area">
             <!-- s: 220711 추가 -->

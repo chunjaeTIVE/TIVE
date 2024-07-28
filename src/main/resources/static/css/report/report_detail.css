@@ -346,9 +346,9 @@
 }
 
 .report_detail table tbody tr td .btn_question{
-    width: 80%;
+    width: 60%;
     border-radius: 0.8vw;
-    padding: 0.4vw;
+    padding: 0.5vw;
     border: none;
     font-size: 0.8vw;
     cursor: pointer;

@@ -2,7 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+
+    <title>TIVE - 학업 성취도 평가 대비는 타이브에서!</title>
+    <link rel="icon" th:href="@{/img/index/logo3.png}" type="text/x-icon">
+
     <link rel="stylesheet" th:href="@{/css/exam/reset.css}">
     <link rel="stylesheet" th:href="@{/css/exam/paper.css}">
     <link rel="stylesheet" th:href="@{/css/report/question_view.css}">
@@ -26,16 +29,19 @@
 </head>
 <body>
 
-<th:block th:each="item:${dto}">
-    <div th:utext="${item.qContents}"></div>
-</th:block>
+<div id="question_view_wrap">
+    <th:block th:each="item:${dto}">
+        <div th:utext="${item.qContents}"></div>
+    </th:block>
 
 
-<div class="box_comment">
-    <h3>해설</h3>
-    <p>정답 : <span id="answer"></span></p>
-    <p th:text="${dto.commentary}" id="comment"></p>
+    <div class="box_comment">
+        <h3>해설</h3>
+        <p>정답 : <span id="answer"></span></p>
+        <p th:text="${dto.commentary}" id="comment"></p>
+    </div>
 </div>
+
 
 
 
