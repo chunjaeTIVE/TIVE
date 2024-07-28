@@ -198,6 +198,7 @@
 
 /* 문항별 정오표 테이블 */
 .report_basic table{
+    width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
     text-align: center;

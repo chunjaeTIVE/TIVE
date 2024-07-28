@@ -5,9 +5,10 @@
     width: 885px;
     margin: 0 auto;
     padding: 3vw 3vh;
-    box-shadow: 0px 0px 5px 5px rgba(225, 225, 255);
+    box-shadow: 0px 0px 5px 5px #F5F5F5;
     border-radius: 1vw;
     position: relative;
+    background: rgba(88, 196, 196, 0.4);
 }
 
 .box_comment h3 {
