@@ -40,21 +40,37 @@ document.addEventListener('DOMContentLoaded', (e) => {
     }
 
     // 타이머 설정
+    // async function setupTimer() {
+    //     const serverTime = await fetchServerTime(); // 서버시간 설정
+    //     const endTime = new Date(serverTime.getTime() + initialTime * 1000);
+    //
+    //     // 남은 시간 계산
+    //     time = Math.max(Math.floor((endTime - serverTime) / 1000), 0);
+    //
+    //     // 로컬 스토리지에서 시간을 읽어오거나 초기화
+    //     if (!localStorage.getItem('remainingTime') || parseInt(localStorage.getItem('remainingTime')) <= 0) {
+    //         time = Math.max(time, initialTime);
+    //         saveTime();
+    //         localStorage.setItem('currentEid',currentEid);
+    //     } else {
+    //         time = parseInt(localStorage.getItem('remainingTime'));
+    //     }
+    //
+    //     updateTimer();
+    //     timerInterval = setInterval(updateTimer, 1000);
+    // }
     async function setupTimer() {
         const serverTime = await fetchServerTime(); // 서버시간 설정
+        initialTime = getInitialTime(currentEid); // 시험지별 제한 시간 설정
         const endTime = new Date(serverTime.getTime() + initialTime * 1000);
 
         // 남은 시간 계산
         time = Math.max(Math.floor((endTime - serverTime) / 1000), 0);
 
-        // 로컬 스토리지에서 시간을 읽어오거나 초기화
-        if (!localStorage.getItem('remainingTime') || parseInt(localStorage.getItem('remainingTime')) <= 0) {
-            time = Math.max(time, initialTime);
-            saveTime();
-            localStorage.setItem('currentEid',currentEid);
-        } else {
-            time = parseInt(localStorage.getItem('remainingTime'));
-        }
+        // 로컬 스토리지에 새로운 시간을 저장
+        time = Math.max(time, initialTime);
+        saveTime();
+        localStorage.setItem('currentEid', currentEid);
 
         updateTimer();
         timerInterval = setInterval(updateTimer, 1000);
