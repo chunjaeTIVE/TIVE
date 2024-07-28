@@ -233,11 +233,11 @@
 }
 
 .report_basic table tbody tr td .btn_question{
-    width: 80%;
+    width: 60%;
     height: 80%;
-    border-radius: 12px;
-    padding: 8px;
-    border: 0px;
+    border-radius: 1vw;
+    padding: 0.5vw;
+    border: none;
     font-size: 1.1vw;
     cursor: pointer;
     font-family: omyu_pretty;
