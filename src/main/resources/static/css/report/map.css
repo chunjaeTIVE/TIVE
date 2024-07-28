@@ -196,6 +196,7 @@
     height: 20vw;
     background: white;
     border: 1px solid lightgrey;
+    overflow: hidden;
 }
 
 #loading_box{
@@ -208,13 +209,83 @@
 #load_img{
     width: 6vw;
     margin: 0 auto;
+    animation: floating 2s infinite ease-in-out;
+    position: relative;
+    top: 1.2vw;
 }
 
-#load_txt{
-    width: 10vw;
-    margin: 0 auto;
-    padding-top: 1vw;
+
+@keyframes floating { /*둥둥 떠다니는 물고기 애니메이션*/
+    0%{
+        transform: translateY(0);
+    }
+    50%{
+        transform: translateY(1.2vh);
+    }
+    100%{
+        transform: translateY(0);
+    }
 }
+
+.load_wave {
+    opacity: 0.4;
+    position: absolute;
+    background: #0af;
+    width: 60vw;
+    height: 60vw;
+    transform-origin: 50% 48%;
+    border-radius: 43%;
+    transition-duration: 0.75s;
+    transition-property: margin-bottom;
+    transition-timing-function: ease;
+    animation: rotate 5s infinite linear;
+    left: -20vw;
+    top: 6.5vw;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    from { transform: rotate(360deg); }
+}
+
+/*로딩 텍스트 시작*/
+.load_txt{
+    position: relative;
+    top: 6vh;
+    font-family: 'omyu_pretty';
+}
+
+.load_txt span {
+    position: relative;
+    top: 0.3vw;
+    display: inline-block;
+    animation: bounce 0.8s ease infinite alternate;
+    font-size: 1.5vw;
+    color: #FFF;
+}
+
+.load_txt span:nth-child(2) { animation-delay: .1s; }
+.load_txt span:nth-child(3) { animation-delay: .2s; }
+.load_txt span:nth-child(4) { animation-delay: .3s; }
+.load_txt span:nth-child(5) { animation-delay: .4s; }
+.load_txt span:nth-child(6) { animation-delay: .5s; }
+.load_txt span:nth-child(7) { animation-delay: .6s; }
+.load_txt span:nth-child(8) { animation-delay: .7s; }
+.load_txt span:nth-child(9) { animation-delay: .8s; }
+.load_txt span:nth-child(10) { animation-delay: .9s; }
+.load_txt span:nth-child(11) { animation-delay: .10s; }
+.load_txt span:nth-child(12) { animation-delay: .11s; }
+
+/*로딩 텍스트 애니메이션*/
+@keyframes bounce {
+    100% {
+        top: 0;
+    }
+}
+
+/*로딩 텍스트 끝*/
+
+
 
 #rank{ /*랭킹 영역*/
     border-radius: 2vw;
@@ -301,6 +372,7 @@
 
 #ball{
     left: 8vw;
+    top: -2vw;
 }
 
 #sea_star{
