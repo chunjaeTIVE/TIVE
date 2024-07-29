@@ -36,13 +36,12 @@ public class SecurityConfig {
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
 
         http.authorizeHttpRequests(authorize -> //롤에 따라 접근가능한 페이지 분류
-                authorize.requestMatchers("/**" ).permitAll()
-          //              .requestMatchers("/resources/**", "/css/**", "/js/**", "/images/**").permitAll()
-   //                     .requestMatchers("/emailCheck").permitAll()
- /*                       .requestMatchers("/main/**").hasAnyRole("USERS", "ADMIN") // 다 들어오세요*/
- /*                       .requestMatchers("").hasRole("ADMIN")// 여긴 안됨*/
-                        .anyRequest().permitAll()
-//                        .anyRequest().authenticated()
+                authorize
+                        .requestMatchers("/**").permitAll()
+                        .requestMatchers("/index/**", "/cbtTest/**", "/join", "/login", "/exam1/13", "/exam1/24").permitAll()
+                        .requestMatchers("/testgogo/**", "/playTest/**", "/warnInfo/**", "/exam1/**"
+                                ,"/report_basic", "/report_detail", "/report_question/**", "/ranking").hasAnyRole("USERS", "ADMIN")
+                        .anyRequest().authenticated()
                 );
 
         http.formLogin(formLogin -> formLogin
