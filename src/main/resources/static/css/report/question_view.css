@@ -19,6 +19,10 @@ body{
     border-radius: 1vw;
     border: none;
 }
+
+.page {
+    width: 99%;
+}
 .box_qContents{
     width: 80%;
 }

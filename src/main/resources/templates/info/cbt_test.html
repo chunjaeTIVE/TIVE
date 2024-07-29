@@ -25,10 +25,10 @@
                     </ul>
                     <div>
                         <!--초등 CBT 데이터 -->
-                        <a class="testbtn" th:href="@{/exam1/24}" th:if="${schoolLevel.equals('EL')}">시험시작</a>
+                        <a class="testbtn" th:href="@{/exam1/24}" th:text="'시험시작'" th:if="${schoolLevel.toString eq ('EL')}"></a>
 
                         <!--중고등 CBT 데이터 -->
-                        <a class="testbtn" th:href="@{/exam1/13}" th:if="${!schoolLevel.equals('EL')}">시험시작</a>
+                        <a class="testbtn" th:href="@{/exam1/13}" th:text="'시험시작'" th:unless="${schoolLevel.toString eq ('EL')}"></a>
                     </div>
                 </div>
             </div>
