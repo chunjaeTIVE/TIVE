@@ -96,7 +96,13 @@ function completeExam() {
             return response.text();
     }).then(data => {
         console.log(data);
-        location.href = "/report_basic";
+        const wrapEle = document.querySelector('.wrap');
+        let eid = wrapEle.id;
+        if(eid==='13'|| eid==='24'){
+            location.href="/index";
+        }else{
+            location.href = "/report_basic";
+        }
     }).catch(error => {
         console.error(error);
     });
