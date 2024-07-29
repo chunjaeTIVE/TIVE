@@ -125,8 +125,8 @@
     justify-content: flex-end;
 }
 #selectForm select{
-    width: 80px;
-    height: 32px;
+    width: 75px;
+    height: 33px;
     border-radius: 12px;
     padding: 8px;
     margin: 0 4px;
@@ -134,8 +134,8 @@
 }
 
 #selectForm button {
-    width: 73px;
-    height: 34px;
+    width: 75px;
+    height: 33px;
     border-radius: 12px;
     padding: 8px;
     border: 0px;

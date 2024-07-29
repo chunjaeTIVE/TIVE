@@ -157,12 +157,11 @@
 }
 
 #selectForm select, #selectForm button {
-    width: 4vw;
-    height: 3.3vh;
-    border-radius: 0.7vw;
-    padding: 0.4vw;
-    margin: 0 0.2vw;
-    font-size: 0.7vw;
+    width: 75px;
+    height: 33px;
+    border-radius: 12px;
+    padding: 8px;
+    margin: 0 4px;
     font-family: omyu_pretty;
 }
 

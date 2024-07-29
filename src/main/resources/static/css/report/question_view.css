@@ -15,6 +15,14 @@ body{
     border-radius: 6vw;
 }
 
+.page {
+    width: 99%;
+}
+
+.page .answer-drag-type .btn-img {
+    overflow: auto;
+}
+
 .page .question .num{
     border-radius: 1vw;
     border: none;
