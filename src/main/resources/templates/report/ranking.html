@@ -93,7 +93,7 @@
                                 <img class="edu_logo" th:src="|/img/logo/${item.localName}.png|" th:alt="로고">
                                 <span th:text="${item.localName}"></span>
                             </td>
-                            <td th:text="${item.avgScore}"></td>
+                            <td th:text="${#numbers.formatDecimal(item.avgScore, 1, 2)}"></td>
                         </tr>
                         </tbody>
                     </table>
