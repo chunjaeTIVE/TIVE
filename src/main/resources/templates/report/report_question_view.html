@@ -38,7 +38,7 @@
     <div class="box_comment">
         <h3>해설</h3>
         <p>정답 : <span id="answer"></span></p>
-        <p th:text="${dto.commentary}" id="comment"></p>
+        <p id="comment"></p>
     </div>
 </div>
 
@@ -57,7 +57,8 @@
         answers['setType'] = [[${dto.qType}]];
 
         let answertext = answerPrint(answers);
-        document.getElementById('answer').innerText = answertext;
+        document.getElementById('answer').innerHTML = answertext;
+        document.getElementById('comment').innerHTML = [[${dto.commentary}]];
 
 
         console.log(answertext);
