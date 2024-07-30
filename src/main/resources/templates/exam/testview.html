@@ -39,25 +39,25 @@
     <div class="header">
         <div class="logo">
             <a th:href="@{/index}">
-                <img th:src="@{/examimg/logo2.png}" alt="logo">
+                <img th:src="@{https://kdt-java-5-2.s3.ap-northeast-2.amazonaws.com/examimg/logo2.png}" alt="logo">
             </a>
         </div>
         <div class="top-area">
             <!-- s: 220711 추가 -->
             <div class="btn-wrap">
                 <button type="button" class="pop-btn">
-                    <img class="custom_icon" th:src="@{/examimg/memo.png}" th:alt="메모장">
+                    <img class="custom_icon" th:src="@{https://kdt-java-5-2.s3.ap-northeast-2.amazonaws.com/examimg/memo.png}" th:alt="메모장">
                 </button>
                 <button type="button" class="drawing-btn" id="drawing_btn">
-                    <img class="custom_icon" th:src="@{/examimg/pen.png}" th:alt="그리기">
+                    <img class="custom_icon" th:src="@{https://kdt-java-5-2.s3.ap-northeast-2.amazonaws.com/examimg/pen.png}" th:alt="그리기">
                 </button>
                 <button type="button" class="clear-btn">
-                    <img class="custom_icon" th:src="@{/examimg/eraser.png}" th:alt="지우기">
+                    <img class="custom_icon" th:src="@{https://kdt-java-5-2.s3.ap-northeast-2.amazonaws.com/examimg/eraser.png}" th:alt="지우기">
                 </button>
             </div>
             <!-- e: 220711 추가 -->
             <div class="time-box">
-                <span class="txt"><img class="custom_icon" th:src="@{/examimg/clock.png}"></span>
+                <span class="txt"><img class="custom_icon" th:src="@{https://kdt-java-5-2.s3.ap-northeast-2.amazonaws.com/examimg/clock.png}"></span>
                 <span class="time-txt" id="timer">00:00</span>
             </div>
             <a href="javascript:completeExam();" class="btn-submit">최종제출</a>
@@ -73,7 +73,7 @@
                     <span class="txt" th:text="${title}"></span>
                 </th:block>
                 <i class="enterFullscreenBtn">
-                    <img th:src="@{/examimg/fullscreen.png}" alt="전체보기">
+                    <img th:src="@{https://kdt-java-5-2.s3.ap-northeast-2.amazonaws.com/examimg/fullscreen.png}" alt="전체보기">
                 </i>
                 <div class="btn-wrap">
                     <div class="swiper-button-prev"></div>

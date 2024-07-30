@@ -9,7 +9,7 @@ window.onload = function () {
         console.log(target.src);
         let path = decodeURIComponent(target.src);
         console.log(path);
-        let arr = path.split("http://localhost:8080");
+        let arr = path.split("http://3.38.183.178");
         if (arr.length > 1) {
             console.log(arr[0]);
             console.log(arr[1]);
@@ -26,7 +26,7 @@ window.onload = function () {
         console.log(imgEle.src);
         let path = decodeURIComponent(target.src);
         console.log(path);
-        let arr = path.split("http://localhost:8080");
+        let arr = path.split("http://3.38.183.178");
         if (arr.length > 1) {
             console.log(arr[0]);
             console.log(arr[1]);
@@ -48,7 +48,7 @@ window.onload = function () {
         console.log(path);
 
         // 로컬 경로 부분을 분리
-        let arr = path.split("http://localhost:8080");
+        let arr = path.split("http://3.38.183.178");
         if (arr.length > 1) {
             console.log(arr[0]);
             console.log(arr[1]);
