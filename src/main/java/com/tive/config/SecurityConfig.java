@@ -23,7 +23,7 @@ public class SecurityConfig {
                 .requestMatchers("/js/**")
                 .requestMatchers("/img/**")
                 .requestMatchers("/font/**")
-                //.requestMatchers("/emailCheck")//이메일 중복체크
+//                .requestMatchers("/emailCheck")//이메일 중복체크
                 ;
     }
 
@@ -37,10 +37,11 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(authorize -> //롤에 따라 접근가능한 페이지 분류
                 authorize
-                        .requestMatchers("/**").permitAll()
-                        .requestMatchers("/index/**", "/cbtTest/**", "/join", "/login", "/exam1/13", "/exam1/24").permitAll()
+                        .requestMatchers("/index/**", "/cbtTest/**", "/join", "/login", "/exam1/13", "/exam1/24","/api/**", "/emailCheck").permitAll()
                         .requestMatchers("/testgogo/**", "/playTest/**", "/warnInfo/**", "/exam1/**"
-                                ,"/report_basic", "/report_detail", "/report_question/**", "/ranking").hasAnyRole("USERS", "ADMIN")
+                                ,"/report_basic", "/report_detail","/report_alert","/reportdetaillist/**","/subjectivelist/**"
+                                ,"/levelrate/**","/contentrate/**","/resprate/**","/report_question/**", "/ranking","/schools","/check/**"
+                                ,"/users/agree","/submit_exam").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated()
                 );
 

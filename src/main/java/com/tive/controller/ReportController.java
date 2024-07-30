@@ -307,7 +307,7 @@ public class ReportController {
 
         QuestionDTO dto = reportService.findQuestion(qid);
         model.addAttribute("dto",dto);
-        return "/report/report_question_view";
+        return "report/report_question_view";
     }
 
 }
