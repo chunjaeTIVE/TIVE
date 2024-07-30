@@ -63,11 +63,11 @@ function completeExam() {
             }
         }
     }
-    // 전체 문제 문항번호 순으로 sort
+    // 전체 문제 order 순으로 sort
     let all = [textareaTemp, textTemp, selectTemp, checkboxTemp, radioTemp, buttonTemp, mergedHotspotTemp, mergedDragdropTemp];
     let resultTemp = [].concat.apply([], all);
     for (let i = 0; i < resultTemp.length; i++) {
-        resultTemp.sort((a, b) => Number(a.qid) - Number(b.qid));
+        resultTemp.sort((a, b) => Number(a.order) - Number(b.order));
     }
     console.log("resultTemp :", resultTemp);
     console.log("응답 개수 :", resultTemp.length);
