@@ -43,6 +43,11 @@ function mergeTemp(temp) {
 }
 
 function completeExam() {
+    const wrapEle = document.querySelector('.wrap');
+    let eid = wrapEle.id;
+    if(eid==='13'|| eid==='24'){
+        location.href="/index";
+    }
     // drag drop, hotspot 문제 하나로 정답 통합
     let mergedDragdropTemp = [];
     let mergedHotspotTemp = [];
@@ -96,13 +101,7 @@ function completeExam() {
             return response.text();
     }).then(data => {
         console.log(data);
-        const wrapEle = document.querySelector('.wrap');
-        let eid = wrapEle.id;
-        if(eid==='13'|| eid==='24'){
-            location.href="/index";
-        }else{
-            location.href = "/report_basic";
-        }
+        location.href = "/report_basic";
     }).catch(error => {
         console.error(error);
     });
@@ -376,6 +375,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
 
                     dupleBtnHotspotPop(e.target.classList.length, buttonTemp, answer);
+                    console.log("button : ", buttonTemp,buttonTemp.length);
 
                     // swiper-bullet의 배경색을 업데이트
                     let swiperBullet = document.querySelector('#swiper' + questionOrder);
@@ -543,7 +543,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             for (let a = t + 1; a <= target.length - 1; a++) {
                                 if (target[t].nodeName === target[a].nodeName) {
                                     target[a].remove();
-                                    alerttxt = "한 칸에 하나의 정답만 입력하세요.";
+                                    alerttxt = "한 칸에 하나의 정답만 입력하세요. (이미 올라간 정답을 취소하고 싶으면 정답 지점을 클릭 시 해제 됩니다)";
                                     break;
                                 }
                             }
@@ -566,10 +566,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
                             let answer = {"qid": ancestor, "order":questionOrder};
                             let siblings = e.target.parentElement.children;
+                            console.log(siblings);
+                            let sidx = 0;
                             for (let s = 0; s < siblings.length; s++) {
-                                if (siblings[s] === e.target) {
-                                    console.log(e.target);
-                                    answer["answer"] = [(s + 1).toString(), val];
+                                if (siblings[s].classList.contains('drop')) {
+                                    sidx += 1;
+                                    if(siblings[s] === e.target){
+                                        console.log(e.target);
+                                        answer["answer"] = [sidx.toString(), val];
+                                    }
                                 }
                             }
 

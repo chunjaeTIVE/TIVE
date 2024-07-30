@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface ExamService {
-    List<ExamDTO> findExamList();
+    ExamDTO findExamByEid(Long eid);
 
     List<QuestionDTO> findExam(Long eid);
 

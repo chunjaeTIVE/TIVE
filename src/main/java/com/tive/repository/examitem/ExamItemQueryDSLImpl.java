@@ -20,8 +20,8 @@ public class ExamItemQueryDSLImpl implements ExamItemQueryDSL {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<ExamDTO> findExamList() {
-        List<ExamDTO> list = queryFactory.select(Projections.fields(ExamDTO.class
+    public ExamDTO findExamByEid(Long eid) {
+        ExamDTO exam = queryFactory.select(Projections.fields(ExamDTO.class
                         , examItem.eid
                         , examItem.examName
                         , examItem.schoolLevel
@@ -32,8 +32,9 @@ public class ExamItemQueryDSLImpl implements ExamItemQueryDSL {
                         , examItem.testTime
                         , examItem.year))
                 .from(examItem)
-                .fetch();
-        return list;
+                .where(examItem.eid.eq(eid))
+                .fetchOne();
+        return exam;
     }
 
     @Override

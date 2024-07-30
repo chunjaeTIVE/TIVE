@@ -8,6 +8,7 @@ import com.tive.exception.CustomException;
 import com.tive.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,12 +56,17 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping("/playTest/{eid}")
+    @GetMapping("/playTest/{eid}/{mediaCheck}")
     public String playTest(
             @PathVariable long eid
+            ,@PathVariable long mediaCheck
             , Model model
             , Principal principal
     ){
+        if(mediaCheck !=1){
+            throw new CustomException(" from IndexController warnInfo");
+        }
+        ExamDTO examByEid = examService.findExamByEid(eid);
 
         //현재 세션으로 유저 이름 가져오기
         String useremail = "";
@@ -85,12 +91,18 @@ public class IndexController {
     }
 
 
-    @GetMapping("/warnInfo/{eid}")
+    @GetMapping("/warnInfo/{eid}/{mediaCheck}")
     public String warnInfo(
-            @PathVariable int eid
+            @PathVariable long eid
+            , @PathVariable long mediaCheck
             , Model model
             , Principal principal
     ){
+        if(mediaCheck !=1){
+            throw new CustomException(" from IndexController warnInfo");
+        }
+        ExamDTO examByEid = examService.findExamByEid(eid);
+
         //현재 세션으로 유저 이름 가져오기
         String useremail = "";
         String username = "";
@@ -145,7 +157,9 @@ public class IndexController {
             , Model model
             , Principal principal
     ){
-
+        if(examKind !=1 && examKind != 2){
+            throw new CustomException(" from IndexController testGogo ");
+        }
         //현재 세션으로 유저 이름, 학교급 가져오기
         String useremail = "";
         String username = "";
@@ -199,7 +213,6 @@ public class IndexController {
 
         model.addAttribute("examKind", examKind);
         model.addAttribute("view", "info/test_gogo");
-
         return "index";
     }
 
