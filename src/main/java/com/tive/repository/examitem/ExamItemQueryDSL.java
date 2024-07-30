@@ -6,7 +6,7 @@ import com.tive.dto.QuestionDTO;
 import java.util.List;
 
 public interface ExamItemQueryDSL {
-    List<ExamDTO> findExamList();
+    ExamDTO findExamByEid(Long eid);
 
     List<QuestionDTO> findExam(Long eid);
 

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tive.domain.*;
 import com.tive.dto.ExamDTO;
 import com.tive.dto.QuestionDTO;
+import com.tive.exception.CustomException;
 import com.tive.repository.examitem.ExamItemRepository;
 import com.tive.repository.questionitem.QuestionItemRepository;
 import com.tive.repository.report.ReportRepository;
@@ -13,6 +14,7 @@ import com.tive.repository.usertestans.UserAnswerRepository;
 import com.tive.repository.usertestans.UserTestRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -21,6 +23,7 @@ import java.util.*;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ExamServiceImpl implements ExamService{
     private final ExamItemRepository examItemRepository;
     private final QuestionItemRepository questionItemRepository;
@@ -28,10 +31,14 @@ public class ExamServiceImpl implements ExamService{
     private final UserTestRepository userTestRepository;
     private final UserAnswerRepository userAnswerRepository;
     private final ReportRepository reportRepository;
+
     @Override
-    public List<ExamDTO> findExamList() {
-        List<ExamDTO> list = examItemRepository.findExamList();
-        return list;
+    public ExamDTO findExamByEid(Long eid) {
+        ExamDTO exam = examItemRepository.findExamByEid(eid);
+        if (exam == null) {
+            throw new CustomException(" from ExamService findExamByEid ");
+        }
+        return exam;
     }
 
     @Override
@@ -43,6 +50,9 @@ public class ExamServiceImpl implements ExamService{
     @Override
     public ExamDTO findExamInfo(String userSL, String subject, int examKind) {
         ExamDTO examInfo = examItemRepository.findExamInfo(userSL, subject, examKind);
+        if (examInfo == null) {
+            throw new CustomException(" from ExamService findExamInfo ");
+        }
         return examInfo;
     }
 
@@ -51,7 +61,7 @@ public class ExamServiceImpl implements ExamService{
     public Long submitExam(String email, HashMap<String, Object> hm) {
         // 1. 최초 응시 / 재응시 여부 파악
         Long eid = Long.parseLong((String)hm.get("eid"));
-        System.out.println("submitExam eid: "+eid);
+        log.info("eid...{}",eid);
         Users user = usersRepository.findByEmail(email);
         UserTest findUserTest = userTestRepository.findByUser(user.getUid(), eid);
         UserTest saveUserTest;
@@ -68,7 +78,8 @@ public class ExamServiceImpl implements ExamService{
                     .examDate(LocalDateTime.now())
                     .localCode(user.getLocalCode())
                     .build();
-            System.out.println(user.getEmail()+","+examInfo.getExamName());
+            log.info("user auth email, examname...{},{}",user.getEmail(),examInfo.getExamName());
+            //System.out.println(user.getEmail()+","+examInfo.getExamName());
             saveUserTest = userTestRepository.save(userTest);
         } else {
             saveUserTest = findUserTest;
@@ -77,6 +88,7 @@ public class ExamServiceImpl implements ExamService{
             reTry = true;
             //findUserAnsList = findUserTest.getUaList();
             findUserAnsList = userAnswerRepository.findByUserExam(user.getUid(),eid);
+            log.info("findUserAnsList size...{}",findUserAnsList.size());
             System.out.println("findUserAnsList size : "+findUserAnsList.size());
         }
         // 3. 채점
@@ -90,36 +102,31 @@ public class ExamServiceImpl implements ExamService{
             if(k<list.size()){
                 HashMap<String,Object> ans = (HashMap<String, Object>) list.get(k);
                 String uqid = (String) ans.get("qid");
-                System.out.println(uqid+","+real.get(j).getQid());
-                //Long idx = Long.parseLong(uqid) - real.get(j).getQid();
+                log.info("uqid, realqid... {},{}",uqid,real.get(j).getQid());
                 Long order = Long.parseLong((String) ans.get("order"))-1;
-                if(k==0 && order!=0){
-                    for(int f=0; f<order; f++){
-                        corrects[f] = 0;
+                Long idx = order - j;
+                if(j>=0 && idx>0){
+                    for(int i=0; i<idx; i++){
+                        corrects[j+i] = 0;
                         if(reTry){
-                            findUserAnsList.get(f).setUserAns("");
-                            findUserAnsList.get(f).setCorrect(0);
+                            findUserAnsList.get(j+i).setUserAns("");
+                            findUserAnsList.get(j+i).setCorrect(0);
                         } else {
+                            System.out.println("건너뜀 j "+j+i+", order"+order);
                             UserAnswer uaEntity = UserAnswer.builder()
                                     .userAns("")
                                     .correct(0)
                                     .uaToUsers(user)
-                                    .uaToQuestion(real.get(f))
+                                    .uaToQuestion(real.get(j+i))
                                     .uaToUt(saveUserTest)
                                     .build();
                             userAnswers.add(uaEntity);
                         }
                     }
-                }
-                Long idx = order - j;
-                if(j>=0 && idx>0){
-                    for(int i=0; i<idx; i++){
-                        corrects[j+i] = 0;
-                    }
                     j += idx;
                 }
                 qanswer = real.get(j).getAnswer();
-                System.out.println("idx:"+idx+", j:"+j+", realqid:"+real.get(j).getQid());
+                log.info("idx, j, realqid...{},{},{}",idx,j,real.get(j).getQid());
 
                 // 채점을 해서 맞으면 correct[j]=1 아니면 0
                 Object answer = ans.get("answer");
@@ -130,7 +137,8 @@ public class ExamServiceImpl implements ExamService{
                     stringObjectHashMap = new ObjectMapper().readValue(qanswer, new TypeReference<HashMap<String, Object>>() {
                     });
                 }catch (IOException e){
-                    System.out.println(e);
+                    log.error("submitExam realAnswer parse error....{}",e);
+                    throw new RuntimeException(" from ExamService submitExam ");
                 }
                 StringBuilder userAnswer = new StringBuilder();
                 int correct = 0;
@@ -209,15 +217,15 @@ public class ExamServiceImpl implements ExamService{
                     correct = Integer.parseInt(textResult[1]);
                 } else {
                     // 둘다 널인 경우는 예외처리
+                    throw new RuntimeException("from Examservice all answers is null");
                 }
                 corrects[j] = correct;
-                System.out.println(userAnswer);
                 // 여기서 user answer insert
                 if(reTry){
-                    System.out.println("원래 정답: "+findUserAnsList.get(j).getUserAns()+", userAnswer:"+userAnswer.toString());
+                    log.info("이전 정답, 지금 정답 ...{},{}",findUserAnsList.get(j).getUserAns(),userAnswer.toString());
                     findUserAnsList.get(j).setUserAns(userAnswer.toString());
                     findUserAnsList.get(j).setCorrect(correct);
-                    System.out.println("바뀐 정답: "+findUserAnsList.get(j).getUserAns());
+                    log.info("바뀐 정답... {}",findUserAnsList.get(j).getUserAns());
                 } else {
                     UserAnswer uaEntity = UserAnswer.builder()
                             .userAns(userAnswer.toString())
@@ -233,10 +241,10 @@ public class ExamServiceImpl implements ExamService{
                 // userAnswer 는 ""
                 // 여기서 user answer insert
                 if(reTry){
-                    System.out.println("원래 정답: "+findUserAnsList.get(j).getUserAns());
+                    log.info("이전 정답...{}",findUserAnsList.get(j).getUserAns());
                     findUserAnsList.get(j).setUserAns("");
                     findUserAnsList.get(j).setCorrect(0);
-                    System.out.println("바뀐 정답: "+findUserAnsList.get(j).getUserAns());
+                    log.info("바뀐 정답...{}",findUserAnsList.get(j).getUserAns());
                 } else {
                     UserAnswer uaEntity = UserAnswer.builder()
                             .userAns("")

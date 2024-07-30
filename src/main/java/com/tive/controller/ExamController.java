@@ -10,6 +10,7 @@ import com.tive.service.ExamService;
 import com.tive.service.ReportService;
 import com.tive.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,17 +25,19 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class ExamController {
     private final ExamService examService;
-    private final UserService userService;
 
-    @GetMapping("/test")
-    public @ResponseBody List<ExamDTO> index(){
-        List<ExamDTO> examDTOList = examService.findExamList();
-        return examDTOList;
-    }
+
 @GetMapping("/exam1/{eid}")
-public String exam1(@PathVariable Long eid, Model model) {
+public String exam1(@PathVariable Long eid
+//        , @PathVariable long mediaCheck
+//        , @PathVariable long noticeAgree
+        , Model model) {
+//    if(mediaCheck != 1 || noticeAgree !=1){
+//        throw new CustomException(" from ExamController exam1 ");
+//    }
     List<QuestionDTO> exam1 = examService.findExam(eid);
     if (exam1 == null || exam1.isEmpty()) {
         throw new CustomException("Exam not found for ID: " + eid);
@@ -57,9 +60,9 @@ public String exam1(@PathVariable Long eid, Model model) {
         String email = "";
         if(principal!=null)
             email = principal.getName();
-        System.out.println(hm.get("body"));
+        log.info(" ExamController submit_exam hm body(userAnswer) : ....{}",hm.get("body"));
         Long utid = examService.submitExam(email,hm);
-        System.out.println("utid있슈? :"+utid);
+        log.info(" ExamController submit_exam utid : ... {}",utid);
         int result = examService.addScore(utid);
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
