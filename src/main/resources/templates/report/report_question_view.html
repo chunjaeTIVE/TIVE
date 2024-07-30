@@ -60,7 +60,6 @@
         document.getElementById('comment').innerHTML = [[${dto.commentary}]];
 
 
-        console.log(answertext);
 
     });
 
@@ -70,6 +69,7 @@
 
         let answer = answers.setAnswer;
         let qType = answers.setType;
+        let qid = answers.setQid;
 
         let textAnswer; // 출력할 텍스트
 
@@ -197,7 +197,6 @@
                     }
                     textAnswer = answerJS["answer"];
 
-                    console.log(textAnswer);
                 }
 
             }

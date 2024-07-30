@@ -541,7 +541,6 @@ let detailPrint = function (data, tbody) {
                     }
                     textAnswer = answerJS["answer"];
 
-                    console.log(textAnswer);
                 }
 
             }
