@@ -134,15 +134,14 @@
 
 ## 🐚 ERD
 
+![erd_2](https://github.com/user-attachments/assets/f6cb33a4-942b-4775-ae7a-f9d8f0abd407)
 
-
-
-
+<br/>
 
 ## 🐚 시연영상
 
 [![Watch the video](https://img.youtube.com/vi/Fe7rhsrOqkM/0.jpg)](https://youtu.be/Fe7rhsrOqkM)
 
-
+<br/>
 
 
