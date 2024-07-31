@@ -16,7 +16,6 @@
 
 | 이름 | 역할 | GitHub |
 |------|------|--------|
-
 | 김혜연 | 팀장 | [김혜연](https://github.com/loveyrooney) |
 | 김보경 | 팀원 | [김보경](https://github.com/ppodaejang) |
 | 송미라 | 팀원 | [송미라](https://github.com/mummyyyyy) |
