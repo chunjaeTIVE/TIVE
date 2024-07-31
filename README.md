@@ -218,7 +218,7 @@
 
 ## 🐚 ERD
 
-<img width="500" src="https://github.com/user-attachments/assets/f6cb33a4-942b-4775-ae7a-f9d8f0abd407" alt="erd_2">
+<img width="600" src="https://github.com/user-attachments/assets/f6cb33a4-942b-4775-ae7a-f9d8f0abd407" alt="erd_2">
 
 
 
