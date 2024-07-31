@@ -51,11 +51,13 @@
 }
 
 .header .time-box{
-    border-radius: 25px;
+    border-radius: 15px;
+    width: 160px;
     height: 70%;
     background: white;
     border: 1px solid powderblue;
     margin-right: 10px;
+    padding: 5px;
 }
 
 .header .time-box .txt{
@@ -63,8 +65,8 @@
 }
 
 .header .time-box .time-txt{
-    border-radius: 25px;
-    margin-left: 10px;
+    border-radius: 10px;
+    /*margin-left: 10px;*/
     background-color: #f1f1f1;
     color: #5DCCF3;
     border: 1px solid #f1f1f1;
@@ -101,6 +103,13 @@
 
 .custom_icon{
     width: 30px;
+}
+
+.txt p{
+    color: #5DCCF3;
+    font-weight: bold;
+    padding: 5px;
+    line-height: 1;
 }
 
 .viewer-paper .head{

@@ -57,7 +57,10 @@
             </div>
             <!-- e: 220711 추가 -->
             <div class="time-box">
-                <span class="txt"><img class="custom_icon" th:src="@{https://kdt-java-5-2.s3.ap-northeast-2.amazonaws.com/examimg/clock.png}"></span>
+                <span class="txt">
+<!--                    <img class="custom_icon" th:src="@{https://kdt-java-5-2.s3.ap-northeast-2.amazonaws.com/examimg/clock.png}">-->
+                    <p>남은<br>시간</p>
+                </span>
                 <span class="time-txt" id="timer">00:00</span>
             </div>
             <a href="javascript:completeExam();" class="btn-submit">최종제출</a>
