@@ -8,9 +8,13 @@
  - 프로젝트 기간: 2024-07-08~2024-07-31
 
 ## 🐚 프로젝트 소개
+### <span style="background-color:#C0FFFF"> 학업 성취도 평가 대비는 TIVE 에서! </span>
+![브랜드 컨셉1](https://github.com/user-attachments/assets/dbb6e833-74ab-4d78-9840-7540caf4ad28)
+![브랜드 컨셉2 수정](https://github.com/user-attachments/assets/7f2fc92d-a303-4b5d-a545-77e75ba1c741)
+
 
 ## 🐚 프로젝트 목표
-
+- 학업 성취도 평가 모의 시험 서비스를 제공하여, 학습 성취도를 높이는 데 기여하고자 함.
 
 ## 🐚 팀구성
 
@@ -47,36 +51,48 @@
 
 ## 🐚 프로젝트 정책 사항
 
+
+
 ## 🐚 프로젝트 주요 이슈 사항
+
 
 
 ## 🐚 구현 기능   
 
 1. 상단 메뉴
+   
 ![상단메뉴바](https://github.com/user-attachments/assets/086bab3f-129b-4fcb-9cb4-8a9bf776dd6a)
 
 2. 메인페이지/공지사항
+   
 ![메인화면 공지사항](https://github.com/user-attachments/assets/03aff024-4e72-4ee3-acfc-4d501a803f9f)
 
 3. 로그인/회원가입
+   
 ![가입 로그인](https://github.com/user-attachments/assets/e0bc3a47-43ed-4d45-8899-53ed85c3524a)
 
 4. 시험지 viewing(문제 풀이)
+   
 ![시험지 뷰잉1](https://github.com/user-attachments/assets/bbf3e2be-6738-45f6-80bc-bfcd49447435)
 
 5. 시험지 viewing(그리기, 지우기, 슬라이더 이동)
+    
 ![시험지 뷰잉2](https://github.com/user-attachments/assets/c3a2ffac-24a2-45bf-8622-2f6005c06747)
 
 6. 기본 리포트(통계)
+    
 ![기본리포트](https://github.com/user-attachments/assets/9ed9af03-9a49-49b8-8756-d606a116505a)
    
 7. 상세 리포트(통계, 차트, PDF 다운)
+    
 ![상세리포트](https://github.com/user-attachments/assets/11a34cdc-fabb-4e21-a6fc-af4d167ac005)
 
 8. 지역별 랭킹(지도, 순위)
+    
 ![지역별 랭킹](https://github.com/user-attachments/assets/65efa556-2491-40cc-a550-dec7840def97)
 
 9. 에러 페이지
+    
 ![에러페이지 ](https://github.com/user-attachments/assets/d679ed39-3241-4726-9212-40ade916efef)
 
 
