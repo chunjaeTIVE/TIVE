@@ -112,7 +112,7 @@ public class ExamServiceImpl implements ExamService{
                             findUserAnsList.get(j+i).setUserAns("");
                             findUserAnsList.get(j+i).setCorrect(0);
                         } else {
-                            System.out.println("건너뜀 j "+j+i+", order"+order);
+                            //System.out.println("건너뜀 j "+(j+i)+", order"+order);
                             UserAnswer uaEntity = UserAnswer.builder()
                                     .userAns("")
                                     .correct(0)
@@ -192,6 +192,7 @@ public class ExamServiceImpl implements ExamService{
                     } else if (answer instanceof List){
                         // user answer[] casting 및 채점
                         List<Object> answerList = (List<Object>) answer;
+                        //System.out.println("dragdrop casting .. "+answerList.get(0).getClass().getName());
                         if(answerList.get(0) instanceof String) {
                             List<String> stringAnsList = (List<String>) answer;
                             answerResult = Marking.listAnswer(uqid, stringObjectHashMap, "answer", stringAnsList, qanswer);
