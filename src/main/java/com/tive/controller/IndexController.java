@@ -29,7 +29,7 @@ public class IndexController {
 
     private final ExamService examService;
     private final ReportService reportService;
-    @GetMapping("/index")
+    @GetMapping({"/index", "/"})
     public String main2(Model model, Principal principal){
 
 
