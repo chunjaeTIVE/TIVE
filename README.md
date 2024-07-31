@@ -13,7 +13,6 @@
 
 <br/>
 
-### <div style="text-align:center"><span style="background-color:#C0FFFF"> 학업 성취도 평가 대비는 TIVE 에서! </span></div>
 ### <div align="center"><span style="background-color:#C0FFFF; padding: 10px; display: inline-block;">학업 성취도 평가 대비는 TIVE 에서!</span></div>
 
 ![브랜드 컨셉1](https://github.com/user-attachments/assets/dbb6e833-74ab-4d78-9840-7540caf4ad28)
@@ -50,19 +49,16 @@
 ![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![AJAX](https://img.shields.io/badge/AJAX-5A29E4?style=for-the-badge&logo=ajax&logoColor=white)
+![Naver Map API](https://img.shields.io/badge/API-0052CC?style=for-the-badge&logo=api&logoColor=white)
+![Public Data](https://img.shields.io/badge/Public%20Data-0080FF?style=for-the-badge&logo=gov&logoColor=white)
+
 ![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white)
-
-
 ![AWS EC2](https://img.shields.io/badge/AWS%20EC2-FF9900?style=for-the-badge&logo=amazon-ec2&logoColor=white)
 ![AWS S3](https://img.shields.io/badge/AWS%20S3-569A31?style=for-the-badge&logo=amazon-s3&logoColor=white)
 ![AWS RDS](https://img.shields.io/badge/AWS%20RDS-527FFF?style=for-the-badge&logo=amazon-rds&logoColor=white)
-![Public Data](https://img.shields.io/badge/Public%20Data-0080FF?style=for-the-badge&logo=gov&logoColor=white)
 
-![AJAX](https://img.shields.io/badge/AJAX-5A29E4?style=for-the-badge&logo=ajax&logoColor=white)
-![API](https://img.shields.io/badge/API-0052CC?style=for-the-badge&logo=api&logoColor=white)
 ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ_IDEA-000000?style=for-the-badge&logo=intellij-idea&logoColor=white)
-![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
 ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
 
 <br/>
