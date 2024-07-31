@@ -1,7 +1,6 @@
 
 # 🌊 학업 성취도 평가 모의 시험 서비스, TIVE
-<img width="573" alt="썸네일TIVE" src="https://github.com/user-attachments/assets/a918f2e5-faa5-4d17-a9b3-792e4918667e">
-
+![TIVE썸네일](https://github.com/user-attachments/assets/a918f2e5-faa5-4d17-a9b3-792e4918667e)
 
 ### 천재교육 풀스택 5기 FINAL 프로젝트
  - 프로젝트 주제: 학업 성취도 평가 모의 시험 서비스 개발
