@@ -7,7 +7,7 @@
  - 프로젝트 기간: 2024-07-08~2024-07-31
 
 ## 🐚 프로젝트 소개
-### <span style="background-color:#C0FFFF"> 학업 성취도 평가 대비는 TIVE 에서! </span>
+ <span style="background-color:#C0FFFF"> 학업 성취도 평가 대비는 TIVE 에서! </span>
 ![브랜드 컨셉1](https://github.com/user-attachments/assets/dbb6e833-74ab-4d78-9840-7540caf4ad28)
 ![브랜드 컨셉2 수정](https://github.com/user-attachments/assets/7f2fc92d-a303-4b5d-a545-77e75ba1c741)
 
