@@ -14,6 +14,7 @@
 <br/>
 
 ### <div style="text-align:center"><span style="background-color:#C0FFFF"> 학업 성취도 평가 대비는 TIVE 에서! </span></div>
+### <div align="center"><span style="background-color:#C0FFFF; padding: 10px; display: inline-block;">학업 성취도 평가 대비는 TIVE 에서!</span></div>
 
 ![브랜드 컨셉1](https://github.com/user-attachments/assets/dbb6e833-74ab-4d78-9840-7540caf4ad28)
 ![브랜드 컨셉2 수정](https://github.com/user-attachments/assets/7f2fc92d-a303-4b5d-a545-77e75ba1c741)
@@ -27,7 +28,7 @@
 
 ## 🐚 팀구성
 
-| 이름 | 역할 | GitHub |
+| 이름 | 구성 | 역할 |
 |------|------|--------|
 | [김혜연](https://github.com/loveyrooney) | 팀장 | 시험지 정답 제출 및 채점 기능, Github 관리 |
 | [김보경](https://github.com/ppodaejang) | 팀원 | 기본 리포트 (통계), 상세 리포트 (차트), 정답 보기 기능 |
